@@ -2,23 +2,24 @@
     <!-- Base application theme. -->
     <style name="Theme.Mole" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/gray</item>
-        <item name="colorSecondary">@color/orange</item>
-        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorAccent">@color/orange</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
         <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSurface">@color/green</item>
+        <item name="colorOnSurface">@color/red</item>
         <!-- Status bar color. -->
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:actionBarStyle">@style/ActionBar</item>
-        <item name="android:navigationBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
-        <item name="android:colorBackground" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:colorBackground" tools:targetApi="l">?attr/colorPrimary</item>
         <item name="actionBarStyle">@style/ActionBar</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="ActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">?attr/colorPrimaryVariant</item>
-        <item name="background">?attr/colorPrimaryVariant</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="background">?attr/colorPrimary</item>
         <!-- remove shadow below action bar -->
         <item name="android:elevation">0dp</item>
         <!-- Support library compatibility -->
