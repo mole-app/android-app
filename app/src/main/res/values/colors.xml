@@ -6,4 +6,6 @@
     <color name="green">#2FC97F</color>
     <color name="gray">#717171</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grad_orang_start">#D32701</color>
+    <color name="grad_orang_end">#FF7A00</color>
 </resources>

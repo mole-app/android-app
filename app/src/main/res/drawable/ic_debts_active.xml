@@ -5,19 +5,8 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
     <path
-        android:pathData="M17.0256,1C20.8774,1 24,4.0813 24,7.8822V16.1178C24,19.9187 20.8774,23 17.0256,23H6.9745C3.1226,23 0,19.9187 0,16.1178V7.8822C0,4.0813 3.1226,1 6.9745,1H17.0256Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startY="28.9172"
-                android:startX="-10.0138"
-                android:endY="3.38957"
-                android:endX="18.9288"
-                android:type="linear">
-                <item android:offset="0" android:color="#FFD32701"/>
-                <item android:offset="1" android:color="#FFFF7A00"/>
-            </gradient>
-        </aapt:attr>
-    </path>
+        android:pathData="M17.0256,1C20.8774,1 24,4.0813 24,7.8822V16.1178C24,19.9187 20.8774,23 17.0256,23H6.9745C3.1226,23 0,19.9187 0,16.1178V7.8822C0,4.0813 3.1226,1 6.9745,1H17.0256Z"
+        android:fillColor="@color/orange_gradient"/>
     <path
         android:pathData="M18.421,9.6213L22.2552,9.6205V14.0761L18.4205,14.0765L18.244,14.0697C17.0795,13.9802 16.1627,13.0203 16.162,11.8484C16.162,10.6191 17.1731,9.6221 18.421,9.6213Z"
         android:fillColor="#ffffff"/>
