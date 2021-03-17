@@ -6,9 +6,9 @@
     android:startY="13.1018"
     android:type="linear">
     <item
-        android:color="@color/grad_orange_start"
+        android:color="@color/gradient_accent_start"
         android:offset="0" />
     <item
-        android:color="@color/grad_orange_end"
+        android:color="@color/gradient_accent_end"
         android:offset="1" />
 </gradient>

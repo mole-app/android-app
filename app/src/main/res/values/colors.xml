@@ -6,6 +6,6 @@
     <color name="green">#2FC97F</color>
     <color name="gray">#717171</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grad_orange_start">#D32701</color>
-    <color name="grad_orange_end">#FF7A00</color>
+    <color name="gradient_accent_start">#D32701</color>
+    <color name="gradient_accent_end">#FF7A00</color>
 </resources>
