@@ -6,7 +6,6 @@
     android:viewportHeight="100">
 
     <group>
-
         <group
             android:pivotX="50"
             android:pivotY="50"
@@ -15,7 +14,6 @@
             android:scaleY="2.842"
             android:translateX="1.211"
             android:translateY="-0.063">
-
             <path android:pathData="M0 0V100H100V0">
 
                 <aapt:attr name="android:fillColor">
@@ -36,13 +34,8 @@
                             android:offset="1" />
 
                     </gradient>
-
                 </aapt:attr>
-
             </path>
-
         </group>
-
     </group>
-
 </vector>
