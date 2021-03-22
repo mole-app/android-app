@@ -14,6 +14,7 @@
         <item name="android:navigationBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <item name="android:colorBackground" tools:targetApi="l">?attr/colorPrimary</item>
         <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="android:buttonStyle">@style/Button</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -24,6 +25,20 @@
         <item name="android:elevation">0dp</item>
         <!-- Support library compatibility -->
         <item name="elevation">0dp</item>
+    </style>
+
+    <style name="Button" parent="Widget.AppCompat.Button.Colored">
+        <!--        <item name="android:colorButtonNormal">@color/my_color</item>-->
+<!--        <item name="colorButtonNormal">@drawable/selector_button</item>-->
+<!--        <item name="android:colorButtonNormal">@drawable/selector_button</item>-->
+        <item name="background">@drawable/selector_button</item>
+        <item name="android:radius">60dp</item>
+        <item name="android:layout_width">328dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>
