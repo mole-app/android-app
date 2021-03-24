@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="true">
-        <ripple android:color="@color/white">
+        <ripple android:color="?attr/colorButtonRipple">
             <item android:id="@android:id/mask">
                 <shape android:shape="rectangle">
                     <corners android:radius="20dp" />
@@ -12,7 +12,13 @@
             <item android:id="@android:id/background">
                 <shape android:shape="rectangle">
                     <corners android:radius="20dp" />
-                    <gradient android:angle="0" android:endColor="@color/gradient_button_active_end" android:startColor="@color/gradient_button_active_start" />
+                    <gradient
+                        android:angle="0"
+                        android:endColor="?attr/colorButtonActiveEnd"
+                        android:startColor="?attr/colorButtonActiveStart" />
+                    <size
+                        android:width="328dp"
+                        android:height="40dp" />
                 </shape>
             </item>
         </ripple>
@@ -22,7 +28,13 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
             <corners android:radius="20dp" />
-            <gradient android:angle="0" android:endColor="@color/gradient_button_disable_end" android:startColor="@color/gradient_button_disable_start" />
+            <gradient
+                android:angle="0"
+                android:endColor="?attr/colorButtonDisableEnd"
+                android:startColor="?attr/colorButtonDisableStart" />
+            <size
+                android:width="328dp"
+                android:height="40dp" />
         </shape>
     </item>
 

@@ -2,4 +2,9 @@
 <resources>
     <attr name="colorAccept" format="color" />
     <attr name="colorDeny" format="color" />
+    <attr name="colorButtonRipple" format="color" />
+    <attr name="colorButtonActiveStart" format="color" />
+    <attr name="colorButtonActiveEnd" format="color" />
+    <attr name="colorButtonDisableStart" format="color" />
+    <attr name="colorButtonDisableEnd" format="color" />
 </resources>
