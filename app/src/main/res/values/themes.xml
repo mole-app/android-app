@@ -21,6 +21,7 @@
 
     <style name="style_rectangle_button">
         <item name="android:background">@drawable/selector_rectangle_button</item>
+        <item name="android:textColor">@drawable/selector_text_button</item>
         <item name="android:radius">60dp</item>
         <item name="android:layout_width">328dp</item>
         <item name="android:layout_height">40dp</item>
