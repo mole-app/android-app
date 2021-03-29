@@ -7,4 +7,6 @@
     <attr name="colorButtonActiveEnd" format="color" />
     <attr name="colorButtonDisableStart" format="color" />
     <attr name="colorButtonDisableEnd" format="color" />
+    <attr name="colorButtonIconStart" format="color" />
+    <attr name="colorButtonIconEnd" format="color" />
 </resources>
