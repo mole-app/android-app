@@ -1,12 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Mole" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorAccent">@color/orange</item>
-        <item name="colorPrimaryVariant">@color/gray</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="colorAccept">@color/green</item>
-        <item name="colorDeny">@color/red</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorAccept">@color/colorAccept</item>
+        <item name="colorDeny">@color/colorDeny</item>
         <item name="colorButtonRipple">@color/white</item>
         <item name="colorButtonActiveStart">@color/gradient_button_active_start</item>
         <item name="colorButtonActiveEnd">@color/gradient_button_active_end</item>

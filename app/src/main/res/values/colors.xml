@@ -7,6 +7,14 @@
     <color name="gray">#717171</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_ripple">#40FFFFFF</color>
+
+    <color name="colorAccent">@color/orange</color>
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorPrimaryVariant">@color/gray</color>
+    <color name="colorOnPrimary">@color/black</color>
+    <color name="colorAccept">@color/green</color>
+    <color name="colorDeny">@color/red</color>
+
     <color name="gradient_button_active_start">#D32701</color>
     <color name="gradient_button_active_end">#FF7A00</color>
     <color name="gradient_button_disable_start">#66FFFFFF</color>
