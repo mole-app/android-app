@@ -9,8 +9,6 @@
     <color name="white_ripple">#40FFFFFF</color>
     <color name="gradient_button_active_start">#D32701</color>
     <color name="gradient_button_active_end">#FF7A00</color>
-    <color name="gradient_button_press_start">#BFFFFFFF</color>
-    <color name="gradient_button_press_end">#1AFFFFFF</color>
     <color name="gradient_button_disable_start">#66FFFFFF</color>
     <color name="gradient_button_disable_end">#1AFFFFFF</color>
 </resources>
