@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+    <ripple android:color="?attr/colorButtonRipple">
+        <item android:id="@android:id/mask">
+            <shape android:width="28dp"
+                android:height="28dp"
+                android:shape="oval">
+                <solid android:color="#44000000" />
+            </shape>
+        </item>
+
+        <item android:id="@android:id/background">
+            <shape android:width="28dp"
+                android:height="28dp"
+                android:shape="oval">
+                <gradient
+                    android:angle="0"
+                    android:endColor="?attr/colorButtonIconEnd"
+                    android:startColor="?attr/colorButtonIconStart" />
+            </shape>
+        </item>
+    </ripple>
+    </item>
+</selector>
