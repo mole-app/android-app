@@ -1,12 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Mole" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
-        <item name="colorAccept">@color/colorAccept</item>
-        <item name="colorDeny">@color/colorDeny</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorAccept">@color/color_accept</item>
+        <item name="colorDeny">@color/color_deny</item>
         <item name="colorButtonRipple">@color/white</item>
         <item name="colorButtonActiveStart">@color/gradient_button_active_start</item>
         <item name="colorButtonActiveEnd">@color/gradient_button_active_end</item>
@@ -14,6 +14,10 @@
         <item name="colorButtonDisableEnd">@color/gradient_button_disable_end</item>
         <item name="colorButtonIconStart">@color/gradient_button_icon_start</item>
         <item name="colorButtonIconEnd">@color/gradient_button_icon_end</item>
+        <item name="colorText">@color/color_text</item>
+        <item name="colorTextDisabled">@color/color_text_disabled</item>
+        <item name="colorIcon">@color/color_icon</item>
+        <item name="colorIconDisabled">@color/color_icon_disabled</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:colorBackground">?attr/colorPrimary</item>
