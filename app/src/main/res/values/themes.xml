@@ -31,6 +31,7 @@
     </style>
 
     <style name="style_round_button">
+        <item name="tint">@drawable/selector_tint_button</item>
         <item name="android:background">@drawable/selector_round_button</item>
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">80dp</item>
