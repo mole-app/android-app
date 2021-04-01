@@ -61,6 +61,13 @@
         <item name="android:textAppearance">@style/moleText</item>
     </style>
 
+    <style name="style_borderless_button_mini_icon">
+        <item name="android:background">@drawable/selector_icon_borderless_button</item>
+        <item name="android:radius">60dp</item>
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">56dp</item>
+    </style>
+
     <style name="moleText">
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/montserrat</item>

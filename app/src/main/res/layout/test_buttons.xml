@@ -80,5 +80,18 @@
             android:layout_margin="8dp"
             android:src="@drawable/ic_search" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/style_borderless_button_mini_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_trash" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/style_borderless_button_mini_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_edit_profile" />
     </LinearLayout>
 </LinearLayout>
