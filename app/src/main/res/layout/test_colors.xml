@@ -16,14 +16,8 @@
             android:layout_height="64dp"
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
-            android:background="?attr/colorAccept" />
-
-        <View
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="8dp"
-            android:foreground="@drawable/test_colors"
-            android:background="?attr/colorDeny" />
+            android:background="?attr/colorPrimary"
+            />
 
         <View
             android:layout_width="64dp"
@@ -31,6 +25,13 @@
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
             android:background="?attr/colorAccent" />
+
+        <View
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:foreground="@drawable/test_colors"
+            android:background="?attr/colorDeny" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,8 +45,7 @@
             android:layout_height="64dp"
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
-            android:background="?attr/colorPrimary"
-            />
+            android:background="?attr/colorAccept" />
 
         <View
             android:layout_width="64dp"

@@ -6,24 +6,15 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        style="@style/style_round_button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_arrow_normal" />
+
     <androidx.appcompat.widget.AppCompatButton
         style="@style/style_rectangle_button"
-        android:layout_width="328dp"
-        android:layout_height="40dp"
-        android:layout_margin="8dp"
-        android:text="Отправить ещё раз" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        style="@style/style_rectangle_button"
-        android:layout_width="328dp"
-        android:layout_height="40dp"
-        android:layout_margin="8dp"
-        android:enabled="false"
-        android:text="Отправить ещё раз" />
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        style="@style/style_borderless_button"
         android:layout_width="328dp"
         android:layout_height="40dp"
         android:layout_margin="8dp"
@@ -34,10 +25,31 @@
         android:layout_width="328dp"
         android:layout_height="40dp"
         android:layout_margin="8dp"
+        android:text="Отправить ещё раз" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/test_screen_circle_button_disable"
+        style="@style/style_round_button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_arrow_normal" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/style_rectangle_button"
+        android:layout_width="328dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
 
-
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/style_borderless_button"
+        android:layout_width="328dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:enabled="false"
+        android:text="Отправить ещё раз" />
 
     <LinearLayout
         android:id="@+id/round_buttons"
@@ -46,20 +58,6 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/style_round_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_arrow_normal" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/test_screen_circle_button_disable"
-            style="@style/style_round_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_arrow_normal" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             style="@style/style_icon_button"

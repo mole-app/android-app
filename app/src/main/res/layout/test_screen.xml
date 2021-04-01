@@ -20,8 +20,8 @@
             layout="@layout/test_colors" />
 
         <include
-            android:id="@+id/test_fonts"
-            layout="@layout/test_fonts" />
+            android:id="@+id/test_typography"
+            layout="@layout/test_typography" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
