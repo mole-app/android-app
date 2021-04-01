@@ -7,21 +7,21 @@
     android:padding="8dp">
 
     <androidx.appcompat.widget.AppCompatImageButton
-        style="@style/style_round_button"
+        style="@style/styleRoundButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="8dp"
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/style_rectangle_button"
+        style="@style/styleRectangleButton"
         android:layout_width="328dp"
         android:layout_height="40dp"
         android:layout_margin="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/style_borderless_button"
+        style="@style/styleBorderlessButton"
         android:layout_width="328dp"
         android:layout_height="40dp"
         android:layout_margin="8dp"
@@ -29,14 +29,14 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/test_screen_circle_button_disable"
-        style="@style/style_round_button"
+        style="@style/styleRoundButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="8dp"
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/style_rectangle_button"
+        style="@style/styleRectangleButton"
         android:layout_width="328dp"
         android:layout_height="40dp"
         android:layout_margin="8dp"
@@ -44,7 +44,7 @@
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/style_borderless_button"
+        style="@style/styleBorderlessButton"
         android:layout_width="328dp"
         android:layout_height="40dp"
         android:layout_margin="8dp"
@@ -60,35 +60,35 @@
 
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/style_icon_button"
+            style="@style/styleIconButton"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_setting" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/style_icon_button"
+            style="@style/styleIconButton"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_back" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/style_icon_button"
+            style="@style/styleIconButton"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_search" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/style_borderless_button_mini_icon"
+            style="@style/styleBorderlessButtonMiniIcon"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_trash" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/style_borderless_button_mini_icon"
+            style="@style/styleBorderlessButtonMiniIcon"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"

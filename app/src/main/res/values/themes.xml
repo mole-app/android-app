@@ -23,7 +23,7 @@
         <item name="android:colorBackground">?attr/colorPrimary</item>
     </style>
 
-    <style name="style_rectangle_button">
+    <style name="styleRectangleButton">
         <item name="android:background">@drawable/selector_rectangle_button</item>
         <item name="android:textColor">@drawable/selector_text_button</item>
         <item name="android:radius">60dp</item>
@@ -33,7 +33,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="style_round_button">
+    <style name="styleRoundButton">
         <item name="tint">@drawable/selector_tint_button</item>
         <item name="android:background">@drawable/selector_round_button</item>
         <item name="android:layout_width">80dp</item>
@@ -42,7 +42,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="style_icon_button">
+    <style name="styleIconButton">
         <item name="android:background">@drawable/shape_icon_button</item>
         <item name="android:layout_width">28dp</item>
         <item name="android:layout_height">28dp</item>
@@ -50,7 +50,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="style_borderless_button">
+    <style name="styleBorderlessButton">
         <item name="android:background">@null</item>
         <item name="android:textColor">@drawable/selector_text_button</item>
         <item name="android:radius">60dp</item>
@@ -61,7 +61,7 @@
         <item name="android:textAppearance">@style/moleText</item>
     </style>
 
-    <style name="style_borderless_button_mini_icon">
+    <style name="styleBorderlessButtonMiniIcon">
         <item name="android:background">@drawable/selector_icon_borderless_button</item>
         <item name="android:radius">60dp</item>
         <item name="android:layout_width">56dp</item>
