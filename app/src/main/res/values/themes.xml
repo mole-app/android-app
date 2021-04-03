@@ -31,6 +31,8 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAppearance">@style/moleText</item>
     </style>
 
     <style name="styleRoundButton">
@@ -58,6 +60,7 @@
         <item name="android:layout_height">40dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textAppearance">@style/moleText</item>
     </style>
 
@@ -69,9 +72,8 @@
     </style>
 
     <style name="moleText">
-        <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
 
 </resources>
