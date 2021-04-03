@@ -15,11 +15,37 @@ stages:
 
 lintDebug:
   stage: build
+  only:
+    refs:
+    - master
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 assembleDebug:
   stage: build
+  only:
+    refs:
+    - master
+  script:
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+    - app/build/outputs/apk/debug/app-debug.apk
+
+
+lintDebugManual:
+  stage: build
+  when: manual
+  except:
+    - master
+  script:
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+
+assembleDebugManual:
+  stage: build
+  when: manual
+  except:
+    - master
   script:
     - ./gradlew assembleDebug
   artifacts:
