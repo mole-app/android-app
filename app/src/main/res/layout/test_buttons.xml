@@ -52,7 +52,7 @@
         android:text="Отправить ещё раз" />
 
     <LinearLayout
-        android:id="@+id/round_buttons"
+        android:id="@+id/icon_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -79,6 +79,15 @@
             android:layout_height="28dp"
             android:layout_margin="8dp"
             android:src="@drawable/ic_search" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/icon_button_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <androidx.appcompat.widget.AppCompatImageButton
             style="@style/styleBorderlessButtonMiniIcon"

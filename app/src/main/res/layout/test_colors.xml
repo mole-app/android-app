@@ -5,53 +5,40 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
         <View
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
             android:background="?attr/colorPrimary"
             />
 
         <View
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
             android:background="?attr/colorAccent" />
 
         <View
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
             android:background="?attr/colorDeny" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
 
         <View
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
             android:background="?attr/colorAccept" />
 
         <View
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
             android:layout_margin="8dp"
             android:foreground="@drawable/test_colors"
             android:background="?attr/colorPrimaryVariant" />
-    </LinearLayout>
+
 </LinearLayout>
