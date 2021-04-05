@@ -1,23 +1,29 @@
-package com.mole.android.mole.ui.navigation_bar
+package com.mole.android.mole.ui.mole_bottom_navigation.bottom_navigation_bar
 
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.ColorDrawable
+import android.graphics.Color
 import android.util.AttributeSet
-import android.util.TypedValue
-import androidx.annotation.ColorInt
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.setPadding
+import androidx.core.view.iterator
+import androidx.core.view.size
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.mole.android.mole.R
 
 class BottomNavigationView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BottomNavigationView(context, attrs, defStyleAttr) {
 
     init {
-        setPadding(0)
         itemIconTintList = null
         setBackgroundColor(Color.TRANSPARENT)
+    }
+
+    override fun inflateMenu(resId: Int) {
+        super.inflateMenu(resId)
+        menu.size
+        for (item in menu) {
+            if (item.title == "") {
+                item.isEnabled = false
+            }
+        }
+
     }
 }
