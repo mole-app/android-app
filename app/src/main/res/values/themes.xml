@@ -14,7 +14,7 @@
         <item name="colorButtonDisableEnd">@color/gradient_button_disable_end</item>
         <item name="colorButtonIconStart">@color/gradient_button_icon_start</item>
         <item name="colorButtonIconEnd">@color/gradient_button_icon_end</item>
-        <item name="colorText">@color/color_text</item>
+        <item name="colorTextPrimary">@color/color_text</item>
         <item name="colorTextDisabled">@color/color_text_disabled</item>
         <item name="colorIcon">@color/color_icon</item>
         <item name="colorIconDisabled">@color/color_icon_disabled</item>
@@ -70,6 +70,7 @@
     </style>
 
     <style name="moleText">
+        <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>

@@ -5,5 +5,5 @@
         android:color="?attr/colorTextDisabled" />
 
     <!-- Default -->
-    <item android:color="?attr/colorText" />
+    <item android:color="?attr/colorTextPrimary" />
 </selector>
