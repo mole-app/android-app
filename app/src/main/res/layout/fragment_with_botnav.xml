@@ -4,57 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.mole.android.mole.ui.mole_bottom_navigation.MoleBottomNavigation
+        android:id="@+id/navigationCoordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="8dp">
+        android:elevation="8dp"
+        app:foregroundFloatingActionButton="@drawable/ic_fab"
+        app:menuBottomNavigation="@menu/bottom_nav_menu" />
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:backgroundTint="@color/gray"
-            app:fabCradleMargin="5dp"
-            app:fabCradleRoundedCornerRadius="5dp">
-
-            <com.mole.android.mole.ui.navigation_bar.BottomNavigationView
-                android:id="@+id/bottomNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:background="@android:color/transparent"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_nav_menu" />
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="@dimen/design_fab_image_size"
-            android:layout_height="@dimen/design_fab_image_size"
-            android:clickable="false"
-            android:focusable="false"
-            app:backgroundTint="@android:color/transparent"
-            app:borderWidth="0dp"
-            app:elevation="0dp"
-            app:layout_anchor="@id/bottomAppBar"
-            app:useCompatPadding="false" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/backgroundFabView"
-            android:layout_width="@dimen/design_fab_image_size"
-            android:layout_height="@dimen/design_fab_image_size"
-            android:background="@drawable/fab_background"
-            android:foreground="@drawable/ic_fab"
-            android:foregroundGravity="center"
-            app:backgroundTint="@null"
-            app:elevation="8dp"
-            app:layout_anchor="@id/fab"
-            app:layout_anchorGravity="center" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"

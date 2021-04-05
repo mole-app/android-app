@@ -9,8 +9,12 @@
     <attr name="colorButtonDisableEnd" format="color" />
     <attr name="colorButtonIconStart" format="color" />
     <attr name="colorButtonIconEnd" format="color" />
-    <attr name="colorText" format="color" />
+    <attr name="colorTextPrimary" format="color" />
     <attr name="colorTextDisabled" format="color" />
     <attr name="colorIcon" format="color" />
     <attr name="colorIconDisabled" format="color" />
+    <declare-styleable name="MoleBottomNavigation">
+        <attr name="foregroundFloatingActionButton" format="reference|color" />
+        <attr name="menuBottomNavigation" format="reference"/>
+    </declare-styleable>
 </resources>
