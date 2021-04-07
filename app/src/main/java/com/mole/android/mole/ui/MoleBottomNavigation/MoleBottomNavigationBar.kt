@@ -24,6 +24,15 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
         init(context, attrs)
     }
 
+
+    fun setOnFabClickListener(listener: OnClickListener) {
+        fab.setOnClickListener(listener)
+    }
+
+    fun setOnNavigationItemSelectedListener(listener: BottomNavigationView.OnNavigationItemSelectedListener) {
+        navigationView.setOnNavigationItemSelectedListener(listener)
+    }
+
     private fun init(context: Context, attrs: AttributeSet?) {
         if (attrs != null) {
             val typedArray = context.obtainStyledAttributes(
@@ -64,14 +73,6 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
 
     private fun setMenuAttr(menu: Int) {
         navigationView.inflateMenu(menu)
-    }
-
-    fun setOnFabClickListener(listener: OnClickListener) {
-        fab.setOnClickListener(listener)
-    }
-
-    fun setOnNavigationItemSelectedListener(listener: BottomNavigationView.OnNavigationItemSelectedListener) {
-        navigationView.setOnNavigationItemSelectedListener(listener)
     }
 
 }
