@@ -11,11 +11,6 @@ import com.mole.android.mole.ui.MoleBottomNavigation.MoleBottomNavigationBar
 
 class FragmentWithBotnav : Fragment() {
 
-    companion object {
-        const val TAG_1 = "FRAGMENT_1"
-        const val TAG_2 = "FRAGMENT_2"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,6 +64,11 @@ class FragmentWithBotnav : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    companion object {
+        const val TAG_1 = "FRAGMENT_1"
+        const val TAG_2 = "FRAGMENT_2"
     }
 
 }

@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         val fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (fragment == null) {
             val newFragment = createFragment()
-            supportFragmentManager.beginTransaction().add(R.id.fragment_container, newFragment).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragment_container, newFragment)
+                .commit()
         }
     }
 
