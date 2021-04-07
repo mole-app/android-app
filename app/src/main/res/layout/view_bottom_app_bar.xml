@@ -13,7 +13,7 @@
         app:fabCradleRoundedCornerRadius="5dp"
         tools:ignore="BottomAppBar">
 
-        <com.mole.android.mole.ui.mole_bottom_navigation.bottom_navigation_bar.BottomNavigationView
+        <com.mole.android.mole.ui.MoleBottomNavigation.BottomNavigationBar.MoleBottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -13,7 +13,7 @@
     <attr name="colorTextDisabled" format="color" />
     <attr name="colorIcon" format="color" />
     <attr name="colorIconDisabled" format="color" />
-    <declare-styleable name="MoleBottomNavigation">
+    <declare-styleable name="MoleBottomNavigationBar">
         <attr name="foregroundFloatingActionButton" format="reference|color" />
         <attr name="menuBottomNavigation" format="reference"/>
     </declare-styleable>

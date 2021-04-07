@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.mole.android.mole.ui.mole_bottom_navigation.MoleBottomNavigation
-import com.mole.android.mole.ui.mole_bottom_navigation.bottom_navigation_bar.BottomNavigationView
+import com.mole.android.mole.ui.MoleBottomNavigation.MoleBottomNavigationBar
 
 class FragmentWithBotnav : Fragment() {
 
@@ -36,9 +35,9 @@ class FragmentWithBotnav : Fragment() {
             fragmentTransaction.commit()
         }
 
-        val navigationBar: MoleBottomNavigation = view.findViewById(R.id.navigationCoordinatorLayout)
+        val navigationAppBar: MoleBottomNavigationBar = view.findViewById(R.id.navigationCoordinatorLayout)
 
-        navigationBar.setOnNavigationItemSelectedListener { item ->
+        navigationAppBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_debts -> {
                     replaceOnTestScreen(TAG_1, TestScreenFragment())

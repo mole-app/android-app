@@ -23,7 +23,7 @@
         <item name="android:colorBackground">?attr/colorPrimary</item>
     </style>
 
-    <style name="styleRectangleButton">
+    <style name="MoleRectangleButton">
         <item name="android:background">@drawable/selector_rectangle_button</item>
         <item name="android:textColor">@drawable/selector_text_button</item>
         <item name="android:radius">60dp</item>
@@ -32,17 +32,17 @@
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textAppearance">@style/moleText</item>
+        <item name="android:textAppearance">@style/MoleText</item>
     </style>
 
-    <style name="styleRoundButton">
+    <style name="MoleRoundButton">
         <item name="tint">@drawable/selector_tint_button</item>
         <item name="android:background">@drawable/selector_round_button</item>
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">80dp</item>
     </style>
 
-    <style name="styleIconButton">
+    <style name="MoleIconButton">
         <item name="android:background">@drawable/shape_icon_button</item>
         <item name="android:layout_width">28dp</item>
         <item name="android:layout_height">28dp</item>
@@ -50,7 +50,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="styleBorderlessButton">
+    <style name="MoleBorderlessButton">
         <item name="android:background">@drawable/selector_rectangle_borderless_button</item>
         <item name="android:textColor">@drawable/selector_text_button</item>
         <item name="android:radius">60dp</item>
@@ -59,17 +59,17 @@
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textAppearance">@style/moleText</item>
+        <item name="android:textAppearance">@style/MoleText</item>
     </style>
 
-    <style name="styleBorderlessButtonMiniIcon">
+    <style name="MoleBorderlessButtonMiniIcon">
         <item name="android:background">@drawable/selector_icon_borderless_button</item>
         <item name="android:radius">60dp</item>
         <item name="android:layout_width">56dp</item>
         <item name="android:layout_height">56dp</item>
     </style>
 
-    <style name="moleText">
+    <style name="MoleText">
         <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
