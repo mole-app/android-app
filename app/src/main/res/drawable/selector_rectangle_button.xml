@@ -5,7 +5,7 @@
             <item android:id="@android:id/mask">
                 <shape android:shape="rectangle">
                     <corners android:radius="20dp" />
-                    <solid android:color="#44000000" />
+                    <solid android:color="#40000000" />
                 </shape>
             </item>
 
@@ -16,9 +16,6 @@
                         android:angle="0"
                         android:endColor="?attr/colorButtonActiveEnd"
                         android:startColor="?attr/colorButtonActiveStart" />
-                    <size
-                        android:width="328dp"
-                        android:height="40dp" />
                 </shape>
             </item>
         </ripple>
@@ -32,9 +29,6 @@
                 android:angle="0"
                 android:endColor="?attr/colorButtonDisableEnd"
                 android:startColor="?attr/colorButtonDisableStart" />
-            <size
-                android:width="328dp"
-                android:height="40dp" />
         </shape>
     </item>
 
