@@ -4,15 +4,16 @@
     <item
         android:id="@+id/navigation_debts"
         android:icon="@drawable/selector_icon_debts"
-        android:title="Debts" />
+        android:title="@string/debts" />
 
     <item
-        android:id="@+id/miPlaceHolder"
+        android:id="@+id/place_holder"
+        android:enabled="false"
         android:title="" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/selector_icon_profile"
-        android:title="Profile" />
+        android:title="@string/profile" />
 
 </menu>
