@@ -31,19 +31,20 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
                 0,
                 0
             )
-            var foreground: Drawable? = null
-            var menu = 0
-            try {
-                foreground =
+            val (foreground, menu) = try {
+                val foreground =
                     typedArray.getDrawable(R.styleable.MoleBottomNavigationBar_foregroundFloatingActionButton)
-                menu = typedArray.getResourceId(
+                val menu = typedArray.getResourceId(
                     R.styleable.MoleBottomNavigationBar_menuBottomNavigation,
                     0
                 )
+                foreground to menu
             } finally {
                 typedArray.recycle()
-                handleAttr(foreground, menu)
             }
+
+            handleAttr(foreground, menu)
+
         }
     }
 
@@ -56,11 +57,11 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
         }
     }
 
-    private fun setForegroundAttr(foreground: Drawable){
+    private fun setForegroundAttr(foreground: Drawable) {
         fab.foreground = foreground
     }
 
-    private fun setMenuAttr(menu: Int){
+    private fun setMenuAttr(menu: Int) {
         navigationView.inflateMenu(menu)
     }
 
