@@ -13,13 +13,14 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : CoordinatorLayout(context, attrs, defStyleAttr) {
 
-    private val fab: MaterialButton
-    private val navigationView: BottomNavigationView
-
     init {
         inflate(context, R.layout.view_bottom_app_bar, this)
-        fab = findViewById(R.id.backgroundFabView)
-        navigationView = findViewById(R.id.bottomNavigation)
+    }
+
+    private val fab: MaterialButton = findViewById(R.id.backgroundFabView)
+    private val navigationView: BottomNavigationView = findViewById(R.id.bottomNavigation)
+
+    init {
         init(context, attrs)
     }
 
