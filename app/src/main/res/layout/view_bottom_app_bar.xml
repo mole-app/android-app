@@ -9,6 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="?attr/colorPrimaryVariant"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
         app:fabCradleMargin="5dp"
         app:fabCradleRoundedCornerRadius="5dp"
         tools:ignore="BottomAppBar">
@@ -17,8 +19,9 @@
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             app:labelVisibilityMode="unlabeled" />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
