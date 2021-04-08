@@ -20,6 +20,7 @@
     <color name="color_text_disabled">@color/white_alpha_50</color>
     <color name="color_icon">@color/white</color>
     <color name="color_icon_disabled">@color/white_alpha_50</color>
+    <color name="color_borderless_icon">@color/white</color>
 
     <color name="gradient_button_active_start">#D32701</color>
     <color name="gradient_button_active_end">#FF7A00</color>

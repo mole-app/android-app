@@ -8,6 +8,7 @@
         <item name="colorAccept">@color/color_accept</item>
         <item name="colorDeny">@color/color_deny</item>
         <item name="colorButtonRipple">@color/white</item>
+        <item name="colorBorderlessIcon">@color/color_borderless_icon</item>
         <item name="colorButtonActiveStart">@color/gradient_button_active_start</item>
         <item name="colorButtonActiveEnd">@color/gradient_button_active_end</item>
         <item name="colorButtonDisableStart">@color/gradient_button_disable_start</item>
@@ -65,6 +66,7 @@
     <style name="MoleBorderlessButtonMiniIcon">
         <item name="android:background">@drawable/selector_icon_borderless_button</item>
         <item name="android:radius">60dp</item>
+        <item name="android:tint">?attr/colorBorderlessIcon</item>
         <item name="android:layout_width">56dp</item>
         <item name="android:layout_height">56dp</item>
     </style>
