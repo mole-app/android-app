@@ -7,71 +7,73 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Medium.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Montserrat 24sp"
-        android:textSize="24sp" />
+        android:text="Title 24 Medium" />
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Light.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Montserrat 20sp"
-        android:textSize="20sp" />
+        android:text="Title 24 Light" />
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Bold.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Montserrat 16sp"
-        android:textSize="16sp" />
+        android:text="Headline 20 Bold" />
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Medium.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Montserrat 14sp"
-        android:textSize="14sp" />
+        android:text="Headline 20 Medium" />
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Medium.Text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Montserrat 10sp"
-        android:textSize="10sp" />
+        android:text="Text 16 Medium" />
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Regular.Text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_regular"
         android:gravity="center"
-        android:text="Regular"
-        android:textSize="16sp"/>
+        android:text="Text 16 Regular" />
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Regular.Text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
-        android:text="Medium"
-        android:textSize="16sp"/>
+        android:text="Text 14 Medium" />
 
     <TextView
-        style="@style/MoleText"
+        style="@style/MoleText.Regular.Text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="Bold"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:text="Text 14 Regular" />
+
+    <TextView
+        style="@style/MoleText.Medium.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Caption 10 Medium" />
+
+    <TextView
+        style="@style/MoleText.Regular.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Caption 10 Regular" />
 
 </LinearLayout>
