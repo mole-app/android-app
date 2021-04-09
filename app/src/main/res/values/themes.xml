@@ -27,8 +27,7 @@
     <style name="MoleButton">
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textAppearance">@style/MoleText</item>
+        <item name="android:textAppearance">@style/MoleText.Medium.Text2</item>
         <item name="android:textColor">@drawable/selector_text_button</item>
     </style>
 
