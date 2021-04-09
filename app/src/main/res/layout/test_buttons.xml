@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/buttons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        style="@style/MoleButton.Round"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_arrow_normal" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/MoleButton.Rectangle"
+        android:layout_margin="8dp"
+        android:text="Отправить ещё раз" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/MoleButton.Rectangle.Borderless"
+        android:layout_margin="8dp"
+        android:text="Отправить ещё раз" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/test_screen_circle_button_disable"
+        style="@style/MoleButton.Round"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_arrow_normal" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/MoleButton.Rectangle"
+        android:layout_margin="8dp"
+        android:enabled="false"
+        android:text="Отправить ещё раз" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/MoleButton.Rectangle.Borderless"
+        android:layout_margin="8dp"
+        android:enabled="false"
+        android:text="Отправить ещё раз" />
+
+    <LinearLayout
+        android:id="@+id/icon_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.Icon"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_setting" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.Icon"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_back" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.Icon"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_search" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/icon_button_borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.BorderlessIcon"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_trash" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.BorderlessIcon"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_edit_profile" />
+    </LinearLayout>
+</LinearLayout>

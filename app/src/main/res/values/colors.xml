@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#121212</color>
+    <color name="orange">#FF8719</color>
+    <color name="red">#F27167</color>
+    <color name="green">#2FC97F</color>
+    <color name="gray">#717171</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_alpha_50">#80FFFFFF</color>
+    <color name="white_alpha_25">#40FFFFFF</color>
+    <color name="white_ripple">#40FFFFFF</color>
+
+    <color name="color_accent">@color/orange</color>
+    <color name="color_primary">@color/black</color>
+    <color name="color_primary_variant">@color/gray</color>
+    <color name="color_on_primary">@color/black</color>
+    <color name="color_accept">@color/green</color>
+    <color name="color_deny">@color/red</color>
+    <color name="color_text">@color/white</color>
+    <color name="color_text_disabled">@color/white_alpha_50</color>
+    <color name="color_icon">@color/white</color>
+    <color name="color_icon_disabled">@color/white_alpha_50</color>
+    <color name="color_borderless_icon">@color/white</color>
+
+    <color name="gradient_button_active_start">#D32701</color>
+    <color name="gradient_button_active_end">#FF7A00</color>
+    <color name="gradient_button_disable_start">#66FFFFFF</color>
+    <color name="gradient_button_disable_end">#1AFFFFFF</color>
+    <color name="gradient_button_icon_start">#66FFFFFF</color>
+    <color name="gradient_button_icon_end">#1AFFFFFF</color>
 </resources>

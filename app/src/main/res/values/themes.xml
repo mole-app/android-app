@@ -1,16 +1,129 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Mole" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+    <style name="Theme.Mole" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorAccept">@color/color_accept</item>
+        <item name="colorDeny">@color/color_deny</item>
+        <item name="colorButtonRipple">@color/white</item>
+        <item name="colorBorderlessIcon">@color/color_borderless_icon</item>
+        <item name="colorButtonActiveStart">@color/gradient_button_active_start</item>
+        <item name="colorButtonActiveEnd">@color/gradient_button_active_end</item>
+        <item name="colorButtonDisableStart">@color/gradient_button_disable_start</item>
+        <item name="colorButtonDisableEnd">@color/gradient_button_disable_end</item>
+        <item name="colorButtonIconStart">@color/gradient_button_icon_start</item>
+        <item name="colorButtonIconEnd">@color/gradient_button_icon_end</item>
+        <item name="colorTextPrimary">@color/color_text</item>
+        <item name="colorTextDisabled">@color/color_text_disabled</item>
+        <item name="colorIcon">@color/color_icon</item>
+        <item name="colorIconDisabled">@color/color_icon_disabled</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:colorBackground">?attr/colorPrimary</item>
+    </style>
+
+    <style name="MoleButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAppearance">@style/MoleText.Medium.Text2</item>
+        <item name="android:textColor">@drawable/selector_text_button</item>
+    </style>
+
+    <style name="MoleButton.Rectangle">
+        <item name="android:background">@drawable/selector_rectangle_button</item>
+        <item name="android:radius">60dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="MoleButton.Round">
+        <item name="tint">@drawable/selector_tint_button</item>
+        <item name="android:background">@drawable/selector_round_button</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+    </style>
+
+    <style name="MoleButton.Icon">
+        <item name="android:background">@drawable/shape_icon_button</item>
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+    </style>
+
+    <style name="MoleButton.Rectangle.Borderless">
+        <item name="android:background">@drawable/selector_rectangle_borderless_button</item>
+    </style>
+
+    <style name="MoleButton.BorderlessIcon">
+        <item name="android:background">@drawable/selector_icon_borderless_button</item>
+        <item name="android:radius">60dp</item>
+        <item name="android:tint">?attr/colorBorderlessIcon</item>
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">56dp</item>
+    </style>
+
+    <style name="MoleText">
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+    </style>
+
+    <style name="MoleText.Medium">
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="MoleText.Light">
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:fontFamily">@font/montserrat_light</item>
+    </style>
+
+    <style name="MoleText.Regular">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="MoleText.Bold">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="MoleText.Light.Title">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="MoleText.Medium.Title">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="MoleText.Medium.Headline">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MoleText.Bold.Headline">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MoleText.Medium.Text1">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MoleText.Regular.Text1">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MoleText.Medium.Text2">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MoleText.Regular.Text2">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MoleText.Medium.Caption">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="MoleText.Regular.Caption">
+        <item name="android:textSize">10sp</item>
     </style>
 </resources>

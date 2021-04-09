@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_debts"
+        android:icon="@drawable/selector_icon_debts"
+        android:title="@string/debts" />
+
+    <item
+        android:id="@+id/place_holder"
+        android:enabled="false"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/selector_icon_profile"
+        android:title="@string/profile" />
+
+</menu>

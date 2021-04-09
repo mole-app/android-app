@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorAccept" format="color" />
+    <attr name="colorDeny" format="color" />
+    <attr name="colorButtonRipple" format="color" />
+    <attr name="colorButtonActiveStart" format="color" />
+    <attr name="colorButtonActiveEnd" format="color" />
+    <attr name="colorButtonDisableStart" format="color" />
+    <attr name="colorButtonDisableEnd" format="color" />
+    <attr name="colorButtonIconStart" format="color" />
+    <attr name="colorButtonIconEnd" format="color" />
+    <attr name="colorTextPrimary" format="color" />
+    <attr name="colorTextDisabled" format="color" />
+    <attr name="colorIcon" format="color" />
+    <attr name="colorIconDisabled" format="color" />
+    <attr name="colorBorderlessIcon" format="color" />
+    <declare-styleable name="MoleBottomNavigationBar">
+        <attr name="foregroundFloatingActionButton" format="reference|color" />
+        <attr name="menuBottomNavigation" format="reference"/>
+    </declare-styleable>
+</resources>

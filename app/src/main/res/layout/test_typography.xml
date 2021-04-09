@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/MoleText.Medium.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Title 24 Medium" />
+
+    <TextView
+        style="@style/MoleText.Light.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Title 24 Light" />
+
+    <TextView
+        style="@style/MoleText.Bold.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Headline 20 Bold" />
+
+    <TextView
+        style="@style/MoleText.Medium.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Headline 20 Medium" />
+
+    <TextView
+        style="@style/MoleText.Medium.Text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Text 16 Medium" />
+
+    <TextView
+        style="@style/MoleText.Regular.Text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Text 16 Regular" />
+
+    <TextView
+        style="@style/MoleText.Regular.Text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Text 14 Medium" />
+
+    <TextView
+        style="@style/MoleText.Regular.Text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Text 14 Regular" />
+
+    <TextView
+        style="@style/MoleText.Medium.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Caption 10 Medium" />
+
+    <TextView
+        style="@style/MoleText.Regular.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Caption 10 Regular" />
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize"
+        android:layout_marginBottom="90dp">
+
+
+        <include
+            android:id="@+id/test_buttons"
+            layout="@layout/test_buttons" />
+
+        <include
+            android:id="@+id/test_colors"
+            layout="@layout/test_colors" />
+
+        <include
+            android:id="@+id/test_typography"
+            layout="@layout/test_typography" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
