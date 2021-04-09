@@ -3,7 +3,7 @@ package com.mole.android.mole
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import com.mole.android.mole.testStuff.FragmentBottomBar
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +20,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createFragment(): Fragment {
-        return FragmentWithBotnav()
+        return FragmentBottomBar()
     }
 }
