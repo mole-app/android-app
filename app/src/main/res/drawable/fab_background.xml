@@ -21,7 +21,6 @@
                 </shape>
             </item>
         </ripple>
-
     </item>
 
     <item android:state_enabled="false">

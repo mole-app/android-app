@@ -24,7 +24,6 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
         init(context, attrs)
     }
 
-
     fun setOnFabClickListener(listener: OnClickListener) {
         fab.setOnClickListener(listener)
     }
