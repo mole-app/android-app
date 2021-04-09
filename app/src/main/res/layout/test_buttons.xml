@@ -7,34 +7,34 @@
     android:padding="8dp">
 
     <androidx.appcompat.widget.AppCompatImageButton
-        style="@style/MoleRoundButton"
+        style="@style/MoleButton.Round"
         android:layout_margin="8dp"
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/MoleRectangleButton"
+        style="@style/MoleButton.Rectangle"
         android:layout_margin="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/MoleBorderlessButton"
+        style="@style/MoleButton.Rectangle.Borderless"
         android:layout_margin="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/test_screen_circle_button_disable"
-        style="@style/MoleRoundButton"
+        style="@style/MoleButton.Round"
         android:layout_margin="8dp"
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/MoleRectangleButton"
+        style="@style/MoleButton.Rectangle"
         android:layout_margin="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/MoleBorderlessButton"
+        style="@style/MoleButton.Rectangle.Borderless"
         android:layout_margin="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
@@ -48,17 +48,17 @@
 
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleIconButton"
+            style="@style/MoleButton.Icon"
             android:layout_margin="8dp"
             android:src="@drawable/ic_setting" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleIconButton"
+            style="@style/MoleButton.Icon"
             android:layout_margin="8dp"
             android:src="@drawable/ic_back" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleIconButton"
+            style="@style/MoleButton.Icon"
             android:layout_margin="8dp"
             android:src="@drawable/ic_search" />
 
@@ -72,12 +72,12 @@
         android:padding="8dp">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleBorderlessButtonMiniIcon"
+            style="@style/MoleButton.BorderlessIcon"
             android:layout_margin="8dp"
             android:src="@drawable/ic_trash" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleBorderlessButtonMiniIcon"
+            style="@style/MoleButton.BorderlessIcon"
             android:layout_margin="8dp"
             android:src="@drawable/ic_edit_profile" />
     </LinearLayout>
