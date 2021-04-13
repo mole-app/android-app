@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/buttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/backActionButton"
+            style="@style/MoleButton.Icon"
+            android:src="@drawable/ic_back" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.BorderlessIcon"
+            android:src="@drawable/ic_trash" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.BorderlessIcon"
+            android:src="@drawable/ic_edit_profile" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.mole.android.mole.ui.MoleActionBar.MoleActionBarWithText
+        android:id="@+id/moleToolbarWithText"
+        style="@style/Toolbar"
+        app:textTitle="MOLE" />
+
+    <com.mole.android.mole.ui.MoleActionBar.MoleActionBarFactoryButton
+        android:id="@+id/moleToolbarFactoryButton"
+        style="@style/Toolbar"
+        />
 
     <androidx.appcompat.widget.AppCompatImageButton
         style="@style/MoleButton.Round"
