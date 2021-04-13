@@ -47,8 +47,8 @@
 
     <style name="MoleButton.Icon">
         <item name="android:background">@drawable/shape_icon_button</item>
-        <item name="android:layout_width">28dp</item>
-        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
     </style>
 
     <style name="MoleButton.Rectangle.Borderless">
