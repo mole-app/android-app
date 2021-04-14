@@ -28,12 +28,12 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.mole.android.mole.ui.MoleActionBar.MoleActionBarWithText
+    <com.mole.android.mole.ui.actionbar.MoleActionBarWithText
         android:id="@+id/moleToolbarWithText"
         style="@style/Toolbar"
         app:textTitle="MOLE" />
 
-    <com.mole.android.mole.ui.MoleActionBar.MoleActionBarFactoryButton
+    <com.mole.android.mole.ui.actionbar.MoleActionBarFactoryButton
         android:id="@+id/moleToolbarFactoryButton"
         style="@style/Toolbar"
         />
