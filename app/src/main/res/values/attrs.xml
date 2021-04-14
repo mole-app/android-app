@@ -21,4 +21,13 @@
     <declare-styleable name="MoleActionBarWithText">
         <attr name="textTitle" format="string" localization="suggested" />
     </declare-styleable>
+    <declare-styleable name="MoleMessage">
+        <attr name="additional_info">
+                <!-- Visible; the default value. -->
+                <enum name="visible" value="0" />
+                <!-- Not displayed. -->
+                <enum name="invisible" value="1" />
+        </attr>
+        <attr name="postfix" format="string" />
+    </declare-styleable>
 </resources>

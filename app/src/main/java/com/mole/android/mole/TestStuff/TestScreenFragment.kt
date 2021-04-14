@@ -22,8 +22,9 @@ class TestScreenFragment : Fragment() {
         val circleImageButton: AppCompatImageButton = view.findViewById(R.id.test_screen_circle_button_disable)
         circleImageButton.isEnabled = false
 
-        val toolbar: Toolbar = view.findViewById(R.id.moleToolbarFactoryButton)
+        val toolbar: Toolbar = view.findViewById(R.id.toolbarTest)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+//        toolbar.inflateMenu(R.menu.bottom_nav_menu)
 
         return view
     }
