@@ -1,4 +1,4 @@
-package com.mole.android.mole.TestStuff
+package com.mole.android.mole.test
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.mole.android.mole.R
-import com.mole.android.mole.ui.MoleBottomNavigation.MoleBottomNavigationBar
+import com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
 
 class FragmentBottomBar : Fragment() {
 

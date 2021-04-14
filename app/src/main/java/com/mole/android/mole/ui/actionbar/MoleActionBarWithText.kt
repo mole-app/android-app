@@ -1,4 +1,4 @@
-package com.mole.android.mole.ui.MoleActionBar
+package com.mole.android.mole.ui.actionbar
 
 import android.content.Context
 import android.util.AttributeSet

@@ -1,4 +1,4 @@
-package com.mole.android.mole.TestStuff
+package com.mole.android.mole.test
 
 import android.os.Bundle
 import android.view.LayoutInflater

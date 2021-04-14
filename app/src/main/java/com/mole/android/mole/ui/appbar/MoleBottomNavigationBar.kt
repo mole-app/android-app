@@ -1,4 +1,4 @@
-package com.mole.android.mole.ui.MoleBottomNavigation
+package com.mole.android.mole.ui.appbar
 
 import android.content.Context
 import android.graphics.drawable.Drawable
