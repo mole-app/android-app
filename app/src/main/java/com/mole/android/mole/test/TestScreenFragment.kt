@@ -1,9 +1,8 @@
 package com.mole.android.mole.test
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
@@ -21,10 +20,36 @@ class TestScreenFragment : Fragment() {
         val circleImageButton: AppCompatImageButton = view.findViewById(R.id.test_screen_circle_button_disable)
         circleImageButton.isEnabled = false
 
-        val toolbar: Toolbar = view.findViewById(R.id.toolbarTest)
+        val toolbar: Toolbar = view.findViewById(R.id.moleToolbarWithText)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-//        toolbar.inflateMenu(R.menu.bottom_nav_menu)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
         return view
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        // First clear current all the menu items
+        menu.clear()
+
+        // Add the new menu items
+        inflater.inflate(R.menu.profile_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.setting_menu_item -> {
+                Toast.makeText(this.context, "edit_menu_item", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 }

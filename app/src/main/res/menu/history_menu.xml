@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/edit_menu_item"
+        android:actionLayout="@layout/view_edit_menu_icon"
+        app:actionLayout="@layout/view_edit_menu_icon"
+        android:title="Edit"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/trash_menu_item"
+        android:actionLayout="@layout/view_trash_menu_icon"
+        app:actionLayout="@layout/view_trash_menu_icon"
+        android:title="Trash"
+        app:showAsAction="ifRoom" />
+</menu>
