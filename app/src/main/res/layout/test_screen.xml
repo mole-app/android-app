@@ -18,7 +18,7 @@
             android:layout_margin="8dp"
             android:backgroundTint="@color/green"
             app:additional_info="invisible"
-            app:postfix="" />
+            app:postfix="р." />
 
         <com.mole.android.mole.MoleMessage
             android:layout_width="wrap_content"
@@ -26,7 +26,11 @@
             android:layout_margin="8dp"
             android:backgroundTint="@color/green"
             app:additional_info="visible"
-            app:postfix="р." />
+            app:postfix="" />
+
+        <include
+            android:id="@+id/test_actionbar"
+            layout="@layout/test_actionbar" />
 
         <include
             android:id="@+id/test_buttons"

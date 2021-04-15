@@ -1,0 +1,3 @@
+<androidx.appcompat.widget.AppCompatImageButton style="@style/MoleButton.BorderlessIcon"
+    android:src="@drawable/ic_edit_profile"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

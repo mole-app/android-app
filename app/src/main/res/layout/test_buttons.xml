@@ -4,39 +4,7 @@
     android:id="@+id/buttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/Toolbar"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="0dp">
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/backActionButton"
-            style="@style/MoleButton.Icon"
-            android:src="@drawable/ic_back" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.BorderlessIcon"
-            android:src="@drawable/ic_trash" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.BorderlessIcon"
-            android:src="@drawable/ic_edit_profile" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <com.mole.android.mole.ui.actionbar.MoleActionBarWithText
-        android:id="@+id/moleToolbarWithText"
-        style="@style/Toolbar"
-        app:textTitle="MOLE" />
-
-    <com.mole.android.mole.ui.actionbar.MoleActionBarFactoryButton
-        android:id="@+id/moleToolbarFactoryButton"
-        style="@style/Toolbar"
-        />
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageButton
         style="@style/MoleButton.Round"
@@ -45,12 +13,14 @@
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/MoleButton.Rectangle"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/MoleButton.Rectangle.Borderless"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -61,13 +31,15 @@
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/MoleButton.Rectangle"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/MoleButton.Rectangle.Borderless"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
 
@@ -79,20 +51,14 @@
         android:padding="8dp">
 
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.Icon"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_setting" />
+        <include
+            layout="@layout/view_setting_menu_icon"/>
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.Icon"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_back" />
+        <include
+            layout="@layout/view_back_menu_icon"/>
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.Icon"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_search" />
+        <include
+            layout="@layout/view_search_menu_icon"/>
 
     </LinearLayout>
 
@@ -103,14 +69,10 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.BorderlessIcon"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_trash" />
+        <include
+            layout="@layout/view_trash_menu_icon" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.BorderlessIcon"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_edit_profile" />
+        <include
+            layout="@layout/view_edit_menu_icon" />
     </LinearLayout>
 </LinearLayout>
