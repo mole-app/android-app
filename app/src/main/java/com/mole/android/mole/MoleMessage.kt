@@ -6,12 +6,12 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-
+import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import kotlin.math.absoluteValue
 import kotlin.math.sign
+
 
 class MoleMessage @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -32,24 +32,23 @@ class MoleMessage @JvmOverloads constructor(
     private val balanceTextView: TextView = findViewById(R.id.balance)
 
 
-    //    @ColorInt
-    private val colorAccept: Int
-
-    init {
-        val typedValue = TypedValue()
-        val theme = context.theme
-        theme.resolveAttribute(R.attr.colorAccept, typedValue, true)
-        colorAccept = typedValue.data
-    }
-
-    private val colorDeny: Int
-
-    init {
-        val typedValue = TypedValue()
-        val theme = context.theme
-        theme.resolveAttribute(R.attr.colorDeny, typedValue, true)
-        colorDeny = typedValue.data
-    }
+//    @ColorInt private val colorAccept: Int
+//
+//    init {
+//        val typedValue = TypedValue()
+//        val theme = context.theme
+//        theme.resolveAttribute(R.attr.colorAccept, typedValue, true)
+//        colorAccept = typedValue.data
+//    }
+//
+//    @ColorInt private val colorDeny: Int
+//
+//    init {
+//        val typedValue = TypedValue()
+//        val theme = context.theme
+//        theme.resolveAttribute(R.attr.colorDeny, typedValue, true)
+//        colorDeny = typedValue.data
+//    }
 
     private var postfix: String = ""
 
@@ -59,11 +58,17 @@ class MoleMessage @JvmOverloads constructor(
             when (value.sign) {
                 1 -> {
                     sign = "+ "
-                    backgroundTintList = context.resources.getColorStateList(R.color.color_accept, null)
+                    backgroundTintList = context.resources.getColorStateList(
+                        R.color.color_accept,
+                        null
+                    )
                 }
                 -1 -> {
                     sign = "- "
-                    backgroundTintList = context.resources.getColorStateList(R.color.color_deny, null)
+                    backgroundTintList = context.resources.getColorStateList(
+                        R.color.color_deny,
+                        null
+                    )
                 }
                 else -> {
                     sign = ""

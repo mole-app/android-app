@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Disable -->
     <item android:state_enabled="false"
-        android:color="?attr/colorTextDisabled" />
+        android:color="?attr/textColorDisabled" />
 
     <!-- Default -->
-    <item android:color="?attr/colorTextPrimary" />
+    <item android:color="?attr/textColorPrimary" />
 </selector>

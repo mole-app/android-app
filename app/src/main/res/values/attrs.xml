@@ -9,8 +9,8 @@
     <attr name="colorButtonDisableEnd" format="color" />
     <attr name="colorButtonIconStart" format="color" />
     <attr name="colorButtonIconEnd" format="color" />
-    <attr name="colorTextPrimary" format="color" />
-    <attr name="colorTextDisabled" format="color" />
+    <attr name="textColorPrimary" format="color" />
+    <attr name="textColorDisabled" format="color" />
     <attr name="colorIcon" format="color" />
     <attr name="colorIconDisabled" format="color" />
     <attr name="colorBorderlessIcon" format="color" />
@@ -20,6 +20,14 @@
     </declare-styleable>
     <declare-styleable name="MoleActionBarWithText">
         <attr name="textTitle" format="string" localization="suggested" />
+        <attr name="backVisible">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0" />
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1" />
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2" />
+        </attr>
     </declare-styleable>
     <declare-styleable name="MoleMessage">
         <attr name="additional_info">

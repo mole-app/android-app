@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Mole" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
         <item name="colorOnPrimary">@color/color_on_primary</item>
@@ -15,11 +16,10 @@
         <item name="colorButtonDisableEnd">@color/gradient_button_disable_end</item>
         <item name="colorButtonIconStart">@color/gradient_button_icon_start</item>
         <item name="colorButtonIconEnd">@color/gradient_button_icon_end</item>
-        <item name="colorTextPrimary">@color/color_text</item>
-        <item name="colorTextDisabled">@color/color_text_disabled</item>
+        <item name="textColorPrimary">@color/color_text</item>
+        <item name="textColorDisabled">@color/color_text_disabled</item>
         <item name="colorIcon">@color/color_icon</item>
         <item name="colorIconDisabled">@color/color_icon_disabled</item>
-        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:colorBackground">?attr/colorPrimary</item>
     </style>
@@ -35,6 +35,8 @@
         <item name="android:background">@drawable/selector_rectangle_button</item>
         <item name="android:radius">60dp</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_height">40dp</item>
     </style>
 
@@ -59,12 +61,12 @@
         <item name="android:background">@drawable/selector_icon_borderless_button</item>
         <item name="android:radius">60dp</item>
         <item name="android:tint">?attr/colorBorderlessIcon</item>
-        <item name="android:layout_width">56dp</item>
-        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_width">@dimen/menu_item_icon_size</item>
+        <item name="android:layout_height">@dimen/menu_item_icon_size</item>
     </style>
 
     <style name="MoleText">
-        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textColor">?attr/textColorPrimary</item>
     </style>
 
     <style name="MoleText.Medium">
