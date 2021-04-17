@@ -2,6 +2,7 @@
 <resources>
     <attr name="colorAccept" format="color" />
     <attr name="colorDeny" format="color" />
+    <attr name="colorDisabled" format="color" />
     <attr name="colorButtonRipple" format="color" />
     <attr name="colorButtonActiveStart" format="color" />
     <attr name="colorButtonActiveEnd" format="color" />
@@ -18,9 +19,17 @@
         <attr name="foregroundFloatingActionButton" format="reference|color" />
         <attr name="menuBottomNavigation" format="reference"/>
     </declare-styleable>
-    <declare-styleable name="MoleActionBarWithText">
+    <declare-styleable name="MoleActionBar">
         <attr name="textTitle" format="string" localization="suggested" />
         <attr name="backVisible">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0" />
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1" />
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2" />
+        </attr>
+        <attr name="titleVisible">
             <!-- Visible on screen; the default value. -->
             <enum name="visible" value="0" />
             <!-- Not displayed, but taken into account during layout (space is left for it). -->

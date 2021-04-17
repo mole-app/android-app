@@ -16,6 +16,7 @@
     <color name="color_on_primary">@color/black</color>
     <color name="color_accept">@color/green</color>
     <color name="color_deny">@color/red</color>
+    <color name="color_disabled">@color/gray</color>
     <color name="color_text">@color/white</color>
     <color name="color_text_disabled">@color/white_alpha_50</color>
     <color name="color_icon">@color/white</color>
