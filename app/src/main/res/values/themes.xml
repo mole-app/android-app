@@ -8,6 +8,7 @@
         <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorAccept">@color/color_accept</item>
         <item name="colorDeny">@color/color_deny</item>
+        <item name="colorDisabled">@color/color_disabled</item>
         <item name="colorButtonRipple">@color/white</item>
         <item name="colorBorderlessIcon">@color/color_borderless_icon</item>
         <item name="colorButtonActiveStart">@color/gradient_button_active_start</item>
@@ -22,117 +23,5 @@
         <item name="colorIconDisabled">@color/color_icon_disabled</item>
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:colorBackground">?attr/colorPrimary</item>
-    </style>
-
-    <style name="MoleButton">
-        <item name="android:textAllCaps">false</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textAppearance">@style/MoleText.Medium.Text2</item>
-        <item name="android:textColor">@drawable/selector_text_button</item>
-    </style>
-
-    <style name="MoleButton.Rectangle">
-        <item name="android:background">@drawable/selector_rectangle_button</item>
-        <item name="android:radius">60dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
-        <item name="android:layout_height">40dp</item>
-    </style>
-
-    <style name="MoleButton.Round">
-        <item name="tint">@drawable/selector_tint_button</item>
-        <item name="android:background">@drawable/selector_round_button</item>
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">80dp</item>
-    </style>
-
-    <style name="MoleButton.Icon">
-        <item name="android:background">@drawable/shape_icon_button</item>
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
-    </style>
-
-    <style name="MoleButton.Rectangle.Borderless">
-        <item name="android:background">@drawable/selector_rectangle_borderless_button</item>
-    </style>
-
-    <style name="MoleButton.BorderlessIcon">
-        <item name="android:background">@drawable/selector_icon_borderless_button</item>
-        <item name="android:radius">60dp</item>
-        <item name="android:tint">?attr/colorBorderlessIcon</item>
-        <item name="android:layout_width">@dimen/menu_item_icon_size</item>
-        <item name="android:layout_height">@dimen/menu_item_icon_size</item>
-    </style>
-
-    <style name="MoleText">
-        <item name="android:textColor">?attr/textColorPrimary</item>
-    </style>
-
-    <style name="MoleText.Medium">
-        <item name="fontFamily">@font/montserrat_medium</item>
-        <item name="android:fontFamily">@font/montserrat_medium</item>
-    </style>
-
-    <style name="MoleText.Light">
-        <item name="fontFamily">@font/montserrat_light</item>
-        <item name="android:fontFamily">@font/montserrat_light</item>
-    </style>
-
-    <style name="MoleText.Regular">
-        <item name="fontFamily">@font/montserrat_regular</item>
-        <item name="android:fontFamily">@font/montserrat_regular</item>
-    </style>
-
-    <style name="MoleText.Bold">
-        <item name="fontFamily">@font/montserrat_bold</item>
-        <item name="android:fontFamily">@font/montserrat_bold</item>
-    </style>
-
-    <style name="MoleText.Light.Title">
-        <item name="android:textSize">24sp</item>
-    </style>
-
-    <style name="MoleText.Medium.Title">
-        <item name="android:textSize">24sp</item>
-    </style>
-
-    <style name="MoleText.Medium.Headline">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="MoleText.Bold.Headline">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="MoleText.Medium.Text1">
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="MoleText.Regular.Text1">
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="MoleText.Medium.Text2">
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="MoleText.Regular.Text2">
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="MoleText.Medium.Caption">
-        <item name="android:textSize">10sp</item>
-    </style>
-
-    <style name="MoleText.Regular.Caption">
-        <item name="android:textSize">10sp</item>
-    </style>
-
-    <style name="Toolbar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
-        <!-- <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item> -->
-        <item name="android:background">?attr/colorPrimary</item>
     </style>
 </resources>
