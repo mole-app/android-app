@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/backActionButton"
-        layout="@layout/view_back_menu_icon"/>
+    <!--    <include-->
+    <!--        android:id="@+id/backActionButton"-->
+    <!--        layout="@layout/view_back_menu_icon"/>-->
 
     <ImageView
         android:layout_width="37dp"
         android:layout_height="37dp"
-        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/name"
         style="@style/MoleText.Medium.Headline"
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Александр" />
 
-    <com.mole.android.mole.MoleMessage
+    <com.mole.android.mole.MoleMessageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="end|center"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:additional_info="invisible"
         app:postfix="р." />
-</merge>
+</LinearLayout>
