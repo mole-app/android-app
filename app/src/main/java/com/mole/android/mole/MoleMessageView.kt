@@ -1,6 +1,7 @@
 package com.mole.android.mole
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -13,7 +14,7 @@ import kotlin.math.absoluteValue
 import kotlin.math.sign
 
 
-class MoleMessage @JvmOverloads constructor(
+class MoleMessageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
@@ -32,23 +33,20 @@ class MoleMessage @JvmOverloads constructor(
     private val balanceTextView: TextView = findViewById(R.id.balance)
 
 
-//    @ColorInt private val colorAccept: Int
-//
-//    init {
-//        val typedValue = TypedValue()
-//        val theme = context.theme
-//        theme.resolveAttribute(R.attr.colorAccept, typedValue, true)
-//        colorAccept = typedValue.data
-//    }
-//
-//    @ColorInt private val colorDeny: Int
-//
-//    init {
-//        val typedValue = TypedValue()
-//        val theme = context.theme
-//        theme.resolveAttribute(R.attr.colorDeny, typedValue, true)
-//        colorDeny = typedValue.data
-//    }
+    @ColorInt private val colorAccept: Int
+    @ColorInt private val colorDeny: Int
+    @ColorInt private val colorDisabled: Int
+
+    init {
+        val typedValue = TypedValue()
+        val theme = context.theme
+        theme.resolveAttribute(R.attr.colorAccept, typedValue, true)
+        colorAccept = typedValue.data
+        theme.resolveAttribute(R.attr.colorDisabled, typedValue, true)
+        colorDisabled = typedValue.data
+        theme.resolveAttribute(R.attr.colorDeny, typedValue, true)
+        colorDeny = typedValue.data
+    }
 
     private var postfix: String = ""
 
@@ -58,20 +56,42 @@ class MoleMessage @JvmOverloads constructor(
             when (value.sign) {
                 1 -> {
                     sign = "+ "
-                    backgroundTintList = context.resources.getColorStateList(
-                        R.color.color_accept,
-                        null
+                    val states = arrayOf(
+                        intArrayOf(android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_enabled)
                     )
+                    val colors = intArrayOf(
+                        colorAccept,
+                        colorAccept
+                    )
+                    val myList = ColorStateList(states, colors)
+                    backgroundTintList = myList
                 }
                 -1 -> {
                     sign = "- "
-                    backgroundTintList = context.resources.getColorStateList(
-                        R.color.color_deny,
-                        null
+                    val states = arrayOf(
+                        intArrayOf(android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_enabled)
                     )
+                    val colors = intArrayOf(
+                        colorDeny,
+                        colorDeny
+                    )
+                    val myList = ColorStateList(states, colors)
+                    backgroundTintList = myList
                 }
                 else -> {
                     sign = ""
+                    val states = arrayOf(
+                        intArrayOf(android.R.attr.state_enabled),
+                        intArrayOf(-android.R.attr.state_enabled)
+                    )
+                    val colors = intArrayOf(
+                        colorDisabled,
+                        colorDisabled
+                    )
+                    val myList = ColorStateList(states, colors)
+                    backgroundTintList = myList
                 }
             }
 
@@ -81,7 +101,7 @@ class MoleMessage @JvmOverloads constructor(
 
     init {
         init(context, attrs)
-        balance = -4000
+        balance = 1500
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
