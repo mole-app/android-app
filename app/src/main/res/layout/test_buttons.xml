@@ -52,13 +52,22 @@
 
 
         <include
-            layout="@layout/view_setting_menu_icon"/>
-
-        <include
             layout="@layout/view_back_menu_icon"/>
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.Icon"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center|end"
+            android:src="@drawable/ic_setting" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.Icon"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center|end"
+            android:src="@drawable/ic_search" />
+
         <include
-            layout="@layout/view_search_menu_icon"/>
+            layout="@layout/view_single_menu_icon"/>
 
     </LinearLayout>
 
@@ -69,10 +78,12 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <include
-            layout="@layout/view_trash_menu_icon" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.BorderlessIcon"
+            android:src="@drawable/ic_trash" />
 
-        <include
-            layout="@layout/view_edit_menu_icon" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            style="@style/MoleButton.BorderlessIcon"
+            android:src="@drawable/ic_edit_profile" />
     </LinearLayout>
 </LinearLayout>

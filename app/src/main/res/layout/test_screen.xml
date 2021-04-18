@@ -12,7 +12,13 @@
         android:orientation="vertical"
         android:paddingTop="?attr/actionBarSize">
 
-        <com.mole.android.mole.MoleMessage
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            />
+
+        <com.mole.android.mole.MoleMessageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -20,7 +26,7 @@
             app:additional_info="invisible"
             app:postfix="р." />
 
-        <com.mole.android.mole.MoleMessage
+        <com.mole.android.mole.MoleMessageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

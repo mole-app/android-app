@@ -9,15 +9,20 @@
         android:id="@+id/moleToolbarMessenger"
         style="@style/Toolbar" />
 
-    <com.mole.android.mole.ui.actionbar.MoleActionBarWithText
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
         android:id="@+id/moleToolbarWithText"
         style="@style/Toolbar"
         app:textTitle="MOLE" />
 
-    <com.mole.android.mole.ui.actionbar.MoleActionBarWithText
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
         android:id="@+id/moleToolbarWithOnlyText"
         style="@style/Toolbar"
         app:backVisible="gone"
+        app:titleVisible="visible"
         app:textTitle="Новый Долг" />
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBarSearch
+        android:id="@+id/moleToolbarSearch"
+        style="@style/Toolbar" />
 
 </LinearLayout>
