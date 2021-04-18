@@ -3,11 +3,14 @@ package com.mole.android.mole.test
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.mole.android.mole.R
+import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class FragmentTest : Fragment() {
+
+    private var toolbar: MoleActionBar? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -15,7 +18,7 @@ class FragmentTest : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.test_screen, container, false)
 
-        val toolbar: Toolbar = view.findViewById(R.id.moleToolbarWithText)
+        toolbar = view.findViewById(R.id.moleToolbarWithText)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -28,12 +31,13 @@ class FragmentTest : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
         // First clear current all the menu items
         menu.clear()
 
         // Add the new menu items
         inflater.inflate(R.menu.history_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+        toolbar?.bindMenu()
     }
 
 }

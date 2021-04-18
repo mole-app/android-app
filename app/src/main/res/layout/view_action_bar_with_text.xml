@@ -5,6 +5,14 @@
         android:id="@+id/backActionButtonWithText"
         layout="@layout/view_back_menu_icon"/>
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/additionalView"
+        />
+
     <TextView
         android:id="@+id/textActionBar"
         style="@style/MoleText.Bold.Headline"
