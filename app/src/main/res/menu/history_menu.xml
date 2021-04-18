@@ -4,15 +4,15 @@
 
     <item
         android:id="@+id/edit_menu_item"
-        android:actionLayout="@layout/view_edit_menu_icon"
-        app:actionLayout="@layout/view_edit_menu_icon"
+        android:icon="@drawable/ic_edit_profile"
         android:title="Edit"
+        app:actionLayout="@layout/view_borderless_menu_icon"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/trash_menu_item"
-        android:actionLayout="@layout/view_trash_menu_icon"
-        app:actionLayout="@layout/view_trash_menu_icon"
+        android:icon="@drawable/ic_trash"
         android:title="Trash"
+        app:actionLayout="@layout/view_borderless_menu_icon"
         app:showAsAction="ifRoom" />
 </menu>
