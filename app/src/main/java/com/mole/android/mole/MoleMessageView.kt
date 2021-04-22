@@ -46,7 +46,7 @@ class MoleMessageView @JvmOverloads constructor(
             field = value
         }
 
-    private val balanceTextView: TextView = findViewById(R.id.balance)
+    private val balanceTextView: TextView
 
     init {
         background = ResourcesCompat.getDrawable(resources, R.drawable.shape_massage, null)
@@ -64,6 +64,8 @@ class MoleMessageView @JvmOverloads constructor(
 
         init(context, attrs)
 
+        balanceTextView = findViewById(R.id.balance)
+
         balanceTextView.text = "${0}"
         balance = 15000
     }
@@ -78,7 +80,7 @@ class MoleMessageView @JvmOverloads constructor(
             )
             val (additionalInfo, postfix) = try {
                 val additionalInfo =
-                    typedArray.getInt(R.styleable.MoleMessageView_additional_info, 0)
+                    typedArray.getBoolean(R.styleable.MoleMessageView_additional_info, true)
 
                 val postfix = typedArray.getString(R.styleable.MoleMessageView_postfix)
 
@@ -92,7 +94,7 @@ class MoleMessageView @JvmOverloads constructor(
         }
     }
 
-    private fun handleAttr(additionalInfo: Int, postfix: String?) {
+    private fun handleAttr(additionalInfo: Boolean, postfix: String?) {
         setAdditionalInfoAttr(additionalInfo)
         if (postfix != null) {
             setPostfixAttr(postfix)
@@ -103,12 +105,12 @@ class MoleMessageView @JvmOverloads constructor(
         this.postfix = postfix
     }
 
-    private fun setAdditionalInfoAttr(additionalInfo: Int) {
+    private fun setAdditionalInfoAttr(additionalInfo: Boolean) {
         when (additionalInfo) {
-            1 -> {
+            false -> {
                 inflate(context, R.layout.view_message, this)
             }
-            0 -> {
+            true -> {
                 inflate(context, R.layout.view_message_with_info, this)
             }
         }
