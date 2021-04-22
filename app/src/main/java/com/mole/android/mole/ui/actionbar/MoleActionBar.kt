@@ -56,8 +56,8 @@ open class MoleActionBar @JvmOverloads constructor(
                 0,
                 0
             )
-            val backVisible = typedArray.getInt(R.styleable.MoleActionBar_backVisible, 0)
-            val titleVisible = typedArray.getInt(R.styleable.MoleActionBar_titleVisible, 0)
+            val backVisible = typedArray.getBoolean(R.styleable.MoleActionBar_backVisible, false)
+            val titleVisible = typedArray.getBoolean(R.styleable.MoleActionBar_titleVisible, false)
             val textTitle = try {
                 val textTitle =
                     typedArray.getString(R.styleable.MoleActionBar_textTitle)
@@ -76,7 +76,7 @@ open class MoleActionBar @JvmOverloads constructor(
         }
     }
 
-    private fun handleAttr(textTitle: String?, backVisible: Int, titleVisible: Int) {
+    private fun handleAttr(textTitle: String?, backVisible: Boolean, titleVisible: Boolean) {
         if (textTitle != null) {
             setTextTitleAttr(textTitle)
         }
@@ -84,19 +84,18 @@ open class MoleActionBar @JvmOverloads constructor(
         setTitleVisibleAttr(titleVisible)
     }
 
-    private fun setBackVisibleAttr(backVisible: Int) {
+    private fun setBackVisibleAttr(backVisible: Boolean) {
         setVisibleView(backImageButton, backVisible)
     }
 
-    private fun setTitleVisibleAttr(backVisible: Int) {
+    private fun setTitleVisibleAttr(backVisible: Boolean) {
         setVisibleView(titleTextView, backVisible)
     }
 
-    private fun setVisibleView(view: View, visible: Int) {
+    private fun setVisibleView(view: View, visible: Boolean) {
         when (visible) {
-            0 -> view.visibility = View.VISIBLE
-            1 -> view.visibility = View.INVISIBLE
-            2 -> view.visibility = View.GONE
+            true -> view.visibility = View.VISIBLE
+            false -> view.visibility = View.GONE
         }
     }
 

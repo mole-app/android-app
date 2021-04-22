@@ -37,15 +37,7 @@ class TestScreenFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-//
-//        inflater.inflate(R.menu.search_menu, menu)
-//
-//        val searchItem: MenuItem? = menu.findItem(R.id.actionSearch)
-//        val searchManager = getSystemService(requireActivity(), Context.SEARCH_SERVICE) as SearchManager
-//        val searchView: SearchView? = searchItem?.actionView as SearchView?
-//
-//        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-//
+
         // First clear current all the menu items
         menu.clear()
 
@@ -53,30 +45,6 @@ class TestScreenFragment : Fragment() {
         inflater.inflate(R.menu.profile_menu, menu)
         toolbar?.bindMenu()
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.profile_menu, menu)
-//        val searchViewItem = menu.findItem(R.id.actionSearch)
-//        val searchView = MenuItemCompat.getActionView(searchViewItem) as SearchView
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String): Boolean {
-//                searchView.clearFocus()
-//                /*   if(list.contains(query)){
-//                    adapter.getFilter().filter(query);
-//                }else{
-//                    Toast.makeText(MainActivity.this, "No Match found",Toast.LENGTH_LONG).show();
-//                }*/
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String): Boolean {
-//                adapter?.filter?.filter(newText)
-//                return false
-//            }
-//        })
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.setting_menu_item -> {

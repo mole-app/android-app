@@ -18,22 +18,6 @@
             android:layout_height="fill_parent"
             />
 
-        <com.mole.android.mole.MoleMessageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:backgroundTint="@color/green"
-            app:additional_info="invisible"
-            app:postfix="р." />
-
-        <com.mole.android.mole.MoleMessageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:backgroundTint="@color/green"
-            app:additional_info="visible"
-            app:postfix="" />
-
         <include
             android:id="@+id/test_actionbar"
             layout="@layout/test_actionbar" />
@@ -41,6 +25,21 @@
         <include
             android:id="@+id/test_buttons"
             layout="@layout/test_buttons" />
+
+        <com.mole.android.mole.MoleMessageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/green"
+            app:additional_info="invisible"
+            app:postfix=" р." />
+
+        <com.mole.android.mole.MoleMessageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/green"
+            app:additional_info="visible" />
 
         <include
             android:id="@+id/test_colors"
