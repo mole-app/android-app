@@ -38,7 +38,7 @@
             <enum name="gone" value="2" />
         </attr>
     </declare-styleable>
-    <declare-styleable name="MoleMessage">
+    <declare-styleable name="MoleMessageView">
         <attr name="additional_info">
                 <!-- Visible; the default value. -->
                 <enum name="visible" value="0" />
