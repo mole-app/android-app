@@ -12,6 +12,7 @@
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/test_rectangle"
         style="@style/MoleButton.Rectangle"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"

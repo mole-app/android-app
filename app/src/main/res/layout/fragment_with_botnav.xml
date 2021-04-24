@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
-        android:id="@+id/navigationCoordinatorLayout"
+        android:id="@+id/navigation_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="8dp"

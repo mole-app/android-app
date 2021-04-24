@@ -38,7 +38,7 @@ class FragmentBottomBar : Fragment() {
         }
 
         val navigationAppBar: MoleBottomNavigationBar =
-            view.findViewById(R.id.navigationCoordinatorLayout)
+            view.findViewById(R.id.navigation_coordinator_layout)
 
         navigationAppBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

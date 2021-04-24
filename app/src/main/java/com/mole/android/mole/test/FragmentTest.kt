@@ -18,7 +18,7 @@ class FragmentTest : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.test_screen, container, false)
 
-        toolbar = view.findViewById(R.id.moleToolbarWithText)
+        toolbar = view.findViewById(R.id.mole_toolbar_with_text)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -39,5 +39,4 @@ class FragmentTest : Fragment() {
         inflater.inflate(R.menu.history_menu, menu)
         toolbar?.bindMenu()
     }
-
 }

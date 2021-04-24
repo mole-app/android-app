@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+        android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -16,7 +16,7 @@
         tools:ignore="BottomAppBar">
 
         <com.mole.android.mole.ui.appbar.navigation.MoleBottomNavigationView
-            android:id="@+id/bottomNavigation"
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -35,11 +35,11 @@
         app:backgroundTint="@android:color/transparent"
         app:borderWidth="0dp"
         app:elevation="0dp"
-        app:layout_anchor="@id/bottomAppBar"
+        app:layout_anchor="@id/bottom_app_bar"
         app:useCompatPadding="false" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/backgroundFabView"
+        android:id="@+id/background_fab_view"
         android:layout_width="@dimen/design_fab_image_size"
         android:layout_height="@dimen/design_fab_image_size"
         android:background="@drawable/fab_background"

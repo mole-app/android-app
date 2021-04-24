@@ -23,7 +23,7 @@ class TestScreenFragment : Fragment() {
         val circleImageButton: AppCompatImageButton = view.findViewById(R.id.test_screen_circle_button_disable)
         circleImageButton.isEnabled = false
 
-        toolbar = view.findViewById(R.id.moleToolbarWithText)
+        toolbar = view.findViewById(R.id.mole_toolbar_with_text)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 

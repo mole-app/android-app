@@ -16,17 +16,16 @@ open class MoleActionBar @JvmOverloads constructor(
 ) : Toolbar(context, attrs, defStyleAttr) {
 
     open fun customView(): View? = null
-    open fun customViewId(): Int = 0
 
     init {
         inflate(context, R.layout.view_action_bar_with_text, this)
     }
 
-    private val titleTextView: TextView = findViewById(R.id.textActionBar)
-    private val backImageButton: AppCompatImageButton = findViewById(R.id.backActionButtonWithText)
+    private val titleTextView: TextView = findViewById(R.id.text_action_bar)
+    private val backImageButton: AppCompatImageButton = findViewById(R.id.back_action_button_with_text)
 
     init {
-        val customViewLinear: LinearLayout = findViewById(R.id.additionalView)
+        val customViewLinear: LinearLayout = findViewById(R.id.additional_view)
 
         val customView = customView()
         if (customView != null) {
@@ -37,14 +36,6 @@ open class MoleActionBar @JvmOverloads constructor(
             customViewLinear.addView(customView)
         }
 
-        val customViewId = customViewId()
-        if (customViewId != 0) {
-            customViewLinear.layoutParams = LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT
-            )
-            inflate(context, customViewId, customViewLinear)
-        }
         init(context, attrs)
     }
 

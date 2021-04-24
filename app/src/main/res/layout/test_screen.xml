@@ -12,12 +12,6 @@
         android:orientation="vertical"
         android:paddingTop="?attr/actionBarSize">
 
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            />
-
         <include
             android:id="@+id/test_actionbar"
             layout="@layout/test_actionbar" />
@@ -31,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:backgroundTint="@color/green"
-            app:additional_info="invisible"
+            app:additional_info="false"
             app:postfix=" р." />
 
         <com.mole.android.mole.MoleMessageView
@@ -39,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:backgroundTint="@color/green"
-            app:additional_info="visible" />
+            app:additional_info="true" />
 
         <include
             android:id="@+id/test_colors"

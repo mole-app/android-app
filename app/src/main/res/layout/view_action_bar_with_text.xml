@@ -2,19 +2,18 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <include
-        android:id="@+id/backActionButtonWithText"
-        layout="@layout/view_back_menu_icon"/>
+        android:id="@+id/back_action_button_with_text"
+        layout="@layout/view_back_menu_icon" />
 
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/additional_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/additionalView"
-        />
+        android:orientation="horizontal" />
 
     <TextView
-        android:id="@+id/textActionBar"
+        android:id="@+id/text_action_bar"
         style="@style/MoleText.Bold.Headline"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
