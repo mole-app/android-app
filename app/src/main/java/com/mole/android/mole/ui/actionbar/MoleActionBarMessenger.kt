@@ -2,10 +2,9 @@ package com.mole.android.mole.ui.actionbar
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import com.mole.android.mole.R
 
 class MoleActionBarMessenger @JvmOverloads constructor(
@@ -18,7 +17,7 @@ class MoleActionBarMessenger @JvmOverloads constructor(
         nameTextView.text = name
     }
 
-    override fun customView(): View {
-        return inflate(context, R.layout.view_action_bar_messenger, null)
+    override fun customView(parent: ViewGroup): View {
+        return inflate(context, R.layout.view_action_bar_messenger, parent)
     }
 }

@@ -3,6 +3,7 @@ package com.mole.android.mole.ui.actionbar
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
@@ -15,7 +16,7 @@ open class MoleActionBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : Toolbar(context, attrs, defStyleAttr) {
 
-    open fun customView(): View? = null
+    open fun customView(parent: ViewGroup): View? = null
 
     init {
         inflate(context, R.layout.view_action_bar_with_text, this)
@@ -26,15 +27,7 @@ open class MoleActionBar @JvmOverloads constructor(
 
     init {
         val customViewLinear: LinearLayout = findViewById(R.id.additional_view)
-
-        val customView = customView()
-        if (customView != null) {
-            customViewLinear.layoutParams = LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT
-            )
-            customViewLinear.addView(customView)
-        }
+        customView(customViewLinear)
 
         init(context, attrs)
     }
