@@ -3,6 +3,7 @@ package com.mole.android.mole
 import android.content.Context
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
@@ -109,9 +110,21 @@ class MoleMessageView @JvmOverloads constructor(
         when (additionalInfo) {
             false -> {
                 inflate(context, R.layout.view_message, this)
+                setPaddingRelative(
+                    (8 * Resources.getSystem().displayMetrics.density).toInt(),
+                    0,
+                    (8 * Resources.getSystem().displayMetrics.density).toInt(),
+                    0
+                )
             }
             true -> {
                 inflate(context, R.layout.view_message_with_info, this)
+                setPaddingRelative(
+                    (16 * Resources.getSystem().displayMetrics.density).toInt(),
+                    0,
+                    (16 * Resources.getSystem().displayMetrics.density).toInt(),
+                    0
+                )
             }
         }
     }
