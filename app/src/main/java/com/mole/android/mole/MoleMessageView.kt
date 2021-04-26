@@ -43,6 +43,9 @@ class MoleMessageView @JvmOverloads constructor(
             updateBalance(value)
             field = value
         }
+    companion object {
+        var defaultValue: Int = 0
+    }
 
     private val balanceTextView: TextView
 
@@ -64,8 +67,7 @@ class MoleMessageView @JvmOverloads constructor(
 
         balanceTextView = findViewById(R.id.balance)
 
-        balanceTextView.text = "${0}"
-        balance = 15000
+        balance = defaultValue
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
