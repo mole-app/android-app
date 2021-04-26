@@ -41,7 +41,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="end"
         android:text="16:11"
-        android:textColor="@color/white_alpha_50"
+        android:textColor="?attr/textColorDisabled"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/balance"
