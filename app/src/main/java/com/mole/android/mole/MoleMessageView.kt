@@ -144,7 +144,7 @@ class MoleMessageView @JvmOverloads constructor(
                 backgroundTintList = ColorStateList.valueOf(colorDisabled)
             }
         }
-        balanceTextView.text = "$sign${value.absoluteValue}$postfix"
+        balanceTextView.text = context.getString(R.string.mole_message_balance, sign, value.absoluteValue, postfix)
     }
 
 }
