@@ -134,42 +134,15 @@ class MoleMessageView @JvmOverloads constructor(
         when (value.sign) {
             1 -> {
                 sign = "+ "
-                val states = arrayOf(
-                    intArrayOf(android.R.attr.state_enabled),
-                    intArrayOf(-android.R.attr.state_enabled)
-                )
-                val colors = intArrayOf(
-                    colorAccept,
-                    colorAccept
-                )
-                val myList = ColorStateList(states, colors)
-                backgroundTintList = myList
+                backgroundTintList = ColorStateList.valueOf(colorAccept)
             }
             -1 -> {
                 sign = "- "
-                val states = arrayOf(
-                    intArrayOf(android.R.attr.state_enabled),
-                    intArrayOf(-android.R.attr.state_enabled)
-                )
-                val colors = intArrayOf(
-                    colorDeny,
-                    colorDeny
-                )
-                val myList = ColorStateList(states, colors)
-                backgroundTintList = myList
+                backgroundTintList = ColorStateList.valueOf(colorDeny)
             }
             else -> {
                 sign = ""
-                val states = arrayOf(
-                    intArrayOf(android.R.attr.state_enabled),
-                    intArrayOf(-android.R.attr.state_enabled)
-                )
-                val colors = intArrayOf(
-                    colorDisabled,
-                    colorDisabled
-                )
-                val myList = ColorStateList(states, colors)
-                backgroundTintList = myList
+                backgroundTintList = ColorStateList.valueOf(colorDisabled)
             }
         }
         balanceTextView.text = "$sign${value.absoluteValue}$postfix"

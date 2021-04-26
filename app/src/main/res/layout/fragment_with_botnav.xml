@@ -5,14 +5,14 @@
     android:layout_height="match_parent">
 
     <com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
-        android:id="@+id/navigation_coordinator_layout"
+        android:id="@+id/mole_bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="8dp"
-        app:foregroundFloatingActionButton="@drawable/ic_fab"
-        app:menuBottomNavigation="@menu/bottom_nav_menu"
         android:paddingStart="0dp"
-        android:paddingEnd="0dp" />
+        android:paddingEnd="0dp"
+        app:foregroundFloatingActionButton="@drawable/ic_fab"
+        app:menuBottomNavigation="@menu/bottom_nav_menu" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

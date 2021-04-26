@@ -5,7 +5,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.mole.android.mole.R
 import com.mole.android.mole.ui.actionbar.MoleActionBar
