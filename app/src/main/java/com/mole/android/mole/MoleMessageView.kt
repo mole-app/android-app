@@ -3,12 +3,9 @@ package com.mole.android.mole
 import android.content.Context
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.Point
 import android.graphics.PointF
-import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.view.View.OnLongClickListener
@@ -111,18 +108,18 @@ class MoleMessageView @JvmOverloads constructor(
             false -> {
                 inflate(context, R.layout.view_message, this)
                 setPaddingRelative(
-                    (8 * Resources.getSystem().displayMetrics.density).toInt(),
+                    8.dp(),
                     0,
-                    (8 * Resources.getSystem().displayMetrics.density).toInt(),
+                    8.dp(),
                     0
                 )
             }
             true -> {
                 inflate(context, R.layout.view_message_with_info, this)
                 setPaddingRelative(
-                    (16 * Resources.getSystem().displayMetrics.density).toInt(),
+                    16.dp(),
                     0,
-                    (16 * Resources.getSystem().displayMetrics.density).toInt(),
+                    16.dp(),
                     0
                 )
             }
@@ -133,11 +130,11 @@ class MoleMessageView @JvmOverloads constructor(
         val sign: String
         when (value.sign) {
             1 -> {
-                sign = "+ "
+                sign = context.getString(R.string.plus_prefix)
                 backgroundTintList = ColorStateList.valueOf(colorAccept)
             }
             -1 -> {
-                sign = "- "
+                sign = context.getString(R.string.minus_prefix)
                 backgroundTintList = ColorStateList.valueOf(colorDeny)
             }
             else -> {

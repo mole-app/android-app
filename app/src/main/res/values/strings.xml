@@ -3,4 +3,6 @@
     <string name="debts">Debts</string>
     <string name="profile">Profile</string>
     <string name="search_hint">Поиск</string>
+    <string name="plus_prefix">"+ "</string>
+    <string name="minus_prefix">"- "</string>
 </resources>
