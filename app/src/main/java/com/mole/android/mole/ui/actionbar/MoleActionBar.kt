@@ -2,6 +2,7 @@ package com.mole.android.mole.ui.actionbar
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -24,11 +25,15 @@ open class MoleActionBar @JvmOverloads constructor(
     }
 
     private val titleTextView: TextView = findViewById(R.id.text_action_bar)
-    private val backImageButton: AppCompatImageButton = findViewById(R.id.back_action_button_with_text)
+    private val backImageButton: AppCompatImageButton =
+        findViewById(R.id.back_action_button_with_text)
 
     init {
         val customViewLinear: LinearLayout = findViewById(R.id.additional_view)
-        customView(customViewLinear)
+        val customView = customView(customViewLinear)
+        if (customView == null) {
+            customViewLinear.setVisibleView(false)
+        }
 
         init(context, attrs)
     }
@@ -63,22 +68,9 @@ open class MoleActionBar @JvmOverloads constructor(
 
     private fun handleAttr(textTitle: String?, backVisible: Boolean, titleVisible: Boolean) {
         if (textTitle != null) {
-            setTextTitleAttr(textTitle)
+            titleTextView.text = textTitle
         }
-        setBackVisibleAttr(backVisible)
-        setTitleVisibleAttr(titleVisible)
-    }
-
-    private fun setBackVisibleAttr(backVisible: Boolean) {
         backImageButton.setVisibleView(backVisible)
+        titleTextView.setVisibleView(titleVisible)
     }
-
-    private fun setTitleVisibleAttr(backVisible: Boolean) {
-        titleTextView.setVisibleView(backVisible)
-    }
-
-    private fun setTextTitleAttr(textTitle: String) {
-        titleTextView.text = textTitle
-    }
-
 }
