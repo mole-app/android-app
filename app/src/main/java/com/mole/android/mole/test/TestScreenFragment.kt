@@ -44,6 +44,7 @@ class TestScreenFragment : Fragment() {
         inflater.inflate(R.menu.profile_menu, menu)
         toolbar?.bindMenu()
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.setting_menu_item -> {
