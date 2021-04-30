@@ -1,4 +1,4 @@
-package com.mole.android.mole.ui.MoleBottomNavigation.BottomNavigationBar
+package com.mole.android.mole.ui.appbar.navigation
 
 import android.content.Context
 import android.graphics.Color

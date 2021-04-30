@@ -2,6 +2,7 @@
 <resources>
     <attr name="colorAccept" format="color" />
     <attr name="colorDeny" format="color" />
+    <attr name="colorDisabled" format="color" />
     <attr name="colorButtonRipple" format="color" />
     <attr name="colorButtonActiveStart" format="color" />
     <attr name="colorButtonActiveEnd" format="color" />
@@ -9,13 +10,22 @@
     <attr name="colorButtonDisableEnd" format="color" />
     <attr name="colorButtonIconStart" format="color" />
     <attr name="colorButtonIconEnd" format="color" />
-    <attr name="colorTextPrimary" format="color" />
-    <attr name="colorTextDisabled" format="color" />
+    <attr name="textColorPrimary" format="color" />
+    <attr name="textColorDisabled" format="color" />
     <attr name="colorIcon" format="color" />
     <attr name="colorIconDisabled" format="color" />
     <attr name="colorBorderlessIcon" format="color" />
     <declare-styleable name="MoleBottomNavigationBar">
         <attr name="foregroundFloatingActionButton" format="reference|color" />
-        <attr name="menuBottomNavigation" format="reference"/>
+        <attr name="menuBottomNavigation" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="MoleActionBar">
+        <attr name="textTitle" format="string" localization="suggested" />
+        <attr name="backVisible" format="boolean" />
+        <attr name="titleVisible" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="MoleMessageView">
+        <attr name="additional_info" format="boolean" />
+        <attr name="postfix" format="string" />
     </declare-styleable>
 </resources>

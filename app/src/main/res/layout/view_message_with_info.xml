@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/balance"
+        style="@style/MoleText.Medium.Text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/tag"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tag"
+        style="@style/MoleText.Regular.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="#ресторан"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/balance"
+        app:layout_constraintEnd_toStartOf="@id/time"
+        app:layout_constraintTop_toBottomOf="@id/balance" />
+
+    <TextView
+        android:id="@+id/time"
+        style="@style/MoleText.Regular.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="end"
+        android:text="16:11"
+        android:textColor="?attr/textColorDisabled"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/balance"
+        app:layout_constraintStart_toEndOf="@+id/tag"
+        app:layout_constraintTop_toBottomOf="@+id/balance" />
+</merge>

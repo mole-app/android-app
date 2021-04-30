@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBarMessenger
+        android:id="@+id/mole_toolbar_messenger"
+        style="@style/MoleToolbar"
+        app:backVisible="true" />
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/mole_toolbar_with_text"
+        style="@style/MoleToolbar"
+        app:backVisible="true"
+        app:textTitle="@string/test_action_bar_title_with_back"
+        app:titleVisible="true" />
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/mole_toolbar_with_only_text"
+        style="@style/MoleToolbar"
+        app:backVisible="false"
+        app:textTitle="@string/test_action_bar_title"
+        app:titleVisible="true" />
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBarSearch
+        android:id="@+id/mole_toolbar_search"
+        style="@style/MoleToolbar"
+        app:backVisible="true" />
+
+</LinearLayout>

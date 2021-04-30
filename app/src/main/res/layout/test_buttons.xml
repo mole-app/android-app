@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/buttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageButton
         style="@style/MoleButton.Round"
@@ -12,13 +12,16 @@
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/test_rectangle"
         style="@style/MoleButton.Rectangle"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/MoleButton.Rectangle.Borderless"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -29,13 +32,15 @@
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/MoleButton.Rectangle"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/MoleButton.Rectangle.Borderless"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
 
@@ -47,20 +52,23 @@
         android:padding="8dp">
 
 
+        <include
+            layout="@layout/view_back_menu_icon"/>
+
         <androidx.appcompat.widget.AppCompatImageButton
             style="@style/MoleButton.Icon"
-            android:layout_margin="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center|end"
             android:src="@drawable/ic_setting" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             style="@style/MoleButton.Icon"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_back" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.Icon"
-            android:layout_margin="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center|end"
             android:src="@drawable/ic_search" />
+
+        <include
+            layout="@layout/view_single_menu_icon"/>
 
     </LinearLayout>
 
@@ -73,12 +81,10 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             style="@style/MoleButton.BorderlessIcon"
-            android:layout_margin="8dp"
             android:src="@drawable/ic_trash" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             style="@style/MoleButton.BorderlessIcon"
-            android:layout_margin="8dp"
             android:src="@drawable/ic_edit_profile" />
     </LinearLayout>
 </LinearLayout>

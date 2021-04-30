@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -7,14 +8,30 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="90dp"
         android:orientation="vertical"
-        android:paddingTop="?attr/actionBarSize"
-        android:layout_marginBottom="90dp">
+        android:paddingTop="?attr/actionBarSize">
 
+        <include
+            android:id="@+id/test_actionbar"
+            layout="@layout/test_actionbar" />
 
         <include
             android:id="@+id/test_buttons"
             layout="@layout/test_buttons" />
+
+        <com.mole.android.mole.MoleMessageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:additional_info="false"
+            app:postfix="@string/postfix_balance" />
+
+        <com.mole.android.mole.MoleMessageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:additional_info="true" />
 
         <include
             android:id="@+id/test_colors"
