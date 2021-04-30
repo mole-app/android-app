@@ -1,26 +1,13 @@
 package com.mole.android.mole
 
 import android.content.Context
-import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.res.ColorStateList
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.view.*
-import android.view.View.OnLongClickListener
-import android.view.View.OnTouchListener
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
-import com.mole.android.mole.ui.PopupView
 import kotlin.math.absoluteValue
-import kotlin.math.sign
-
 
 class MoleMessageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
