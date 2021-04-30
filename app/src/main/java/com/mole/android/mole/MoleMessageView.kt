@@ -52,16 +52,9 @@ class MoleMessageView @JvmOverloads constructor(
     init {
         background = ResourcesCompat.getDrawable(resources, R.drawable.shape_massage, null)
 
-        val typedValue = TypedValue()
-        val theme = context.theme
-        theme.resolveAttribute(R.attr.colorAccept, typedValue, true)
-        colorAccept = typedValue.data
-        theme.resolveAttribute(R.attr.colorDisabled, typedValue, true)
-        colorDisabled = typedValue.data
-        theme.resolveAttribute(R.attr.colorDeny, typedValue, true)
-        colorDeny = typedValue.data
-        theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
-        colorSelected = typedValue.data
+        colorAccept = context.resolveColor(R.attr.colorAccept)
+        colorDisabled = context.resolveColor(R.attr.colorDisabled)
+        colorDeny = context.resolveColor(R.attr.colorDeny)
 
         init(context, attrs)
 
