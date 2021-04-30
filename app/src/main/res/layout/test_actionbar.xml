@@ -7,25 +7,26 @@
 
     <com.mole.android.mole.ui.actionbar.MoleActionBarMessenger
         android:id="@+id/mole_toolbar_messenger"
-        app:backVisible="true"
-        style="@style/MoleToolbar" />
+        style="@style/MoleToolbar"
+        app:backVisible="true" />
 
     <com.mole.android.mole.ui.actionbar.MoleActionBar
         android:id="@+id/mole_toolbar_with_text"
-        app:backVisible="true"
         style="@style/MoleToolbar"
-        app:textTitle="MOLE" />
+        app:backVisible="true"
+        app:textTitle="@string/test_action_bar_title_with_back"
+        app:titleVisible="true" />
 
     <com.mole.android.mole.ui.actionbar.MoleActionBar
         android:id="@+id/mole_toolbar_with_only_text"
         style="@style/MoleToolbar"
         app:backVisible="false"
-        app:titleVisible="true"
-        app:textTitle="Новый Долг" />
+        app:textTitle="@string/test_action_bar_title"
+        app:titleVisible="true" />
 
     <com.mole.android.mole.ui.actionbar.MoleActionBarSearch
         android:id="@+id/mole_toolbar_search"
-        app:backVisible="true"
-        style="@style/MoleToolbar" />
+        style="@style/MoleToolbar"
+        app:backVisible="true" />
 
 </LinearLayout>

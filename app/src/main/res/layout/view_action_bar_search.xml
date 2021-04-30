@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:hint="Поиск"
+        android:hint="@string/search_hint"
         android:importantForAutofill="no"
         android:inputType="text"
         android:maxLines="1"
