@@ -3,14 +3,16 @@ package com.mole.android.mole
 import android.content.Context
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.res.ColorStateList
-import android.graphics.Point
-import android.graphics.PointF
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.*
 import android.view.View.OnLongClickListener
 import android.view.View.OnTouchListener
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +26,16 @@ class MoleMessageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    var balance = 0
+        set(value) {
+            updateBalance(value)
+            field = value
+        }
+
+    companion object {
+        var defaultValue: Int = 0
+    }
+
     @ColorInt
     private val colorAccept: Int
 
@@ -33,19 +45,7 @@ class MoleMessageView @JvmOverloads constructor(
     @ColorInt
     private val colorDisabled: Int
 
-    @ColorInt
-    private val colorSelected: Int
-
     private var postfix: String = ""
-
-    var balance = 0
-        set(value) {
-            updateBalance(value)
-            field = value
-        }
-    companion object {
-        var defaultValue: Int = 0
-    }
 
     private val balanceTextView: TextView
 
@@ -123,21 +123,27 @@ class MoleMessageView @JvmOverloads constructor(
 
     private fun updateBalance(value: Int) {
         val sign: String
-        when (value.sign) {
-            1 -> {
-                sign = context.getString(R.string.plus_prefix)
-                backgroundTintList = ColorStateList.valueOf(colorAccept)
-            }
-            -1 -> {
+
+        when {
+            value.isNegative() -> {
                 sign = context.getString(R.string.minus_prefix)
                 backgroundTintList = ColorStateList.valueOf(colorDeny)
+            }
+            value.isPositive() -> {
+                sign = context.getString(R.string.plus_prefix)
+                backgroundTintList = ColorStateList.valueOf(colorAccept)
             }
             else -> {
                 sign = ""
                 backgroundTintList = ColorStateList.valueOf(colorDisabled)
             }
         }
-        balanceTextView.text = context.getString(R.string.mole_message_balance, sign, value.absoluteValue, postfix)
+        balanceTextView.text = context.getString(
+            R.string.mole_message_balance,
+            sign,
+            value.absoluteValue,
+            postfix
+        )
     }
 
 }
