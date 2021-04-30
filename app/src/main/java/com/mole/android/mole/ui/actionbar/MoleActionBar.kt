@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.iterator
 import com.mole.android.mole.R
+import com.mole.android.mole.setVisibleView
 
 
 open class MoleActionBar @JvmOverloads constructor(
@@ -69,18 +70,11 @@ open class MoleActionBar @JvmOverloads constructor(
     }
 
     private fun setBackVisibleAttr(backVisible: Boolean) {
-        setVisibleView(backImageButton, backVisible)
+        backImageButton.setVisibleView(backVisible)
     }
 
     private fun setTitleVisibleAttr(backVisible: Boolean) {
-        setVisibleView(titleTextView, backVisible)
-    }
-
-    private fun setVisibleView(view: View, visible: Boolean) {
-        when (visible) {
-            true -> view.visibility = View.VISIBLE
-            false -> view.visibility = View.GONE
-        }
+        titleTextView.setVisibleView(backVisible)
     }
 
     private fun setTextTitleAttr(textTitle: String) {
