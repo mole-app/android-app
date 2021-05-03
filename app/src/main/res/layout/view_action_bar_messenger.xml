@@ -42,5 +42,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:postfix="р." />
+        app:postfix="@string/postfix_balance" />
 </androidx.constraintlayout.widget.ConstraintLayout>
