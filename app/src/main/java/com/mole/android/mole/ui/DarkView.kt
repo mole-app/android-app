@@ -20,17 +20,12 @@ class DarkView @JvmOverloads constructor(
     private val rect = Rect()
     var selectedView: View? = null
         set(value) {
-            value?.getGlobalVisibleRect(rect)
-            Log.i(
-                "DarkView",
-                "rect top ${rect.top} bottom ${rect.bottom} left ${rect.left} right ${rect.right}"
-            )
             field = value
         }
     private val location = IntArray(2)
 
     init {
-        setBackgroundColor(Color.parseColor("#A0000000"))
+        setBackgroundColor(Color.parseColor("#80212121"))
     }
 
     override fun onDraw(canvas: Canvas?) {

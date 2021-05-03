@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mole.android.mole.ui.MoleScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/test_main_scroll"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -28,6 +29,7 @@
             app:postfix="@string/postfix_balance" />
 
         <com.mole.android.mole.MoleMessageView
+            android:id="@+id/test_mole_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -42,4 +44,4 @@
             layout="@layout/test_typography" />
 
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</com.mole.android.mole.ui.MoleScrollView>

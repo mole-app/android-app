@@ -23,5 +23,6 @@
         <item name="colorIconDisabled">@color/color_icon_disabled</item>
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:colorBackground">?attr/colorPrimary</item>
+        <item name="colorGradientStroke">@color/invisible_black</item>
     </style>
 </resources>

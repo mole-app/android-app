@@ -15,6 +15,7 @@
     <attr name="colorIcon" format="color" />
     <attr name="colorIconDisabled" format="color" />
     <attr name="colorBorderlessIcon" format="color" />
+    <attr name="colorGradientStroke" format="color" />
     <declare-styleable name="MoleBottomNavigationBar">
         <attr name="foregroundFloatingActionButton" format="reference|color" />
         <attr name="menuBottomNavigation" format="reference" />
@@ -27,5 +28,8 @@
     <declare-styleable name="MoleMessageView">
         <attr name="additional_info" format="boolean" />
         <attr name="postfix" format="string" />
+    </declare-styleable>
+    <declare-styleable name="BlurView">
+        <attr name="blurBackgroundColor" format="color"/>
     </declare-styleable>
 </resources>
