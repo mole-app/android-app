@@ -32,3 +32,12 @@ fun Int.isPositive(): Boolean {
 fun Int.dp(): Int {
     return (this * Resources.getSystem().displayMetrics.density).toInt()
 }
+
+fun Float.dp(): Float {
+    return this * Resources.getSystem().displayMetrics.density
+}
+
+fun View.cornerRadius(radius: Float) {
+    clipToOutline = true
+    outlineProvider = ViewRoundRectOutlineProvider(radius)
+}
