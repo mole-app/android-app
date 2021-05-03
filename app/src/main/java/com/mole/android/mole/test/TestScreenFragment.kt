@@ -19,7 +19,8 @@ class TestScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.test_screen, container, false)
-        val circleImageButton: AppCompatImageButton = view.findViewById(R.id.test_screen_circle_button_disable)
+        val circleImageButton: AppCompatImageButton =
+            view.findViewById(R.id.test_screen_circle_button_disable)
         circleImageButton.isEnabled = false
 
         toolbar = view.findViewById(R.id.mole_toolbar_with_text)
