@@ -6,15 +6,15 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.ColorInt
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.mole.android.mole.*
 import eightbitlab.com.blurview.BlurViewCanvas
 
 
 class BlurView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
 
     @ColorInt

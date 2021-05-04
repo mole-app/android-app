@@ -7,6 +7,15 @@
         <item name="android:textColor">@drawable/selector_text_button</item>
     </style>
 
+    <style name="MoleButton.Popup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/selector_popup_borderless_button</item>
+        <item name="android:textAppearance">@style/MoleText.Regular.Text1</item>
+    </style>
+
     <style name="MoleButton.Rectangle">
         <item name="android:background">@drawable/selector_rectangle_button</item>
         <item name="android:radius">60dp</item>
@@ -42,6 +51,8 @@
     </style>
 
     <style name="MoleText">
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
         <item name="android:textColor">?attr/textColorPrimary</item>
     </style>
 
