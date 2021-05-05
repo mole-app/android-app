@@ -51,18 +51,18 @@ class FragmentTest : Fragment() {
         false
     }
 
-    private val longClickListener = View.OnLongClickListener {
+    private fun longClickOnMessage (view: View) {
 
         val x = lastTouchDown.x
         val y = lastTouchDown.y
         val location = IntArray(2)
-        it.getLocationOnScreen(location)
+        view.getLocationOnScreen(location)
         val point = Point()
         point.x = location[0]
         point.y = location[1]
 
-        click(it, x.toInt() + point.x, y.toInt() + point.y)
-        it.backgroundTintList
+        click(view, x.toInt() + point.x, y.toInt() + point.y)
+        view.backgroundTintList
 
         true
     }
@@ -121,18 +121,15 @@ class FragmentTest : Fragment() {
         popupWindow?.dismiss()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.test_screen, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         toolbar = view.findViewById(R.id.mole_toolbar_with_text)
         scrollView = view.findViewById(R.id.test_main_scroll)
-        val moleMessageView: MoleMessageView = view.findViewById(R.id.test_mole_message)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        val moleMessageView: MoleMessageView = view.findViewById(R.id.test_mole_message)
 
         moleMessageView.setOnTouchListener(touchListener)
 
@@ -164,17 +161,24 @@ class FragmentTest : Fragment() {
             scrollView?.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY == targetScroll) {
                     scrollView?.isScrollable = false
-                    longClickListener.onLongClick(it)
+                    longClickOnMessage(it)
                 }
             }
-
             if (diff == 0) {
                 scrollView?.isScrollable = false
-                longClickListener.onLongClick(it)
+                longClickOnMessage(it)
             }
             true
         }
-        return view
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        return inflater.inflate(R.layout.test_screen, container, false)
     }
 
     override fun onAttach(context: Context) {
