@@ -1,21 +1,17 @@
 package com.mole.android.mole.test
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.*
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatImageButton
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.mole.android.mole.*
 import com.mole.android.mole.ui.BlurView
@@ -82,6 +78,15 @@ class FragmentTest : Fragment() {
             val blurView: BlurView = popupView.findViewById(R.id.blur_popup)
             blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
             blurView.cornerRadius(8f.dp())
+
+            val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
+            deleteButton.setOnClickListener {
+                popupWindow?.dismiss()
+                val myDialogFragment = MoleAlertDialog()
+                myDialogFragment.rootView = view.rootView as ViewGroup
+                val manager = requireActivity().supportFragmentManager
+                myDialogFragment.show(manager, "myDialog")
+            }
 
             // create the popup window
             popupWindow = PopupView(
