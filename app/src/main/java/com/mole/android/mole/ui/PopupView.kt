@@ -20,12 +20,6 @@ class PopupView constructor(
     private val darkView: DarkView?
     private val windowManager: WindowManager?
 
-    interface OnDismissListener {
-        fun onDismiss()
-    }
-
-    var onDismissListener: OnDismissListener? = null
-
     var colorSelected: Int
         set(value) {
             darkView?.colorSelected = value
@@ -95,7 +89,6 @@ class PopupView constructor(
             isDarkInvoked = false
             darkView.selectedView?.invalidate()
         }
-        onDismissListener?.onDismiss()
     }
 
     companion object {

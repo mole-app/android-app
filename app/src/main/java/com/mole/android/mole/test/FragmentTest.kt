@@ -99,6 +99,9 @@ class FragmentTest : Fragment() {
             popupWindow?.colorSelected = colorSelected
             popupWindow?.apply {
 
+                setOnDismissListener {
+                    scrollView?.isScrollable = true
+                }
                 this.selectedView = view
 
                 // dismiss the popup window when touched
@@ -109,14 +112,7 @@ class FragmentTest : Fragment() {
                 // show the popup window
                 showAtLocation(view, Gravity.NO_GRAVITY, x, y)
 
-                this.onDismissListener = onDismiss
             }
-        }
-    }
-
-    private val onDismiss = object : PopupView.OnDismissListener {
-        override fun onDismiss() {
-            scrollView?.isScrollable = true
         }
     }
 
