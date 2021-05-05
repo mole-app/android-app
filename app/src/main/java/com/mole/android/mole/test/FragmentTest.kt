@@ -30,6 +30,8 @@ class FragmentTest : Fragment() {
 
     private var scrollView: MoleScrollView? = null
 
+    var popupWindow: PopupView? = null
+
     @ColorInt
     private var colorSelected: Int = 0
 
@@ -79,35 +81,31 @@ class FragmentTest : Fragment() {
 
             val blurView: BlurView = popupView.findViewById(R.id.blur_popup)
             blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
-
-            val windowBackground: Drawable? =
-                ContextCompat.getDrawable(requireActivity(), R.drawable.dialog_background);
             blurView.cornerRadius(8f.dp())
 
             // create the popup window
-            val popupWindow = PopupView(
+            popupWindow = PopupView(
                 popupView,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 true // lets taps outside the popup also dismiss it
             )
 
-            popupWindow.colorSelected = colorSelected
+            popupWindow?.colorSelected = colorSelected
+            popupWindow?.apply {
 
-            popupWindow.selectedView = view
+                this.selectedView = view
 
-            // dismiss the popup window when touched
-            popupView.setOnClickListener {
-                popupWindow.dismiss()
+                // dismiss the popup window when touched
+                popupView.setOnClickListener {
+                    dismiss()
+                }
+
+                // show the popup window
+                showAtLocation(view, Gravity.NO_GRAVITY, x, y)
+
+                this.onDismissListener = onDismiss
             }
-
-            // show the popup window
-            popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, x, y)
-            popupWindow.isFocusable = true
-            popupWindow.isTouchable = true
-            popupWindow.update()
-
-            popupWindow.onDismissListener = onDismiss
         }
     }
 
@@ -115,6 +113,11 @@ class FragmentTest : Fragment() {
         override fun onDismiss() {
             scrollView?.isScrollable = true
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        popupWindow?.dismiss()
     }
 
     override fun onCreateView(
