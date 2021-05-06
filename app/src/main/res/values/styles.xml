@@ -121,4 +121,10 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">?attr/colorPrimary</item>
     </style>
+
+    <style name="MoleDialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 </resources>
