@@ -127,9 +127,10 @@ class BlurView @JvmOverloads constructor(
         }
     }
 
-    private val myPath = Path()
-    private val rectF = RectF(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
-    private val paintTest = Paint()
+    private val pathBorder = Path()
+    private val rectFBorder = RectF(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
+    private val paintBorder = Paint()
+    private val radiusBorder = 8f.dp()
 
     private fun drawView(canvas: Canvas): Boolean {
         if (!initialized) {
@@ -156,14 +157,14 @@ class BlurView @JvmOverloads constructor(
 
     private fun borderDraw(canvas: Canvas) {
         val radiusArr = floatArrayOf(
-            8f.dp(), 8f.dp(),
-            8f.dp(), 8f.dp(),
-            8f.dp(), 8f.dp(),
-            8f.dp(), 8f.dp()
+            radiusBorder, radiusBorder,
+            radiusBorder, radiusBorder,
+            radiusBorder, radiusBorder,
+            radiusBorder, radiusBorder
         )
-        rectF.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
-        myPath.addRoundRect(
-            rectF,
+        rectFBorder.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
+        pathBorder.addRoundRect(
+            rectFBorder,
             radiusArr,
             Path.Direction.CW
         )
@@ -171,7 +172,7 @@ class BlurView @JvmOverloads constructor(
         val gradientStartColor = context.resolveColor(R.attr.textColorDisabled)
         val gradientEndColor = context.resolveColor(R.attr.colorGradientStroke)
 
-        paintTest.shader = LinearGradient(
+        paintBorder.shader = LinearGradient(
             0f,
             0f,
             measuredWidth.toFloat(),
@@ -182,10 +183,10 @@ class BlurView @JvmOverloads constructor(
         )
 
 
-        paintTest.style = Paint.Style.STROKE
-        paintTest.strokeWidth = 1f.dp()
+        paintBorder.style = Paint.Style.STROKE
+        paintBorder.strokeWidth = 1f.dp()
 
-        canvas.drawPath(myPath, paintTest)
+        canvas.drawPath(pathBorder, paintBorder)
     }
 
     fun setupWith(rootView: ViewGroup): BlurView {
