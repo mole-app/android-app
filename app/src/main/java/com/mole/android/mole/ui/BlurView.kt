@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,10 +15,8 @@ class BlurView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-
     @ColorInt
     private val overlayColor: Int
-
 
     companion object {
         const val DEFAULT_BLUR_RADIUS = 16f
@@ -57,10 +54,23 @@ class BlurView @JvmOverloads constructor(
             R.styleable.BlurView_blurBackgroundColor,
             Color.TRANSPARENT
         )
-        Log.i("BlurView", "overlayColor $overlayColor")
         typedArray.recycle()
 
-        updateBlurParameters(measuredWidth - 20.dp(), measuredHeight - 1.dp())
+        updateBlurParameters(measuredWidth, measuredHeight)
+    }
+
+    fun setupWith(rootView: ViewGroup): BlurView {
+        this.rootView = rootView
+        initialized = false
+        return this
+    }
+
+    fun setBlurRadius(radius: Float) {
+        blurRadius = radius
+    }
+
+    fun setFrameClearDrawable(frameClearDrawable: Drawable?) {
+        this.frameClearDrawable = frameClearDrawable
     }
 
     private fun updateBlurParameters(measuredWidth: Int, measuredHeight: Int) {
@@ -92,7 +102,7 @@ class BlurView @JvmOverloads constructor(
             return
         }
         if (frameClearDrawable != null) {
-            frameClearDrawable!!.draw(internalCanvas)
+            frameClearDrawable?.draw(internalCanvas)
         } else {
             internalBitmap.eraseColor(Color.TRANSPARENT)
         }
@@ -118,7 +128,6 @@ class BlurView @JvmOverloads constructor(
     }
 
     override fun draw(canvas: Canvas?) {
-        Log.i("BlurView", "drawing")
         val shouldDraw: Boolean = canvas?.let {
             drawView(it)
         } == true
@@ -126,11 +135,6 @@ class BlurView @JvmOverloads constructor(
             super.draw(canvas)
         }
     }
-
-    private val pathBorder = Path()
-    private val rectFBorder = RectF(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
-    private val paintBorder = Paint()
-    private val radiusBorder = 8f.dp()
 
     private fun drawView(canvas: Canvas): Boolean {
         if (!initialized) {
@@ -154,6 +158,11 @@ class BlurView @JvmOverloads constructor(
 
         return true
     }
+
+    private val pathBorder = Path()
+    private val rectFBorder = RectF(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
+    private val paintBorder = Paint()
+    private val radiusBorder = 8f.dp()
 
     private fun borderDraw(canvas: Canvas) {
         val radiusArr = floatArrayOf(
@@ -182,29 +191,14 @@ class BlurView @JvmOverloads constructor(
             Shader.TileMode.CLAMP
         )
 
-
         paintBorder.style = Paint.Style.STROKE
         paintBorder.strokeWidth = 1f.dp()
 
         canvas.drawPath(pathBorder, paintBorder)
     }
 
-    fun setupWith(rootView: ViewGroup): BlurView {
-        this.rootView = rootView
-        initialized = false
-        return this
-    }
-
-    fun setBlurRadius(radius: Float) {
-        blurRadius = radius
-    }
-
-    fun setFrameClearDrawable(frameClearDrawable: Drawable?) {
-        this.frameClearDrawable = frameClearDrawable
-    }
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        updateBlurParameters(measuredWidth - 20.dp(), measuredHeight - 1.dp())
+        updateBlurParameters(measuredWidth, measuredHeight)
     }
 }
