@@ -13,7 +13,7 @@ class MoleAlertDialog : DialogFragment() {
     var rootView: ViewGroup? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_alert, null)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.view_dialog_alert, null)
         val blurView: BlurView = view.findViewById(R.id.dialog_root)
         blurView.setupWith(rootView!!).setBlurRadius(12f)
         blurView.cornerRadius(8f.dp())
@@ -31,7 +31,7 @@ class MoleAlertDialog : DialogFragment() {
         val display = wm.defaultDisplay
         val size = Point()
         display?.getSize(size)
-        val width = size.x - (24.dp() * 2) // margin 24dp for window on both sides
+        val width = 312.dp()
 
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.copyFrom(alertDialog.window?.attributes)

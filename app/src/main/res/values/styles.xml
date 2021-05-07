@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="MoleButton">
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
         <item name="android:textAppearance">@style/MoleText.Medium.Text2</item>
         <item name="android:textColor">@drawable/selector_text_button</item>
+    </style>
+
+    <style name="MoleButton.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/selector_alert_borderless_button</item>
+        <item name="android:textAppearance">@style/MoleText.Regular.Text1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="MoleButton.Popup">
