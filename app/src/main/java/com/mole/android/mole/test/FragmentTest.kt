@@ -1,9 +1,12 @@
 package com.mole.android.mole.test
 
+import android.animation.ValueAnimator
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Point
 import android.graphics.PointF
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,6 +16,8 @@ import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.transition.Explode
+import androidx.transition.TransitionManager
 import com.mole.android.mole.*
 import com.mole.android.mole.ui.BlurView
 import com.mole.android.mole.ui.MoleScrollView
@@ -56,15 +61,13 @@ class FragmentTest : Fragment() {
         val x = lastTouchDown.x
         val y = lastTouchDown.y
         val location = IntArray(2)
-        view.getLocationOnScreen(location)
+        view.getLocationInWindow(location)
         val point = Point()
         point.x = location[0]
         point.y = location[1]
 
         click(view, x.toInt() + point.x, y.toInt() + point.y)
         view.backgroundTintList
-
-        true
     }
 
     private fun click(view: View, x: Int = 0, y: Int = 0) {
@@ -96,13 +99,19 @@ class FragmentTest : Fragment() {
                 true // lets taps outside the popup also dismiss it
             )
 
-            popupWindow?.colorSelected = colorSelected
+            val offsetCutout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                requireActivity().window.decorView.rootWindowInsets.displayCutout?.safeInsetTop ?: 0
+            } else {
+                0
+            }
+
             popupWindow?.apply {
 
                 setOnDismissListener {
                     scrollView?.isScrollable = true
                 }
                 this.selectedView = view
+                this.offsetCutout = offsetCutout
 
                 // dismiss the popup window when touched
                 popupView.setOnClickListener {
@@ -156,7 +165,7 @@ class FragmentTest : Fragment() {
             visibleRect.top += topInvisibleDiff
             val diff: Int = compareHighRect(visibleRect, rect)
 
-            scrollView?.smoothScrollBy(0, diff, 125)
+            scrollView?.smoothScrollBy(0, diff, 300)
             val targetScroll = scrollView!!.scrollY + diff
             scrollView?.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY == targetScroll) {
@@ -169,6 +178,10 @@ class FragmentTest : Fragment() {
                 longClickOnMessage(it)
             }
             true
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            requireActivity().window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
         }
     }
 

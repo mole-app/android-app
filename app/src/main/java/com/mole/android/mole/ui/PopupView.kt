@@ -2,7 +2,6 @@ package com.mole.android.mole.ui
 
 import android.content.Context
 import android.graphics.PixelFormat
-import android.graphics.Rect
 import android.os.IBinder
 import android.util.DisplayMetrics
 import android.view.Gravity
@@ -20,19 +19,17 @@ class PopupView constructor(
     private val darkView: DarkView?
     private val windowManager: WindowManager?
 
-    var colorSelected: Int
-        set(value) {
-            darkView?.colorSelected = value
-        }
-        get() = darkView?.colorSelected ?: 0
-
     var selectedView: View?
         set(value) {
-            val rect = Rect()
-            value?.getGlobalVisibleRect(rect)
             darkView?.selectedView = value
         }
         get() = darkView?.selectedView
+
+    var offsetCutout: Int
+        set(value) {
+            darkView?.offsetCutout = value
+        }
+        get() = darkView?.offsetCutout ?: 0
 
     init {
         windowManager =
