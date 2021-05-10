@@ -82,6 +82,11 @@ class FragmentTest : Fragment() {
             blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
             blurView.cornerRadius(8f.dp())
 
+            val editButton: Button = popupView.findViewById(R.id.edit_popup)
+            editButton.setOnClickListener {
+                popupWindow?.dismiss()
+            }
+
             val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
             deleteButton.setOnClickListener {
                 popupWindow?.dismiss()
@@ -106,6 +111,8 @@ class FragmentTest : Fragment() {
             }
 
             popupWindow?.apply {
+
+                animationStyle = R.style.AnimationPopup
 
                 setOnDismissListener {
                     scrollView?.isScrollable = true

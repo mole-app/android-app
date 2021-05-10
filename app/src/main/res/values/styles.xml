@@ -28,6 +28,11 @@
         <item name="android:textAppearance">@style/MoleText.Regular.Text1</item>
     </style>
 
+    <style name="AnimationPopup">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_hide</item>
+    </style>
+
     <style name="MoleButton.Rectangle">
         <item name="android:background">@drawable/selector_rectangle_button</item>
         <item name="android:radius">60dp</item>

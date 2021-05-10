@@ -16,7 +16,6 @@
                 </shape>
             </item>
         </ripple>
-
     </item>
 
     <item android:state_enabled="false">
@@ -25,5 +24,4 @@
             <corners android:radius="8dp" />
         </shape>
     </item>
-
 </selector>
