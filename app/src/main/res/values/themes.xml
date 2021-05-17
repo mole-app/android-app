@@ -10,6 +10,7 @@
         <item name="colorDeny">@color/color_deny</item>
         <item name="colorDisabled">@color/color_disabled</item>
         <item name="colorButtonRipple">@color/white</item>
+        <item name="android:colorControlActivated">?attr/colorAccent</item>
         <item name="colorBorderlessIcon">@color/color_borderless_icon</item>
         <item name="colorButtonActiveStart">@color/gradient_button_active_start</item>
         <item name="colorButtonActiveEnd">@color/gradient_button_active_end</item>

@@ -59,6 +59,10 @@
         <item name="android:background">@drawable/selector_rectangle_borderless_button</item>
     </style>
 
+    <style name="MoleText.Error">
+        <item name="android:textColor">?attr/colorDeny</item>
+    </style>
+
     <style name="MoleButton.BorderlessIcon">
         <item name="android:background">@drawable/selector_icon_borderless_button</item>
         <item name="android:radius">60dp</item>
