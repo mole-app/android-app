@@ -1,6 +1,8 @@
 package com.mole.android.mole.test
 
-import android.animation.ValueAnimator
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Point
@@ -8,20 +10,20 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.transition.Explode
-import androidx.transition.TransitionManager
 import com.mole.android.mole.*
 import com.mole.android.mole.ui.BlurView
 import com.mole.android.mole.ui.MoleScrollView
-import com.mole.android.mole.ui.PopupView
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 
@@ -31,7 +33,7 @@ class FragmentTest : Fragment() {
 
     private var scrollView: MoleScrollView? = null
 
-    var popupWindow: PopupView? = null
+    var popupWindow: PopupWindow? = null
 
     @ColorInt
     private var colorSelected: Int = 0
@@ -56,7 +58,10 @@ class FragmentTest : Fragment() {
         false
     }
 
-    private fun longClickOnMessage (view: View) {
+    lateinit var popupView: RelativeLayout
+    lateinit var blurView: BlurView
+
+    private fun longClickOnMessage(view: View) {
 
         val x = lastTouchDown.x
         val y = lastTouchDown.y
@@ -71,65 +76,84 @@ class FragmentTest : Fragment() {
     }
 
     private fun click(view: View, x: Int = 0, y: Int = 0) {
-        // inflate the layout of the popup window
-        val inflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
-        if (inflater != null) {
 
-            val popupView =
-                View.inflate(this.context, R.layout.view_popup_window, null) as RelativeLayout
+        // create the popup window
+        popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true // lets taps outside the popup also dismiss it
+        )
 
-            val blurView: BlurView = popupView.findViewById(R.id.blur_popup)
-            blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
-            blurView.cornerRadius(8f.dp())
+        popupWindow?.apply {
 
-            val editButton: Button = popupView.findViewById(R.id.edit_popup)
-            editButton.setOnClickListener {
-                popupWindow?.dismiss()
+            animationStyle = R.style.AnimationPopup
+            setOnDismissListener {
+                scrollView?.isScrollable = true
+                reverseColorAnimation()
+            }
+            // dismiss the popup window when touched
+            popupView.setOnClickListener {
+                dismiss()
             }
 
-            val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
-            deleteButton.setOnClickListener {
-                popupWindow?.dismiss()
-                val myDialogFragment = MoleAlertDialog()
-                myDialogFragment.rootView = view.rootView as ViewGroup
-                val manager = requireActivity().supportFragmentManager
-                myDialogFragment.show(manager, "myDialog")
-            }
-
-            // create the popup window
-            popupWindow = PopupView(
-                popupView,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                true // lets taps outside the popup also dismiss it
-            )
-
-            val offsetCutout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                requireActivity().window.decorView.rootWindowInsets.displayCutout?.safeInsetTop ?: 0
-            } else {
-                0
-            }
-
-            popupWindow?.apply {
-
-                animationStyle = R.style.AnimationPopup
-
-                setOnDismissListener {
-                    scrollView?.isScrollable = true
-                }
-                this.selectedView = view
-                this.offsetCutout = offsetCutout
-
-                // dismiss the popup window when touched
-                popupView.setOnClickListener {
-                    dismiss()
-                }
-
-                // show the popup window
-                showAtLocation(view, Gravity.NO_GRAVITY, x, y)
-
-            }
+            // show the popup window
+            showAtLocation(view, Gravity.NO_GRAVITY, x, y)
         }
+
+    }
+
+    @ColorInt
+    private var colorTint: Int = 0
+    private var selectedView: View? = null
+
+    @SuppressLint("ObjectAnimatorBinding")
+    private fun startColorAnimation(animationView: View) {
+        selectedView = animationView
+        colorTint = animationView.backgroundTintList!!.defaultColor
+        val animator: ObjectAnimator = ObjectAnimator.ofObject(
+            animationView,
+            "backgroundTint",
+            ArgbEvaluator(),
+            animationView.backgroundTintList!!.defaultColor,
+            ContextCompat.getColor(requireContext(), R.color.color_accent)
+        )
+
+        animator.interpolator = DecelerateInterpolator()
+        animator.duration = resources.getDimension(R.dimen.duration_animation).toLong()
+
+        animator.addUpdateListener { animation ->
+            val animatedValue = animation.animatedValue as Int
+            animationView.backgroundTintList = ColorStateList.valueOf(animatedValue)
+        }
+
+        animator.start()
+        animator.doOnEnd {
+            longClickOnMessage(animationView)
+        }
+    }
+
+    @SuppressLint("ObjectAnimatorBinding")
+    private fun reverseColorAnimation() {
+
+//        selectedView?.backgroundTintList = ColorStateList.valueOf(colorTint)
+        val animator: ObjectAnimator = ObjectAnimator.ofObject(
+            selectedView,
+            "backgroundTint",
+            ArgbEvaluator(),
+            selectedView!!.backgroundTintList!!.defaultColor,
+            colorTint
+        )
+
+        animator.interpolator = DecelerateInterpolator()
+        animator.duration = resources.getDimension(R.dimen.duration_animation).toLong()
+
+        animator.addUpdateListener { animation ->
+            val animatedValue = animation.animatedValue as Int
+            selectedView!!.backgroundTintList = ColorStateList.valueOf(animatedValue)
+        }
+
+        animator.start()
     }
 
     override fun onPause() {
@@ -147,48 +171,51 @@ class FragmentTest : Fragment() {
 
         val moleMessageView: MoleMessageView = view.findViewById(R.id.test_mole_message)
 
+//        val backgroundFabView: MaterialButton = view.findViewById(R.id.background_fab_view)
+//        val borderView = this.context?.let { BorderView(it) }
+//        borderView?.let {
+////                blurView.with(it)
+//            moleMessageView.placeView(it)
+//
+//        }
+
         moleMessageView.setOnTouchListener(touchListener)
 
         moleMessageView.setOnLongClickListener {
-            Log.i("point", "click")
-            val rect = Rect()
-            val visibleRect = Rect()
-            it.getDrawingRect(rect)
-            val l = IntArray(2)
-            it.getLocationOnScreen(l)
-            rect.left += l[0]
-            rect.right += l[0]
-            rect.bottom += l[1]
-            rect.top += l[1]
-
-            it.getWindowVisibleDisplayFrame(visibleRect)
-
-            val highBottomBar = resources.getDimension(R.dimen.design_fab_image_size).toInt()
-            val bottomInvisibleDiff =
-                highBottomBar + resources.getDimension(R.dimen.mole_message_margin_selected).toInt()
-            val topInvisibleDiff =
-                resources.getDimension(R.dimen.mole_message_margin_selected).toInt()
-            visibleRect.bottom -= bottomInvisibleDiff
-            visibleRect.top += topInvisibleDiff
-            val diff: Int = compareHighRect(visibleRect, rect)
-
-            scrollView?.smoothScrollBy(0, diff, 300)
-            val targetScroll = scrollView!!.scrollY + diff
-            scrollView?.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-                if (scrollY == targetScroll) {
-                    scrollView?.isScrollable = false
-                    longClickOnMessage(it)
-                }
-            }
-            if (diff == 0) {
-                scrollView?.isScrollable = false
-                longClickOnMessage(it)
-            }
+            scrollView?.isScrollable = false
+            startColorAnimation(it)
+//            longClickOnMessage(it)
             true
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            requireActivity().window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
+            requireActivity().window.attributes.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
+        }
+
+        popupPreparation(view)
+    }
+
+    private fun popupPreparation(view: View) {
+        popupView = View.inflate(this.context, R.layout.view_popup_window, null) as RelativeLayout
+
+        blurView = popupView.findViewById(R.id.blur_popup)
+        blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
+        blurView.cornerRadius(8f.dp())
+
+        val editButton: Button = popupView.findViewById(R.id.edit_popup)
+        editButton.setOnClickListener {
+            popupWindow?.dismiss()
+        }
+
+        val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
+        deleteButton.setOnClickListener {
+            popupWindow?.dismiss()
+            val myDialogFragment = MoleAlertDialog()
+            myDialogFragment.rootView = view.rootView as ViewGroup
+            val manager = requireActivity().supportFragmentManager
+            myDialogFragment.show(manager, "myDialog")
+//            myDialogFragment
         }
     }
 
