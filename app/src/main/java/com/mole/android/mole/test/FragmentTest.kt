@@ -107,8 +107,12 @@ class FragmentTest : Fragment() {
     private var colorTint: Int = 0
     private var selectedView: View? = null
 
+    interface ViewEventCallback {
+        fun eventEnd(view: View)
+    }
+
     @SuppressLint("ObjectAnimatorBinding")
-    private fun startColorAnimation(animationView: View) {
+    private fun startColorAnimation(animationView: View, callback: ViewEventCallback) {
         selectedView = animationView
         colorTint = animationView.backgroundTintList!!.defaultColor
         val animator: ObjectAnimator = ObjectAnimator.ofObject(
@@ -120,7 +124,7 @@ class FragmentTest : Fragment() {
         )
 
         animator.interpolator = DecelerateInterpolator()
-        animator.duration = resources.getDimension(R.dimen.duration_animation).toLong()
+        animator.duration = resources.getInteger(R.integer.duration_animation).toLong()
 
         animator.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int
@@ -129,14 +133,13 @@ class FragmentTest : Fragment() {
 
         animator.start()
         animator.doOnEnd {
-            longClickOnMessage(animationView)
+            callback.eventEnd(animationView)
         }
     }
 
     @SuppressLint("ObjectAnimatorBinding")
     private fun reverseColorAnimation() {
 
-//        selectedView?.backgroundTintList = ColorStateList.valueOf(colorTint)
         val animator: ObjectAnimator = ObjectAnimator.ofObject(
             selectedView,
             "backgroundTint",
@@ -146,7 +149,7 @@ class FragmentTest : Fragment() {
         )
 
         animator.interpolator = DecelerateInterpolator()
-        animator.duration = resources.getDimension(R.dimen.duration_animation).toLong()
+        animator.duration = resources.getInteger(R.integer.duration_animation).toLong()
 
         animator.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int
@@ -171,20 +174,15 @@ class FragmentTest : Fragment() {
 
         val moleMessageView: MoleMessageView = view.findViewById(R.id.test_mole_message)
 
-//        val backgroundFabView: MaterialButton = view.findViewById(R.id.background_fab_view)
-//        val borderView = this.context?.let { BorderView(it) }
-//        borderView?.let {
-////                blurView.with(it)
-//            moleMessageView.placeView(it)
-//
-//        }
-
         moleMessageView.setOnTouchListener(touchListener)
 
         moleMessageView.setOnLongClickListener {
             scrollView?.isScrollable = false
-            startColorAnimation(it)
-//            longClickOnMessage(it)
+            startColorAnimation(it, object: ViewEventCallback{
+                override fun eventEnd(view: View) {
+                    longClickOnMessage(view)
+                }
+            })
             true
         }
 
