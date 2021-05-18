@@ -67,7 +67,6 @@
                 android:inputType="text"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:text="\@vasyapupkin1488"
                 android:textCursorDrawable="@drawable/shape_mole_cursor" />
 
         </com.mole.android.mole.auth.view.MoleTextInputLayout>
