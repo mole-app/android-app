@@ -1,17 +1,12 @@
 package com.mole.android.mole
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.annotation.AttrRes
-import com.mole.android.mole.ui.BorderView
 import kotlin.math.sign
 
 
@@ -50,12 +45,17 @@ fun View.cornerRadius(radius: Float) {
     outlineProvider = ViewRoundRectOutlineProvider(radius)
 }
 
-private fun View.preparePathForBorder(shape: BorderView.Shape, radiusBorder: Float): Path {
+enum class Shape {
+    RECTANGLE,
+    OVAL
+}
+
+private fun View.preparePathForBorder(shape: Shape, radiusBorder: Float): Path {
     val rectFBorder = RectF(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
     val pathBorder = Path()
 
     when (shape) {
-        BorderView.Shape.RECTANGLE -> {
+        Shape.RECTANGLE -> {
             val radiusArr = floatArrayOf(
                 radiusBorder, radiusBorder,
                 radiusBorder, radiusBorder,
@@ -68,7 +68,7 @@ private fun View.preparePathForBorder(shape: BorderView.Shape, radiusBorder: Flo
                 Path.Direction.CW
             )
         }
-        BorderView.Shape.OVAL -> {
+        Shape.OVAL -> {
             pathBorder.addOval(
                 rectFBorder,
                 Path.Direction.CW
@@ -79,7 +79,7 @@ private fun View.preparePathForBorder(shape: BorderView.Shape, radiusBorder: Flo
 }
 
 fun View.setBorder(
-    shape: BorderView.Shape,
+    shape: Shape,
     radiusBorder: Float,
     lineWidth: Float,
     @AttrRes colorStart: Int,
@@ -99,7 +99,7 @@ fun View.setBorder(
                 Bitmap.Config.ARGB_8888
             )
             val canvas = Canvas(bitmap)
-            
+
             val pathBorder = preparePathForBorder(shape, radiusBorder)
 
             val gradientStartColor = context.resolveColor(colorStart)
@@ -118,7 +118,7 @@ fun View.setBorder(
             paintBorder.style = Paint.Style.STROKE
             paintBorder.strokeWidth = lineWidth
 
-            canvas.translate(lineWidth/2, lineWidth/2)
+            canvas.translate(lineWidth / 2, lineWidth / 2)
             canvas.drawPath(pathBorder, paintBorder)
             val drawable = BitmapDrawable(resources, bitmap)
             drawable.setBounds(0, 0, width, height)

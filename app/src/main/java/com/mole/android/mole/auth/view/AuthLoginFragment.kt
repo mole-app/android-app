@@ -8,15 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
+import com.mole.android.mole.Shape
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.presentation.AuthPresentation
 import com.mole.android.mole.dp
 import com.mole.android.mole.setBorder
-import com.mole.android.mole.ui.BorderView
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 
@@ -88,7 +87,7 @@ class AuthLoginFragment : Fragment() {
 
 
         button.setBorder(
-            BorderView.Shape.OVAL,
+            Shape.OVAL,
             16f.dp(),
             1f.dp(),
             R.attr.colorIconDisabled,
