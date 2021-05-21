@@ -1,25 +1,19 @@
 package com.mole.android.mole.auth.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.textfield.TextInputLayout
-import com.mole.android.mole.R
-import com.mole.android.mole.Shape
+import com.mole.android.mole.*
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.presentation.AuthPresenter
-import com.mole.android.mole.dp
-import com.mole.android.mole.setBorder
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 
-class AuthLoginFragmentImplementation : Fragment(), AuthLoginFragment {
+class AuthLoginFragmentImplementation : MoleBaseFragment(), AuthLoginFragment {
 
     private var toolbar: MoleActionBar? = null
 
@@ -47,41 +41,23 @@ class AuthLoginFragmentImplementation : Fragment(), AuthLoginFragment {
         textInputLayout.editText?.setText(login)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.view_auth_login, container, false)
+    override fun getToolbar(): Toolbar? {
+        return toolbar
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         toolbar = view.findViewById(R.id.mole_auth_toolbar)
+        super.onViewCreated(view, savedInstanceState)
+
         val button: AppCompatImageButton = view.findViewById(R.id.auth_button)
         textInputLayout = view.findViewById(R.id.auth_logo)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
-
-        textInputLayout.editText?.addTextChangedListener(
-            object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                }
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    presenter.textChanged(s, start, before, count)
-                }
-            }
-        )
+        textInputLayout.editText?.beforeTextChanged {
+            presenter.textChanged()
+        }
 
         button.setOnClickListener {
-            presenter.nextFragment()
+            presenter.onFabClick()
         }
 
 
@@ -94,8 +70,16 @@ class AuthLoginFragmentImplementation : Fragment(), AuthLoginFragment {
         )
 
         presenter.attachView(this)
+    }
 
-        return view
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        return inflater.inflate(R.layout.view_auth_login, container, false)
     }
 
     override fun onDestroy() {
