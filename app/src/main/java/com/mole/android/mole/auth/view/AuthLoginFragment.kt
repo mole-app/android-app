@@ -8,23 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.presentation.AuthPresentation
+import com.mole.android.mole.dp
+import com.mole.android.mole.setBorder
+import com.mole.android.mole.ui.BorderView
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 
-class AuthFragment : Fragment() {
+class AuthLoginFragment : Fragment() {
 
     private var toolbar: MoleActionBar? = null
 
-    private val model = AuthModel()
-    private val presenter = AuthPresentation(model)
+    private val presenter: AuthPresentation
     private lateinit var textInputLayout: TextInputLayout
 
     init {
+        val model = AuthModel()
+        presenter = AuthPresentation(model)
         presenter.attachView(this)
     }
 
@@ -52,10 +57,11 @@ class AuthFragment : Fragment() {
         val view = inflater.inflate(R.layout.view_auth_login, container, false)
 
         toolbar = view.findViewById(R.id.mole_auth_toolbar)
+        val button: AppCompatImageButton = view.findViewById(R.id.auth_button)
+        textInputLayout = view.findViewById(R.id.auth_logo)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        textInputLayout = view.findViewById(R.id.auth_logo)
 
         textInputLayout.editText?.addTextChangedListener(
             object : TextWatcher {
@@ -76,11 +82,18 @@ class AuthFragment : Fragment() {
             }
         )
 
-        val button: AppCompatImageButton = view.findViewById(R.id.auth_button)
         button.setOnClickListener {
             presenter.nextFragment()
         }
 
+
+        button.setBorder(
+            BorderView.Shape.OVAL,
+            16f.dp(),
+            1f.dp(),
+            R.attr.colorIconDisabled,
+            R.attr.colorGradientStroke
+        )
         presenter.viewIsReady()
 
         return view
