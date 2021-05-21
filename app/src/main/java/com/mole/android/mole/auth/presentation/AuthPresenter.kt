@@ -5,7 +5,7 @@ import com.mole.android.mole.auth.data.AuthData
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.view.AuthLoginFragment
 
-class AuthPresenter(private val model: AuthModel): MoleBasePresenter<AuthLoginFragment>() {
+class AuthPresenter(private val model: AuthModel) : MoleBasePresenter<AuthLoginFragment>() {
 
     override fun attachView(view: AuthLoginFragment) {
         this.view = view

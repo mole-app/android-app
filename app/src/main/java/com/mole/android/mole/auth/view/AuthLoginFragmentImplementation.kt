@@ -60,7 +60,6 @@ class AuthLoginFragmentImplementation : MoleBaseFragment(), AuthLoginFragment {
             presenter.onFabClick()
         }
 
-
         button.setBorder(
             Shape.OVAL,
             16f.dp(),
