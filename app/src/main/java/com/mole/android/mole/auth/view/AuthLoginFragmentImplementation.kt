@@ -13,7 +13,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
 import com.mole.android.mole.Shape
 import com.mole.android.mole.auth.model.AuthModel
-import com.mole.android.mole.auth.presentation.AuthPresentation
+import com.mole.android.mole.auth.presentation.AuthPresenter
 import com.mole.android.mole.dp
 import com.mole.android.mole.setBorder
 import com.mole.android.mole.ui.actionbar.MoleActionBar
@@ -23,12 +23,12 @@ class AuthLoginFragmentImplementation : Fragment(), AuthLoginFragment {
 
     private var toolbar: MoleActionBar? = null
 
-    private val presenter: AuthPresentation
+    private val presenter: AuthPresenter
     private lateinit var textInputLayout: TextInputLayout
 
     init {
         val model = AuthModel()
-        presenter = AuthPresentation(model)
+        presenter = AuthPresenter(model)
     }
 
     override fun showError(error: String) {

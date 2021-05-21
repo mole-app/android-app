@@ -4,7 +4,7 @@ import com.mole.android.mole.auth.data.AuthData
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.view.AuthLoginFragment
 
-class AuthPresentation(private val model: AuthModel) {
+class AuthPresenter(private val model: AuthModel) {
     private var view: AuthLoginFragment? = null
 
     fun attachView(view: AuthLoginFragment) {
