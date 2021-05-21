@@ -28,7 +28,7 @@ class AuthPresenter(private val model: AuthModel) {
         }
     }
 
-    fun textChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    fun textChanged() {
         view?.hideError()
     }
 

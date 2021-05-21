@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 
 abstract class MoleBaseFragment : Fragment() {
 
-    abstract fun getToolbar(): Toolbar?
+    open fun getToolbar(): Toolbar? {
+        return null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -178,7 +178,7 @@ class FragmentTest : Fragment() {
 
         moleMessageView.setOnLongClickListener {
             scrollView?.isScrollable = false
-            startColorAnimation(it, object: ViewEventCallback{
+            startColorAnimation(it, object : ViewEventCallback {
                 override fun eventEnd(view: View) {
                     longClickOnMessage(view)
                 }
