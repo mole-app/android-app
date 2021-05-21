@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
+import android.widget.EditText
 import androidx.annotation.AttrRes
 import kotlin.math.sign
 
@@ -128,4 +131,18 @@ fun View.setBorder(
         }
     }
 
+}
+
+fun EditText.beforeTextChanged(beforeTextChanged: () -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            beforeTextChanged.invoke()
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+
+        override fun afterTextChanged(editable: Editable?) {
+        }
+    })
 }
