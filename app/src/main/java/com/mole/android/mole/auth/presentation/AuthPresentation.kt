@@ -2,24 +2,21 @@ package com.mole.android.mole.auth.presentation
 
 import com.mole.android.mole.auth.data.AuthData
 import com.mole.android.mole.auth.model.AuthModel
-import com.mole.android.mole.auth.view.AuthFragment
+import com.mole.android.mole.auth.view.AuthLoginFragment
 
 class AuthPresentation(private val model: AuthModel) {
-    private var view: AuthFragment? = null
+    private var view: AuthLoginFragment? = null
 
-    fun attachView(view: AuthFragment?) {
+    fun attachView(view: AuthLoginFragment) {
         this.view = view
+        val user = model.getUser()
+        val login = user.login
+        val prefix = if (login == "") "" else "@"
+        view.setUserLogin(prefix + login)
     }
 
     fun detachView() {
         view = null
-    }
-
-    fun viewIsReady() {
-        val user = model.getUser()
-        val login = user.login
-        val prefix = if (login == "") "" else "@"
-        view?.setUserLogin(prefix + login)
     }
 
     fun nextFragment() {
