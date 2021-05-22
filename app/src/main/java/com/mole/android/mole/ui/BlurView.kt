@@ -154,47 +154,7 @@ class BlurView @JvmOverloads constructor(
             canvas.drawColor(overlayColor)
         }
 
-        borderDraw(canvas)
-
         return true
-    }
-
-    private val pathBorder = Path()
-    private val rectFBorder = RectF(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
-    private val paintBorder = Paint()
-    private val radiusBorder = 8f.dp()
-
-    private fun borderDraw(canvas: Canvas) {
-        val radiusArr = floatArrayOf(
-            radiusBorder, radiusBorder,
-            radiusBorder, radiusBorder,
-            radiusBorder, radiusBorder,
-            radiusBorder, radiusBorder
-        )
-        rectFBorder.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
-        pathBorder.addRoundRect(
-            rectFBorder,
-            radiusArr,
-            Path.Direction.CW
-        )
-
-        val gradientStartColor = context.resolveColor(R.attr.textColorDisabled)
-        val gradientEndColor = context.resolveColor(R.attr.colorGradientStroke)
-
-        paintBorder.shader = LinearGradient(
-            0f,
-            0f,
-            measuredWidth.toFloat(),
-            measuredHeight.toFloat(),
-            gradientStartColor,
-            gradientEndColor,
-            Shader.TileMode.CLAMP
-        )
-
-        paintBorder.style = Paint.Style.STROKE
-        paintBorder.strokeWidth = 1f.dp()
-
-        canvas.drawPath(pathBorder, paintBorder)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

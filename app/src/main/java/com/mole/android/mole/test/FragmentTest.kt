@@ -200,6 +200,13 @@ class FragmentTest : Fragment() {
         blurView = popupView.findViewById(R.id.blur_popup)
         blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
         blurView.cornerRadius(8f.dp())
+        blurView.setBorder(
+            Shape.RECTANGLE,
+            8f.dp(),
+            1f.dp(),
+            R.attr.colorIconDisabled,
+            R.attr.colorGradientStroke
+        )
 
         val editButton: Button = popupView.findViewById(R.id.edit_popup)
         editButton.setOnClickListener {

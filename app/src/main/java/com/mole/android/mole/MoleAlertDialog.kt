@@ -17,6 +17,13 @@ class MoleAlertDialog : DialogFragment() {
         val blurView: BlurView = view.findViewById(R.id.dialog_root)
         blurView.setupWith(rootView!!).setBlurRadius(12f)
         blurView.cornerRadius(8f.dp())
+        blurView.setBorder(
+            Shape.RECTANGLE,
+            8f.dp(),
+            1f.dp(),
+            R.attr.colorIconDisabled,
+            R.attr.colorGradientStroke
+        )
 
         val alertDialog = Dialog(requireActivity(), R.style.MoleDialog)
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
