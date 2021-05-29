@@ -13,7 +13,7 @@ import com.mole.android.mole.auth.presentation.AuthPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 
-class AuthLoginFragmentImplementation : MoleBaseFragment(), AuthLoginFragment {
+class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
     private var toolbar: MoleActionBar? = null
 
@@ -21,20 +21,16 @@ class AuthLoginFragmentImplementation : MoleBaseFragment(), AuthLoginFragment {
     private lateinit var textInputLayout: TextInputLayout
 
     init {
-        val model = AuthModel()
+        val model = AuthModel
         presenter = AuthPresenter(model)
     }
 
-    override fun showError(error: String) {
-        textInputLayout.error = error
+    override fun showLoginExistError() {
+        textInputLayout.error = getString(R.string.login_exist_error)
     }
 
     override fun hideError() {
         textInputLayout.error = null
-    }
-
-    override fun getUserLogin(): String {
-        return textInputLayout.editText?.text.toString()
     }
 
     override fun setUserLogin(login: String) {
@@ -52,8 +48,8 @@ class AuthLoginFragmentImplementation : MoleBaseFragment(), AuthLoginFragment {
         val button: AppCompatImageButton = view.findViewById(R.id.auth_button)
         textInputLayout = view.findViewById(R.id.auth_logo)
 
-        textInputLayout.editText?.beforeTextChanged {
-            presenter.textChanged()
+        textInputLayout.editText?.onTextChanged { charSequence ->
+            presenter.onTextChanged(charSequence)
         }
 
         button.setOnClickListener {

@@ -1,11 +1,9 @@
 package com.mole.android.mole.auth.view
 
-interface AuthLoginFragment {
-    fun showError(error: String)
+interface AuthLoginView {
+    fun showLoginExistError()
 
     fun hideError()
-
-    fun getUserLogin(): String
 
     fun setUserLogin(login: String)
 }

@@ -133,16 +133,17 @@ fun View.setBorder(
 
 }
 
-fun EditText.beforeTextChanged(beforeTextChanged: () -> Unit) {
+fun EditText.onTextChanged(onTextChanged: (s: CharSequence) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            beforeTextChanged.invoke()
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
         }
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            onTextChanged.invoke(s)
         }
 
-        override fun afterTextChanged(editable: Editable?) {
+        override fun afterTextChanged(editable: Editable) {
         }
     })
 }
