@@ -16,10 +16,11 @@ abstract class MoleBaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val toolbar = getToolbar()
         if (toolbar != null) {
-            (requireActivity() as AppCompatActivity).setSupportActionBar(getToolbar())
-            (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(
-                false
-            )
+            val appCompatActivity = requireActivity()
+            if (appCompatActivity is AppCompatActivity) {
+                appCompatActivity.setSupportActionBar(toolbar)
+                appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+            }
         }
     }
 }

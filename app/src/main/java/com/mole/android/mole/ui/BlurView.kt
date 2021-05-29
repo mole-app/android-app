@@ -76,7 +76,6 @@ class BlurView @JvmOverloads constructor(
     private fun updateBlurParameters(measuredWidth: Int, measuredHeight: Int) {
 
         if (scaleSize.isZeroSized(measuredWidth, measuredHeight)) {
-            // Will be initialized later when the View reports a size change
             setWillNotDraw(true)
             return
         }

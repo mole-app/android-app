@@ -10,6 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.AttrRes
+import com.mole.android.mole.ui.BlurView
 import kotlin.math.sign
 
 
@@ -79,6 +80,16 @@ private fun View.preparePathForBorder(shape: Shape, radiusBorder: Float): Path {
         }
     }
     return pathBorder
+}
+
+fun BlurView.setBorder() {
+    setBorder(
+        Shape.RECTANGLE,
+        8f.dp(),
+        1f.dp(),
+        R.attr.colorIconDisabled,
+        R.attr.colorGradientStroke
+    )
 }
 
 fun View.setBorder(

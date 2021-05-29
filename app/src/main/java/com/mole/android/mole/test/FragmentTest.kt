@@ -169,8 +169,12 @@ class FragmentTest : Fragment() {
 
         toolbar = view.findViewById(R.id.mole_toolbar_with_text)
         scrollView = view.findViewById(R.id.test_main_scroll)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        val appCompatActivity = requireActivity()
+        if (appCompatActivity is AppCompatActivity) {
+            appCompatActivity.setSupportActionBar(toolbar)
+            appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
 
         val moleMessageView: MoleMessageView = view.findViewById(R.id.test_mole_message)
 
@@ -200,13 +204,7 @@ class FragmentTest : Fragment() {
         blurView = popupView.findViewById(R.id.blur_popup)
         blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
         blurView.cornerRadius(8f.dp())
-        blurView.setBorder(
-            Shape.RECTANGLE,
-            8f.dp(),
-            1f.dp(),
-            R.attr.colorIconDisabled,
-            R.attr.colorGradientStroke
-        )
+        blurView.setBorder()
 
         val editButton: Button = popupView.findViewById(R.id.edit_popup)
         editButton.setOnClickListener {

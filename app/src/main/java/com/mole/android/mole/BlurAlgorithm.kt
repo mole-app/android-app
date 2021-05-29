@@ -25,13 +25,7 @@ class BlurAlgorithm(context: Context) {
         return bitmap.height == lastBitmapHeight && bitmap.width == lastBitmapWidth
     }
 
-    /**
-     * @param bitmap     bitmap to blur
-     * @param blurRadius blur radius (1..25)
-     * @return blurred bitmap
-     */
     fun blur(bitmap: Bitmap, blurRadius: Float): Bitmap {
-        //Allocation will use the same backing array of pixels as bitmap if created with USAGE_SHARED flag
         val inAllocation: Allocation = Allocation.createFromBitmap(renderScript, bitmap)
         if (!canReuseAllocation(bitmap)) {
             if (outAllocation != null) {
@@ -43,7 +37,6 @@ class BlurAlgorithm(context: Context) {
         }
         blurScript.setRadius(blurRadius)
         blurScript.setInput(inAllocation)
-        //do not use inAllocation in forEach. it will cause visual artifacts on blurred Bitmap
         blurScript.forEach(outAllocation)
         outAllocation?.copyTo(bitmap)
         inAllocation.destroy()

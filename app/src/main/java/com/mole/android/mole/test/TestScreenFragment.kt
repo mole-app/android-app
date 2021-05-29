@@ -24,8 +24,11 @@ class TestScreenFragment : Fragment() {
         circleImageButton.isEnabled = false
 
         toolbar = view.findViewById(R.id.mole_toolbar_with_text)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        val appCompatActivity = requireActivity()
+        if (appCompatActivity is AppCompatActivity) {
+            appCompatActivity.setSupportActionBar(toolbar)
+            appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
 
         return view
     }
@@ -38,10 +41,8 @@ class TestScreenFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 
-        // First clear current all the menu items
         menu.clear()
 
-        // Add the new menu items
         inflater.inflate(R.menu.profile_menu, menu)
         toolbar?.bindMenu()
     }
