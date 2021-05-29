@@ -15,4 +15,5 @@
     <string name="cancel">Отмена</string>
     <string name="edit">Редактировать</string>
     <string name="login_exist_error">Такой логин уже существует</string>
+    <string name="login_title">Логин</string>
 </resources>

@@ -18,6 +18,7 @@ import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -58,8 +59,7 @@ class FragmentTest : Fragment() {
         false
     }
 
-    lateinit var popupView: RelativeLayout
-    lateinit var blurView: BlurView
+    lateinit var popupView: BlurView
 
     private fun longClickOnMessage(view: View) {
 
@@ -199,12 +199,11 @@ class FragmentTest : Fragment() {
     }
 
     private fun popupPreparation(view: View) {
-        popupView = View.inflate(this.context, R.layout.view_popup_window, null) as RelativeLayout
+        popupView = View.inflate(this.context, R.layout.view_popup_window, null) as BlurView
 
-        blurView = popupView.findViewById(R.id.blur_popup)
-        blurView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
-        blurView.cornerRadius(8f.dp())
-        blurView.setBorder()
+        popupView.setupWith(view.rootView as ViewGroup).setBlurRadius(12f)
+        popupView.cornerRadius(8f.dp())
+        popupView.setBorder()
 
         val editButton: Button = popupView.findViewById(R.id.edit_popup)
         editButton.setOnClickListener {

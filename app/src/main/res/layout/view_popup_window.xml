@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mole.android.mole.ui.BlurView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:id="@+id/blur_popup"
+    android:layout_width="168dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
-    <com.mole.android.mole.ui.BlurView
-        android:id="@+id/blur_popup"
-        android:layout_width="168dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dialog_background"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+    <Button
+        android:id="@+id/delete_popup"
+        style="@style/MoleButton.Popup"
+        android:layout_marginTop="10dp"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_popup" />
 
-        <Button
-            android:id="@+id/delete_popup"
-            style="@style/MoleButton.Popup"
-            android:layout_marginTop="10dp"
-            android:text="@string/delete"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_popup" />
-
-        <Button
-            android:id="@+id/edit_popup"
-            style="@style/MoleButton.Popup"
-            android:text="@string/edit"
-            app:layout_constraintBottom_toTopOf="@id/delete_popup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </com.mole.android.mole.ui.BlurView>
-
-</RelativeLayout>
+    <Button
+        android:id="@+id/edit_popup"
+        style="@style/MoleButton.Popup"
+        android:text="@string/edit"
+        app:layout_constraintBottom_toTopOf="@id/delete_popup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</com.mole.android.mole.ui.BlurView>

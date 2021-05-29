@@ -14,63 +14,53 @@
         app:textTitle="@string/test_action_bar_title_with_back"
         app:titleVisible="true" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/auth_title_logo"
+        style="@style/MoleText.Medium.Text2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/login_title"
+        android:textColor="?attr/textColorDisabled"
+        app:layout_constraintBottom_toTopOf="@id/auth_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.mole.android.mole.auth.view.MoleTextInputLayout
+        android:id="@+id/auth_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:boxBackgroundMode="filled"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconDrawable="@drawable/ic_close"
+        app:endIconMode="clear_text"
+        app:endIconTint="?attr/colorIcon"
+        app:errorEnabled="true"
+        app:errorTextColor="?attr/colorDeny"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/auth_title_logo"
-            style="@style/MoleText.Medium.Text2"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text"
+            style="@style/MoleText.Medium.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_space_edit_text"
+            android:drawableEnd="@drawable/ic_space_edit_text"
             android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Логин"
-            android:textColor="?attr/textColorDisabled"
-            app:layout_constraintBottom_toTopOf="@id/auth_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:inputType="text"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textCursorDrawable="@drawable/shape_mole_cursor" />
 
-        <com.mole.android.mole.auth.view.MoleTextInputLayout
-            android:id="@+id/auth_logo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:endIconDrawable="@drawable/ic_close"
-            app:endIconMode="clear_text"
-            app:endIconTint="?attr/colorIcon"
-            app:errorEnabled="true"
-            app:errorTextColor="?attr/colorDeny"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/auth_title_logo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text"
-                style="@style/MoleText.Medium.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_space_edit_text"
-                android:drawableEnd="@drawable/ic_space_edit_text"
-                android:gravity="center"
-                android:inputType="text"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:textCursorDrawable="@drawable/shape_mole_cursor" />
-
-        </com.mole.android.mole.auth.view.MoleTextInputLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.mole.android.mole.auth.view.MoleTextInputLayout>
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/auth_button"
