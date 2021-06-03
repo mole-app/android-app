@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.*
 import com.mole.android.mole.auth.model.AuthModel
-import com.mole.android.mole.auth.presentation.AuthPresenter
+import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 
@@ -17,12 +17,12 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
     private var toolbar: MoleActionBar? = null
 
-    private val presenter: AuthPresenter
+    private val presenter: AuthLoginPresenter
     private lateinit var textInputLayout: TextInputLayout
 
     init {
         val model = AuthModel
-        presenter = AuthPresenter(model)
+        presenter = AuthLoginPresenter(model)
     }
 
     override fun showLoginExistError() {

@@ -31,4 +31,6 @@
     <color name="gradient_button_disable_end">#1AFFFFFF</color>
     <color name="gradient_button_icon_start">#66FFFFFF</color>
     <color name="gradient_button_icon_end">#1AFFFFFF</color>
+    <color name="gradient_glass_start">#66FFFFFF</color>
+    <color name="gradient_glass_end">#1AFFFFFF</color>
 </resources>

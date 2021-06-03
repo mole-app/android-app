@@ -18,6 +18,8 @@
         <item name="colorButtonDisableEnd">@color/gradient_button_disable_end</item>
         <item name="colorButtonIconStart">@color/gradient_button_icon_start</item>
         <item name="colorButtonIconEnd">@color/gradient_button_icon_end</item>
+        <item name="colorGlassStart">@color/gradient_glass_start</item>
+        <item name="colorGlassEnd">@color/gradient_glass_end</item>
         <item name="textColorPrimary">@color/color_text</item>
         <item name="textColorDisabled">@color/color_text_disabled</item>
         <item name="colorIcon">@color/color_icon</item>

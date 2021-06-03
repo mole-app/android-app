@@ -6,7 +6,7 @@ import com.mole.android.mole.auth.data.AuthData
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.view.AuthLoginView
 
-class AuthPresenter(private val model: AuthModel) : MoleBasePresenter<AuthLoginView>() {
+class AuthLoginPresenter(private val model: AuthModel) : MoleBasePresenter<AuthLoginView>() {
 
     private var login: String = ""
 
