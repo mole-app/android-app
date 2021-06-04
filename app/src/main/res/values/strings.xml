@@ -16,4 +16,7 @@
     <string name="edit">Редактировать</string>
     <string name="login_exist_error">Такой логин уже существует</string>
     <string name="login_title">Логин</string>
+    <string name="vk_login">Войти через VK</string>
+    <string name="google_login">Войти через Google</string>
+    <string name="login_prefix">\@</string>
 </resources>

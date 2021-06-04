@@ -17,13 +17,8 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
     private var toolbar: MoleActionBar? = null
 
-    private val presenter: AuthLoginPresenter
+    private lateinit var presenter: AuthLoginPresenter
     private lateinit var textInputLayout: TextInputLayout
-
-    init {
-        val model = AuthModelImplementation
-        presenter = AuthLoginPresenter(model)
-    }
 
     override fun showLoginExistError() {
         textInputLayout.error = getString(R.string.login_exist_error)
@@ -63,6 +58,9 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
             R.attr.colorIconDisabled,
             R.attr.colorGradientStroke
         )
+
+        val model = AuthModelImplementation
+        presenter = AuthLoginPresenter(model, AuthLoginResourcesImplementation(requireContext()))
 
         presenter.attachView(this)
     }
