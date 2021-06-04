@@ -27,6 +27,7 @@
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:colorBackground">?attr/colorPrimary</item>
         <item name="colorGradientStroke">@color/invisible_black</item>
+        <item name="colorRipple">@color/white_ripple</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q"> false </item>
     </style>
 </resources>
