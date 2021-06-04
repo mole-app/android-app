@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.*
-import com.mole.android.mole.auth.model.AuthModel
+import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -21,7 +21,7 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
     private lateinit var textInputLayout: TextInputLayout
 
     init {
-        val model = AuthModel
+        val model = AuthModelImplementation
         presenter = AuthLoginPresenter(model)
     }
 
