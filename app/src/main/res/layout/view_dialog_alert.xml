@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mole.android.mole.ui.BlurView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    android:background="@drawable/dialog_background">
+
+    <TextView
+        android:id="@+id/alert_title"
+        style="@style/MoleText.Medium.Text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="4dp"
+        android:text="@string/dialog_alert_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/alert_description"
+        style="@style/MoleText.Regular.Text2"
+        android:textColor="?attr/textColorDisabled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="4dp"
+        android:text="@string/dialog_alert_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/alert_title" />
+
+    <Button
+        android:id="@+id/alert_apply"
+        style="@style/MoleButton.Alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7.5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="7.5dp"
+        android:padding="12dp"
+        android:text="@string/delete"
+        android:textColor="?attr/colorDeny"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/alert_description" />
+
+    <Button
+        android:id="@+id/alert_cancel"
+        style="@style/MoleButton.Alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7.5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="7.5dp"
+        android:padding="12dp"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/alert_apply"
+        app:layout_constraintTop_toBottomOf="@id/alert_description" />
+
+
+</com.mole.android.mole.ui.BlurView>

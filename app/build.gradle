@@ -40,6 +40,8 @@ ext {
     junitVersion = '4.+'
     testJunitVersion = '1.1.2'
     testEspressoVersion = '3.3.0'
+    firebaseInstallationVersion = '17.0.0'
+    firebaseMessagingVersion = '21.0.0'
 }
 
 dependencies {

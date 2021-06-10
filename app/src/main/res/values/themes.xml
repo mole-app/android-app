@@ -10,6 +10,7 @@
         <item name="colorDeny">@color/color_deny</item>
         <item name="colorDisabled">@color/color_disabled</item>
         <item name="colorButtonRipple">@color/white</item>
+        <item name="android:colorControlActivated">?attr/colorAccent</item>
         <item name="colorBorderlessIcon">@color/color_borderless_icon</item>
         <item name="colorButtonActiveStart">@color/gradient_button_active_start</item>
         <item name="colorButtonActiveEnd">@color/gradient_button_active_end</item>
@@ -17,11 +18,16 @@
         <item name="colorButtonDisableEnd">@color/gradient_button_disable_end</item>
         <item name="colorButtonIconStart">@color/gradient_button_icon_start</item>
         <item name="colorButtonIconEnd">@color/gradient_button_icon_end</item>
+        <item name="colorGlassStart">@color/gradient_glass_start</item>
+        <item name="colorGlassEnd">@color/gradient_glass_end</item>
         <item name="textColorPrimary">@color/color_text</item>
         <item name="textColorDisabled">@color/color_text_disabled</item>
         <item name="colorIcon">@color/color_icon</item>
         <item name="colorIconDisabled">@color/color_icon_disabled</item>
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:colorBackground">?attr/colorPrimary</item>
+        <item name="colorGradientStroke">@color/invisible_black</item>
+        <item name="colorRipple">@color/white_ripple</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q"> false </item>
     </style>
 </resources>

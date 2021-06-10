@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/mole_auth_toolbar"
+        style="@style/MoleToolbar"
+        app:backVisible="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textTitle="@string/test_action_bar_title_with_back"
+        app:titleVisible="true" />
+
+    <TextView
+        android:id="@+id/auth_title_logo"
+        style="@style/MoleText.Medium.Text2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/login_title"
+        android:textColor="?attr/textColorDisabled"
+        app:layout_constraintBottom_toTopOf="@id/auth_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.mole.android.mole.auth.view.MoleTextInputLayout
+        android:id="@+id/auth_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:boxBackgroundMode="filled"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:endIconDrawable="@drawable/ic_close"
+        app:endIconMode="clear_text"
+        app:endIconTint="?attr/colorIcon"
+        app:errorEnabled="true"
+        app:errorTextColor="?attr/colorDeny"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text"
+            style="@style/MoleText.Medium.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_space_edit_text"
+            android:drawableEnd="@drawable/ic_space_edit_text"
+            android:gravity="center"
+            android:inputType="text"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textCursorDrawable="@drawable/shape_mole_cursor" />
+
+    </com.mole.android.mole.auth.view.MoleTextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/auth_button"
+        style="@style/MoleButton.Round"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_arrow_normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

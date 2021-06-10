@@ -5,10 +5,12 @@
     <color name="red">#F27167</color>
     <color name="green">#2FC97F</color>
     <color name="gray">#717171</color>
+    <color name="black_alpha_50">#80212121</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha_50">#80FFFFFF</color>
     <color name="white_alpha_25">#40FFFFFF</color>
     <color name="white_ripple">#40FFFFFF</color>
+    <color name="invisible_black">#00212121</color>
 
     <color name="color_accent">@color/orange</color>
     <color name="color_primary">@color/black</color>
@@ -29,4 +31,6 @@
     <color name="gradient_button_disable_end">#1AFFFFFF</color>
     <color name="gradient_button_icon_start">#66FFFFFF</color>
     <color name="gradient_button_icon_end">#1AFFFFFF</color>
+    <color name="gradient_glass_start">#66FFFFFF</color>
+    <color name="gradient_glass_end">#1AFFFFFF</color>
 </resources>

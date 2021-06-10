@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="MoleButton">
         <item name="android:textAllCaps">false</item>
         <item name="textAllCaps">false</item>
         <item name="android:textAppearance">@style/MoleText.Medium.Text2</item>
         <item name="android:textColor">@drawable/selector_text_button</item>
+    </style>
+
+    <style name="MoleButton.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/selector_alert_borderless_button</item>
+        <item name="android:textAppearance">@style/MoleText.Regular.Text1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="MoleButton.Popup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/selector_popup_borderless_button</item>
+        <item name="android:textAppearance">@style/MoleText.Regular.Text1</item>
+    </style>
+
+    <style name="AnimationPopup">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_hide</item>
     </style>
 
     <style name="MoleButton.Rectangle">
@@ -33,6 +59,10 @@
         <item name="android:background">@drawable/selector_rectangle_borderless_button</item>
     </style>
 
+    <style name="MoleText.Error">
+        <item name="android:textColor">?attr/colorDeny</item>
+    </style>
+
     <style name="MoleButton.BorderlessIcon">
         <item name="android:background">@drawable/selector_icon_borderless_button</item>
         <item name="android:radius">60dp</item>
@@ -42,6 +72,8 @@
     </style>
 
     <style name="MoleText">
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
         <item name="android:textColor">?attr/textColorPrimary</item>
     </style>
 
@@ -109,5 +141,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="MoleDialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
     </style>
 </resources>
