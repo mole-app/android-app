@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.*
+import com.mole.android.mole.auth.data.AuthDataVkLogin
 import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
@@ -17,7 +18,15 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
     private var toolbar: MoleActionBar? = null
 
-    private lateinit var presenter: AuthLoginPresenter
+    private val presenter: AuthLoginPresenter =
+        component().authModule.loginPresenter(
+            AuthDataVkLogin(
+                "",
+                "",
+                "",
+                "vasiapupkin"
+            )
+        )
     private lateinit var textInputLayout: TextInputLayout
 
     override fun showLoginExistError() {
@@ -58,9 +67,6 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
             R.attr.colorIconDisabled,
             R.attr.colorGradientStroke
         )
-
-        val model = AuthModelImplementation
-        presenter = AuthLoginPresenter(model, AuthLoginResourcesImplementation(requireContext()))
 
         presenter.attachView(this)
     }
