@@ -10,6 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.AttrRes
+import com.mole.android.mole.di.MoleComponent
 import com.mole.android.mole.ui.BlurView
 import kotlin.math.sign
 
@@ -157,4 +158,8 @@ fun EditText.onTextChanged(onTextChanged: (s: CharSequence) -> Unit) {
         override fun afterTextChanged(editable: Editable) {
         }
     })
+}
+
+fun component(): MoleComponent {
+    return MoleApplication.requireComponent()
 }
