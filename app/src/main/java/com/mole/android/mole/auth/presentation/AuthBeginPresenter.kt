@@ -40,7 +40,7 @@ class AuthBeginPresenter(
             scope.launch {
                 val login = model.getUserVk(code)
                 Log.i("AuthBegin", "login: $login")
-                router.navigateTo(Screens.AuthLogin())
+                router.replaceScreen(Screens.AuthLogin())
             }
         }
         router.navigateTo(Screens.AuthBrowser(VK_URL, router))
