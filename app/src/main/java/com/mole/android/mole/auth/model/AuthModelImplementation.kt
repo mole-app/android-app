@@ -1,53 +1,70 @@
 package com.mole.android.mole.auth.model
 
-import androidx.lifecycle.liveData
-import com.mole.android.mole.auth.data.AuthData
+import android.util.Log
+import android.widget.Toast
+import com.google.firebase.installations.FirebaseInstallations
 import com.mole.android.mole.auth.data.AuthDataVkLogin
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-object AuthModelImplementation : AuthModel {
+class AuthModelImplementation(
+    private val service: AuthService,
+    private val firebaseInst: FirebaseInstallations,
+    private val mainScope: CoroutineScope
+) : AuthModel {
 
+    private val data: AuthDataVkLogin =
+        AuthDataVkLogin(
+            "accessToken",
+            "refreshToken",
+            "expiresIn",
+            "vasiapupkin"
+        )
 
-    private val data: AuthData = AuthData("vasiapupkin")
-    val scope = CoroutineScope(Job() + Dispatchers.Main)
-
-    override fun addUser(user: AuthData): Boolean {
-        return user.login != "first"
+    override suspend fun addUser(login: String): Boolean {
+        return login != "first"
     }
 
-    override fun getUser(): AuthData {
-
-        val service = RetrofitBuilder.retrofitService
-        scope.launch {
-            service.getVkAuth().enqueue(object : Callback<AuthDataVkLogin> {
-                override fun onFailure(call: Call<AuthDataVkLogin>, t: Throwable) {
-
+    override suspend fun getUserVk(code: String): String {
+        val task = mainScope.async {
+            val login: String
+            withContext(Dispatchers.IO) {
+                login = try {
+                    service.getVkAuth(code, getFingerprint()).login
+                } catch (exception: Exception) {
+                    // Не хочется падать если что-то не так на сервере
+                    exception.printStackTrace()
+                    ""
                 }
-
-                override fun onResponse(
-                    call: Call<AuthDataVkLogin>,
-                    response: Response<AuthDataVkLogin>
-                ) {
-                    val body = response.body()
-                    if (body is AuthDataVkLogin) {
-                        response.body() as AuthDataVkLogin
-                    }
-                }
-            })
+                login
+            }
         }
-        return data
+        val login: String = task.await()
+        Log.i("Auth", "User login: $login")
+        return login
     }
 
-//    suspend fun fetchDocs() {                      // Dispatchers.Main
-//        val result = get("developer.android.com")  // Dispatchers.Main
-//        show(result)                               // Dispatchers.Main
-//    }
+    override suspend fun getUserGoogle(code: String): String {
+        val task = mainScope.async {
+            val login: String
+            withContext(Dispatchers.IO) {
+                login = try {
+                    service.getGoogleAuth(code, getFingerprint()).login
+                } catch (exception: Exception) {
+                    // Не хочется падать если что-то не так на сервере
+                    exception.printStackTrace()
+                    ""
+                }
+                login
+            }
+        }
+        val login: String = task.await()
+        Log.i("Auth", "User login: $login")
+        return login
+    }
 
-    suspend fun get(url: String) =                 // Dispatchers.Main
-        withContext(Dispatchers.IO) {              // Dispatchers.IO (main-safety block)
-            /* perform network IO here */          // Dispatchers.IO (main-safety block)
-        }                                          // Dispatchers.Main
+    private suspend fun getFingerprint(): String {
+        firebaseInst.id
+        return ""
+    }
+
 }
