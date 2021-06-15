@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.*
 import com.mole.android.mole.auth.data.AuthDataVkLogin
-import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -69,10 +68,7 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
         button.setBorder(
             Shape.OVAL,
-            16f.dp(),
-            1f.dp(),
-            R.attr.colorIconDisabled,
-            R.attr.colorGradientStroke
+            16f.dp()
         )
 
         presenter =

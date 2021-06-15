@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.AttrRes
 import com.mole.android.mole.di.MoleComponent
@@ -87,6 +88,19 @@ fun BlurView.setBorder() {
     setBorder(
         Shape.RECTANGLE,
         8f.dp(),
+        1f.dp(),
+        R.attr.colorIconDisabled,
+        R.attr.colorGradientStroke
+    )
+}
+
+fun View.setBorder(
+    shape: Shape,
+    radiusBorder: Float
+) {
+    setBorder(
+        shape,
+        radiusBorder,
         1f.dp(),
         R.attr.colorIconDisabled,
         R.attr.colorGradientStroke
