@@ -18,17 +18,27 @@ class AuthModule(
     private val firebaseModule: FirebaseModule
 ) : Module() {
 
-    val beginPresenter get() = AuthBeginPresenter(authModel, routingModule.router, baseScopeModule.mainScope)
+    val beginPresenter
+        get() = AuthBeginPresenter(
+            authModel,
+            routingModule.router,
+            baseScopeModule.mainScope
+        )
 
-    val loginPresenter: (AuthDataVkLogin) -> AuthLoginPresenter =
-        { AuthLoginPresenter(authModel, loginResources, it, baseScopeModule.mainScope) }
+    val loginPresenter: (AuthDataVkLogin) -> AuthLoginPresenter = {
+        AuthLoginPresenter(authModel, loginResources, it, baseScopeModule.mainScope)
+    }
 
     private val loginResources: AuthLoginResources by lazy {
         AuthLoginResourcesImplementation(context)
     }
 
     private val authModel: AuthModel by lazy {
-        AuthModelImplementation(authService, firebaseModule.instInstallation, baseScopeModule.mainScope)
+        AuthModelImplementation(
+            authService,
+            firebaseModule.instInstallation,
+            baseScopeModule.mainScope
+        )
     }
 
     private val authService by lazy {

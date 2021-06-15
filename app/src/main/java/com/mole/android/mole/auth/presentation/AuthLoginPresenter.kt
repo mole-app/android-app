@@ -4,7 +4,6 @@ import android.util.Log
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.auth.data.AuthDataVkLogin
 import com.mole.android.mole.auth.model.AuthModel
-import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.view.AuthLoginResources
 import com.mole.android.mole.auth.view.AuthLoginView
 import kotlinx.coroutines.*

@@ -2,16 +2,11 @@ package com.mole.android.mole.auth.presentation
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.google.android.gms.tasks.Task
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.view.AuthBeginView
 import com.mole.android.mole.navigation.Screens
 import kotlinx.coroutines.launch
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.mole.android.mole.auth.model.AuthModel
 import kotlinx.coroutines.CoroutineScope
 
@@ -21,7 +16,6 @@ class AuthBeginPresenter(
     private val scope: CoroutineScope
 ) :
     MoleBasePresenter<AuthBeginView>() {
-    private lateinit var client: GoogleSignInClient
 
     companion object {
         private const val VK_URL = "https://oauth.vk.com/authorize?" +

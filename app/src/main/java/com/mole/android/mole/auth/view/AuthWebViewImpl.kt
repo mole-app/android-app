@@ -12,7 +12,6 @@ import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.component
-import java.util.*
 
 class AuthWebViewImpl : MoleBaseFragment() {
 

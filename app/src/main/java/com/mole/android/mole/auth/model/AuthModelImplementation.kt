@@ -39,8 +39,9 @@ class AuthModelImplementation(
             }
         }
         val login: String = task.await()
-        Log.i("Auth", "User login: $login")
-        return login
+        Log.i("Auth", "User vk login: $login")
+//        return login
+        return "VovchikPut"
     }
 
     override suspend fun getUserGoogle(code: String): String {
@@ -58,13 +59,13 @@ class AuthModelImplementation(
             }
         }
         val login: String = task.await()
-        Log.i("Auth", "User login: $login")
+        Log.i("Auth", "User google login: $login")
         return login
     }
 
     private suspend fun getFingerprint(): String {
         firebaseInst.id
-        return ""
+        return "333333333333"
     }
 
 }
