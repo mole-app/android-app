@@ -39,24 +39,20 @@ class AuthBeginPresenter(
             Log.i("AuthBegin", code)
             scope.launch {
                 val login = model.getUserVk(code)
-                Log.i("AuthBegin", "login: $login")
-                router.replaceScreen(Screens.AuthLogin())
+                router.replaceScreen(Screens.AuthLogin(login))
             }
         }
-        router.navigateTo(Screens.AuthBrowser(VK_URL, router))
+        router.navigateTo(Screens.AuthBrowser(VK_URL))
     }
 
     fun onGoogleClick() {
+        val token = view?.googleAccount?.idToken
         Log.i("Auth", "Google")
-
-        router.setResultListener("code") { data ->
-            val code = data as String
-            Log.i("AuthBegin", code)
-            scope.launch {
-                model.getUserGoogle(code)
+        scope.launch {
+            if (token != null) {
+                val login = model.getUserGoogle(token)
+                router.replaceScreen(Screens.AuthLogin(login))
             }
         }
-        router.navigateTo(Screens.AuthBrowser(VK_URL, router))
-
     }
 }

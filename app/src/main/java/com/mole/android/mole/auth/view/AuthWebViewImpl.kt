@@ -11,27 +11,31 @@ import android.webkit.WebViewClient
 import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
+import com.mole.android.mole.component
 import java.util.*
 
-class AuthWebViewImpl(private val url: String, val router: Router) : MoleBaseFragment() {
+class AuthWebViewImpl : MoleBaseFragment() {
 
-//    companion object {
-//        private const val TAG = "CrimeFragment"
-//        private const val ARG_CRIME_MODE = "crime_mode"
-//        private const val ARG_CRIME_ID = "crime_id"
-//        private const val DIALOG_DATE = "DialogDate"
-//        fun newInstance(url: String, router: Router): AuthWebViewImpl {
-//            val args = Bundle()
-//            args.putSerializable(ARG_CRIME_ID, url)
-//            args.putSerializable(ARG_CRIME_MODE, router)
-//            val fragment = AuthWebViewImpl()
-//            fragment.arguments = args
-//            return fragment
-//        }
-//    }
+    private lateinit var url: String
+    private val router: Router = component().routingModule.router
+
+    companion object {
+        private const val URL_ID = "url_id"
+        fun newInstance(url: String): AuthWebViewImpl {
+            val args = Bundle()
+            args.putSerializable(URL_ID, url)
+            val fragment = AuthWebViewImpl()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        url = arguments?.getString(URL_ID).toString()
+        Log.i("Auth", "Argument url: $url")
+
         val webView: WebView = view.findViewById(R.id.web_view)
         webView.loadUrl(url)
         webView.webViewClient = object : WebViewClient() {
