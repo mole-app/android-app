@@ -14,14 +14,9 @@ import com.mole.android.mole.auth.view.AuthLoginViewImplementation
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var pid: Task<String>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val instInstallation = FirebaseInstallations.getInstance()
-        pid = instInstallation.id
 
         val navigator = AppNavigator(this, R.id.fragment_container)
         component().routingModule.navigationHolder.setNavigator(navigator)
