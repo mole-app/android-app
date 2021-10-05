@@ -6,7 +6,6 @@ import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.auth.view.AuthBeginView
 import com.mole.android.mole.navigation.Screens
 import kotlinx.coroutines.launch
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.mole.android.mole.auth.model.AuthModel
 import kotlinx.coroutines.CoroutineScope
 

@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.installations.FirebaseInstallations
 import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import com.mole.android.mole.auth.view.AuthLoginViewImplementation
+import com.mole.android.mole.test.FragmentBottomBar
 
 
 class MainActivity : AppCompatActivity() {

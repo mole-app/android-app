@@ -1,20 +1,13 @@
 package com.mole.android.mole.auth.view
 
-import android.app.Activity
-import android.content.Intent
-import android.content.IntentSender.SendIntentException
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.appcompat.widget.AppCompatButton
-import com.google.android.gms.auth.api.identity.GetSignInIntentRequest
-import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -34,6 +27,12 @@ class AuthBeginViewImplementation :
     private lateinit var client: GoogleSignInClient
     override lateinit var googleAccount: GoogleSignInAccount
 
+    private val mainActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            handleSignInResult(task)
+        }
+
     companion object {
         const val CODE_SIGN = 1
     }
@@ -50,13 +49,8 @@ class AuthBeginViewImplementation :
         val googleButton: AppCompatButton = view.findViewById(R.id.google_button)
 
         googleButton.setOnClickListener {
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("866261272024-9oc61vo2mfgci38pm9duk2d480gljlap.apps.googleusercontent.com")
-                .requestEmail()
-                .build()
-
-            val client = GoogleSignIn.getClient(requireActivity(), gso)
-            startActivityForResult(client.signInIntent, CODE_SIGN)
+            val intent = client.signInIntent
+            mainActivityResultLauncher.launch(intent)
         }
 
         presenter.attachView(this)
@@ -70,14 +64,6 @@ class AuthBeginViewImplementation :
         } catch (e: ApiException) {
             Log.w("GoogleAuth", "signInResult:failed code=" + e.statusCode)
             Toast.makeText(requireContext(), "Error signed!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CODE_SIGN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
         }
     }
 
