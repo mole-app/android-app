@@ -22,7 +22,8 @@ class AuthModule(
         get() = AuthBeginPresenter(
             authModel,
             routingModule.router,
-            baseScopeModule.mainScope
+            baseScopeModule.mainScope,
+            RetrofitModule.VK_URL
         )
 
     val loginPresenter: (AuthDataVkLogin) -> AuthLoginPresenter = {

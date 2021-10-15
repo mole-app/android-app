@@ -12,19 +12,10 @@ import kotlinx.coroutines.CoroutineScope
 class AuthBeginPresenter(
     private val model: AuthModel,
     private val router: Router,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val vkAuthUrl: String
 ) :
     MoleBasePresenter<AuthBeginView>() {
-
-    companion object {
-        private const val VK_URL = "https://oauth.vk.com/authorize?" +
-                "client_id=7843036" +
-                "&display=mobile" +
-                "&redirect_uri=https://mole-app.ru/android/auth" +
-                "&scope=friends" +
-                "&response_type=code" +
-                "&v=5.131"
-    }
 
     fun onVkClick() {
         router.setResultListener("code") { data ->
@@ -35,7 +26,7 @@ class AuthBeginPresenter(
                 router.replaceScreen(Screens.AuthLogin(login))
             }
         }
-        router.navigateTo(Screens.AuthBrowser(VK_URL))
+        router.navigateTo(Screens.AuthBrowser(vkAuthUrl))
     }
 
     fun onGoogleClick() {
