@@ -16,7 +16,7 @@ class AuthModule(
     private val routingModule: RoutingModule,
     private val baseScopeModule: BaseScopeModule,
     private val firebaseModule: FirebaseModule
-) : Module() {
+) {
 
     val beginPresenter
         get() = AuthBeginPresenter(
