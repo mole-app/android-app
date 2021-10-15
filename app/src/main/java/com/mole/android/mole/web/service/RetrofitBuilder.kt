@@ -1,4 +1,4 @@
-package com.mole.android.mole.auth.model
+package com.mole.android.mole.web.service
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
