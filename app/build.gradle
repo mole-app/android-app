@@ -47,7 +47,7 @@ ext {
     firebaseInstallationVersion = '17.0.0'
     firebaseMessagingVersion = '21.0.0'
     coroutinesVersion = '1.4.1'
-    kotlinVersion = '1.2.71'
+    kotlinVersion = '1.5.30'
 }
 
 apply plugin: 'com.google.gms.google-services'
