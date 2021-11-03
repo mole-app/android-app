@@ -11,7 +11,8 @@ import com.mole.android.mole.databinding.ItemChatTitleViewBinding
 import com.mole.android.mole.databinding.ItemChatViewBinding
 import com.mole.android.mole.deps.data.ChatData
 
-class DebtsMainAdapter : RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>() {
+class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListener) :
+    RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>() {
 
     private lateinit var chatsData: List<ChatData>
 
@@ -38,6 +39,13 @@ class DebtsMainAdapter : RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>()
                     transformations(CircleCropTransformation())
                 }
                 userDebtsTotal.balance = data[position].userTotalDebts
+                itemChatView.setOnLongClickListener {
+                    onItemChatClickListener.onLongClick(data[position])
+                    true
+                }
+                itemChatView.setOnClickListener {
+                    onItemChatClickListener.onShotClick(data[position])
+                }
             }
         }
     }
