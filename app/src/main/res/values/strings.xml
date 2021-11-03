@@ -19,4 +19,5 @@
     <string name="vk_login">Войти через VK</string>
     <string name="google_login">Войти через Google</string>
     <string name="login_prefix">\@</string>
+    <string name="welcome_string">Добро пожаловать!</string>
 </resources>

@@ -8,8 +8,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.AttrRes
+import com.mole.android.mole.di.MoleComponent
 import com.mole.android.mole.ui.BlurView
 import kotlin.math.sign
 
@@ -94,6 +96,19 @@ fun BlurView.setBorder() {
 
 fun View.setBorder(
     shape: Shape,
+    radiusBorder: Float
+) {
+    setBorder(
+        shape,
+        radiusBorder,
+        1f.dp(),
+        R.attr.colorIconDisabled,
+        R.attr.colorGradientStroke
+    )
+}
+
+fun View.setBorder(
+    shape: Shape,
     radiusBorder: Float,
     lineWidth: Float,
     @AttrRes colorStart: Int,
@@ -157,4 +172,8 @@ fun EditText.onTextChanged(onTextChanged: (s: CharSequence) -> Unit) {
         override fun afterTextChanged(editable: Editable) {
         }
     })
+}
+
+fun component(): MoleComponent {
+    return MoleApplication.requireComponent()
 }
