@@ -22,8 +22,9 @@ class AuthBeginPresenter(
             val code = data as String
             Log.i("AuthBegin", code)
             scope.launch {
-                val login = model.getUserVk(code)
-                router.replaceScreen(Screens.AuthLogin(login))
+                val user = model.getUserVk(code)
+                val login = user?.login
+                router.replaceScreen(Screens.AuthLogin(login?.ifEmpty { "VovchikPut" } ?: "VovchikPut"))
             }
         }
         router.navigateTo(Screens.AuthBrowser(vkAuthUrl))
@@ -35,7 +36,7 @@ class AuthBeginPresenter(
         scope.launch {
             if (token != null) {
                 val login = model.getUserGoogle(token)
-                router.replaceScreen(Screens.AuthLogin(login))
+                router.replaceScreen(Screens.AuthLogin(login.ifEmpty { "VovchikPut" }))
             }
         }
     }

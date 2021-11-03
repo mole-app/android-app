@@ -1,10 +1,15 @@
 package com.mole.android.mole.auth.model
 
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.installations.FirebaseInstallations
 import com.mole.android.mole.auth.data.AuthDataVkLogin
+import com.mole.android.mole.component
 import kotlinx.coroutines.*
+
+import android.accounts.Account
+
+
+
 
 class AuthModelImplementation(
     private val service: AuthService,
@@ -14,34 +19,39 @@ class AuthModelImplementation(
 
     private val data: AuthDataVkLogin =
         AuthDataVkLogin(
-            "accessToken",
-            "refreshToken",
-            "expiresIn",
-            "vasiapupkin"
+            "",
+            "",
+            "",
+            ""
         )
 
     override suspend fun addUser(login: String): Boolean {
         return login != "first"
     }
 
-    override suspend fun getUserVk(code: String): String {
+    override suspend fun getUserVk(code: String): AuthDataVkLogin {
         val task = mainScope.async {
-            val login: String
+            val user: AuthDataVkLogin
             withContext(Dispatchers.IO) {
-                login = try {
-                    service.getVkAuth(code, getFingerprint()).login
+                user = try {
+                    val user = service.getVkAuth(code, getFingerprint())
+                    val accountManager = component().accountManager
+                    val account = Account("VovchikPut", "com.mole.android.mole")
+                    val success = accountManager.addAccountExplicitly(account, null, null)
+                    accountManager.setAuthToken(account, "accessAuthToken", user.accessToken)
+                    accountManager.setAuthToken(account, "refreshAuthToken", user.refreshToken)
+                    user
                 } catch (exception: Exception) {
                     // Не хочется падать если что-то не так на сервере
                     exception.printStackTrace()
-                    ""
+                    data
                 }
-                login
+                user
             }
         }
-        val login: String = task.await()
-        Log.i("Auth", "User vk login: $login")
-//        return login
-        return "VovchikPut"
+        val user: AuthDataVkLogin = task.await()
+        Log.i("Auth", "User vk login: $user")
+        return user
     }
 
     override suspend fun getUserGoogle(code: String): String {
@@ -64,8 +74,8 @@ class AuthModelImplementation(
     }
 
     private suspend fun getFingerprint(): String {
-        firebaseInst.id
-        return "333333333333"
+        firebaseInst.id.result
+        return "3333333333"
     }
 
 }
