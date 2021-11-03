@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.mole.android.mole.R
 import com.mole.android.mole.databinding.ItemChatTitleViewBinding
 import com.mole.android.mole.databinding.ItemChatViewBinding
 import com.mole.android.mole.deps.data.ChatData
-import com.mole.android.mole.ui.CircleImageTransformation
 
 class DebtsMainAdapter : RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>() {
 
@@ -35,7 +35,7 @@ class DebtsMainAdapter : RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>()
                 userName.text = data[position].userName
                 userDebtsCount.text = data[position].userDebtsCount
                 userIcon.load(R.drawable.test_image) {
-                    transformations(CircleImageTransformation())
+                    transformations(CircleCropTransformation())
                 }
                 userDebtsTotal.balance = data[position].userTotalDebts
             }
