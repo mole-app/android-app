@@ -29,7 +29,7 @@ class AuthModelImplementation(
         return login != "first"
     }
 
-    override suspend fun getUserVk(code: String): AuthDataVkLogin {
+    override suspend fun getUserVk(code: String): String {
         val task = mainScope.async {
             val user: AuthDataVkLogin
             withContext(Dispatchers.IO) {
@@ -51,7 +51,7 @@ class AuthModelImplementation(
         }
         val user: AuthDataVkLogin = task.await()
         Log.i("Auth", "User vk login: $user")
-        return user
+        return user.login
     }
 
     override suspend fun getUserGoogle(code: String): String {
@@ -74,7 +74,7 @@ class AuthModelImplementation(
     }
 
     private suspend fun getFingerprint(): String {
-        firebaseInst.id.result
+//        firebaseInst.id.result
         return "3333333333"
     }
 

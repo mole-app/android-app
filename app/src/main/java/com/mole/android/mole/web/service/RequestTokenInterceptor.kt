@@ -6,26 +6,26 @@ import okhttp3.Request
 import okhttp3.Response
 
 
-class RequestTokenInterceptor() : Interceptor {
+class RequestTokenInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        val accountManager = component().accountManager
-        val accounts = accountManager.getAccountsByType("com.mole.android.mole")
-
-        val token: String?
-        if (accounts.isNotEmpty()) {
-            token = accountManager.peekAuthToken(accounts[0], "accessAuthToken")
-        } else {
-            token = null
-        }
+        val header = chain.request().header("ApiKey")
 
         val nameHeader: String
         val valueHeader: String
-        if (token == null) {
+        if (header != null) {
             nameHeader = "x-api-key"
             valueHeader = "testAndroid"
         } else {
+            val accountManager = component().accountManager
+            val accounts = accountManager.getAccountsByType("com.mole.android.mole")
+            val token = if (accounts.isNotEmpty()) {
+                accountManager.peekAuthToken(accounts[0], "accessAuthToken")
+            } else {
+                null
+            }
+
             nameHeader = "Authorization"
             valueHeader = "Bearer $token"
         }
