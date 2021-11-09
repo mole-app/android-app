@@ -15,7 +15,7 @@ class DebtsMainFragment : MoleBaseFragment() {
     private var _binding : FragmentDebtsMainBinding? = null
     private val binding get() = _binding!!
 
-    private var adapter = DebtsMainAdapter(object : OnItemChatClickListener{
+    private val adapter = DebtsMainAdapter(object : OnItemChatClickListener{
         override fun onLongClick(chatData: ChatData) {
             Toast.makeText(context, "LongClick", Toast.LENGTH_LONG).show()
         }
