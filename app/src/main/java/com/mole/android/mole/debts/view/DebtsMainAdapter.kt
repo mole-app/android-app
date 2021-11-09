@@ -1,4 +1,4 @@
-package com.mole.android.mole.deps.view
+package com.mole.android.mole.debts.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import coil.transform.CircleCropTransformation
 import com.mole.android.mole.R
 import com.mole.android.mole.databinding.ItemChatTitleViewBinding
 import com.mole.android.mole.databinding.ItemChatViewBinding
-import com.mole.android.mole.deps.data.ChatData
+import com.mole.android.mole.debts.data.ChatData
 
 class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListener) :
     RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>() {

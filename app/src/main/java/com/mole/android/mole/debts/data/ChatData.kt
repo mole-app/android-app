@@ -1,4 +1,4 @@
-package com.mole.android.mole.deps.data
+package com.mole.android.mole.debts.data
 
 data class ChatData(
     val userIcon : String,

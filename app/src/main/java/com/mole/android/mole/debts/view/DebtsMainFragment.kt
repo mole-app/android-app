@@ -1,4 +1,4 @@
-package com.mole.android.mole.deps.view
+package com.mole.android.mole.debts.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.databinding.FragmentDebtsMainBinding
-import com.mole.android.mole.deps.data.ChatData
-import com.mole.android.mole.deps.data.testData
+import com.mole.android.mole.debts.data.ChatData
+import com.mole.android.mole.debts.data.testData
 
 class DebtsMainFragment : MoleBaseFragment() {
     private var _binding : FragmentDebtsMainBinding? = null
