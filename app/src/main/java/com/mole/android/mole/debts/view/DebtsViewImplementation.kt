@@ -8,22 +8,21 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.databinding.FragmentDebtsMainBinding
-import com.mole.android.mole.debts.data.ChatData
+import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.debts.data.testData
 
-class DebtsMainFragment : MoleBaseFragment() {
+class DebtsViewImplementation : MoleBaseFragment() {
     private var _binding : FragmentDebtsMainBinding? = null
     private val binding get() = _binding!!
 
     private val adapter = DebtsMainAdapter(object : OnItemChatClickListener{
-        override fun onLongClick(chatData: ChatData) {
+        override fun onLongClick(view:View, chatData: DebtsData.ChatDebtsData) {
             Toast.makeText(context, "LongClick", Toast.LENGTH_LONG).show()
         }
 
-        override fun onShotClick(chatData: ChatData) {
+        override fun onShotClick(chatData: DebtsData.ChatDebtsData) {
             Toast.makeText(context, "ShortClick", Toast.LENGTH_LONG).show()
         }
-
     })
 
     override fun onCreateView(
@@ -45,6 +44,7 @@ class DebtsMainFragment : MoleBaseFragment() {
         binding.DebtsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.DebtsRecyclerView.adapter = adapter
         adapter.setData(testData)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

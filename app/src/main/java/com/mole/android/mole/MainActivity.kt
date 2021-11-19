@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.mole.android.mole.debts.view.DebtsMainFragment
+import com.mole.android.mole.debts.view.DebtsViewImplementation
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private fun createFragment(): Fragment {
 //        return FragmentBottomBar()
 //        return AuthLoginViewImplementation()
-        return DebtsMainFragment()
+        return DebtsViewImplementation()
 //        return AuthBeginViewImplementation()
     }
 }
