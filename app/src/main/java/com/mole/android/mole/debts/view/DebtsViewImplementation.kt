@@ -11,17 +11,19 @@ import com.mole.android.mole.databinding.FragmentDebtsMainBinding
 import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.debts.data.testData
 
-class DebtsViewImplementation : MoleBaseFragment() {
+class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
     private var _binding : FragmentDebtsMainBinding? = null
     private val binding get() = _binding!!
 
     private val adapter = DebtsMainAdapter(object : OnItemChatClickListener{
         override fun onLongClick(view:View, chatData: DebtsData.ChatDebtsData) {
             Toast.makeText(context, "LongClick", Toast.LENGTH_LONG).show()
+            onLongChatClick()
         }
 
         override fun onShotClick(chatData: DebtsData.ChatDebtsData) {
             Toast.makeText(context, "ShortClick", Toast.LENGTH_LONG).show()
+            onShortChatClick()
         }
     })
 
@@ -50,5 +52,17 @@ class DebtsViewImplementation : MoleBaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onLongChatClick() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onShortChatClick() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSearchClick() {
+        TODO("Not yet implemented")
     }
 }
