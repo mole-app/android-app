@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mole.android.mole.R
+import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ItemChatTitleViewBinding
 import com.mole.android.mole.databinding.ItemChatViewBinding
 import com.mole.android.mole.debts.data.DebtsData
 
-class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListener) :
-    RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>() {
+class DebtsMainAdapter(
+    private val onItemChatClickListener: OnItemChatClickListener
+) :
+    RecyclerView.Adapter<BaseViewHolder<DebtsData>>() {
 
     private lateinit var chatsData: List<DebtsData>
 
@@ -26,37 +29,38 @@ class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListe
         private const val TYPE_CHAT = 2
     }
 
-    abstract inner class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        abstract fun bind(data: List<ChatData>, position: Int)
-    }
-
-    inner class ChatViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: List<ChatData>, position: Int) {
+    inner class ChatViewHolder(view: View) : BaseViewHolder<DebtsData>(view) {
+        override fun bind(data: DebtsData) {
+            data as DebtsData.ChatDebtsData
             ItemChatViewBinding.bind(itemView).apply {
-                userName.text = data[position].userName
-                userDebtsCount.text = data[position].userDebtsCount
-                userIcon.load(R.drawable.test_image) {
+                personName.text = data.personName
+                personDebtsCount.text = component().context.resources.getQuantityString(
+                    R.plurals.debts_plurals,
+                    data.personDebtsCount,
+                    data.personDebtsCount
+                )
+                personDebtsTotal.balance = data.personDebtsTotal
+                personIcon.load(R.drawable.test_image) {
                     transformations(CircleCropTransformation())
                 }
-                userDebtsTotal.balance = data[position].userTotalDebts
                 itemChatView.setOnLongClickListener {
-                    onItemChatClickListener.onLongClick(data[position])
+                    onItemChatClickListener.onLongClick(it, data)
                     true
                 }
                 itemChatView.setOnClickListener {
-                    onItemChatClickListener.onShotClick(data[position])
+                    onItemChatClickListener.onShotClick(data)
                 }
             }
         }
     }
 
-    inner class TitleViewHolder(view: View) : BaseViewHolder(view) {
-        override fun bind(data: List<ChatData>, position: Int) {
-            var totalDebts : Int = 0
-            for (chatData in data) {
-                totalDebts += chatData.userTotalDebts
+    inner class TitleViewHolder(view: View) : BaseViewHolder<DebtsData>(view) {
+        override fun bind(data: DebtsData) {
+            data as DebtsData.TotalDebtsData
+            ItemChatTitleViewBinding.bind(itemView).apply {
+                titleChatTextView.text =
+                    component().context.resources.getString(R.string.total_debts, data.debtsTotal)
             }
-            ItemChatTitleViewBinding.bind(itemView).titleChatTextView.text = "Всего: ${totalDebts.toString()} р."
         }
     }
 
@@ -65,8 +69,8 @@ class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListe
         else TYPE_CHAT
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return when(viewType){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<DebtsData> {
+        return when (viewType) {
             TYPE_CHAT -> {
                 val binding =
                     ItemChatViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -74,7 +78,11 @@ class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListe
             }
             else -> {
                 val binding =
-                    ItemChatTitleViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                    ItemChatTitleViewBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 TitleViewHolder(binding.root)
             }
         }
