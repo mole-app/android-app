@@ -1,8 +1,9 @@
 package com.mole.android.mole.debts.view
 
-import com.mole.android.mole.debts.data.ChatData
+import android.view.View
+import com.mole.android.mole.debts.data.DebtsData
 
 interface OnItemChatClickListener {
-    fun onLongClick(chatData: ChatData)
-    fun onShotClick(chatData: ChatData)
+    fun onLongClick(view: View, chatData: DebtsData.ChatDebtsData)
+    fun onShotClick(chatData: DebtsData.ChatDebtsData)
 }
