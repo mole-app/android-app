@@ -12,7 +12,7 @@ import com.mole.android.mole.databinding.ItemChatTitleViewBinding
 import com.mole.android.mole.databinding.ItemChatViewBinding
 import com.mole.android.mole.debts.data.DebtsData
 
-class DebtsMainAdapter(
+class DebtsViewAdapter(
     private val onItemChatClickListener: OnItemChatClickListener
 ) :
     RecyclerView.Adapter<BaseViewHolder<DebtsData>>() {
@@ -21,7 +21,10 @@ class DebtsMainAdapter(
 
     fun setData(data: List<DebtsData>) {
         chatsData = data
-        notifyDataSetChanged()
+    }
+
+    fun getData(): List<DebtsData> {
+        return chatsData
     }
 
     companion object {
