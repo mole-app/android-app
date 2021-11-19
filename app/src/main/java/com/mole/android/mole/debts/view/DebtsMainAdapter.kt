@@ -9,14 +9,14 @@ import coil.transform.CircleCropTransformation
 import com.mole.android.mole.R
 import com.mole.android.mole.databinding.ItemChatTitleViewBinding
 import com.mole.android.mole.databinding.ItemChatViewBinding
-import com.mole.android.mole.debts.data.ChatData
+import com.mole.android.mole.debts.data.DebtsData
 
 class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListener) :
     RecyclerView.Adapter<DebtsMainAdapter.BaseViewHolder>() {
 
-    private lateinit var chatsData: List<ChatData>
+    private lateinit var chatsData: List<DebtsData>
 
-    fun setData(data: List<ChatData>) {
+    fun setData(data: List<DebtsData>) {
         chatsData = data
         notifyDataSetChanged()
     }
@@ -80,8 +80,8 @@ class DebtsMainAdapter(private val onItemChatClickListener: OnItemChatClickListe
         }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        holder.bind(chatsData, position)
+    override fun onBindViewHolder(holder: BaseViewHolder<DebtsData>, position: Int) {
+        holder.bind(chatsData[position])
     }
 
     override fun getItemCount() = chatsData.size
