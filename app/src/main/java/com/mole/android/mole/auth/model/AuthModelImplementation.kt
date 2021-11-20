@@ -7,13 +7,12 @@ import com.mole.android.mole.component
 import kotlinx.coroutines.*
 
 import android.accounts.Account
-
-
+import com.mole.android.mole.di.FirebaseModule
 
 
 class AuthModelImplementation(
     private val service: AuthService,
-    private val firebaseInst: FirebaseInstallations,
+    private val firebaseInst: FirebaseModule,
     private val mainScope: CoroutineScope
 ) : AuthModel {
 
@@ -75,8 +74,7 @@ class AuthModelImplementation(
     }
 
     private suspend fun getFingerprint(): String {
-//        firebaseInst.id.result
-        return "3333333333"
+        return firebaseInst.fingerprint.toString()
     }
 
 }

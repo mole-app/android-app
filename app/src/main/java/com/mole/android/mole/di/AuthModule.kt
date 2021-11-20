@@ -37,7 +37,7 @@ class AuthModule(
     private val authModel: AuthModel by lazy {
         AuthModelImplementation(
             authService,
-            firebaseModule.instInstallation,
+            firebaseModule,
             baseScopeModule.mainScope
         )
     }

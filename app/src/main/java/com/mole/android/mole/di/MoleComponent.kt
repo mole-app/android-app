@@ -8,7 +8,7 @@ class MoleComponent(
 ) {
     private val retrofitModule = RetrofitModule()
     private val scopeModule = BaseScopeModule()
-    private val firebaseModule = FirebaseModule()
+    val firebaseModule = FirebaseModule()
     val routingModule = RoutingModule()
     val authModule = AuthModule(context, retrofitModule, routingModule, scopeModule, firebaseModule)
     val accountManager = AccountManager.get(context)
