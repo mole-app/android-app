@@ -15,7 +15,7 @@ object RetrofitBuilder {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val tokenInterceptor: Interceptor = RequestTokenInterceptor()
+        val tokenInterceptor = RequestTokenInterceptor()
 
         val client = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
@@ -25,10 +25,16 @@ object RetrofitBuilder {
             .addInterceptor(tokenInterceptor)
             .build()
 
-        return Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+
+        val tokenRefreshService = retrofit.create(TokenRefreshService::class.java)
+        tokenInterceptor.refreshService = tokenRefreshService
+
+
+        return retrofit
     }
 }
