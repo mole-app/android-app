@@ -77,7 +77,8 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
                 "",
                 "",
                 "",
-                login
+                login,
+                ""
             )
         )
 
