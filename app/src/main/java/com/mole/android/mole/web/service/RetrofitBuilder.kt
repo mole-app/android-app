@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitBuilder {
-    private const val BASE_URL = "https://mole-app-dev.ru:8443/api/auth/"
+    private const val BASE_URL = "https://mole-app-dev.ru:8443/api/"
 
     fun build(): Retrofit {
         val interceptor = HttpLoggingInterceptor()

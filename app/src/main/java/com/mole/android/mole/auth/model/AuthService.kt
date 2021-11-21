@@ -5,15 +5,15 @@ import com.mole.android.mole.auth.data.ProfileUserInfo
 import retrofit2.http.*
 
 interface AuthService {
-    @POST("vkSignIn")
     @Headers("ApiKey: true")
+    @POST("auth/vkSignIn")
     suspend fun getVkAuth(
         @Query("code") code: String,
         @Query("fingerprint") fingerprint: String
     ): AuthDataVkLogin
 
-    @POST("googleSignIn")
     @Headers("ApiKey: true")
+    @POST("auth/googleSignIn")
     suspend fun getGoogleAuth(
         @Query("googleToken") token: String,
         @Query("fingerprint") fingerprint: String
