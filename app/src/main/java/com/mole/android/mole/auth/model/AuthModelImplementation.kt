@@ -40,6 +40,9 @@ class AuthModelImplementation(
                     val success = accountManager.addAccountExplicitly(account, null, null)
                     accountManager.setAuthToken(account, "accessAuthToken", user.accessToken)
                     accountManager.setAuthToken(account, "refreshAuthToken", user.refreshToken)
+                    val profileId = service.getProfileInfo().profile.id
+                    Log.i("ProfileId", "Profile id $profileId")
+                    accountManager.setUserData(account, "profileId", profileId.toString())
                     user
                 } catch (exception: Exception) {
                     // Не хочется падать если что-то не так на сервере
