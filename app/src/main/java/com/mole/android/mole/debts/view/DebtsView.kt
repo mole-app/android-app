@@ -1,9 +1,7 @@
 package com.mole.android.mole.debts.view
 
+import com.mole.android.mole.debts.data.DebtsData
+
 interface DebtsView {
-
-    fun onLongChatClick()
-    fun onShortChatClick()
-    fun onSearchClick()
-
+    fun setData(data: List<DebtsData>)
 }

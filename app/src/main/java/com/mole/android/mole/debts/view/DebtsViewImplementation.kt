@@ -7,23 +7,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentDebtsMainBinding
 import com.mole.android.mole.debts.data.DebtsData
-import com.mole.android.mole.debts.data.testData
 
 class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
     private var _binding : FragmentDebtsMainBinding? = null
     private val binding get() = _binding!!
+    private val presenter = component().authModule.debtsPresenter
 
-    private val adapter = DebtsMainAdapter(object : OnItemChatClickListener{
+    private val adapter = DebtsViewAdapter(object : OnItemChatClickListener{
         override fun onLongClick(view:View, chatData: DebtsData.ChatDebtsData) {
-            Toast.makeText(context, "LongClick", Toast.LENGTH_LONG).show()
-            onLongChatClick()
+            presenter.onLongChatClick()
         }
 
         override fun onShotClick(chatData: DebtsData.ChatDebtsData) {
-            Toast.makeText(context, "ShortClick", Toast.LENGTH_LONG).show()
-            onShortChatClick()
+            presenter.onShortChatClick()
         }
     })
 
@@ -39,30 +38,25 @@ class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.attachView(this)
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
         binding.DebtsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.DebtsRecyclerView.adapter = adapter
-        adapter.setData(testData)
+        adapter.setData(presenter.getData())
         adapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        presenter.detachView()
         _binding = null
     }
 
-    override fun onLongChatClick() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onShortChatClick() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onSearchClick() {
-        TODO("Not yet implemented")
+    override fun setData(data: List<DebtsData>) {
+        adapter.setData(data)
+        adapter.notifyDataSetChanged()
     }
 }
