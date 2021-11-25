@@ -3,7 +3,7 @@
     package="com.mole.android.mole">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
