@@ -20,4 +20,6 @@
     <string name="google_login">Войти через Google</string>
     <string name="login_prefix">\@</string>
     <string name="welcome_string">Добро пожаловать!</string>
+    <string name="debug_panel_button">Назад</string>
+    <string name="debug_panel_remove_token">Удалить токен</string>
 </resources>

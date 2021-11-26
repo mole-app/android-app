@@ -53,6 +53,6 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     }
 
     override fun onShake(count: Int) {
-        Toast.makeText(this, "Shake", Toast.LENGTH_SHORT).show()
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, ViewMoleDebugPanel()).addToBackStack("dev_panel").commit()
     }
 }
