@@ -7,7 +7,8 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import android.hardware.SensorManager
-import com.mole.android.mole.devpanel.ViewMoleDebugPanel
+import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
+import com.mole.android.mole.navigation.Screens
 
 
 class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
@@ -53,6 +54,6 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     }
 
     override fun onShake(count: Int) {
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, ViewMoleDebugPanel()).addToBackStack("dev_panel").commit()
+        component().routingModule.router.navigateTo(Screens.DevPanel())
     }
 }
