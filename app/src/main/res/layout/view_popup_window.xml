@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mole.android.mole.ui.BlurView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mole.android.mole.ui.blur.BlurView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/blur_popup"
     android:layout_width="168dp"
@@ -26,4 +26,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</com.mole.android.mole.ui.BlurView>
+</com.mole.android.mole.ui.blur.BlurView>

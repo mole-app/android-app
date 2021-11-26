@@ -2,12 +2,12 @@ package com.mole.android.mole
 
 import android.hardware.Sensor
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import android.hardware.SensorManager
+import com.mole.android.mole.devpanel.ViewMoleDebugPanel
 
 
 class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {

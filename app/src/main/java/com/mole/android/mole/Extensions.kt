@@ -8,11 +8,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.AttrRes
 import com.mole.android.mole.di.MoleComponent
-import com.mole.android.mole.ui.BlurView
+import com.mole.android.mole.ui.blur.BlurView
 import kotlin.math.sign
 
 

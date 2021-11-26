@@ -1,4 +1,4 @@
-package eightbitlab.com.blurview
+package com.mole.android.mole.ui.blur
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

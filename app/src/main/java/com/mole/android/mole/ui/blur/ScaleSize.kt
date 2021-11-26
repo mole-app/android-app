@@ -1,4 +1,4 @@
-package com.mole.android.mole
+package com.mole.android.mole.ui.blur
 
 import kotlin.math.ceil
 

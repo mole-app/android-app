@@ -1,4 +1,4 @@
-package com.mole.android.mole.ui
+package com.mole.android.mole.ui.blur
 
 import android.content.Context
 import android.graphics.*
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.mole.android.mole.*
-import eightbitlab.com.blurview.BlurViewCanvas
 
 
 class BlurView @JvmOverloads constructor(

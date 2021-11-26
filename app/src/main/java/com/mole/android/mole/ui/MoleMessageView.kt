@@ -1,4 +1,4 @@
-package com.mole.android.mole
+package com.mole.android.mole.ui
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import com.mole.android.mole.*
 import kotlin.math.absoluteValue
 
 class MoleMessageView @JvmOverloads constructor(
