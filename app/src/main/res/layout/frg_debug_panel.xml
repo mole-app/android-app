@@ -15,10 +15,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/debug_panel_corrupted_token"
+            android:id="@+id/debug_panel_corrupted_token_access"
             style="@style/MoleButton.Rectangle"
             android:layout_margin="16dp"
-            android:text="@string/debug_panel_corrupted_token" />
+            android:text="@string/debug_panel_corrupted_token_access" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/debug_panel_corrupted_token_refresh"
+            style="@style/MoleButton.Rectangle"
+            android:layout_margin="16dp"
+            android:text="@string/debug_panel_corrupted_token_refresh" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/debug_panel_remove_account"
@@ -32,6 +38,7 @@
         android:id="@+id/debug_panel_button_back"
         style="@style/MoleButton.Rectangle"
         android:text="@string/debug_panel_button"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -15,8 +15,12 @@ class MoleDebugPanelPresenter : MoleBasePresenter<MoleDebugPanelView>() {
         view?.hide()
     }
 
-    fun onButtonCorruptedToken() {
-        view?.corruptedToken()
+    fun onButtonCorruptedAccessToken() {
+        view?.corruptedAccessToken()
+    }
+
+    fun onButtonCorruptedRefreshToken() {
+        view?.corruptedRefreshToken()
     }
 
     fun onButtonRemoveAccount() {
