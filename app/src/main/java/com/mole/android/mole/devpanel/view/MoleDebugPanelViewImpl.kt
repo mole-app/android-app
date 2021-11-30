@@ -89,23 +89,19 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     }
 
     override fun corruptedAccessToken() {
-        val accountManager = component().accountManagerModule.accountManager
-        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-        val account = accounts[0]
-        val accessToken = accountManager.peekAuthToken(account, ACCESS_TOKEN)
+        val accountModule = component().accountManagerModule
+        val accessToken = accountModule.accessToken
         val corruptedAccessToken =
-            accessToken.removeRange(accessToken.length / 2, accessToken.length) + CORRUPTED_PART
-        accountManager.setAuthToken(account, ACCESS_TOKEN, corruptedAccessToken)
+            accessToken?.removeRange(accessToken.length / 2, accessToken.length) + CORRUPTED_PART
+        accountModule.accessToken = corruptedAccessToken
     }
 
     override fun corruptedRefreshToken() {
-        val accountManager = component().accountManagerModule.accountManager
-        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-        val account = accounts[0]
-        val refreshToken = accountManager.peekAuthToken(account, REFRESH_TOKEN)
+        val accountModule = component().accountManagerModule
+        val refreshToken = accountModule.refreshToken
         val corruptedRefreshToken =
-            refreshToken.removeRange(refreshToken.length / 2, refreshToken.length) + CORRUPTED_PART
-        accountManager.setAuthToken(account, REFRESH_TOKEN, corruptedRefreshToken)
+            refreshToken?.removeRange(refreshToken.length / 2, refreshToken.length) + CORRUPTED_PART
+        accountModule.refreshToken = corruptedRefreshToken
     }
 
     override fun corruptedAccessButtonEnable(enable: Boolean) {
@@ -121,19 +117,17 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     }
 
     override fun isHasAccount(): Boolean {
-        val accountManager = component().accountManagerModule.accountManager
-        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-        return accounts.isNotEmpty()
+        return component().accountManagerModule.isHasAccount()
     }
 
     override fun removeAccount() {
-        val accountManager = component().accountManagerModule.accountManager
-        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-        val account = accounts[0]
-        accountManager.removeAccount(
-            account, requireActivity(),
-            { Toast.makeText(requireContext(), "Account removed", Toast.LENGTH_SHORT).show() },
-            null
-        )
+        val accountModule = component().accountManagerModule
+        accountModule.removeAccount {
+            Toast.makeText(
+                requireContext(),
+                "Account removed",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

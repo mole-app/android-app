@@ -2,6 +2,8 @@ package com.mole.android.mole.di
 
 import android.accounts.AccountManager
 import android.content.Context
+import com.mole.android.mole.BuildConfig
+import com.mole.android.mole.component
 
 class MoleComponent(
     val context: Context

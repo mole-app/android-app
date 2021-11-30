@@ -38,14 +38,15 @@ class AuthModelImplementation(
             withContext(Dispatchers.IO) {
                 user = try {
                     val user = service.getVkAuth(code, getFingerprint())
-                    val accountManager = component().accountManagerModule.accountManager
-                    val account = Account("VovchikPut", BuildConfig.APPLICATION_ID)
-                    val success = accountManager.addAccountExplicitly(account, null, null)
-                    accountManager.setAuthToken(account, ACCESS_TOKEN, user.accessToken)
-                    accountManager.setAuthToken(account, REFRESH_TOKEN, user.refreshToken)
+                    val accountModule = component().accountManagerModule
+                    val success = accountModule.createAccount(
+                        user.login ?: "VovchikPut",
+                        user.accessToken,
+                        user.refreshToken
+                    )
                     val profileId = service.getProfileInfo().profile.id
                     Log.i("ProfileId", "Profile id $profileId")
-                    accountManager.setUserData(account, "profileId", profileId.toString())
+                    accountModule.setProfileId(profileId.toString())
                     user
                 } catch (exception: Exception) {
                     // Не хочется падать если что-то не так на сервере

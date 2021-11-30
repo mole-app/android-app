@@ -31,13 +31,8 @@ class RequestTokenInterceptor : Interceptor {
             nameHeader = API_KEY_HEADER
             valueHeader = BuildConfig.X_API_KEY
         } else {
-            val accountManager = component().accountManagerModule.accountManager
-            val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-            val token = if (accounts.isNotEmpty()) {
-                accountManager.peekAuthToken(accounts[0], ACCESS_TOKEN)
-            } else {
-                null
-            }
+            val accountModule = component().accountManagerModule
+            val token = accountModule.accessToken
 
             nameHeader = AUTHORIZATION_HEADER
             valueHeader = "Bearer $token"
@@ -54,14 +49,12 @@ class RequestTokenInterceptor : Interceptor {
 
         val response = chain.proceed(request)
         if ((response.code() == 401) && !isApiKeyAuth) {
-            val accountManager = component().accountManagerModule.accountManager
-            val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-            val account = accounts[0]
-            val refreshToken = accountManager.peekAuthToken(account, REFRESH_TOKEN)
-            val profileId = accountManager.getUserData(account, "profileId")
+            val accountModule = component().accountManagerModule
+            val refreshToken = accountModule.refreshToken!!
+            val profileId = accountModule.profileId!!
             val authTokenData = refreshService.getNewAuthToken(profileId.toLong(), refreshToken, component().firebaseModule.fingerprint.toString())
-            accountManager.setAuthToken(account, ACCESS_TOKEN, authTokenData.accessToken)
-            accountManager.setAuthToken(account, REFRESH_TOKEN, authTokenData.refreshToken)
+            accountModule.accessToken = authTokenData.accessToken
+            accountModule.refreshToken = authTokenData.refreshToken
         }
 
         return response
