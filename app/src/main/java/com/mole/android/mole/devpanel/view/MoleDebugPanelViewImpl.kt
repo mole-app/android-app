@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.mole.android.mole.*
 import com.mole.android.mole.devpanel.presentation.MoleDebugPanelPresenter
+import com.mole.android.mole.di.AccountManagerModule.Companion.ACCESS_TOKEN
+import com.mole.android.mole.di.AccountManagerModule.Companion.REFRESH_TOKEN
 
 class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
 
@@ -87,23 +89,23 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     }
 
     override fun corruptedAccessToken() {
-        val accountManager = component().accountManager
-        val accounts = accountManager.getAccountsByType("com.mole.android.mole")
+        val accountManager = component().accountManagerModule.accountManager
+        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
         val account = accounts[0]
-        val accessToken = accountManager.peekAuthToken(account, "accessAuthToken")
+        val accessToken = accountManager.peekAuthToken(account, ACCESS_TOKEN)
         val corruptedAccessToken =
             accessToken.removeRange(accessToken.length / 2, accessToken.length) + CORRUPTED_PART
-        accountManager.setAuthToken(account, "accessAuthToken", corruptedAccessToken)
+        accountManager.setAuthToken(account, ACCESS_TOKEN, corruptedAccessToken)
     }
 
     override fun corruptedRefreshToken() {
-        val accountManager = component().accountManager
-        val accounts = accountManager.getAccountsByType("com.mole.android.mole")
+        val accountManager = component().accountManagerModule.accountManager
+        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
         val account = accounts[0]
-        val refreshToken = accountManager.peekAuthToken(account, "refreshAuthToken")
+        val refreshToken = accountManager.peekAuthToken(account, REFRESH_TOKEN)
         val corruptedRefreshToken =
             refreshToken.removeRange(refreshToken.length / 2, refreshToken.length) + CORRUPTED_PART
-        accountManager.setAuthToken(account, "refreshAuthToken", corruptedRefreshToken)
+        accountManager.setAuthToken(account, REFRESH_TOKEN, corruptedRefreshToken)
     }
 
     override fun corruptedAccessButtonEnable(enable: Boolean) {
@@ -119,23 +121,19 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     }
 
     override fun isHasAccount(): Boolean {
-        val accountManager = component().accountManager
-        val accounts = accountManager.getAccountsByType("com.mole.android.mole")
+        val accountManager = component().accountManagerModule.accountManager
+        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
         return accounts.isNotEmpty()
     }
 
     override fun removeAccount() {
-        val accountManager = component().accountManager
-        val accounts = accountManager.getAccountsByType("com.mole.android.mole")
+        val accountManager = component().accountManagerModule.accountManager
+        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
         val account = accounts[0]
         accountManager.removeAccount(
             account, requireActivity(),
             { Toast.makeText(requireContext(), "Account removed", Toast.LENGTH_SHORT).show() },
             null
         )
-        val accessToken = accountManager.peekAuthToken(account, "accessAuthToken")
-        val corruptedAccessToken =
-            accessToken.removeRange(accessToken.length / 2, accessToken.length) + CORRUPTED_PART
-        accountManager.setAuthToken(account, "accessAuthToken", corruptedAccessToken)
     }
 }

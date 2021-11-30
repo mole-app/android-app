@@ -7,6 +7,9 @@ import com.mole.android.mole.component
 import kotlinx.coroutines.*
 
 import android.accounts.Account
+import com.mole.android.mole.BuildConfig
+import com.mole.android.mole.di.AccountManagerModule.Companion.ACCESS_TOKEN
+import com.mole.android.mole.di.AccountManagerModule.Companion.REFRESH_TOKEN
 import com.mole.android.mole.di.FirebaseModule
 
 
@@ -35,11 +38,11 @@ class AuthModelImplementation(
             withContext(Dispatchers.IO) {
                 user = try {
                     val user = service.getVkAuth(code, getFingerprint())
-                    val accountManager = component().accountManager
-                    val account = Account("VovchikPut", "com.mole.android.mole")
+                    val accountManager = component().accountManagerModule.accountManager
+                    val account = Account("VovchikPut", BuildConfig.APPLICATION_ID)
                     val success = accountManager.addAccountExplicitly(account, null, null)
-                    accountManager.setAuthToken(account, "accessAuthToken", user.accessToken)
-                    accountManager.setAuthToken(account, "refreshAuthToken", user.refreshToken)
+                    accountManager.setAuthToken(account, ACCESS_TOKEN, user.accessToken)
+                    accountManager.setAuthToken(account, REFRESH_TOKEN, user.refreshToken)
                     val profileId = service.getProfileInfo().profile.id
                     Log.i("ProfileId", "Profile id $profileId")
                     accountManager.setUserData(account, "profileId", profileId.toString())

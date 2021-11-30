@@ -11,5 +11,5 @@ class MoleComponent(
     val firebaseModule = FirebaseModule()
     val routingModule = RoutingModule()
     val authModule = AuthModule(context, retrofitModule, routingModule, scopeModule, firebaseModule)
-    val accountManager = AccountManager.get(context)
+    val accountManagerModule = AccountManagerModule(context)
 }
