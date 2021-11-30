@@ -9,7 +9,9 @@ interface MoleDebugPanelView {
 
     fun removeAccount()
 
-    fun corruptedButtonEnable(enable: Boolean)
+    fun corruptedAccessButtonEnable(enable: Boolean)
+
+    fun corruptedRefreshButtonEnable(enable: Boolean)
 
     fun removeButtonEnable(enable: Boolean)
 

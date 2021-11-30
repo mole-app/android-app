@@ -106,8 +106,12 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
         accountManager.setAuthToken(account, "refreshAuthToken", corruptedRefreshToken)
     }
 
-    override fun corruptedButtonEnable(enable: Boolean) {
+    override fun corruptedAccessButtonEnable(enable: Boolean) {
         buttonCorruptedAccessToken.isEnabled = enable
+    }
+
+    override fun corruptedRefreshButtonEnable(enable: Boolean) {
+        buttonCorruptedRefreshToken.isEnabled = enable
     }
 
     override fun removeButtonEnable(enable: Boolean) {
@@ -117,7 +121,7 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     override fun isHasAccount(): Boolean {
         val accountManager = component().accountManager
         val accounts = accountManager.getAccountsByType("com.mole.android.mole")
-        return !accounts.isEmpty()
+        return accounts.isNotEmpty()
     }
 
     override fun removeAccount() {

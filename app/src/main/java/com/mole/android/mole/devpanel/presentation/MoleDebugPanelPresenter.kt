@@ -7,8 +7,10 @@ class MoleDebugPanelPresenter : MoleBasePresenter<MoleDebugPanelView>() {
 
     override fun attachView(view: MoleDebugPanelView) {
         super.attachView(view)
-        view.corruptedButtonEnable(view.isHasAccount())
-        view.removeButtonEnable(view.isHasAccount())
+        val hasAccount = view.isHasAccount()
+        view.corruptedAccessButtonEnable(hasAccount)
+        view.corruptedRefreshButtonEnable(hasAccount)
+        view.removeButtonEnable(hasAccount)
     }
 
     fun onButtonBack() {
@@ -25,7 +27,8 @@ class MoleDebugPanelPresenter : MoleBasePresenter<MoleDebugPanelView>() {
 
     fun onButtonRemoveAccount() {
         view?.removeAccount()
-        view?.corruptedButtonEnable(false)
+        view?.corruptedAccessButtonEnable(false)
+        view?.corruptedRefreshButtonEnable(false)
         view?.removeButtonEnable(false)
     }
 }
