@@ -21,5 +21,6 @@
     <string name="login_prefix">\@</string>
     <string name="welcome_string">Добро пожаловать!</string>
     <string name="debug_panel_button">Назад</string>
-    <string name="debug_panel_remove_token">Удалить токен</string>
+    <string name="debug_panel_corrupted_token">Повредить токен</string>
+    <string name="debug_panel_remove_account">Удалить аккаунт</string>
 </resources>

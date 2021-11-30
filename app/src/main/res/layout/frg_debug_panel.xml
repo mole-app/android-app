@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/debug_panel_remove_token"
+            android:id="@+id/debug_panel_corrupted_token"
             style="@style/MoleButton.Rectangle"
-            android:text="@string/debug_panel_remove_token" />
+            android:layout_margin="16dp"
+            android:text="@string/debug_panel_corrupted_token" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/debug_panel_remove_account"
+            style="@style/MoleButton.Rectangle"
+            android:layout_margin="16dp"
+            android:text="@string/debug_panel_remove_account" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
