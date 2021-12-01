@@ -55,8 +55,12 @@ class AccountManagerModule(context: Context) {
             }
         }
 
-    fun setListener() {
-        accountManager
+    fun setEmptyListener(onEmpty: () -> Unit) {
+        accountManager.addOnAccountsUpdatedListener({ accounts ->
+            if (accounts.isEmpty()) {
+                onEmpty()
+            }
+        }, null, false)
     }
 
 

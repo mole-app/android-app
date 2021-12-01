@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import android.hardware.SensorManager
+import android.widget.Toast
 import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
 import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.navigation.Screens.AuthBegin
+import com.mole.android.mole.navigation.Screens.AuthLogin
+import com.mole.android.mole.navigation.Screens.TestScreen
 
 
 class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
@@ -28,13 +32,15 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
         component().activity = this
 
         val navigator = AppNavigator(this, R.id.fragment_container)
-        component().routingModule.navigationHolder.setNavigator(navigator)
+        val routingModule = component().routingModule
+        routingModule.navigationHolder.setNavigator(navigator)
+        routingModule.router.replaceScreen(AuthBegin())
+//        routingModule.router.replaceScreen(TestScreen())
+//        routingModule.router.replaceScreen(AuthLogin("Test"))
 
-        val fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (fragment == null) {
-            val newFragment = createFragment()
-            supportFragmentManager.beginTransaction().add(R.id.fragment_container, newFragment)
-                .commit()
+        component().accountManagerModule.setEmptyListener {
+            Toast.makeText(this, "Account removed!", Toast.LENGTH_LONG).show()
+            routingModule.router.replaceScreen(AuthBegin())
         }
     }
 
@@ -46,12 +52,6 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     override fun onPause() {
         sensorManager.unregisterListener(shakeDetector)
         super.onPause()
-    }
-
-    private fun createFragment(): Fragment {
-//        return FragmentBottomBar()
-//        return AuthLoginViewImplementation()
-        return AuthBeginViewImplementation()
     }
 
     override fun onShake(count: Int) {
