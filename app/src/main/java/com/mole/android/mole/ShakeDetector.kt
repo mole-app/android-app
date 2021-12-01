@@ -24,7 +24,6 @@ class ShakeDetector : SensorEventListener {
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // ignore
     }
 
     override fun onSensorChanged(event: SensorEvent) {
@@ -36,17 +35,14 @@ class ShakeDetector : SensorEventListener {
             val gY = y / SensorManager.GRAVITY_EARTH
             val gZ = z / SensorManager.GRAVITY_EARTH
 
-            // gForce will be close to 1 when there is no movement.
             val db: Double = (gX * gX + gY * gY + gZ * gZ).toDouble()
             val gForce = sqrt(db)
             if (gForce > SHAKE_THRESHOLD_GRAVITY) {
                 val now = System.currentTimeMillis()
-                // ignore shake events too close to each other (500ms)
                 if (mShakeTimestamp + SHAKE_SLOP_TIME_MS > now) {
                     return
                 }
 
-                // reset the shake count after 3 seconds of no shakes
                 if (mShakeTimestamp + SHAKE_COUNT_RESET_TIME_MS < now) {
                     mShakeCount = 0
                 }

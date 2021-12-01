@@ -82,7 +82,7 @@ class AccountManagerModule(context: Context) {
         val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
         val account = accounts[0]
         accountManager.removeAccount(
-            account, requireActivity(),
+            account,  component().activity,
             { onRemoved() },
             null
         )

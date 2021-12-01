@@ -1,9 +1,7 @@
 package com.mole.android.mole.di
 
-import android.accounts.AccountManager
 import android.content.Context
-import com.mole.android.mole.BuildConfig
-import com.mole.android.mole.component
+import androidx.appcompat.app.AppCompatActivity
 
 class MoleComponent(
     val context: Context
@@ -14,4 +12,5 @@ class MoleComponent(
     val routingModule = RoutingModule()
     val authModule = AuthModule(context, retrofitModule, routingModule, scopeModule, firebaseModule)
     val accountManagerModule = AccountManagerModule(context)
+    var activity: AppCompatActivity? = null
 }

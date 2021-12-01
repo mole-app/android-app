@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
+        component().activity = this
 
         val navigator = AppNavigator(this, R.id.fragment_container)
         component().routingModule.navigationHolder.setNavigator(navigator)
