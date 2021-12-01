@@ -34,13 +34,19 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
         val navigator = AppNavigator(this, R.id.fragment_container)
         val routingModule = component().routingModule
         routingModule.navigationHolder.setNavigator(navigator)
-        routingModule.router.replaceScreen(AuthBegin())
-//        routingModule.router.replaceScreen(TestScreen())
-//        routingModule.router.replaceScreen(AuthLogin("Test"))
 
-        component().accountManagerModule.setEmptyListener {
+        val accountModule = component().accountManagerModule
+        accountModule.setEmptyListener {
             routingModule.router.replaceScreen(AuthBegin())
         }
+
+        if (accountModule.isHasAccount()) {
+            routingModule.router.replaceScreen(Screens.Debts())
+        } else {
+            routingModule.router.replaceScreen(AuthBegin())
+        }
+//        routingModule.router.replaceScreen(TestScreen())
+//        routingModule.router.replaceScreen(AuthLogin("Test"))
     }
 
     override fun onResume() {

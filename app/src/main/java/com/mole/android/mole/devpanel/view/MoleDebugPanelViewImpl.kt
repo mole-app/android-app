@@ -123,11 +123,7 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     override fun removeAccount() {
         val accountModule = component().accountManagerModule
         accountModule.removeAccount {
-            Toast.makeText(
-                requireContext(),
-                "Account removed",
-                Toast.LENGTH_SHORT
-            ).show()
+
         }
     }
 }

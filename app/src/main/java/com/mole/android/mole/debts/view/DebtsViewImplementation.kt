@@ -14,7 +14,7 @@ import com.mole.android.mole.debts.data.DebtsData
 class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
     private var _binding : FragmentDebtsMainBinding? = null
     private val binding get() = _binding!!
-    private val presenter = component().authModule.debtsPresenter
+    private val presenter = component().debtsModule.debtsPresenter
 
     private val adapter = DebtsViewAdapter(object : OnItemChatClickListener{
         override fun onLongClick(view:View, chatData: DebtsData.ChatDebtsData) {

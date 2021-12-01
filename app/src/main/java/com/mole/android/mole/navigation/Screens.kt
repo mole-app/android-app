@@ -4,6 +4,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import com.mole.android.mole.auth.view.AuthLoginViewImplementation
 import com.mole.android.mole.auth.view.AuthWebViewImpl
+import com.mole.android.mole.debts.view.DebtsViewImplementation
 import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
 import com.mole.android.mole.test.FragmentBottomBar
 
@@ -17,4 +18,6 @@ object Screens {
     fun AuthBegin() = FragmentScreen { AuthBeginViewImplementation() }
 
     fun TestScreen() = FragmentScreen { FragmentBottomBar() }
+
+    fun Debts() = FragmentScreen { DebtsViewImplementation() }
 }

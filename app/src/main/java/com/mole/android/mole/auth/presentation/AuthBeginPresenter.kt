@@ -1,13 +1,15 @@
 package com.mole.android.mole.auth.presentation
 
+import android.accounts.AccountManager
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.auth.view.AuthBeginView
-import com.mole.android.mole.navigation.Screens
-import kotlinx.coroutines.launch
 import com.mole.android.mole.auth.model.AuthModel
+import com.mole.android.mole.auth.view.AuthBeginView
+import com.mole.android.mole.di.AccountManagerModule
+import com.mole.android.mole.navigation.Screens
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class AuthBeginPresenter(
     private val model: AuthModel,
@@ -22,8 +24,12 @@ class AuthBeginPresenter(
             val code = data as String
             Log.i("AuthBegin", code)
             scope.launch {
-                val login = model.getUserVk(code)?: "Vov"
-                router.replaceScreen(Screens.AuthLogin(login.ifEmpty { "VovchikPut" }))
+                val login = model.getUserVk(code)
+                if (login.isNullOrEmpty()) {
+                    router.replaceScreen(Screens.Debts())
+                } else {
+                    router.replaceScreen(Screens.AuthLogin(login))
+                }
             }
         }
         router.navigateTo(Screens.AuthBrowser(vkAuthUrl))

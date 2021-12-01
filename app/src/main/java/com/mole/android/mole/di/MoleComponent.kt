@@ -10,7 +10,8 @@ class MoleComponent(
     private val scopeModule = BaseScopeModule()
     val firebaseModule = FirebaseModule()
     val routingModule = RoutingModule()
-    val authModule = AuthModule(context, retrofitModule, routingModule, scopeModule, firebaseModule)
     val accountManagerModule = AccountManagerModule(context)
+    val authModule = AuthModule(context, retrofitModule, routingModule, scopeModule, firebaseModule)
+    val debtsModule = DebtsModule(routingModule, scopeModule)
     var activity: AppCompatActivity? = null
 }

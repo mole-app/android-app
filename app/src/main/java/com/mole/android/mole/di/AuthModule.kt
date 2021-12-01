@@ -1,5 +1,6 @@
 package com.mole.android.mole.di
 
+import android.accounts.Account
 import android.content.Context
 import com.mole.android.mole.auth.data.AuthDataVkLogin
 import com.mole.android.mole.auth.model.AuthModel
@@ -15,7 +16,7 @@ class AuthModule(
     private val retrofitModule: RetrofitModule,
     private val routingModule: RoutingModule,
     private val baseScopeModule: BaseScopeModule,
-    private val firebaseModule: FirebaseModule
+    private val firebaseModule: FirebaseModule,
 ) {
 
     val beginPresenter
@@ -23,7 +24,7 @@ class AuthModule(
             authModel,
             routingModule.router,
             baseScopeModule.mainScope,
-            RetrofitModule.VK_URL
+            RetrofitModule.VK_URL,
         )
 
     val loginPresenter: (AuthDataVkLogin) -> AuthLoginPresenter = {
