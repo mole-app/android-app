@@ -1,38 +1,30 @@
 package com.mole.android.mole.auth.presentation
 
-import android.accounts.AccountManager
 import android.util.Log
-import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.view.AuthBeginView
-import com.mole.android.mole.di.AccountManagerModule
-import com.mole.android.mole.navigation.Screens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class AuthBeginPresenter(
     private val model: AuthModel,
-    private val router: Router,
     private val scope: CoroutineScope,
-    private val vkAuthUrl: String
 ) :
     MoleBasePresenter<AuthBeginView>() {
 
     fun onVkClick() {
-        router.setResultListener("code") { data ->
-            val code = data as String
+        view?.openBrowser { code ->
             Log.i("AuthBegin", code)
             scope.launch {
                 val login = model.getUserVk(code)
                 if (login.isNullOrEmpty()) {
-                    router.replaceScreen(Screens.Debts())
+                    view?.openDebts()
                 } else {
-                    router.replaceScreen(Screens.AuthLogin(login))
+                    view?.openAuthLogin(login)
                 }
             }
         }
-        router.navigateTo(Screens.AuthBrowser(vkAuthUrl))
     }
 
     fun onGoogleClick() {
@@ -41,7 +33,11 @@ class AuthBeginPresenter(
         scope.launch {
             if (token != null) {
                 val login = model.getUserGoogle(token)
-                router.replaceScreen(Screens.AuthLogin(login.ifEmpty { "VovchikPut" }))
+                if (login.isNullOrEmpty()) {
+                    view?.openDebts()
+                } else {
+                    view?.openAuthLogin(login)
+                }
             }
         }
     }
