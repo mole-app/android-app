@@ -69,7 +69,7 @@ class AccountManagerModule(context: Context) {
         val account = Account(name, BuildConfig.APPLICATION_ID)
         val success = accountManager.addAccountExplicitly(account, null, null)
         accountManager.setAuthToken(account, ACCESS_TOKEN, accessToken)
-        accountManager.setAuthToken(account, ACCESS_TOKEN, refreshToken)
+        accountManager.setAuthToken(account, REFRESH_TOKEN, refreshToken)
         return success
     }
 
