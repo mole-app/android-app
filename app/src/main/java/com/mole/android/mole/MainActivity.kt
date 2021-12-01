@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 //        routingModule.router.replaceScreen(AuthLogin("Test"))
 
         component().accountManagerModule.setEmptyListener {
-            Toast.makeText(this, "Account removed!", Toast.LENGTH_LONG).show()
             routingModule.router.replaceScreen(AuthBegin())
         }
     }
