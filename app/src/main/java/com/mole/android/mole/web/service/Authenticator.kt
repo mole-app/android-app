@@ -7,7 +7,7 @@ import android.accounts.NetworkErrorException
 import android.content.Context
 import android.os.Bundle
 
-class Authenticator(context: Context) // Simple constructor
+class Authenticator(context: Context)
     : AbstractAccountAuthenticator(context) {
 
     // Editing properties is not supported

@@ -15,17 +15,15 @@ class AccountManagerModule(context: Context) {
 
     private val accountManager by lazy { AccountManager.get(context) }
 
-    val account: Account
-        get() {
-            val accountManager = accountManager
-            val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-            val account = accounts[0]
-            return account
-        }
+    private val accounts: Array<Account>
+        get() = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
+
+
+    private val account: Account
+        get() = accounts[0]
 
     var accessToken: String?
         get() {
-            val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
             return if (accounts.isNotEmpty()) {
                 accountManager.peekAuthToken(accounts[0], ACCESS_TOKEN)
             } else {
@@ -38,7 +36,6 @@ class AccountManagerModule(context: Context) {
 
     var refreshToken: String?
         get() {
-            val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
             return if (accounts.isNotEmpty()) {
                 accountManager.peekAuthToken(accounts[0], REFRESH_TOKEN)
             } else {
@@ -51,7 +48,6 @@ class AccountManagerModule(context: Context) {
 
     val profileId: String?
         get() {
-            val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
             return if (accounts.isNotEmpty()) {
                 accountManager.getUserData(accounts[0], "profileId")
             } else {
@@ -59,9 +55,12 @@ class AccountManagerModule(context: Context) {
             }
         }
 
+    fun setListener() {
+        accountManager
+    }
+
+
     fun isHasAccount(): Boolean {
-        val accountManager = accountManager
-        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
         return accounts.isNotEmpty()
     }
 
@@ -78,9 +77,6 @@ class AccountManagerModule(context: Context) {
     }
 
     fun removeAccount(onRemoved: () -> Unit) {
-        val accountManager = component().accountManagerModule.accountManager
-        val accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
-        val account = accounts[0]
         accountManager.removeAccount(
             account,  component().activity,
             { onRemoved() },
