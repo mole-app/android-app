@@ -28,24 +28,20 @@ class AuthModelImplementation(
     }
 
     override suspend fun getUserVk(code: String): String {
-        val task = mainScope.async {
-            val user: AuthDataLogin
-            withContext(Dispatchers.IO) {
-                user = try {
-                    val user = service.getVkAuth(code, getFingerprint())
-                    val accountModule = component().accountManagerModule
-                    val success = accountModule.createAccount(
-                        user.login ?: "VovchikPut",
-                        user.accessToken,
-                        user.refreshToken
-                    )
-                    user
-                } catch (exception: Exception) {
-                    // Не хочется падать если что-то не так на сервере
-                    exception.printStackTrace()
-                    data
-                }
+        val task = mainScope.async(Dispatchers.IO) {
+            try {
+                val user = service.getVkAuth(code, getFingerprint())
+                val accountModule = component().accountManagerModule
+                val success = accountModule.createAccount(
+                    user.login ?: "VovchikPut",
+                    user.accessToken,
+                    user.refreshToken
+                )
                 user
+            } catch (exception: Exception) {
+                // Не хочется падать если что-то не так на сервере
+                exception.printStackTrace()
+                data
             }
         }
         val user: AuthDataLogin = task.await()
@@ -54,22 +50,25 @@ class AuthModelImplementation(
     }
 
     override suspend fun getUserGoogle(code: String): String {
-        val task = mainScope.async {
-            val login: String
-            withContext(Dispatchers.IO) {
-                login = try {
-                    service.getGoogleAuth(code, getFingerprint()).login
-                } catch (exception: Exception) {
-                    // Не хочется падать если что-то не так на сервере
-                    exception.printStackTrace()
-                    ""
-                }
-                login
+        val task = mainScope.async(Dispatchers.IO) {
+            try {
+                val user = service.getGoogleAuth(code, getFingerprint())
+                val accountModule = component().accountManagerModule
+                val success = accountModule.createAccount(
+                    user.login ?: "VovchikPut",
+                    user.accessToken,
+                    user.refreshToken
+                )
+                user
+            } catch (exception: Exception) {
+                // Не хочется падать если что-то не так на сервере
+                exception.printStackTrace()
+                data
             }
         }
-        val login: String = task.await()
-        Log.i("Auth", "User google login: $login")
-        return login
+        val user = task.await()
+        Log.i("Auth", "User google login: ${user.login}")
+        return user.login
     }
 
     private suspend fun getFingerprint(): String {
