@@ -8,8 +8,7 @@ import retrofit2.http.Query
 interface TokenRefreshService {
     @GET("auth/refreshToken")
     @Headers("${API_KEY}")
-    fun getNewAuthToken(
-        @Query("idProfile") idProfile: Long,
+    suspend fun getNewAuthToken(
         @Query("refreshToken") refreshToken: String,
         @Query("fingerprint") fingerprint: String,
     ): AuthTokenData

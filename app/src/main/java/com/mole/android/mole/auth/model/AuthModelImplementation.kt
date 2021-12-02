@@ -44,9 +44,6 @@ class AuthModelImplementation(
                         user.accessToken,
                         user.refreshToken
                     )
-                    val profileId = service.getProfileInfo().profile.id
-                    Log.i("ProfileId", "Profile id $profileId")
-                    accountModule.setProfileId(profileId.toString())
                     user
                 } catch (exception: Exception) {
                     // Не хочется падать если что-то не так на сервере

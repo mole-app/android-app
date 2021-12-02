@@ -2,8 +2,7 @@ package com.mole.android.mole.web.service
 
 import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.component
-import com.mole.android.mole.di.AccountManagerModule.Companion.ACCESS_TOKEN
-import com.mole.android.mole.di.AccountManagerModule.Companion.REFRESH_TOKEN
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -15,7 +14,7 @@ class RequestTokenInterceptor : Interceptor {
 
     companion object {
         const val API_KEY = "ApiKey: true"
-        const val API_KEY_HEADER = "x-api-key"
+        private const val API_KEY_HEADER = "x-api-key"
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val API_KEY_INTERNAL_HEADER = "ApiKey"
     }
@@ -43,18 +42,21 @@ class RequestTokenInterceptor : Interceptor {
             .removeHeader(API_KEY_INTERNAL_HEADER)
             .build()
 
-        // Here where we'll try to refresh token.
-        // with an retrofit call
-        // After we succeed we'll proceed our request
-
         val response = chain.proceed(request)
         if ((response.code() == 401) && !isApiKeyAuth) {
             val accountModule = component().accountManagerModule
-            val refreshToken = accountModule.refreshToken!!
-            val profileId = accountModule.profileId!!
-            val authTokenData = refreshService.getNewAuthToken(profileId.toLong(), refreshToken, component().firebaseModule.fingerprint.toString())
-            accountModule.accessToken = authTokenData.accessToken
-            accountModule.refreshToken = authTokenData.refreshToken
+            if (accountModule.refreshToken != null) {
+                return runBlocking {
+                    val refreshToken = accountModule.refreshToken!!
+                    val authTokenData = refreshService.getNewAuthToken(
+                        refreshToken,
+                        component().firebaseModule.fingerprint.toString()
+                    )
+                    accountModule.accessToken = authTokenData.accessToken
+                    accountModule.refreshToken = authTokenData.refreshToken
+                    chain.proceed(request)
+                }
+            }
         }
 
         return response
