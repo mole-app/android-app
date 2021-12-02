@@ -3,10 +3,6 @@ package com.mole.android.mole.devpanel.view
 interface MoleDebugPanelView {
     fun hide()
 
-    fun corruptedAccessToken()
-
-    fun corruptedRefreshToken()
-
     fun removeAccount()
 
     fun corruptedAccessButtonEnable(enable: Boolean)
