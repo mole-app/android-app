@@ -46,15 +46,6 @@ class AccountManagerModule(context: Context) {
             accountManager.setAuthToken(account, REFRESH_TOKEN, value)
         }
 
-    val profileId: String?
-        get() {
-            return if (accounts.isNotEmpty()) {
-                accountManager.getUserData(accounts[0], "profileId")
-            } else {
-                null
-            }
-        }
-
     fun setEmptyListener(onEmpty: () -> Unit) {
         accountManager.addOnAccountsUpdatedListener({ accounts ->
             if (accounts.isEmpty()) {
@@ -62,7 +53,6 @@ class AccountManagerModule(context: Context) {
             }
         }, null, false)
     }
-
 
     fun isHasAccount(): Boolean {
         return accounts.isNotEmpty()
@@ -74,10 +64,6 @@ class AccountManagerModule(context: Context) {
         accountManager.setAuthToken(account, ACCESS_TOKEN, accessToken)
         accountManager.setAuthToken(account, REFRESH_TOKEN, refreshToken)
         return success
-    }
-
-    fun setProfileId(profileId: String) {
-        accountManager.setUserData(account, "profileId", profileId)
     }
 
     fun removeAccount(onRemoved: () -> Unit) {
