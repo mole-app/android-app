@@ -1,7 +1,7 @@
 package com.mole.android.mole.di
 
 import android.content.Context
-import com.mole.android.mole.auth.data.AuthDataVkLogin
+import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.model.AuthService
@@ -23,7 +23,7 @@ class AuthModule(
             baseScopeModule.mainScope,
         )
 
-    val loginPresenter: (AuthDataVkLogin) -> AuthLoginPresenter = {
+    val loginPresenter: (AuthDataLogin) -> AuthLoginPresenter = {
         AuthLoginPresenter(authModel, loginResources, it, baseScopeModule.mainScope)
     }
 

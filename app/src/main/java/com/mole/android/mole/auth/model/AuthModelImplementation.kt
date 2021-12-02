@@ -1,15 +1,10 @@
 package com.mole.android.mole.auth.model
 
 import android.util.Log
-import com.google.firebase.installations.FirebaseInstallations
-import com.mole.android.mole.auth.data.AuthDataVkLogin
+import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.component
 import kotlinx.coroutines.*
 
-import android.accounts.Account
-import com.mole.android.mole.BuildConfig
-import com.mole.android.mole.di.AccountManagerModule.Companion.ACCESS_TOKEN
-import com.mole.android.mole.di.AccountManagerModule.Companion.REFRESH_TOKEN
 import com.mole.android.mole.di.FirebaseModule
 
 
@@ -19,8 +14,8 @@ class AuthModelImplementation(
     private val mainScope: CoroutineScope
 ) : AuthModel {
 
-    private val data: AuthDataVkLogin =
-        AuthDataVkLogin(
+    private val data: AuthDataLogin =
+        AuthDataLogin(
             "",
             "",
             "",
@@ -34,7 +29,7 @@ class AuthModelImplementation(
 
     override suspend fun getUserVk(code: String): String {
         val task = mainScope.async {
-            val user: AuthDataVkLogin
+            val user: AuthDataLogin
             withContext(Dispatchers.IO) {
                 user = try {
                     val user = service.getVkAuth(code, getFingerprint())
@@ -53,7 +48,7 @@ class AuthModelImplementation(
                 user
             }
         }
-        val user: AuthDataVkLogin = task.await()
+        val user: AuthDataLogin = task.await()
         Log.i("Auth", "User vk login: $user")
         return user.login
     }
