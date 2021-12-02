@@ -47,7 +47,7 @@ assembleDebugManual:
   except:
     - master
   script:
-    - ${FIREBASE_CONFIGURATION} > app/google-services.json
+    - echo ${FIREBASE_CONFIGURATION} > app/google-services.json
     - ./gradlew -i assembleDebug
   artifacts:
     paths:
