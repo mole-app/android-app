@@ -1,22 +1,22 @@
 package com.mole.android.mole.devpanel.model
 
-import com.mole.android.mole.di.AccountManagerModule
+import com.mole.android.mole.web.service.AccountRepository
 
-class DevPanelModelImpl(private val accountManagerModule: AccountManagerModule) : DevPanelModel {
+class DevPanelModelImpl(private val accountRepository: AccountRepository) : DevPanelModel {
     override fun getAccessToken(): String? {
-        return accountManagerModule.accessToken
+        return accountRepository.accessToken
     }
 
     override fun setAccessToken(token: String?) {
-        accountManagerModule.accessToken = token
+        accountRepository.accessToken = token
     }
 
     override fun getRefreshToken(): String? {
-        return accountManagerModule.refreshToken
+        return accountRepository.refreshToken
     }
 
     override fun setRefreshToken(token: String?) {
-        accountManagerModule.refreshToken = token
+        accountRepository.refreshToken = token
     }
 
 }

@@ -30,8 +30,8 @@ class RequestTokenInterceptor : Interceptor {
             nameHeader = API_KEY_HEADER
             valueHeader = BuildConfig.X_API_KEY
         } else {
-            val accountModule = component().accountManagerModule
-            val token = accountModule.accessToken
+            val accountRepository = component().accountManagerModule.accountRepository
+            val token = accountRepository.accessToken
 
             nameHeader = AUTHORIZATION_HEADER
             valueHeader = "Bearer $token"
@@ -44,16 +44,16 @@ class RequestTokenInterceptor : Interceptor {
 
         val response = chain.proceed(request)
         if ((response.code() == 401) && !isApiKeyAuth) {
-            val accountModule = component().accountManagerModule
-            if (accountModule.refreshToken != null) {
+            val accountRepository = component().accountManagerModule.accountRepository
+            if (accountRepository.refreshToken != null) {
                 return runBlocking {
-                    val refreshToken = accountModule.refreshToken!!
+                    val refreshToken = accountRepository.refreshToken!!
                     val authTokenData = refreshService.getNewAuthToken(
                         refreshToken,
                         component().firebaseModule.fingerprint.toString()
                     )
-                    accountModule.accessToken = authTokenData.accessToken
-                    accountModule.refreshToken = authTokenData.refreshToken
+                    accountRepository.accessToken = authTokenData.accessToken
+                    accountRepository.refreshToken = authTokenData.refreshToken
                     chain.proceed(request)
                 }
             }

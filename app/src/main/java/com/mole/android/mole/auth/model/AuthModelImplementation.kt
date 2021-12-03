@@ -31,8 +31,8 @@ class AuthModelImplementation(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 val user = service.getVkAuth(code, getFingerprint())
-                val accountModule = component().accountManagerModule
-                val success = accountModule.createAccount(
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
                     user.login ?: "VovchikPut",
                     user.accessToken,
                     user.refreshToken
@@ -53,8 +53,8 @@ class AuthModelImplementation(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 val user = service.getGoogleAuth(code, getFingerprint())
-                val accountModule = component().accountManagerModule
-                val success = accountModule.createAccount(
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
                     user.login ?: "VovchikPut",
                     user.accessToken,
                     user.refreshToken

@@ -93,12 +93,12 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     }
 
     override fun isHasAccount(): Boolean {
-        return component().accountManagerModule.isHasAccount()
+        return component().accountManagerModule.accountRepository.isHasAccount()
     }
 
     override fun removeAccount() {
-        val accountModule = component().accountManagerModule
-        accountModule.removeAccount {
+        val accountRepository = component().accountManagerModule.accountRepository
+        accountRepository.removeAccount {
 
         }
     }

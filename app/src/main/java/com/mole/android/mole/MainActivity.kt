@@ -3,16 +3,10 @@ package com.mole.android.mole
 import android.hardware.Sensor
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import android.hardware.SensorManager
-import android.widget.Toast
-import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.AuthBegin
-import com.mole.android.mole.navigation.Screens.AuthLogin
-import com.mole.android.mole.navigation.Screens.TestScreen
 
 
 class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
@@ -35,18 +29,17 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
         val routingModule = component().routingModule
         routingModule.navigationHolder.setNavigator(navigator)
 
-        val accountModule = component().accountManagerModule
-        accountModule.setEmptyListener {
+        val accountRepository = component().accountManagerModule.accountRepository
+        accountRepository.setEmptyListener {
             routingModule.router.replaceScreen(AuthBegin())
         }
 
-        if (accountModule.isHasAccount()) {
+        if (accountRepository.isHasAccount()) {
             routingModule.router.replaceScreen(Screens.Debts())
         } else {
             routingModule.router.replaceScreen(AuthBegin())
         }
 //        routingModule.router.replaceScreen(TestScreen())
-//        routingModule.router.replaceScreen(AuthLogin("Test"))
     }
 
     override fun onResume() {
