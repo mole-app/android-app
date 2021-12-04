@@ -3,10 +3,10 @@ package com.mole.android.mole.web.service
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import com.mole.android.mole.BuildConfig
-import com.mole.android.mole.component
 
-class AccountRepository(context: Context) {
+class AccountRepository(context: Context, private val activity: AppCompatActivity?) {
 
     companion object {
         const val ACCESS_TOKEN = "accessAuthToken"
@@ -68,7 +68,7 @@ class AccountRepository(context: Context) {
 
     fun removeAccount(onRemoved: () -> Unit) {
         accountManager.removeAccount(
-            account,  component().activity,
+            account,  activity,
             { onRemoved() },
             null
         )
