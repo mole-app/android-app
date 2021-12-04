@@ -19,7 +19,7 @@ class AuthLoginPresenter(
     private var login: String = ""
 
     override fun attachView(view: AuthLoginView) {
-        this.view = view
+        super.attachView(view)
         val login = client.login
         if (login != "") {
             val prefix = authLoginResources.loginPrefix
@@ -28,13 +28,14 @@ class AuthLoginPresenter(
     }
 
     fun onFabClick() {
-        scope.launch {
-            Log.i("AuthPresenter", "Fab login = $login")
-            if (model.addUser(login)) {
-                view?.hideError()
-
-            } else {
-                view?.showLoginExistError()
+        applyWithView { view ->
+            scope.launch {
+                Log.i("AuthPresenter", "Fab login = $login")
+                if (model.addUser(login)) {
+                    view.hideError()
+                } else {
+                    view.showLoginExistError()
+                }
             }
         }
     }
@@ -42,7 +43,9 @@ class AuthLoginPresenter(
     fun onTextChanged(charSequence: CharSequence) {
         login = charSequence.toString()
         Log.i("AuthPresenter", "EditText login = $login")
-        view?.hideError()
+        applyWithView { view ->
+            view.hideError()
+        }
     }
 
 }

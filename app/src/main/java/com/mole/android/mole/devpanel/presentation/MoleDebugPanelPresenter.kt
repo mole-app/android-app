@@ -18,7 +18,9 @@ class MoleDebugPanelPresenter(
     }
 
     fun onButtonBack() {
-        view?.hide()
+        applyWithView { view ->
+            view.hide()
+        }
     }
 
     fun onButtonCorruptedAccessToken() {
@@ -36,9 +38,11 @@ class MoleDebugPanelPresenter(
     }
 
     fun onButtonRemoveAccount() {
-        view?.removeAccount()
-        view?.corruptedAccessButtonEnable(false)
-        view?.corruptedRefreshButtonEnable(false)
-        view?.removeButtonEnable(false)
+        applyWithView { view ->
+            view?.removeAccount()
+            view.corruptedAccessButtonEnable(false)
+            view.corruptedRefreshButtonEnable(false)
+            view.removeButtonEnable(false)
+        }
     }
 }

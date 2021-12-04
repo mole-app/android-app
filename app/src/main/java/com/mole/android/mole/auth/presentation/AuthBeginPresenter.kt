@@ -14,29 +14,33 @@ class AuthBeginPresenter(
     MoleBasePresenter<AuthBeginView>() {
 
     fun onVkClick() {
-        view?.openBrowser { code ->
-            Log.i("AuthBegin", code)
-            scope.launch {
-                val login = model.getUserVk(code)
-                if (login.isNullOrEmpty()) {
-                    view?.openDebts()
-                } else {
-                    view?.openAuthLogin(login)
+        applyWithView { view ->
+            view.openBrowser { code ->
+                Log.i("AuthBegin", code)
+                scope.launch {
+                    val login = model.getUserVk(code)
+                    if (login.isNullOrEmpty()) {
+                        view.openDebts()
+                    } else {
+                        view.openAuthLogin(login)
+                    }
                 }
             }
         }
     }
 
     fun onGoogleClick() {
-        val token = view?.googleAccount?.idToken
-        Log.i("Auth", "Google")
-        scope.launch {
-            if (token != null) {
-                val login = model.getUserGoogle(token)
-                if (login.isNullOrEmpty()) {
-                    view?.openDebts()
-                } else {
-                    view?.openAuthLogin(login)
+        applyWithView { view ->
+            val token = view.googleAccount.idToken
+            Log.i("Auth", "Google")
+            scope.launch {
+                if (token != null) {
+                    val login = model.getUserGoogle(token)
+                    if (login.isNullOrEmpty()) {
+                        view.openDebts()
+                    } else {
+                        view.openAuthLogin(login)
+                    }
                 }
             }
         }

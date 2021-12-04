@@ -11,4 +11,8 @@ open class MoleBasePresenter<T> {
     open fun detachView() {
         view = null
     }
+
+    fun applyWithView(action: (T) -> Unit){
+        view?.apply(action)
+    }
 }
