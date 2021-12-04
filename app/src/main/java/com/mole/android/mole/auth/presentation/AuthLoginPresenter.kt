@@ -28,7 +28,7 @@ class AuthLoginPresenter(
     }
 
     fun onFabClick() {
-        applyWithView { view ->
+        withView { view ->
             scope.launch {
                 Log.i("AuthPresenter", "Fab login = $login")
                 if (model.addUser(login)) {
@@ -43,7 +43,7 @@ class AuthLoginPresenter(
     fun onTextChanged(charSequence: CharSequence) {
         login = charSequence.toString()
         Log.i("AuthPresenter", "EditText login = $login")
-        applyWithView { view ->
+        withView { view ->
             view.hideError()
         }
     }

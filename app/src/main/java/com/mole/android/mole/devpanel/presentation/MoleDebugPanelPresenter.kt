@@ -17,7 +17,7 @@ class MoleDebugPanelPresenter(
     }
 
     fun onButtonBack() {
-        applyWithView { view ->
+        withView { view ->
             view.hide()
         }
     }
@@ -31,7 +31,7 @@ class MoleDebugPanelPresenter(
     }
 
     fun onButtonRemoveAccount() {
-        applyWithView { view ->
+        withView { view ->
             model.removeAccount()
             view.corruptedAccessButtonEnable(false)
             view.corruptedRefreshButtonEnable(false)

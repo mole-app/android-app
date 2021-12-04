@@ -14,7 +14,7 @@ class AuthBeginPresenter(
     MoleBasePresenter<AuthBeginView>() {
 
     fun onVkClick() {
-        applyWithView { view ->
+        withView { view ->
             view.openBrowser { code ->
                 Log.i("AuthBegin", code)
                 scope.launch {
@@ -30,7 +30,7 @@ class AuthBeginPresenter(
     }
 
     fun onGoogleClick() {
-        applyWithView { view ->
+        withView { view ->
             val token = view.googleAccount.idToken
             Log.i("Auth", "Google")
             scope.launch {

@@ -12,7 +12,7 @@ open class MoleBasePresenter<T> {
         view = null
     }
 
-    fun applyWithView(action: (T) -> Unit){
+    protected inline fun withView(action: (T) -> Unit){
         view?.apply(action)
     }
 }
