@@ -1,15 +1,11 @@
 package com.mole.android.mole.devpanel.model
 
 interface DevPanelModel {
-    companion object {
-        const val CORRUPTED_PART = "jgfsf78gfie4bfgqt8436ghf9q34fqo8fon"
-    }
+    fun corruptedAccessToken()
 
-    fun getAccessToken(): String?
+    fun corruptedRefreshToken()
 
-    fun setAccessToken(token: String?)
+    fun removeAccount()
 
-    fun getRefreshToken(): String?
-
-    fun setRefreshToken(token: String?)
+    fun isHasAccount(): Boolean
 }

@@ -91,15 +91,4 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     override fun removeButtonEnable(enable: Boolean) {
         buttonRemoveAccount.isEnabled = enable
     }
-
-    override fun isHasAccount(): Boolean {
-        return component().accountManagerModule.accountRepository.isHasAccount()
-    }
-
-    override fun removeAccount() {
-        val accountRepository = component().accountManagerModule.accountRepository
-        accountRepository.removeAccount {
-
-        }
-    }
 }
