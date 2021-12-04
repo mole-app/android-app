@@ -19,6 +19,7 @@ import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.di.RetrofitModule
 import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.setResultListenerGeneric
 
 
 class AuthBeginViewImplementation :
@@ -38,10 +39,7 @@ class AuthBeginViewImplementation :
     }
 
     override fun openBrowser(actionAfter: (String) -> Unit) {
-        router.setResultListener("code") { data ->
-            val code = data as String
-            actionAfter(code)
-        }
+        router.setResultListenerGeneric(CODE_SIGN, actionAfter)
         router.navigateTo(Screens.AuthBrowser(RetrofitModule.VK_URL))
     }
 
@@ -52,7 +50,7 @@ class AuthBeginViewImplementation :
         }
 
     companion object {
-        const val CODE_SIGN = 1
+        const val CODE_SIGN = "auth_begin_view_with_vk"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
