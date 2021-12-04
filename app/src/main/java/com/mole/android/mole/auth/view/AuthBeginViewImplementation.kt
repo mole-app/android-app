@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
+import com.mole.android.mole.auth.view.AuthWebViewImpl.Companion.CODE_SIGN
 import com.mole.android.mole.component
 import com.mole.android.mole.di.RetrofitModule
 import com.mole.android.mole.navigation.Screens
@@ -48,10 +49,6 @@ class AuthBeginViewImplementation :
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleSignInResult(task)
         }
-
-    companion object {
-        const val CODE_SIGN = "auth_begin_view_with_vk"
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

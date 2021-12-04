@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     private lateinit var accelerometer: Sensor
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component().activity = this
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-        component().activity = this
 
         val navigator = AppNavigator(this, R.id.fragment_container)
         val routingModule = component().routingModule

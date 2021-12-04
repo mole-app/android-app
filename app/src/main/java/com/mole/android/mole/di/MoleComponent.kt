@@ -4,15 +4,15 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 
 class MoleComponent(
-    val context: Context
+    val context: Context,
 ) {
     private val retrofitModule = RetrofitModule()
     private val scopeModule = BaseScopeModule()
+    var activity: AppCompatActivity? = null
     val firebaseModule = FirebaseModule()
     val routingModule = RoutingModule()
-    val accountManagerModule = AccountManagerModule(context)
+    val accountManagerModule = AccountManagerModule(context, activity)
     val authModule = AuthModule(context, retrofitModule, scopeModule, firebaseModule)
     val debtsModule = DebtsModule(routingModule, scopeModule)
     val devPanelModule = DevPanelModule(accountManagerModule)
-    var activity: AppCompatActivity? = null
 }

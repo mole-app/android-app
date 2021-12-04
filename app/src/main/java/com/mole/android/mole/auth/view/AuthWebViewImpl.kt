@@ -27,6 +27,8 @@ class AuthWebViewImpl : MoleBaseFragment() {
             fragment.arguments = args
             return fragment
         }
+
+        const val CODE_SIGN = "auth_begin_view_with_vk"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +49,7 @@ class AuthWebViewImpl : MoleBaseFragment() {
                 if (uri.authority == "mole-app.ru") {
                     val code = uri.getQueryParameter("code")
                     if (code != null) {
-                        router.sendResult("code", code)
+                        router.sendResult(CODE_SIGN, code)
                     }
                     router.exit()
                 }
