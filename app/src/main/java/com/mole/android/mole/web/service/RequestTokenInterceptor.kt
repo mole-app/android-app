@@ -6,6 +6,8 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import retrofit2.HttpException
+import java.io.IOException
 
 
 class RequestTokenInterceptor : Interceptor {
@@ -17,6 +19,7 @@ class RequestTokenInterceptor : Interceptor {
         private const val API_KEY_HEADER = "x-api-key"
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val API_KEY_INTERNAL_HEADER = "ApiKey"
+        private const val SYNC_OBJECT = "Sync"
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -46,16 +49,30 @@ class RequestTokenInterceptor : Interceptor {
         if ((response.code() == 401) && !isApiKeyAuth) {
             val accountRepository = component().accountManagerModule.accountRepository
             if (accountRepository.refreshToken != null) {
-                return runBlocking {
+                return synchronized(SYNC_OBJECT) {
                     val refreshToken = accountRepository.refreshToken!!
-                    val authTokenData = refreshService.getNewAuthToken(
-                        refreshToken,
-                        component().firebaseModule.fingerprint.toString()
-                    )
-                    accountRepository.accessToken = authTokenData.accessToken
-                    accountRepository.refreshToken = authTokenData.refreshToken
-                    chain.proceed(request)
+                    val authTokenData: AuthTokenData
+                    runBlocking {
+                        authTokenData = refreshService.getNewAuthToken(
+                            refreshToken,
+                            component().firebaseModule.fingerprint.toString()
+                        )
+                        accountRepository.accessToken = authTokenData.accessToken
+                        accountRepository.refreshToken = authTokenData.refreshToken
+                        val updateAuthHeader = "Bearer ${authTokenData.accessToken}"
+                        val requestWithNewToken: Request = chain.request().newBuilder()
+                            .header(nameHeader, updateAuthHeader)
+                            .build()
+                        chain.proceed(requestWithNewToken)
+                    }
+                    val updateAuthHeader = "Bearer ${authTokenData.accessToken}"
+                    val requestWithNewToken: Request = chain.request().newBuilder()
+                        .header(nameHeader, updateAuthHeader)
+                        .build()
+                    chain.proceed(requestWithNewToken)
                 }
+            } else {
+                accountRepository.removeAccount { }
             }
         }
 
