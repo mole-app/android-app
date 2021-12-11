@@ -15,7 +15,7 @@ import com.mole.android.mole.debts.data.DebtsData
 class DebtsViewAdapter(
     private val onItemChatClickListener: OnItemChatClickListener
 ) :
-    RecyclerView.Adapter<BaseViewHolder<DebtsData>>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var chatsData: List<DebtsData>
 
@@ -32,9 +32,8 @@ class DebtsViewAdapter(
         private const val TYPE_CHAT = 2
     }
 
-    inner class ChatViewHolder(view: View) : BaseViewHolder<DebtsData>(view) {
-        override fun bind(data: DebtsData) {
-            data as DebtsData.ChatDebtsData
+    inner class ChatViewHolder(view: View) : BaseViewHolder<DebtsData.ChatDebtsData>(view) {
+        override fun bind(data: DebtsData.ChatDebtsData) {
             ItemChatViewBinding.bind(itemView).apply {
                 personName.text = data.personName
                 personDebtsCount.text = component().context.resources.getQuantityString(
@@ -72,9 +71,10 @@ class DebtsViewAdapter(
         else TYPE_CHAT
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<DebtsData> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             TYPE_CHAT -> {
+                ChatViewHolder(parent)
                 val binding =
                     ItemChatViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 ChatViewHolder(binding.root)
@@ -91,8 +91,12 @@ class DebtsViewAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<DebtsData>, position: Int) {
-        holder.bind(chatsData[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = chatsData[position]
+        return when (item) {
+            is DebtsData.ChatDebtsData -> (holder as? ChatViewHolder)?.bind(item)
+            is DebtsData.TotalDebtsData -> (holder as? TitleViewHolder)?.bind(item)
+        } ?: Unit
     }
 
     override fun getItemCount() = chatsData.size

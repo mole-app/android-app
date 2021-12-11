@@ -9,6 +9,9 @@ import com.mole.android.mole.auth.presentation.AuthBeginPresenter
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.auth.view.AuthLoginResources
 import com.mole.android.mole.auth.view.AuthLoginResourcesImplementation
+import com.mole.android.mole.debts.model.DebtsModel
+import com.mole.android.mole.debts.model.DebtsModelImplementation
+import com.mole.android.mole.debts.presentation.DebtsPresenter
 
 class AuthModule(
     private val context: Context,
