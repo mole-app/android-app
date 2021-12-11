@@ -9,6 +9,9 @@ import com.mole.android.mole.auth.presentation.AuthBeginPresenter
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.auth.view.AuthLoginResources
 import com.mole.android.mole.auth.view.AuthLoginResourcesImplementation
+import com.mole.android.mole.debts.model.DebtsModel
+import com.mole.android.mole.debts.model.DebtsModelImplementation
+import com.mole.android.mole.debts.presentation.DebtsPresenter
 
 class AuthModule(
     private val context: Context,
@@ -29,6 +32,13 @@ class AuthModule(
         AuthLoginPresenter(authModel, loginResources, it, baseScopeModule.mainScope)
     }
 
+    val debtsPresenter
+        get() = DebtsPresenter(
+            debtsModel,
+            routingModule.router,
+            baseScopeModule.mainScope
+        )
+
     private val loginResources: AuthLoginResources by lazy {
         AuthLoginResourcesImplementation(context)
     }
@@ -39,6 +49,10 @@ class AuthModule(
             firebaseModule.instInstallation,
             baseScopeModule.mainScope
         )
+    }
+
+    private val debtsModel: DebtsModel by lazy {
+        DebtsModelImplementation()
     }
 
     private val authService by lazy {
