@@ -16,26 +16,39 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
+import com.mole.android.mole.auth.view.AuthWebViewImpl.Companion.CODE_SIGN
 import com.mole.android.mole.component
+import com.mole.android.mole.di.RetrofitModule
+import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.setResultListenerGeneric
 
 
 class AuthBeginViewImplementation :
     MoleBaseFragment(), AuthBeginView {
 
     private val presenter = component().authModule.beginPresenter
+    private val router = component().routingModule.router
 
     private lateinit var client: GoogleSignInClient
     override lateinit var googleAccount: GoogleSignInAccount
+    override fun openAuthLogin(login: String) {
+        router.replaceScreen(Screens.AuthLogin(login))
+    }
+
+    override fun openDebts() {
+        router.replaceScreen(Screens.Debts())
+    }
+
+    override fun openBrowser(actionAfter: (String) -> Unit) {
+        router.setResultListenerGeneric(CODE_SIGN, actionAfter)
+        router.navigateTo(Screens.AuthBrowser(RetrofitModule.VK_URL))
+    }
 
     private val mainActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleSignInResult(task)
         }
-
-    companion object {
-        const val CODE_SIGN = 1
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

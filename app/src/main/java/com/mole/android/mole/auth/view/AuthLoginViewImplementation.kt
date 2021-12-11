@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.*
-import com.mole.android.mole.auth.data.AuthDataVkLogin
+import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -73,7 +73,7 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
         presenter =
         component().authModule.loginPresenter(
-            AuthDataVkLogin(
+            AuthDataLogin(
                 "",
                 "",
                 "",

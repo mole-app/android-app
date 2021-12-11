@@ -6,7 +6,7 @@ import android.graphics.Point
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import com.mole.android.mole.ui.BlurView
+import com.mole.android.mole.ui.blur.BlurView
 
 
 class MoleAlertDialog : DialogFragment() {

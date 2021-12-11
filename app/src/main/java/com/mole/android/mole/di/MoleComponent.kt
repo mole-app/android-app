@@ -1,13 +1,18 @@
 package com.mole.android.mole.di
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 
 class MoleComponent(
-    private val context: Context
+    val context: Context,
 ) {
     private val retrofitModule = RetrofitModule()
     private val scopeModule = BaseScopeModule()
-    private val firebaseModule = FirebaseModule()
+    var activity: AppCompatActivity? = null
+    val firebaseModule = FirebaseModule()
     val routingModule = RoutingModule()
-    val authModule = AuthModule(context, retrofitModule, routingModule, scopeModule, firebaseModule)
+    val accountManagerModule = AccountManagerModule(context, activity)
+    val authModule = AuthModule(context, retrofitModule, scopeModule, firebaseModule)
+    val debtsModule = DebtsModule(routingModule, scopeModule)
+    val devPanelModule = DevPanelModule(accountManagerModule)
 }

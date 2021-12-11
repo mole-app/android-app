@@ -13,7 +13,13 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField "String", "X_API_KEY", "\"testAndroid\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures{
+        viewBinding true
     }
 
     buildTypes {
@@ -43,12 +49,15 @@ ext {
     firebaseInstallationVersion = '17.0.0'
     firebaseMessagingVersion = '21.0.0'
     coroutinesVersion = '1.4.1'
-    kotlinVersion = '1.2.71'
+    kotlinVersion = '1.5.30'
 }
 
 apply plugin: 'com.google.gms.google-services'
 
 dependencies {
+
+    //Coil
+    implementation 'io.coil-kt:coil:1.3.2'
 
     implementation 'com.github.terrakok:cicerone:7.0'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'

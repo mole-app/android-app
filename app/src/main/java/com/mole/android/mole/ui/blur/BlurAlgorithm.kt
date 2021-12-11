@@ -1,4 +1,4 @@
-package com.mole.android.mole
+package com.mole.android.mole.ui.blur
 
 import android.content.Context
 import android.graphics.Bitmap

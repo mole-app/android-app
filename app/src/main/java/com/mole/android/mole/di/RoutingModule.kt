@@ -2,7 +2,7 @@ package com.mole.android.mole.di
 
 import com.github.terrakok.cicerone.Cicerone
 
-class RoutingModule : Module() {
+class RoutingModule {
 
     val router get() = cicerone.router
 
