@@ -3,7 +3,7 @@ package com.mole.android.mole.di
 import android.content.Context
 
 class MoleComponent(
-    private val context: Context
+    val context: Context
 ) {
     private val retrofitModule = RetrofitModule()
     private val scopeModule = BaseScopeModule()
