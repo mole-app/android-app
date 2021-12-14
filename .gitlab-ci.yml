@@ -28,11 +28,10 @@ assembleDebug:
     refs:
     - master
   script:
-    - ${FIREBASE_CONFIGURATION} > app/google-services.json
     - ./gradlew -i assembleDebug
   artifacts:
     paths:
-    - app/build/outputs/apk/debug/app-debug.apk
+      - app/build/outputs/apk/debug/app-debug.apk
 
 lintDebugManual:
   stage: build
