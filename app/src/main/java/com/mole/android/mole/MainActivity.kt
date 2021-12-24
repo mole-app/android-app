@@ -44,6 +44,15 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 //        routingModule.router.replaceScreen(TestScreen())
     }
 
+    override fun onBackPressed() {
+        for (currentFragment in stackFragments.asReversed()) {
+            if (currentFragment.onBackPress()) {
+                return
+            }
+        }
+        super.onBackPressed()
+    }
+
     override fun onResume() {
         super.onResume()
         sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
