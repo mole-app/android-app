@@ -34,25 +34,16 @@ class FragmentBottomBarTest : MoleBaseFragment() {
 
         currentFragmentTag = savedInstanceState?.getString(FRAGMENT_TAG_KEY) ?: TAG_1
 
-        when (currentFragmentTag) {
-            TAG_1 -> {
-                replaceOnTestScreen(currentFragmentTag, TestScreenFragment())
-            }
-            TAG_2 -> {
-                replaceOnTestScreen(currentFragmentTag, FragmentTest())
-            }
-        }
-
         val navigationAppBar: MoleBottomNavigationBar =
             view.findViewById(R.id.mole_bottom_navigation_bar)
 
         navigationAppBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_debts -> {
-                    replaceOnTestScreen(TAG_1, TestScreenFragment())
+                    router.newRootScreen(Screens.Debts())
                 }
                 R.id.navigation_profile -> {
-                    replaceOnTestScreen(TAG_2, FragmentTest())
+                    router.newChain(Screens.DevPanel())
                 }
             }
             true
@@ -60,25 +51,21 @@ class FragmentBottomBarTest : MoleBaseFragment() {
         return view
     }
 
-    private fun replaceOnTestScreen(tag: String, fragment: Fragment) {
-        val fragment1: Fragment? =
-            requireActivity().supportFragmentManager.findFragmentByTag(tag)
-
-        if (fragment1 == null) {
-            currentFragmentTag = tag
-            val fragmentTransaction: FragmentTransaction =
-                requireActivity().supportFragmentManager
-                    .beginTransaction()
-            fragmentTransaction.replace(
-                R.id.nav_host_fragment, fragment, tag
-            )
-            fragmentTransaction.commit()
+    override fun onResume() {
+        super.onResume()
+        when (currentFragmentTag) {
+            TAG_1 -> {
+                router.newRootScreen(Screens.Debts())
+            }
+            TAG_2 -> {
+                router.newChain(Screens.DevPanel())
+            }
         }
     }
 
     companion object {
-        const val TAG_1 = "FRAGMENT_1"
-        const val TAG_2 = "FRAGMENT_2"
+        private const val TAG_1 = "FRAGMENT_1"
+        private const val TAG_2 = "FRAGMENT_2"
         private const val FRAGMENT_TAG_KEY = "FRAGMENT_KEY"
     }
 
