@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.*
 import com.mole.android.mole.auth.data.AuthDataLogin
@@ -17,6 +19,7 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
     private lateinit var login: String
     private var toolbar: MoleActionBar? = null
+    override fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.nav_host_fragment)
 
     companion object {
         private const val LOGIN_ID = "login_id"

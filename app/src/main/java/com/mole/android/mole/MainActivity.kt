@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.AuthBegin
+import com.mole.android.mole.navigation.Screens.TestScreen
 
 
 class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     private val shakeDetector = ShakeDetector()
     private lateinit var sensorManager: SensorManager
     private lateinit var accelerometer: Sensor
+    val stackFragments: MutableList<MoleBaseFragment> = mutableListOf()
+    val routingModule = component().routingModule
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component().activity = this
@@ -26,7 +29,6 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
 
         val navigator = AppNavigator(this, R.id.fragment_container)
-        val routingModule = component().routingModule
         routingModule.navigationHolder.setNavigator(navigator)
 
         val accountRepository = component().accountManagerModule.accountRepository
@@ -53,6 +55,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     }
 
     override fun onShake(count: Int) {
-        component().routingModule.router.navigateTo(Screens.DevPanel())
+        routingModule.navigationHolder.setNavigator(AppNavigator(this, R.id.fragment_container))
+        routingModule.router.navigateTo(Screens.DevPanel())
     }
 }

@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentDebtsMainBinding
 import com.mole.android.mole.debts.data.DebtsData
@@ -15,6 +16,7 @@ class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
     private var _binding : FragmentDebtsMainBinding? = null
     private val binding get() = _binding!!
     private val presenter = component().debtsModule.debtsPresenter
+    override fun getNavigator() = AppNavigator(requireActivity(), R.id.nav_host_fragment)
 
     private val adapter = DebtsViewAdapter(object : OnItemChatClickListener{
         override fun onLongClick(view:View, chatData: DebtsData.ChatDebtsData) {

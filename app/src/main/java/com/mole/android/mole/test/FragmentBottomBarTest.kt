@@ -4,14 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
+import com.mole.android.mole.component
+import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
 
-class FragmentBottomBar : Fragment() {
+class FragmentBottomBarTest : MoleBaseFragment() {
 
-    var currentFragmentTag = TAG_1
+    private var currentFragmentTag = TAG_1
+    private val router = component().routingModule.router
+    override fun getNavigator(): Navigator {
+        return AppNavigator(requireActivity(), R.id.nav_host_fragment)
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
