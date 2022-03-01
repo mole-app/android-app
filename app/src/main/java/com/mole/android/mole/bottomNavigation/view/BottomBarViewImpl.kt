@@ -1,9 +1,7 @@
 package com.mole.android.mole.bottomNavigation.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -14,8 +12,7 @@ import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.debts.view.DebtsViewImplementation
-import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
-import com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
+import com.mole.android.mole.profile.view.ProfileViewImpl
 
 class BottomBarViewImpl private constructor() :
     MoleBaseFragment<FragmentWithBotnavBinding>(FragmentWithBotnavBinding::inflate), BottomBarView {
@@ -69,7 +66,7 @@ class BottomBarViewImpl private constructor() :
                 router.newRootScreen(Screens.Debts())
             }
             PROFILE_TAG -> {
-                router.newChain(Screens.DevPanel())
+                router.newChain(Screens.Profile())
             }
         }
     }
@@ -104,7 +101,7 @@ class BottomBarViewImpl private constructor() :
 
     private object Screens {
         fun Debts() = FragmentScreen { DebtsViewImplementation() }
-        fun DevPanel() = FragmentScreen { MoleDebugPanelViewImpl() }
+        fun Profile() = FragmentScreen { ProfileViewImpl() }
     }
 
     override fun openDebts() {
@@ -115,7 +112,7 @@ class BottomBarViewImpl private constructor() :
 
     override fun openProfile() {
         arguments?.putString(FRAGMENT_ID, PROFILE_TAG)
-        router.newChain(Screens.DevPanel())
+        router.newChain(Screens.Profile())
         currentFragmentTag = PROFILE_TAG
     }
 
