@@ -1,69 +1,46 @@
 package com.mole.android.mole.devpanel.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import com.mole.android.mole.*
+import com.mole.android.mole.databinding.FrgDebugPanelBinding
 
-class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
+class MoleDebugPanelViewImpl :
+    MoleBaseFragment<FrgDebugPanelBinding>(FrgDebugPanelBinding::inflate), MoleDebugPanelView {
 
     private val presenter = component().devPanelModule.devPanelPresenter
-
-    private lateinit var buttonCorruptedAccessToken: AppCompatButton
-    private lateinit var buttonCorruptedRefreshToken: AppCompatButton
-    private lateinit var buttonBack: AppCompatButton
-    private lateinit var buttonRemoveAccount: AppCompatButton
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        return inflater.inflate(R.layout.frg_debug_panel, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        buttonCorruptedAccessToken =
-            view.findViewById(R.id.debug_panel_corrupted_token_access)
-        buttonCorruptedAccessToken.setOnClickListener {
+        binding.debugPanelCorruptedTokenAccess.setOnClickListener {
             presenter.onButtonCorruptedAccessToken()
         }
-        buttonCorruptedAccessToken.setBorder(
+        binding.debugPanelCorruptedTokenAccess.setBorder(
             Shape.RECTANGLE,
             80f.dp()
         )
 
-        buttonCorruptedRefreshToken =
-            view.findViewById(R.id.debug_panel_corrupted_token_refresh)
-        buttonCorruptedRefreshToken.setOnClickListener {
+        binding.debugPanelCorruptedTokenRefresh.setOnClickListener {
             presenter.onButtonCorruptedRefreshToken()
         }
-        buttonCorruptedRefreshToken.setBorder(
+        binding.debugPanelCorruptedTokenRefresh.setBorder(
             Shape.RECTANGLE,
             80f.dp()
         )
 
-        buttonBack = view.findViewById(R.id.debug_panel_button_back)
-        buttonBack.setOnClickListener {
+        binding.debugPanelButtonBack.setOnClickListener {
             presenter.onButtonBack()
         }
-        buttonBack.setBorder(
+        binding.debugPanelButtonBack.setBorder(
             Shape.RECTANGLE,
             80f.dp()
         )
 
-        buttonRemoveAccount =
-            view.findViewById(R.id.debug_panel_remove_account)
-        buttonRemoveAccount.setOnClickListener {
+        binding.debugPanelRemoveAccount.setOnClickListener {
             presenter.onButtonRemoveAccount()
         }
-        buttonRemoveAccount.setBorder(
+        binding.debugPanelRemoveAccount.setBorder(
             Shape.RECTANGLE,
             80f.dp()
         )
@@ -81,14 +58,14 @@ class MoleDebugPanelViewImpl : MoleBaseFragment(), MoleDebugPanelView {
     }
 
     override fun corruptedAccessButtonEnable(enable: Boolean) {
-        buttonCorruptedAccessToken.isEnabled = enable
+        binding.debugPanelCorruptedTokenAccess.isEnabled = enable
     }
 
     override fun corruptedRefreshButtonEnable(enable: Boolean) {
-        buttonCorruptedRefreshToken.isEnabled = enable
+        binding.debugPanelCorruptedTokenRefresh.isEnabled = enable
     }
 
     override fun removeButtonEnable(enable: Boolean) {
-        buttonRemoveAccount.isEnabled = enable
+        binding.debugPanelRemoveAccount.isEnabled = enable
     }
 }
