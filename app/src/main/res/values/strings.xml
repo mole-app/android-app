@@ -31,4 +31,5 @@
     <string name="debug_panel_corrupted_token_access">Повредить токен доступа</string>
     <string name="debug_panel_remove_account">Удалить аккаунт</string>
     <string name="debug_panel_corrupted_token_refresh">Повредить рефреш токен</string>
+    <string name="profile_icon_description">Profile icon</string>
 </resources>

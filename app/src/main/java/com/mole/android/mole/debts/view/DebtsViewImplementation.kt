@@ -11,9 +11,9 @@ import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentDebtsMainBinding
 import com.mole.android.mole.debts.data.DebtsData
 
-class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
-    private var _binding : FragmentDebtsMainBinding? = null
-    private val binding get() = _binding!!
+class DebtsViewImplementation : MoleBaseFragment<FragmentDebtsMainBinding>(), DebtsView {
+//    private var _binding : FragmentDebtsMainBinding? = null
+//    private val binding get() = _binding!!
     private val presenter = component().debtsModule.debtsPresenter
 
     private val adapter = DebtsViewAdapter(object : OnItemChatClickListener{
@@ -26,15 +26,15 @@ class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
         }
     })
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        super.onCreateView(inflater, container, savedInstanceState)
-        _binding= FragmentDebtsMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        super.onCreateView(inflater, container, savedInstanceState)
+//        _binding= FragmentDebtsMainBinding.inflate(inflater, container, false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,7 +52,6 @@ class DebtsViewImplementation : MoleBaseFragment(), DebtsView {
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.detachView()
-        _binding = null
     }
 
     override fun setData(data: List<DebtsData>) {
