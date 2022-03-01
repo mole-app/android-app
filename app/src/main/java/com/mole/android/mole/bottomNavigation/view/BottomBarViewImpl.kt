@@ -1,0 +1,133 @@
+package com.mole.android.mole.bottomNavigation.view
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.R
+import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
+import com.mole.android.mole.component
+import com.mole.android.mole.debts.view.DebtsViewImplementation
+import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
+import com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
+
+class BottomBarViewImpl private constructor() : MoleBaseFragment(), BottomBarView {
+
+    private val presenter: BottomBarPresenter = BottomBarPresenter()
+
+    private var currentFragmentTag = DEBTS_TAG
+    private val router = component().routingModule.router
+    private val navigatorHolder = component().routingModule.navigationHolder
+    private lateinit var navigationAppBar: MoleBottomNavigationBar
+
+    override fun getNavigator(): Navigator {
+        return AppNavigator(requireActivity(), R.id.nav_host_fragment)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(FRAGMENT_TAG_KEY, currentFragmentTag)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.fragment_with_botnav, container, false)
+
+        currentFragmentTag =
+            arguments?.getString(FRAGMENT_ID) ?: savedInstanceState?.getString(FRAGMENT_TAG_KEY)
+                    ?: DEBTS_TAG
+
+        navigationAppBar =
+            view.findViewById(R.id.mole_bottom_navigation_bar)
+
+        navigationAppBar.setOnFabClickListener {
+            presenter.onNewDebtClick()
+        }
+
+        navigationAppBar.setOnNavigationItemSelectedListener { item ->
+            navigatorHolder.setNavigator(getNavigator())
+            if (!item.isChecked) {
+                when (item.itemId) {
+                    R.id.navigation_debts -> {
+                        presenter.onDebtsClick()
+                    }
+                    R.id.navigation_profile -> {
+                        presenter.onProfileClick()
+                    }
+                }
+            }
+            true
+        }
+        presenter.attachView(this)
+        return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        when (currentFragmentTag) {
+            DEBTS_TAG -> {
+                router.newRootScreen(Screens.Debts())
+            }
+            PROFILE_TAG -> {
+                router.newChain(Screens.DevPanel())
+            }
+        }
+    }
+
+    companion object {
+        private const val DEBTS_TAG = "DEBTS_TAG"
+        private const val PROFILE_TAG = "PROFILE_TAG"
+        private const val FRAGMENT_TAG_KEY = "FRAGMENT_KEY"
+        private const val FRAGMENT_ID = "FRAGMENT_ID"
+
+        fun withDebts(): BottomBarViewImpl {
+            return with(DEBTS_TAG)
+        }
+
+        fun withProfile(): BottomBarViewImpl {
+            return with(PROFILE_TAG)
+        }
+
+        private fun with(tag: String): BottomBarViewImpl {
+            val args = Bundle()
+            args.putString(FRAGMENT_ID, tag)
+            val fragment = BottomBarViewImpl()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onBackPress(): Boolean {
+        navigationAppBar.setSelectedItem(R.id.navigation_debts)
+        return false
+    }
+
+    private object Screens {
+        fun Debts() = FragmentScreen { DebtsViewImplementation() }
+        fun DevPanel() = FragmentScreen { MoleDebugPanelViewImpl() }
+    }
+
+    override fun openDebts() {
+        arguments?.putString(FRAGMENT_ID, DEBTS_TAG)
+        router.newRootScreen(Screens.Debts())
+        currentFragmentTag = DEBTS_TAG
+    }
+
+    override fun openProfile() {
+        arguments?.putString(FRAGMENT_ID, PROFILE_TAG)
+        router.newChain(Screens.DevPanel())
+        currentFragmentTag = PROFILE_TAG
+    }
+
+    override fun openNewDebt() {
+        Toast.makeText(requireContext(), "Open New Debts", Toast.LENGTH_SHORT).show()
+    }
+}

@@ -3,7 +3,9 @@ package com.mole.android.mole.debts.view
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentDebtsMainBinding
 import com.mole.android.mole.debts.data.DebtsData
@@ -12,6 +14,7 @@ class DebtsViewImplementation :
     MoleBaseFragment<FragmentDebtsMainBinding>(FragmentDebtsMainBinding::inflate), DebtsView {
 
     private val presenter = component().debtsModule.debtsPresenter
+    override fun getNavigator() = AppNavigator(requireActivity(), R.id.nav_host_fragment)
 
     private val adapter = DebtsViewAdapter(object : OnItemChatClickListener {
         override fun onLongClick(view: View, chatData: DebtsData.ChatDebtsData) {

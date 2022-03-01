@@ -3,6 +3,8 @@ package com.mole.android.mole.auth.view
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.*
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
@@ -13,6 +15,7 @@ class AuthLoginViewImplementation :
     MoleBaseFragment<ViewAuthLoginBinding>(ViewAuthLoginBinding::inflate), AuthLoginView {
 
     private lateinit var login: String
+    override fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.nav_host_fragment)
 
     companion object {
         private const val LOGIN_ID = "login_id"
