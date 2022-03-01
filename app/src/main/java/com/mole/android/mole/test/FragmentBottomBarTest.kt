@@ -9,10 +9,12 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.component
+import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
 
-class FragmentBottomBarTest : MoleBaseFragment() {
+class FragmentBottomBarTest :
+    MoleBaseFragment<FragmentWithBotnavBinding>(FragmentWithBotnavBinding::inflate) {
 
     private var currentFragmentTag = TAG_1
     private val router = component().routingModule.router
@@ -25,19 +27,11 @@ class FragmentBottomBarTest : MoleBaseFragment() {
         outState.putString(FRAGMENT_TAG_KEY, currentFragmentTag)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.fragment_with_botnav, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         currentFragmentTag = savedInstanceState?.getString(FRAGMENT_TAG_KEY) ?: TAG_1
 
-        val navigationAppBar: MoleBottomNavigationBar =
-            view.findViewById(R.id.mole_bottom_navigation_bar)
-
-        navigationAppBar.setOnNavigationItemSelectedListener { item ->
+        binding.moleBottomNavigationBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_debts -> {
                     router.newRootScreen(Screens.Debts())
@@ -48,7 +42,6 @@ class FragmentBottomBarTest : MoleBaseFragment() {
             }
             true
         }
-        return view
     }
 
     override fun onResume() {

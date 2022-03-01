@@ -4,6 +4,7 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.AuthBegin
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     private val shakeDetector = ShakeDetector()
     private lateinit var sensorManager: SensorManager
     private lateinit var accelerometer: Sensor
-    val stackFragments: MutableList<MoleBaseFragment> = mutableListOf()
+    val stackFragments: MutableList<MoleBaseFragment<ViewBinding>> = mutableListOf()
     val routingModule = component().routingModule
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -12,18 +12,19 @@ import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
 import com.mole.android.mole.component
+import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.debts.view.DebtsViewImplementation
 import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
 import com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
 
-class BottomBarViewImpl private constructor() : MoleBaseFragment(), BottomBarView {
+class BottomBarViewImpl private constructor() :
+    MoleBaseFragment<FragmentWithBotnavBinding>(FragmentWithBotnavBinding::inflate), BottomBarView {
 
     private val presenter: BottomBarPresenter = BottomBarPresenter()
 
     private var currentFragmentTag = DEBTS_TAG
     private val router = component().routingModule.router
     private val navigatorHolder = component().routingModule.navigationHolder
-    private lateinit var navigationAppBar: MoleBottomNavigationBar
 
     override fun getNavigator(): Navigator {
         return AppNavigator(requireActivity(), R.id.nav_host_fragment)
@@ -34,25 +35,17 @@ class BottomBarViewImpl private constructor() : MoleBaseFragment(), BottomBarVie
         outState.putString(FRAGMENT_TAG_KEY, currentFragmentTag)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.fragment_with_botnav, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         currentFragmentTag =
             arguments?.getString(FRAGMENT_ID) ?: savedInstanceState?.getString(FRAGMENT_TAG_KEY)
                     ?: DEBTS_TAG
 
-        navigationAppBar =
-            view.findViewById(R.id.mole_bottom_navigation_bar)
-
-        navigationAppBar.setOnFabClickListener {
+        binding.moleBottomNavigationBar.setOnFabClickListener {
             presenter.onNewDebtClick()
         }
 
-        navigationAppBar.setOnNavigationItemSelectedListener { item ->
+        binding.moleBottomNavigationBar.setOnNavigationItemSelectedListener { item ->
             navigatorHolder.setNavigator(getNavigator())
             if (!item.isChecked) {
                 when (item.itemId) {
@@ -67,7 +60,6 @@ class BottomBarViewImpl private constructor() : MoleBaseFragment(), BottomBarVie
             true
         }
         presenter.attachView(this)
-        return view
     }
 
     override fun onResume() {
@@ -106,7 +98,7 @@ class BottomBarViewImpl private constructor() : MoleBaseFragment(), BottomBarVie
     }
 
     override fun onBackPress(): Boolean {
-        navigationAppBar.setSelectedItem(R.id.navigation_debts)
+        binding.moleBottomNavigationBar.setSelectedItem(R.id.navigation_debts)
         return false
     }
 
