@@ -13,12 +13,13 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
 
     private lateinit var presenter: ProfilePresenter
 
+    override fun getToolbar() = binding.moleProfileToolbar
+    override fun getMenuId() = R.menu.profile_menu
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter =
-            component().profileModule.profilePresenter
-
+        presenter = component().profileModule.profilePresenter
 
         presenter.attachView(this)
     }

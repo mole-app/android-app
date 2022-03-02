@@ -1,15 +1,14 @@
 package com.mole.android.mole
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 abstract class MoleBaseFragment<T : ViewBinding>
     (private val inflation: (LayoutInflater, ViewGroup?, Boolean) -> T) : Fragment() {
@@ -21,9 +20,10 @@ abstract class MoleBaseFragment<T : ViewBinding>
     private val mainActivity: MainActivity get() = activity as MainActivity
 
     open fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.fragment_container)
-    open fun getToolbar(): Toolbar? {
-        return null
-    }
+    open fun getToolbar(): MoleActionBar? = null
+
+    @MenuRes
+    open fun getMenuId(): Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,8 +33,18 @@ abstract class MoleBaseFragment<T : ViewBinding>
             if (appCompatActivity is AppCompatActivity) {
                 appCompatActivity.setSupportActionBar(toolbar)
                 appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+                if (getMenuId() != 0) {
+                    setHasOptionsMenu(true)
+                }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(getMenuId(), menu)
+        getToolbar()?.bindMenu()
     }
 
     override fun onCreateView(

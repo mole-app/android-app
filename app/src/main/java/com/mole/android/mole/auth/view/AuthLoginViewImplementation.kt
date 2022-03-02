@@ -2,7 +2,6 @@ package com.mole.android.mole.auth.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.*
@@ -42,9 +41,7 @@ class AuthLoginViewImplementation :
         binding.authLogo.editText?.setText(resources.getString(R.string.login_prefix, login))
     }
 
-    override fun getToolbar(): Toolbar {
-        return binding.moleAuthToolbar
-    }
+    override fun getToolbar() = binding.moleAuthToolbar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

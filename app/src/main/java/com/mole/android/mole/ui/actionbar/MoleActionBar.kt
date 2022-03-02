@@ -2,7 +2,6 @@ package com.mole.android.mole.ui.actionbar
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout

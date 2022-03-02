@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/mole_profile_toolbar"
+        style="@style/MoleToolbar"
+        app:backVisible="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/personProfileIcon"
@@ -28,9 +36,9 @@
             android:ellipsize="marquee"
             android:gravity="center"
             android:maxLines="1"
-            tool:layout_constraintEnd_toEndOf="parent"
-            tool:layout_constraintStart_toStartOf="parent"
-            tool:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Bob" />
 
         <TextView
@@ -40,19 +48,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textColor="@color/white_alpha_50"
-            tool:layout_constraintEnd_toEndOf="parent"
-            tool:layout_constraintStart_toStartOf="parent"
-            tool:layout_constraintTop_toBottomOf="@id/profileName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileName"
             tools:text="\@login" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/profileEdit"
             style="@style/MoleButton.BorderlessIcon"
             android:src="@drawable/ic_edit_profile"
-            tool:layout_constraintBottom_toBottomOf="parent"
-            tool:layout_constraintEnd_toEndOf="parent"
-            tool:layout_constraintStart_toEndOf="@id/profileName"
-            tool:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profileName"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
