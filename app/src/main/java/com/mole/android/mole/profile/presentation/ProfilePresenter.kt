@@ -8,8 +8,8 @@ class ProfilePresenter: MoleBasePresenter<ProfileView>() {
         super.attachView(view)
         view.setProfileLogin("norm")
         view.setProfileName("Bob")
-        view.setTags(listOf("cafe", "hookah"))
-        view.setTotalDebtsSummary(10000)
+        view.setTags(listOf("cafe", "hookah", "fog"))
+        view.setTotalDebtsSummary(-10000)
         view.setIcon(null)
     }
 }

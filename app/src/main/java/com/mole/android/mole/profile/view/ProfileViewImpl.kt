@@ -3,6 +3,7 @@ package com.mole.android.mole.profile.view
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mole.android.mole.*
@@ -20,6 +21,10 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
         super.onViewCreated(view, savedInstanceState)
 
         presenter = component().profileModule.profilePresenter
+
+        binding.tagsGroup.setOnClickListener {
+            Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
+        }
 
         presenter.attachView(this)
     }

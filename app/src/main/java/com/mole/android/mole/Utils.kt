@@ -4,7 +4,8 @@ import java.text.DecimalFormat
 
 fun summaryToString(summary: Int): String {
     val format = DecimalFormat( "###,###.##" )
-    format.positivePrefix = "+"
+    format.positivePrefix = "+ "
+    format.negativePrefix = "- "
     return format.format(summary)
 }
 
