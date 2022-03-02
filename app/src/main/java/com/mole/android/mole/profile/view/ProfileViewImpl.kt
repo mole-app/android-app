@@ -5,12 +5,9 @@ import android.os.Bundle
 import android.view.View
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.mole.android.mole.MoleBaseFragment
-import com.mole.android.mole.R
-import com.mole.android.mole.component
+import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentProfileBinding
 import com.mole.android.mole.profile.presentation.ProfilePresenter
-import com.mole.android.mole.summaryToString
 
 class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
@@ -39,12 +36,7 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
     }
 
     override fun setTags(tags: List<String>) {
-        var tagsText = "#${tags.first()}"
-        val tagsWithoutFirst = tags.drop(tags.size - 2)
-        for (tag in tagsWithoutFirst) {
-            tagsText += ", #$tag"
-        }
-        binding.profileTags.text = tagsText
+        binding.profileTags.text = tagsToString(tags)
     }
 
     override fun setIcon(bitmap: Bitmap?) {
