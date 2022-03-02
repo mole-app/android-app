@@ -39,7 +39,7 @@ class AuthLoginViewImplementation :
     }
 
     override fun setUserLogin(login: String) {
-        binding.authLogo.editText?.setText(login)
+        binding.authLogo.editText?.setText(resources.getString(R.string.login_prefix, login))
     }
 
     override fun getToolbar(): Toolbar {

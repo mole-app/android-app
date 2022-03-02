@@ -3,9 +3,11 @@ package com.mole.android.mole.profile.view
 import android.os.Bundle
 import android.view.View
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentProfileBinding
 import com.mole.android.mole.profile.presentation.ProfilePresenter
+import com.mole.android.mole.summaryToString
 
 class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
@@ -26,11 +28,11 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
     }
 
     override fun setProfileLogin(login: String) {
-        binding.profileLogin.text = login
+        binding.profileLogin.text = resources.getString(R.string.login_prefix, login)
     }
 
     override fun setTotalDebtsSummary(summary: Int) {
-        binding.profileDebtsSummary.text = summary.toString()
+        binding.profileDebtsSummary.text = summaryToString(summary)
     }
 
     override fun setTags(tags: List<String>) {

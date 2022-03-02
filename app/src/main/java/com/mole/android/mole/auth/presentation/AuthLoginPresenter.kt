@@ -22,8 +22,7 @@ class AuthLoginPresenter(
         super.attachView(view)
         val login = client.login
         if (login != "") {
-            val prefix = authLoginResources.loginPrefix
-            view.setUserLogin(prefix + login)
+            view.setUserLogin(login)
         }
     }
 

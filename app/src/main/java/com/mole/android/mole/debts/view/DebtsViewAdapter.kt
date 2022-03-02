@@ -11,6 +11,7 @@ import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ItemChatTitleViewBinding
 import com.mole.android.mole.databinding.ItemChatViewBinding
 import com.mole.android.mole.debts.data.DebtsData
+import com.mole.android.mole.summaryToString
 
 class DebtsViewAdapter(
     private val onItemChatClickListener: OnItemChatClickListener
@@ -61,7 +62,7 @@ class DebtsViewAdapter(
             data as DebtsData.TotalDebtsData
             ItemChatTitleViewBinding.bind(itemView).apply {
                 titleChatTextView.text =
-                    component().context.resources.getString(R.string.total_debts, data.debtsTotal)
+                    component().context.resources.getString(R.string.total_debts, summaryToString(data.debtsTotal))
             }
         }
     }
