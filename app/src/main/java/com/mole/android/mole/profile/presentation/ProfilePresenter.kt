@@ -10,5 +10,6 @@ class ProfilePresenter: MoleBasePresenter<ProfileView>() {
         view.setProfileName("Bob")
         view.setTags(listOf("cafe", "hookah"))
         view.setTotalDebtsSummary(10000)
+        view.setIcon(null)
     }
 }

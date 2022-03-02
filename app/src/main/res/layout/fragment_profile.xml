@@ -49,10 +49,10 @@
             android:id="@+id/profileEdit"
             style="@style/MoleButton.BorderlessIcon"
             android:src="@drawable/ic_edit_profile"
-            tool:layout_constraintStart_toEndOf="@id/profileName"
+            tool:layout_constraintBottom_toBottomOf="parent"
             tool:layout_constraintEnd_toEndOf="parent"
-            tool:layout_constraintTop_toTopOf="parent"
-            tool:layout_constraintBottom_toBottomOf="parent"/>
+            tool:layout_constraintStart_toEndOf="@id/profileName"
+            tool:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -61,8 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:textColor="@color/white_alpha_50"
-        tools:text="All debts" />
+        android:text="@string/all_debts_profile_title"
+        android:textColor="@color/white_alpha_50" />
 
     <TextView
         android:id="@+id/profileDebtsSummary"
@@ -78,8 +78,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:textColor="@color/white_alpha_50"
-        tools:text="Tags" />
+        android:text="@string/tags_profile_title"
+        android:textColor="@color/white_alpha_50" />
 
     <TextView
         android:id="@+id/profileTags"

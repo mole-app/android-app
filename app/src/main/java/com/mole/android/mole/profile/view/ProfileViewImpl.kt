@@ -1,7 +1,10 @@
 package com.mole.android.mole.profile.view
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.component
@@ -36,6 +39,23 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
     }
 
     override fun setTags(tags: List<String>) {
-        binding.profileTags.text = tags.toString()
+        var tagsText = "#${tags.first()}"
+        val tagsWithoutFirst = tags.drop(tags.size - 2)
+        for (tag in tagsWithoutFirst) {
+            tagsText += ", #$tag"
+        }
+        binding.profileTags.text = tagsText
+    }
+
+    override fun setIcon(bitmap: Bitmap?) {
+        if (bitmap != null) {
+            binding.personProfileIcon.load(bitmap) {
+                transformations(CircleCropTransformation())
+            }
+        } else {
+            binding.personProfileIcon.load(R.drawable.ic_not_avatar_foreground) {
+                transformations(CircleCropTransformation())
+            }
+        }
     }
 }

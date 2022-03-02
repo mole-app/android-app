@@ -43,7 +43,7 @@ class DebtsViewAdapter(
                     data.personDebtsCount
                 )
                 personDebtsTotal.balance = data.personDebtsTotal
-                personIcon.load(R.drawable.test_image) {
+                personIcon.load(R.drawable.ic_not_avatar_foreground) {
                     transformations(CircleCropTransformation())
                 }
                 itemChatView.setOnLongClickListener {
