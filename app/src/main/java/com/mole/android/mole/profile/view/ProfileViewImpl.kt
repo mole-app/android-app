@@ -1,6 +1,6 @@
 package com.mole.android.mole.profile.view
 
-import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -45,9 +45,9 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
         binding.profileTags.text = tagsToString(tags)
     }
 
-    override fun setIcon(bitmap: Bitmap?) {
-        if (bitmap != null) {
-            binding.personProfileIcon.load(bitmap) {
+    override fun setIcon(uri: Uri?) {
+        if (uri != null && uri != Uri.EMPTY) {
+            binding.personProfileIcon.load(uri) {
                 transformations(CircleCropTransformation())
             }
         } else {

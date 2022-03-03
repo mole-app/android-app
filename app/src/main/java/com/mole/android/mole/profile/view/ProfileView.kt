@@ -1,6 +1,6 @@
 package com.mole.android.mole.profile.view
 
-import android.graphics.Bitmap
+import android.net.Uri
 
 interface ProfileView {
     fun setProfileName(name: String)
@@ -11,5 +11,5 @@ interface ProfileView {
 
     fun setTags(tags: List<String>)
 
-    fun setIcon(bitmap: Bitmap?)
+    fun setIcon(uri: Uri?)
 }
