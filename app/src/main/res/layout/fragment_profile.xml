@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/mole_profile_toolbar"
+        style="@style/MoleToolbar"
+        app:backVisible="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/personProfileIcon"
+        android:layout_width="@dimen/profile_icon_size"
+        android:layout_height="@dimen/profile_icon_size"
+        android:layout_marginTop="@dimen/profile_icon_size_top_margin"
+        android:contentDescription="@string/profile_icon_description"
+        android:scaleType="centerCrop" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profileName"
+            style="@style/MoleText.Medium.Title"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Bob" />
+
+        <TextView
+            android:id="@+id/profileLogin"
+            style="@style/MoleText.Medium.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white_alpha_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileName"
+            tools:text="\@login" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/profileEdit"
+            style="@style/MoleButton.BorderlessIcon"
+            android:src="@drawable/ic_edit_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profileName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        style="@style/MoleText.Medium.Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/all_debts_profile_title"
+        android:textColor="@color/white_alpha_50" />
+
+    <TextView
+        android:id="@+id/profileDebtsSummary"
+        style="@style/MoleText.Medium.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="36dp"
+        android:gravity="center"
+        tools:text="+ 12 000" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/tagsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:background="@drawable/ripple_borderless_section"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/MoleText.Medium.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tags_profile_title"
+            android:textColor="@color/white_alpha_50" />
+
+        <TextView
+            android:id="@+id/profileTags"
+            style="@style/MoleText.Medium.Title"
+            android:layout_width="328dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:maxLines="1"
+            tools:text="#cafe, #hookan, #restaurant" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

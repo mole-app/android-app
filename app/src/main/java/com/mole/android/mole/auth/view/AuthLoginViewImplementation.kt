@@ -1,22 +1,20 @@
 package com.mole.android.mole.auth.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageButton
-import androidx.appcompat.widget.Toolbar
-import com.google.android.material.textfield.TextInputLayout
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.*
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
-import com.mole.android.mole.ui.actionbar.MoleActionBar
+import com.mole.android.mole.databinding.ViewAuthLoginBinding
 
 
-class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
+class AuthLoginViewImplementation :
+    MoleBaseFragment<ViewAuthLoginBinding>(ViewAuthLoginBinding::inflate), AuthLoginView {
 
     private lateinit var login: String
-    private var toolbar: MoleActionBar? = null
+    override fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.nav_host_fragment)
 
     companion object {
         private const val LOGIN_ID = "login_id"
@@ -31,67 +29,49 @@ class AuthLoginViewImplementation : MoleBaseFragment(), AuthLoginView {
 
     private lateinit var presenter: AuthLoginPresenter
 
-    private lateinit var textInputLayout: TextInputLayout
-
     override fun showLoginExistError() {
-        textInputLayout.error = getString(R.string.login_exist_error)
+        binding.authLogo.error = getString(R.string.login_exist_error)
     }
 
     override fun hideError() {
-        textInputLayout.error = null
+        binding.authLogo.error = null
     }
 
     override fun setUserLogin(login: String) {
-        textInputLayout.editText?.setText(login)
+        binding.authLogo.editText?.setText(resources.getString(R.string.login_prefix, login))
     }
 
-    override fun getToolbar(): Toolbar? {
-        return toolbar
-    }
+    override fun getToolbar() = binding.moleAuthToolbar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        toolbar = view.findViewById(R.id.mole_auth_toolbar)
         super.onViewCreated(view, savedInstanceState)
 
         login = arguments?.getString(LOGIN_ID).toString()
 
-        val button: AppCompatImageButton = view.findViewById(R.id.auth_button)
-        textInputLayout = view.findViewById(R.id.auth_logo)
-
-        textInputLayout.editText?.onTextChanged { charSequence ->
+        binding.authLogo.editText?.onTextChanged { charSequence ->
             presenter.onTextChanged(charSequence)
         }
 
-        button.setOnClickListener {
+        binding.authButton.setOnClickListener {
             presenter.onFabClick()
         }
 
-        button.setBorder(
+        binding.authButton.setBorder(
             Shape.OVAL,
             16f.dp()
         )
 
         presenter =
-        component().authModule.loginPresenter(
-            AuthDataLogin(
-                "",
-                "",
-                "",
-                login
+            component().authModule.loginPresenter(
+                AuthDataLogin(
+                    "",
+                    "",
+                    "",
+                    login
+                )
             )
-        )
 
         presenter.attachView(this)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        return inflater.inflate(R.layout.view_auth_login, container, false)
     }
 
     override fun onDestroy() {

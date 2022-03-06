@@ -1,4 +1,4 @@
-package com.mole.android.mole.test
+package com.mole.android.mole.bottombar
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.R
+import com.mole.android.mole.component
+import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.test.FragmentTest
+import com.mole.android.mole.test.TestScreenFragment
 import com.mole.android.mole.ui.appbar.MoleBottomNavigationBar
 
-class FragmentBottomBar : Fragment() {
+class BottomBarFragment: Fragment() {
 
     var currentFragmentTag = TAG_1
+
+    private val router = component().routingModule.router
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -26,6 +33,9 @@ class FragmentBottomBar : Fragment() {
         val view = inflater.inflate(R.layout.fragment_with_botnav, container, false)
 
         currentFragmentTag = savedInstanceState?.getString(FRAGMENT_TAG_KEY) ?: TAG_1
+
+        val navigator = AppNavigator(requireActivity(), R.id.nav_host_fragment)
+        component().routingModule.navigationHolder.setNavigator(navigator)
 
         when (currentFragmentTag) {
             TAG_1 -> {
@@ -42,10 +52,12 @@ class FragmentBottomBar : Fragment() {
         navigationAppBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_debts -> {
-                    replaceOnTestScreen(TAG_1, TestScreenFragment())
+                    router.navigateTo(Screens.Debts())
+//                    replaceOnTestScreen(TAG_1, TestScreenFragment())
                 }
                 R.id.navigation_profile -> {
-                    replaceOnTestScreen(TAG_2, FragmentTest())
+                    router.navigateTo(Screens.DevPanel())
+//                    replaceOnTestScreen(TAG_2, FragmentTest())
                 }
             }
             true
@@ -67,6 +79,8 @@ class FragmentBottomBar : Fragment() {
             )
             fragmentTransaction.commit()
         }
+
+
     }
 
     companion object {
