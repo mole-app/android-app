@@ -19,6 +19,6 @@ class ApiResult<T> private constructor(
         fun <T> create(error: MoleError) = ApiResult<T>(error = error)
     }
 
-    class MoleError(val code: Int)
+    class MoleError(val code: Int, val descriptor: String)
 
 }

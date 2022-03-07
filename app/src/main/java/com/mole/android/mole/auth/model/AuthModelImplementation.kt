@@ -7,6 +7,7 @@ import kotlinx.coroutines.*
 
 import com.mole.android.mole.di.FirebaseModule
 import com.mole.android.mole.web.service.ApiResult
+import retrofit2.HttpException
 
 
 class AuthModelImplementation(
@@ -30,7 +31,7 @@ class AuthModelImplementation(
     override suspend fun getUserVk(code: String): ApiResult<AuthModel.SuccessAuthResult> {
         val task = mainScope.async(Dispatchers.IO) {
             try {
-                val user = service.getVkAuth(code + "1234", getFingerprint())
+                val user = service.getVkAuth(code, getFingerprint())
                 if (user.login == null) {
                     ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessForExistedUser)
                 } else {
@@ -40,12 +41,16 @@ class AuthModelImplementation(
                         user.accessToken,
                         user.refreshToken
                     )
-                    ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessNewUser(user.login))
+                    ApiResult.create<AuthModel.SuccessAuthResult>(
+                        AuthModel.SuccessAuthResult.SuccessNewUser(
+                            user.login
+                        )
+                    )
                 }
-            } catch (exception: Exception) {
+            } catch (exception: HttpException) {
                 // Не хочется падать если что-то не так на сервере
-                exception.printStackTrace()
-                ApiResult.create(ApiResult.MoleError(100))
+                Log.e("Auth", exception.toString())
+                ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
         return task.await()
@@ -64,12 +69,16 @@ class AuthModelImplementation(
                         user.accessToken,
                         user.refreshToken
                     )
-                    ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessNewUser(user.login))
+                    ApiResult.create<AuthModel.SuccessAuthResult>(
+                        AuthModel.SuccessAuthResult.SuccessNewUser(
+                            user.login
+                        )
+                    )
                 }
-            } catch (exception: Exception) {
+            } catch (exception: HttpException) {
                 // Не хочется падать если что-то не так на сервере
-                exception.printStackTrace()
-                ApiResult.create(ApiResult.MoleError(100))
+                Log.e("Auth", exception.toString())
+                ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
         return task.await()

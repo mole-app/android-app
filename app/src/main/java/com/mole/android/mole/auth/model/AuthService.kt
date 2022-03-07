@@ -7,14 +7,14 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface AuthService {
-    @Headers("$API_KEY")
+    @Headers(API_KEY)
     @POST("auth/vkSignIn")
     suspend fun getVkAuth(
         @Query("code") code: String,
         @Query("fingerprint") fingerprint: String
     ): AuthDataLogin
 
-    @Headers("$API_KEY")
+    @Headers(API_KEY)
     @POST("auth/googleSignIn")
     suspend fun getGoogleAuth(
         @Query("googleToken") token: String,
