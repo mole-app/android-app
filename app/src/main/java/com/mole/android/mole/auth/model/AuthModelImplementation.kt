@@ -49,7 +49,7 @@ class AuthModelImplementation(
                 }
             } catch (exception: HttpException) {
                 // Не хочется падать если что-то не так на сервере
-                Log.e("Auth", exception.toString())
+                Log.e("Auth", exception.stackTrace.contentToString())
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }

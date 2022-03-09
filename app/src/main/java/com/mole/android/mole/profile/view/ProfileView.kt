@@ -7,7 +7,7 @@ interface ProfileView {
 
     fun setProfileLogin(login: String)
 
-    fun setTotalDebtsSummary(summary: Int)
+    fun setTotalDebtsSummary(summary: Long)
 
     fun setTags(tags: List<String>)
 

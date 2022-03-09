@@ -37,7 +37,7 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
         binding.profileLogin.text = resources.getString(R.string.login_prefix, login)
     }
 
-    override fun setTotalDebtsSummary(summary: Int) {
+    override fun setTotalDebtsSummary(summary: Long) {
         binding.profileDebtsSummary.text = summaryToString(summary)
     }
 

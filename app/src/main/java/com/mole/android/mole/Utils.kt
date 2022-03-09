@@ -2,7 +2,7 @@ package com.mole.android.mole
 
 import java.text.DecimalFormat
 
-fun summaryToString(summary: Int): String {
+fun summaryToString(summary: Long): String {
     val format = DecimalFormat( "###,###.##" )
     format.positivePrefix = "+ "
     format.negativePrefix = "- "
