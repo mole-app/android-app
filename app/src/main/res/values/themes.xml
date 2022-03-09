@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Mole" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
         <item name="colorPrimaryDark">@color/color_primary</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>
@@ -30,5 +31,7 @@
         <item name="rippleColor">@color/white_ripple</item>
         <item name="rippleColorLight">@color/black</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q"> false </item>
+        <item name="snackbarStyle">@style/Widget.App.Snackbar</item>
+        <item name="snackbarButtonStyle">@style/Widget.App.SnackbarButton</item>
     </style>
 </resources>

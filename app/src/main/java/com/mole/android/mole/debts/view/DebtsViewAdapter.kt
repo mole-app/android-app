@@ -62,7 +62,7 @@ class DebtsViewAdapter(
             data as DebtsData.TotalDebtsData
             ItemChatTitleViewBinding.bind(itemView).apply {
                 titleChatTextView.text =
-                    component().context.resources.getString(R.string.total_debts, summaryToString(data.debtsTotal))
+                    component().context.resources.getString(R.string.total_debts, summaryToString(data.debtsTotal.toLong()))
             }
         }
     }

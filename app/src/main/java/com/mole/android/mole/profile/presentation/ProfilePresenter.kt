@@ -21,7 +21,7 @@ class ProfilePresenter(
                 view.setTags(profileUserInfo.tags)
                 view.setTotalDebtsSummary(profileUserInfo.totalSum)
             } .withError {
-
+                view.showSnackBar(it.description)
             }
         }
     }

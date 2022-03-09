@@ -12,4 +12,6 @@ interface ProfileView {
     fun setTags(tags: List<String>)
 
     fun setIcon(uri: Uri?)
+
+    fun showSnackBar(message: String)
 }

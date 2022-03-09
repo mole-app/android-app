@@ -4,8 +4,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentProfileBinding
 import com.mole.android.mole.profile.presentation.ProfilePresenter
@@ -55,5 +57,12 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
                 transformations(CircleCropTransformation())
             }
         }
+    }
+
+    override fun showSnackBar(message: String) {
+        val snakbar = Snackbar.make(requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
+        snakbar.setTextColor(requireContext().resolveColor(R.attr.colorAccent))
+        snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
+        snakbar.show()
     }
 }
