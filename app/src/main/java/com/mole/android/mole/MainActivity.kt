@@ -37,11 +37,11 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
             routingModule.router.replaceScreen(AuthBegin())
         }
 
-        if (accountRepository.isHasAccount()) {
+//        if (accountRepository.isHasAccount()) {
             routingModule.router.replaceScreen(Screens.Debts())
-        } else {
-            routingModule.router.replaceScreen(AuthBegin())
-        }
+//        } else {
+//            routingModule.router.replaceScreen(AuthBegin())
+//        }
 //        routingModule.router.replaceScreen(TestScreen())
     }
 

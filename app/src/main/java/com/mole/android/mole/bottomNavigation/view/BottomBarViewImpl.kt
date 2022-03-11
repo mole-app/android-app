@@ -10,6 +10,7 @@ import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
 import com.mole.android.mole.component
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.debts.view.DebtsViewImplementation
 import com.mole.android.mole.profile.view.ProfileViewImpl
@@ -55,6 +56,12 @@ class BottomBarViewImpl private constructor() :
                 }
             }
             true
+        }
+
+        binding.moleBottomNavigationBar.setOnFabClickListener {
+            // do via presenter
+            navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
+            router.navigateTo(Screens.CreateDebt())
         }
         presenter.attachView(this)
     }
@@ -102,11 +109,12 @@ class BottomBarViewImpl private constructor() :
     private object Screens {
         fun Debts() = FragmentScreen { DebtsViewImplementation() }
         fun Profile() = FragmentScreen { ProfileViewImpl() }
+        fun CreateDebt() = FragmentScreen { CreateDebtScreen() }
     }
 
     override fun openDebts() {
         arguments?.putString(FRAGMENT_ID, DEBTS_TAG)
-        router.newRootScreen(Screens.Debts())
+        router.navigateTo(Screens.Debts())
         currentFragmentTag = DEBTS_TAG
     }
 
