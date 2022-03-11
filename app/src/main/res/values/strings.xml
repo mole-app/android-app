@@ -34,4 +34,6 @@
     <string name="profile_icon_description">Profile icon</string>
     <string name="all_debts_profile_title">All debts</string>
     <string name="tags_profile_title">Tags</string>
+    <string name="his_debt">Мне \n должны</string>
+    <string name="my_debt">Я \n должен</string>
 </resources>
