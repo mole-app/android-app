@@ -5,9 +5,6 @@ import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import com.mole.android.mole.auth.view.AuthLoginViewImplementation
 import com.mole.android.mole.auth.view.AuthWebViewImpl
 import com.mole.android.mole.bottomNavigation.view.BottomBarViewImpl
-import com.mole.android.mole.create.view.ChooseSideScreen
-import com.mole.android.mole.create.view.CreateDebtScreen
-import com.mole.android.mole.create.view.CreateStepsScreen
 import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
 import com.mole.android.mole.test.FragmentBottomBarTest
 

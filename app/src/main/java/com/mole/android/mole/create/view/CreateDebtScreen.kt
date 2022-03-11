@@ -6,6 +6,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.component
+import com.mole.android.mole.create.view.chooseside.ChooseSideScreen
 import com.mole.android.mole.databinding.FragmentCreateDebtBinding
 
 class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCreateDebtBinding::inflate) {
@@ -22,7 +23,7 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
         router.newChain(Screens.ChooseSide())
     }
 
-    private object Screens {
+    internal object Screens {
         fun ChooseSide() = FragmentScreen { ChooseSideScreen() }
         fun CreateSteps() = FragmentScreen { CreateStepsScreen() }
     }

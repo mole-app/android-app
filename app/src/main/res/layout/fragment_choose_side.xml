@@ -16,7 +16,7 @@
         app:titleVisible="true"
         android:layout_marginTop="12dp"/>
 
-    <com.mole.android.mole.create.view.ChooseSideCardView
+    <com.mole.android.mole.create.view.chooseside.ChooseSideCardView
         android:id="@+id/create_debt_positive_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <com.mole.android.mole.create.view.ChooseSideCardView
+    <com.mole.android.mole.create.view.chooseside.ChooseSideCardView
         android:id="@+id/create_debt_negative_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

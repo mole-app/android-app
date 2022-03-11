@@ -1,4 +1,4 @@
-package com.mole.android.mole.create.view
+package com.mole.android.mole.create.view.chooseside
 
 import android.content.Context
 import android.util.AttributeSet
