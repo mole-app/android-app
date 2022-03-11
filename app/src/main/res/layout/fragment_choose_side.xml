@@ -4,6 +4,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/action_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:backVisible="true"
+        app:textTitle="@string/new_debt"
+        app:titleVisible="true"
+        android:layout_marginTop="12dp"/>
+
     <com.mole.android.mole.create.view.ChooseSideCardView
         android:id="@+id/create_debt_positive_button"
         android:layout_width="wrap_content"
