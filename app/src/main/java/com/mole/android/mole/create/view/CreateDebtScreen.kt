@@ -7,6 +7,7 @@ import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.create.view.chooseside.ChooseSideScreen
+import com.mole.android.mole.create.view.steps.CreateStepsScreen
 import com.mole.android.mole.databinding.FragmentCreateDebtBinding
 
 class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCreateDebtBinding::inflate) {
