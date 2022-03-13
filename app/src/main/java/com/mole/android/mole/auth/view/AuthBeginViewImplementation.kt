@@ -11,13 +11,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.mole.android.mole.MoleBaseFragment
+import com.google.android.material.snackbar.Snackbar
+import com.mole.android.mole.*
 import com.mole.android.mole.auth.view.AuthWebViewImpl.Companion.CODE_SIGN
-import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ViewAuthBeginBinding
 import com.mole.android.mole.di.RetrofitModule
 import com.mole.android.mole.navigation.Screens
-import com.mole.android.mole.setResultListenerGeneric
 
 
 class AuthBeginViewImplementation :
@@ -47,6 +46,10 @@ class AuthBeginViewImplementation :
             handleSignInResult(task)
         }
 
+    override fun getViewUnderSnackbar(): View {
+        return binding.vkButton
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -58,7 +61,10 @@ class AuthBeginViewImplementation :
         client = GoogleSignIn.getClient(requireActivity(), gso)
 
         binding.vkButton.setOnClickListener {
-            presenter.onVkClick()
+            val snakbar = Snackbar.make(binding.root.findViewById(R.id.snackbarHolder), "message", Snackbar.LENGTH_SHORT)
+            snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
+            snakbar.show()
+//            presenter.onVkClick()
         }
 
         binding.googleButton.setOnClickListener {
