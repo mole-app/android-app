@@ -60,8 +60,7 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
     }
 
     override fun showSnackBar(message: String) {
-        val snakbar = Snackbar.make(requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
-        snakbar.setTextColor(requireContext().resolveColor(R.attr.colorAccent))
+        val snakbar = Snackbar.make(requireActivity().findViewById(R.id.profileDebtsSummary), message, Snackbar.LENGTH_SHORT)
         snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
         snakbar.show()
     }
