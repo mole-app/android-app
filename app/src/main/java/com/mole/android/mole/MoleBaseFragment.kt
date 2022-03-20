@@ -58,20 +58,23 @@ abstract class MoleBaseFragment<T : ViewBinding>
         _binding = inflation(inflater, container, false)
 
         val root = binding.root
-        if (root is ViewGroup) {
-            val snackbarHolder = CoordinatorLayout(requireContext())
-            val lp = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            getViewUnderSnackbar()?.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-                binding.root.findViewById<CoordinatorLayout>(R.id.snackbarHolder).layoutParams =
-                    ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, top)
+        val viewUnderSnackbar = getViewUnderSnackbar()
+        if (viewUnderSnackbar != null) {
+            if (root is ViewGroup) {
+                val snackbarHolder = CoordinatorLayout(requireContext())
+                val lp = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                viewUnderSnackbar.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+                    binding.root.findViewById<CoordinatorLayout>(R.id.snackbarHolder).layoutParams =
+                        ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, top)
+                }
+                snackbarHolder.layoutParams = lp
+                snackbarHolder.elevation = 1000f
+                snackbarHolder.id = R.id.snackbarHolder
+                root.addView(snackbarHolder)
             }
-            snackbarHolder.layoutParams = lp
-            snackbarHolder.elevation = 1000f
-            snackbarHolder.id = R.id.snackbarHolder
-            root.addView(snackbarHolder)
         }
         return root
     }
