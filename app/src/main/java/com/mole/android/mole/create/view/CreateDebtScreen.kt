@@ -1,5 +1,7 @@
 package com.mole.android.mole.create.view
 
+import android.content.Context
+import android.view.WindowManager
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
@@ -22,6 +24,16 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
     override fun onResume() {
         super.onResume()
         router.newChain(Screens.ChooseSide())
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     internal object Screens {
