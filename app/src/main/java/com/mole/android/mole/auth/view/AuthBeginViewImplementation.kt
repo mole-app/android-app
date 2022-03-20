@@ -61,10 +61,7 @@ class AuthBeginViewImplementation :
         client = GoogleSignIn.getClient(requireActivity(), gso)
 
         binding.vkButton.setOnClickListener {
-            val snakbar = Snackbar.make(binding.root.findViewById(R.id.snackbarHolder), "message", Snackbar.LENGTH_SHORT)
-            snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
-            snakbar.show()
-//            presenter.onVkClick()
+            presenter.onVkClick()
         }
 
         binding.googleButton.setOnClickListener {
