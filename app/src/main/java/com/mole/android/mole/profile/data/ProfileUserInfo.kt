@@ -1,12 +1,10 @@
 package com.mole.android.mole.profile.data
 
-import android.net.Uri
-
 data class ProfileUserInfo(
     val login: String,
     val name: String,
-    val photoSmall: Uri,
-    val photoNormal: Uri,
+    val photoSmall: String,
+    val photoNormal: String,
     val tags: List<String>,
     val totalSum: Long,
 ){

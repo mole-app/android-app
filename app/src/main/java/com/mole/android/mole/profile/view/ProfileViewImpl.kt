@@ -1,10 +1,8 @@
 package com.mole.android.mole.profile.view
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
@@ -47,8 +45,8 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
         binding.profileTags.text = tagsToString(tags)
     }
 
-    override fun setIcon(uri: Uri?) {
-        if (uri != null && uri != Uri.EMPTY) {
+    override fun setIcon(uri: String?) {
+        if (uri != null && uri.isNotEmpty()) {
             binding.personProfileIcon.load(uri) {
                 transformations(CircleCropTransformation())
             }
@@ -60,7 +58,7 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
     }
 
     override fun showSnackBar(message: String) {
-        val snakbar = Snackbar.make(requireActivity().findViewById(R.id.profileDebtsSummary), message, Snackbar.LENGTH_SHORT)
+        val snakbar = Snackbar.make(binding.root.findViewById(R.id.snackbarHolder), "message", Snackbar.LENGTH_SHORT)
         snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
         snakbar.show()
     }
