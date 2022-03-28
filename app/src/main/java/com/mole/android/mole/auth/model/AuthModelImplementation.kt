@@ -1,6 +1,5 @@
 package com.mole.android.mole.auth.model
 
-import android.util.Log
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.component
 import kotlinx.coroutines.*
@@ -49,7 +48,6 @@ class AuthModelImplementation(
                 }
             } catch (exception: HttpException) {
                 // Не хочется падать если что-то не так на сервере
-                Log.e("Auth", exception.stackTrace.contentToString())
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
@@ -77,7 +75,6 @@ class AuthModelImplementation(
                 }
             } catch (exception: HttpException) {
                 // Не хочется падать если что-то не так на сервере
-                Log.e("Auth", exception.toString())
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
