@@ -2,16 +2,16 @@ package com.mole.android.mole.auth.model
 
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.component
+import com.mole.android.mole.di.FingerprintRepository
 import kotlinx.coroutines.*
 
-import com.mole.android.mole.di.FirebaseModule
 import com.mole.android.mole.web.service.ApiResult
 import retrofit2.HttpException
 
 
 class AuthModelImplementation(
     private val service: AuthService,
-    private val firebaseInst: FirebaseModule,
+    private val fingerprintRepository: FingerprintRepository,
     private val mainScope: CoroutineScope
 ) : AuthModel {
 
@@ -82,7 +82,7 @@ class AuthModelImplementation(
     }
 
     private suspend fun getFingerprint(): String {
-        return firebaseInst.fingerprint.toString()
+        return fingerprintRepository.fingerprint.toString()
     }
 
 }

@@ -9,15 +9,12 @@ import com.mole.android.mole.auth.presentation.AuthBeginPresenter
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.auth.view.AuthLoginResources
 import com.mole.android.mole.auth.view.AuthLoginResourcesImplementation
-import com.mole.android.mole.debts.model.DebtsModel
-import com.mole.android.mole.debts.model.DebtsModelImplementation
-import com.mole.android.mole.debts.presentation.DebtsPresenter
 
 class AuthModule(
     private val context: Context,
     private val retrofitModule: RetrofitModule,
     private val baseScopeModule: BaseScopeModule,
-    private val firebaseModule: FirebaseModule,
+    private val fingerprintRepository: FingerprintRepository,
 ) {
 
     val beginPresenter
@@ -37,7 +34,7 @@ class AuthModule(
     private val authModel: AuthModel by lazy {
         AuthModelImplementation(
             authService,
-            firebaseModule,
+            fingerprintRepository,
             baseScopeModule.mainScope
         )
     }
