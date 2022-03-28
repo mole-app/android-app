@@ -1,6 +1,6 @@
 package com.mole.android.mole.web.service
 
-import okhttp3.Interceptor
+import com.mole.android.mole.component
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,7 +15,7 @@ object RetrofitBuilder {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val tokenInterceptor = RequestTokenInterceptor()
+        val tokenInterceptor = RequestTokenInterceptor(component().accountManagerModule.accountRepository, component().firebaseModule)
 
         val client = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
