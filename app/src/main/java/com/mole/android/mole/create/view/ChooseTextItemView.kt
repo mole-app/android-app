@@ -28,6 +28,8 @@ class ChooseTextItemView @JvmOverloads constructor(
 
     private var mode = false
 
+    private var dataBinder: DataBinder? = null
+
     init {
         inflate(getContext(), R.layout.choose_text_item_view, this)
         list = findViewById(R.id.list)
@@ -39,9 +41,13 @@ class ChooseTextItemView @JvmOverloads constructor(
         bind()
     }
 
-    private fun bind() {
-        list.layoutManager = LinearLayoutManager(context)
-        val adapter = ListAdapter {
+    fun setDataBinder(dataBinder: DataBinder) {
+        this.dataBinder = dataBinder
+        bindData(dataBinder)
+    }
+
+    private fun bindData(dataBinder: DataBinder) {
+        val adapter = ListAdapter(dataBinder) {
             if (!mode) {
                 mode = true
                 clickableArea.visibility = View.VISIBLE
@@ -50,8 +56,10 @@ class ChooseTextItemView @JvmOverloads constructor(
             }
         }
         list.adapter = adapter
-        adapter.data = (0 .. 20).map { BaseItem(it) }
+    }
 
+    private fun bind() {
+        list.layoutManager = LinearLayoutManager(context)
 
         clickableArea.setOnClickListener {
             if (mode) {
@@ -95,50 +103,49 @@ class ChooseTextItemView @JvmOverloads constructor(
         imm!!.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    private class ListAdapter(private val clickListener: (BaseItem) -> Unit) : RecyclerView.Adapter<BaseItemViewHolder>() {
+    private class ListAdapter(
+        private val dataBinder: DataBinder,
+        private val clickListener: (Int) -> Unit
+    ) : RecyclerView.Adapter<ItemViewHolder>() {
 
-        var data: List<BaseItem> = emptyList()
-            set(value) {
-                field = value
-                notifyDataSetChanged()
-            }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseItemViewHolder {
-            return ChooseUserViewHolder(parent, clickListener)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+            return ItemViewHolder(parent, dataBinder.layoutId, clickListener)
         }
 
-        override fun onBindViewHolder(holder: BaseItemViewHolder, position: Int) {
-            if (holder is ChooseUserViewHolder) {
-                holder.bind(data[position])
-            }
+        override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+            holder.bind(position)
+            dataBinder.bind(holder.itemView, position)
         }
 
-        override fun getItemCount() = data.size
+        override fun getItemCount() = dataBinder.itemsCount()
     }
 
-    private abstract class BaseItemViewHolder(parent: ViewGroup, @LayoutRes layoutId: Int) :
-        RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)) {
-    }
-
-    private class ChooseUserViewHolder(
+    private class ItemViewHolder(
         parent: ViewGroup,
-        private val itemClickListener: (BaseItem) -> Unit
-    ) : BaseItemViewHolder(parent, R.layout.choose_user_holder) {
-        private var item: BaseItem? = null
+        @LayoutRes layoutId: Int,
+        private val onClickListener: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)) {
+
+        private var itemPosition: Int? = null
 
         init {
             itemView.setOnClickListener {
-                item?.let {
-                    itemClickListener(it)
-                }
+                itemPosition?.let(onClickListener)
             }
         }
 
-        fun bind(item: BaseItem) {
-            this.item = item
+        fun bind(position: Int) {
+            itemPosition = position
         }
     }
 
-    private data class BaseItem(val id: Int)
+    interface DataBinder {
+        val layoutId: Int
+        fun itemsCount(): Int
+        fun bind(view: View, position: Int)
+        fun contentSame(firstPosition: Int, secondPosition: Int): Boolean
+        fun itemSame(firstPosition: Int, secondPosition: Int): Boolean
+        fun textForClickedItem(position: Int): String
+    }
 
 }
