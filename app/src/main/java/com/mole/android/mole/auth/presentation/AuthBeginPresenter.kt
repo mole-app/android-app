@@ -18,11 +18,13 @@ class AuthBeginPresenter(
             view.openBrowser { code ->
                 Log.i("AuthBegin", code)
                 scope.launch {
-                    val login = model.getUserVk(code)
-                    if (login.isNullOrEmpty()) {
-                        view.openDebts()
-                    } else {
-                        view.openAuthLogin(login)
+                    model.getUserVk(code).withResult { successResult ->
+                        when(successResult) {
+                            is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
+                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(successResult.login)
+                        }
+                    } .withError {
+
                     }
                 }
             }
@@ -35,11 +37,13 @@ class AuthBeginPresenter(
             Log.i("Auth", "Google")
             scope.launch {
                 if (token != null) {
-                    val login = model.getUserGoogle(token)
-                    if (login.isNullOrEmpty()) {
-                        view.openDebts()
-                    } else {
-                        view.openAuthLogin(login)
+                    model.getUserGoogle(token).withResult { successResult ->
+                        when(successResult) {
+                            is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
+                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(successResult.login)
+                        }
+                    } .withError {
+
                     }
                 }
             }

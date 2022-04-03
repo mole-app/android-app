@@ -7,9 +7,11 @@ interface ProfileView {
 
     fun setProfileLogin(login: String)
 
-    fun setTotalDebtsSummary(summary: Int)
+    fun setTotalDebtsSummary(summary: Long)
 
     fun setTags(tags: List<String>)
 
-    fun setIcon(uri: Uri?)
+    fun setIcon(uri: String?)
+
+    fun showSnackBar(message: String)
 }

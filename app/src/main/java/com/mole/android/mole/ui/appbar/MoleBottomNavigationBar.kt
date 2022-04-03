@@ -18,7 +18,7 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
         inflate(context, R.layout.view_bottom_app_bar, this)
     }
 
-    private val fab: MaterialButton = findViewById(R.id.background_fab_view)
+    val fab: MaterialButton = findViewById(R.id.background_fab_view)
     private val navigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
     init {

@@ -13,12 +13,16 @@ class ProfilePresenter(
     override fun attachView(view: ProfileView) {
         super.attachView(view)
         scope.launch {
-            val profileUserInfo = model.getProfileInfo()
-            view.setProfileLogin(profileUserInfo.profile.login)
-            view.setProfileName(profileUserInfo.profile.name)
-            view.setIcon(profileUserInfo.photo.photoNormal)
+            model.getProfileInfo().withResult { result ->
+                val profileUserInfo = result.profileUserInfo
+                view.setProfileLogin(profileUserInfo.login)
+                view.setProfileName(profileUserInfo.name)
+                view.setIcon(profileUserInfo.photoNormal)
+                view.setTags(profileUserInfo.tags)
+                view.setTotalDebtsSummary(profileUserInfo.totalSum)
+            } .withError {
+                view.showSnackBar(it.description)
+            }
         }
-        view.setTags(listOf("cafe", "hookah", "fog"))
-        view.setTotalDebtsSummary(-10000)
     }
 }
