@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.github.terrakok.cicerone.Navigator
@@ -54,7 +56,27 @@ abstract class MoleBaseFragment<T : ViewBinding>
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = inflation(inflater, container, false)
-        return binding.root
+
+        val root = binding.root
+        val viewUnderSnackbar = getViewUnderSnackbar()
+        if (viewUnderSnackbar != null) {
+            if (root is ViewGroup) {
+                val snackbarHolder = CoordinatorLayout(requireContext())
+                val lp = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                viewUnderSnackbar.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+                    binding.root.findViewById<CoordinatorLayout>(R.id.snackbarHolder).layoutParams =
+                        ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, top)
+                }
+                snackbarHolder.layoutParams = lp
+                snackbarHolder.elevation = 1000f
+                snackbarHolder.id = R.id.snackbarHolder
+                root.addView(snackbarHolder)
+            }
+        }
+        return root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,4 +103,6 @@ abstract class MoleBaseFragment<T : ViewBinding>
     open fun onBackPress(): Boolean {
         return false
     }
+
+    open fun getViewUnderSnackbar(): View? = null
 }

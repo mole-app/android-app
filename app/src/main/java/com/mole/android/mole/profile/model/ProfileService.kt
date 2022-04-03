@@ -1,9 +1,9 @@
 package com.mole.android.mole.profile.model
 
-import com.mole.android.mole.profile.data.ProfileUserInfo
-import retrofit2.http.POST
+import com.mole.android.mole.profile.data.ProfileUserInfoDomain
+import retrofit2.http.GET
 
 interface ProfileService {
-    @POST("profile/getProfileInfo")
-    suspend fun getProfileInfo(): ProfileUserInfo
+    @GET("profile/getProfileInfo")
+    suspend fun getProfileInfo(): ProfileUserInfoDomain
 }

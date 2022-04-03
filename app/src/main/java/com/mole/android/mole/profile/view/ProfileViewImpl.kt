@@ -1,11 +1,11 @@
 package com.mole.android.mole.profile.view
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentProfileBinding
 import com.mole.android.mole.profile.presentation.ProfilePresenter
@@ -37,7 +37,7 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
         binding.profileLogin.text = resources.getString(R.string.login_prefix, login)
     }
 
-    override fun setTotalDebtsSummary(summary: Int) {
+    override fun setTotalDebtsSummary(summary: Long) {
         binding.profileDebtsSummary.text = summaryToString(summary)
     }
 
@@ -45,8 +45,8 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
         binding.profileTags.text = tagsToString(tags)
     }
 
-    override fun setIcon(uri: Uri?) {
-        if (uri != null && uri != Uri.EMPTY) {
+    override fun setIcon(uri: String?) {
+        if (uri != null && uri.isNotEmpty()) {
             binding.personProfileIcon.load(uri) {
                 transformations(CircleCropTransformation())
             }
@@ -55,5 +55,11 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
                 transformations(CircleCropTransformation())
             }
         }
+    }
+
+    override fun showSnackBar(message: String) {
+        val snakbar = Snackbar.make(binding.root.findViewById(R.id.snackbarHolder), "message", Snackbar.LENGTH_SHORT)
+        snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
+        snakbar.show()
     }
 }

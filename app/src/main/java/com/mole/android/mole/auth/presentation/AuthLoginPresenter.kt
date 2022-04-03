@@ -21,7 +21,7 @@ class AuthLoginPresenter(
     override fun attachView(view: AuthLoginView) {
         super.attachView(view)
         val login = client.login
-        if (login != "") {
+        if (login != null && login != "") {
             view.setUserLogin(login)
         }
     }
