@@ -1,36 +1,85 @@
 package com.mole.android.mole.web.service
 
 import com.mole.android.mole.di.FingerprintRepository
+import kotlinx.coroutines.*
 import okhttp3.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.concurrent.TimeUnit
 
 class TokenInterceptorTest {
+    private lateinit var thread1: Thread
+    private lateinit var thread2: Thread
 
+    @ObsoleteCoroutinesApi
     @Test
     fun tokenUpdateConcurrency() {
         val requestTokenInterceptor = RequestTokenInterceptor(FakeAccountRepository, FakeFingerprintRepository)
-        requestTokenInterceptor.refreshService = FakeTokenRefreshService
-        requestTokenInterceptor.intercept(FakeChainTokenTest)
+        requestTokenInterceptor.refreshService = FakeTokenRefreshService()
+        thread1 = object : Thread() {
+            override fun run() {
+                super.run()
+                requestTokenInterceptor.intercept(FakeChainTokenTest("http://google.com/1"))
+            }
+        }
+
+        thread2 = object : Thread() {
+            override fun run() {
+                super.run()
+                requestTokenInterceptor.intercept(FakeChainTokenTest("http://google.com/2"))
+            }
+        }
+
+
+        thread1.start()
+
+        thread1.join()
+        thread2.join()
+
+        assertEquals("Дважды обновлён токен2", tokenUpdated, 1)
     }
 
-    object FakeTokenRefreshService : TokenRefreshService {
+    companion object {
+        const val TOKEN_PREFIX = "Bearer "
+        const val NEW_ACCESS_TOKEN = "newAccess"
+        const val OLD_ACCESS_TOKEN = "access"
+        const val NEW_REFRESH_TOKEN = "newRefresh"
+        const val OLD_REFRESH_TOKEN = "refresh"
+    }
+
+    var tokenUpdated = 0
+
+    inner class FakeTokenRefreshService : TokenRefreshService {
         override suspend fun getNewAuthToken(
             refreshToken: String,
             fingerprint: String
         ): AuthTokenData {
-            return AuthTokenData("", "", "")
+//            assertEquals("Дважды обновлён токен", tokenUpdated, false)
+
+            tokenUpdated++
+            // Start 2 thread
+            thread2.start()
+
+            // Wait 2s for 2 thread begin get try access token
+            Thread.sleep(2000)
+            return AuthTokenData(NEW_ACCESS_TOKEN, NEW_REFRESH_TOKEN, "")
         }
 
     }
 
-    object FakeChainTokenTest : Interceptor.Chain {
+    inner class FakeChainTokenTest(val url: String) : Interceptor.Chain {
         override fun request(): Request {
-            return Request.Builder().url("http://google.com").build()
+            return Request.Builder().url(url).build()
         }
 
         override fun proceed(request: Request): Response {
-            return Response.Builder().request(request).protocol(Protocol.HTTP_1_1).message("Pichev na").code(401).build()
+            val header = request.header("Authorization")
+            val outputCode: Int = when (header){
+                TOKEN_PREFIX + NEW_ACCESS_TOKEN -> 200
+                TOKEN_PREFIX + OLD_ACCESS_TOKEN -> 401
+                else -> -1
+            }
+            return Response.Builder().request(request).protocol(Protocol.HTTP_1_1).message("Pichev na").code(outputCode).build()
         }
 
         override fun connection(): Connection? {
@@ -67,12 +116,8 @@ class TokenInterceptorTest {
     }
 
     object FakeAccountRepository : AccountRepository {
-        override var accessToken: String?
-            get() = "access"
-            set(value) {}
-        override var refreshToken: String?
-            get() = "refresh"
-            set(value) {}
+        override var accessToken: String? = OLD_ACCESS_TOKEN
+        override var refreshToken: String? = OLD_REFRESH_TOKEN
 
         override fun setEmptyListener(onEmpty: () -> Unit) {
 
@@ -97,8 +142,7 @@ class TokenInterceptorTest {
     }
 
     object FakeFingerprintRepository : FingerprintRepository {
-        override val fingerprint: String
-            get() = "fingerprint"
+        override val fingerprint: String = "fingerprint"
     }
 
 }

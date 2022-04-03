@@ -55,20 +55,15 @@ class RequestTokenInterceptor(
         if ((response.code() == 401) && !isApiKeyAuth) {
             if (accountRepository.refreshToken != null) {
                 tokenUpdateSyncer.write {
-                    val refreshToken = accountRepository.refreshToken!!
-                    val authTokenData: AuthTokenData
                     runBlocking {
-                        authTokenData = refreshService.getNewAuthToken(
+                        val refreshToken = accountRepository.refreshToken!!
+                        val authTokenData: AuthTokenData = refreshService.getNewAuthToken(
                             refreshToken,
                             fingerprintRepository.fingerprint.toString()
                         )
                         accountRepository.accessToken = authTokenData.accessToken
                         accountRepository.refreshToken = authTokenData.refreshToken
-                        val updateAuthHeader = AUTH_HEADER_PREFIX + authTokenData.accessToken
-                        val requestWithNewToken: Request = chain.request().newBuilder()
-                            .header(nameHeader, updateAuthHeader)
-                            .build()
-                        chain.proceed(requestWithNewToken)
+                        // TODO : проверять обновление токена, возможно истёк рефреш токен
                     }
                 }
                 val updateAuthHeader: String
