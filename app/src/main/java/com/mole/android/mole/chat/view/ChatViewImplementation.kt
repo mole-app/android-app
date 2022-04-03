@@ -24,8 +24,6 @@ class ChatViewImplementation :
         binding.chatRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
         binding.chatRecyclerView.adapter = chatAdapter
-        chatAdapter.setData(presenter.getData())
-        chatAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {
