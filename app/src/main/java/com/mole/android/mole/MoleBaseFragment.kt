@@ -38,6 +38,9 @@ abstract class MoleBaseFragment<T : ViewBinding>
                 if (getMenuId() != 0) {
                     setHasOptionsMenu(true)
                 }
+                toolbar.setBackClickListener {
+                    onBackPress()
+                }
             }
         }
     }
