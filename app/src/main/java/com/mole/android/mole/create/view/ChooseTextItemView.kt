@@ -24,6 +24,7 @@ class ChooseTextItemView @JvmOverloads constructor(
     private val listContainer: ViewGroup
     private val text: TextInputLayout
     private val clickableArea: View
+    private val nextButton: View
 
     private var mode = false
 
@@ -34,6 +35,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         listContainer = findViewById(R.id.list_container)
         text = findViewById(R.id.text)
         clickableArea = findViewById(R.id.clickable_area)
+        nextButton = findViewById(R.id.next_button)
         bind()
     }
 
@@ -68,6 +70,8 @@ class ChooseTextItemView @JvmOverloads constructor(
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
         constraintSet.connect(listContainer.id, ConstraintSet.TOP, textContainer.id, ConstraintSet.BOTTOM, 0)
+        constraintSet.connect(nextButton.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+        constraintSet.clear(nextButton.id, ConstraintSet.BOTTOM)
         constraintSet.applyTo(this)
     }
 
@@ -76,6 +80,8 @@ class ChooseTextItemView @JvmOverloads constructor(
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
         constraintSet.connect(listContainer.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+        constraintSet.connect(nextButton.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+        constraintSet.clear(nextButton.id, ConstraintSet.TOP)
         constraintSet.applyTo(this)
     }
 
