@@ -7,10 +7,10 @@
     <com.mole.android.mole.ui.MoleMessageView
         android:id="@+id/message_start_position"
         android:layout_width="wrap_content"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        app:additional_info="false"
+        app:additional_info="true"
         app:postfix="@string/postfix_balance" />
 </FrameLayout>
