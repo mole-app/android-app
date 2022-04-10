@@ -28,7 +28,7 @@ class ChatPresenter(
                 }
             }
         } else {
-            if (lastItemVisiblePosition + 2 == itemCount) {
+            if (lastItemVisiblePosition + 1 == itemCount) {
                 withView { view ->
                     view.showLoading()
                 }
