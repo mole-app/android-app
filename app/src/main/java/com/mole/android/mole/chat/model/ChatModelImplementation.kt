@@ -12,11 +12,15 @@ class ChatModelImplementation(
     private val mainScope: CoroutineScope
 ) : ChatModel {
 
-    override suspend fun loadNextData(): ApiResult<ChatModel.SuccessChatResult> {
+    override suspend fun loadNextData(leftCountData: Int): ApiResult<ChatModel.SuccessChatResult> {
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 sleep(1000)
-                ApiResult.create(ChatModel.SuccessChatResult(testChatData))
+                ApiResult.create<ChatModel.SuccessChatResult>(
+                    ChatModel.SuccessChatResult.SuccessLoadData(
+                        testChatData
+                    )
+                )
             } catch (exception: HttpException) {
                 // Не хочется падать если что-то не так на сервере
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))

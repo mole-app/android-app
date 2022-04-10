@@ -11,6 +11,7 @@ class ChatPresenter(
     private val scope: CoroutineScope
 ) : MoleBasePresenter<ChatView>() {
     private var isDataLoading = false
+    private var leftDataCount: Int = 0
 
     override fun attachView(view: ChatView) {
         super.attachView(view)
@@ -39,10 +40,20 @@ class ChatPresenter(
     private fun dataLoading(view: ChatView) {
         isDataLoading = true
         scope.launch {
-            model.loadNextData().withResult { result ->
-                view.setData(result.chatData)
-                view.hideLoading()
-                isDataLoading = false
+            model.loadNextData(leftDataCount).withResult { result ->
+                when (result) {
+                    is ChatModel.SuccessChatResult.SuccessLoadData -> {
+                        leftDataCount = result.chatData.size
+                        view.setData(result.chatData)
+                        view.hideLoading()
+                        isDataLoading = false
+                    }
+                    is ChatModel.SuccessChatResult.SuccessDataAlreadyLoaded -> {
+                        leftDataCount = 0
+                        view.hideLoading()
+                        isDataLoading = false
+                    }
+                }
             }
         }
     }
