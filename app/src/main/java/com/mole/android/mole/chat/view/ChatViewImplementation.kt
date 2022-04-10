@@ -2,6 +2,7 @@ package com.mole.android.mole.chat.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.Navigator
@@ -56,6 +57,7 @@ class ChatViewImplementation :
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         initToolbar()
+        initChatFabView()
         initRecyclerView()
     }
 
@@ -63,10 +65,16 @@ class ChatViewImplementation :
         val name = arguments?.getString(ARG_NAME)
         val totalDebts = arguments?.getInt(ARG_TOTAL_DEBTS)
         val avatarUrl = arguments?.getString(ARG_AVATAR_URL)
-        with(binding.chatToolbarMessenger){
+        with(binding.chatToolbarMessenger) {
             setName(name)
             setBalance(totalDebts)
             setAvatar(avatarUrl)
+        }
+    }
+
+    private fun initChatFabView() {
+        binding.chatFabView.setOnClickListener {
+            Toast.makeText(context, "create new debt", Toast.LENGTH_SHORT).show()
         }
     }
 
