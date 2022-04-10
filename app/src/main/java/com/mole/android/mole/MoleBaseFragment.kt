@@ -40,7 +40,7 @@ abstract class MoleBaseFragment<T : ViewBinding>
                     setHasOptionsMenu(true)
                 }
                 toolbar.setBackClickListener {
-                    onBackPress()
+                    requireActivity().onBackPressed()
                 }
             }
         }
