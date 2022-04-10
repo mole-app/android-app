@@ -95,6 +95,8 @@ class ChooseTextItemView @JvmOverloads constructor(
             }
         }
 
+        nextButton.setOnClickListener { dataBinder?.onNextClicked() }
+
         showKeyboard()
     }
 
@@ -197,6 +199,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         fun contentSame(firstPosition: Int, secondPosition: Int): Boolean
         fun itemSame(firstPosition: Int, secondPosition: Int): Boolean
         fun textForClickedItem(position: Int): String
+        fun onNextClicked()
     }
 
 }

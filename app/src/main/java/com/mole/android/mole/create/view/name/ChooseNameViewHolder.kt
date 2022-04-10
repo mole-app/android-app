@@ -12,7 +12,7 @@ import com.mole.android.mole.create.view.ChooseTextItemView
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
 import com.mole.android.mole.profile.data.ProfilePhoto
 
-class ChooseNameViewHolder(parent: ViewGroup) : BaseStepsHolder(parent, R.layout.holder_choose_name) {
+class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: () -> Unit) : BaseStepsHolder(parent, R.layout.holder_choose_name) {
     override fun bind() {
         val data = (0..20).map {
             UserPreview(
@@ -34,6 +34,7 @@ class ChooseNameViewHolder(parent: ViewGroup) : BaseStepsHolder(parent, R.layout
                     override fun contentSame(firstPosition: Int, secondPosition: Int) = false
                     override fun itemSame(firstPosition: Int, secondPosition: Int) = false
                     override fun textForClickedItem(position: Int) = data[position].login
+                    override fun onNextClicked() = nextClickedListener()
                 }
             )
         }

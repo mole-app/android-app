@@ -22,8 +22,10 @@ class CreateStepsScreen :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = StepsAdapter(
-            listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount)
-        )
+            listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount),
+        ) {
+            binding.viewPager.setCurrentItem(it + 1, true)
+        }
         binding.viewPager.adapter = adapter
         binding.viewPager.isUserInputEnabled = false
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
