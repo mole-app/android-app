@@ -1,5 +1,7 @@
 package com.mole.android.mole.create.view
 
+import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -29,12 +31,15 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
         return AppNavigator(requireActivity(), R.id.nav_host_fragment)
     }
 
-    override fun onStart() {
-        super.onStart()
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         withChildNavigation {
             router.newChain(Screens.ChooseSide())
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
     override fun onStop() {

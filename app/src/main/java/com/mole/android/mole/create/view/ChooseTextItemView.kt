@@ -18,7 +18,7 @@ import com.mole.android.mole.R
 
 class ChooseTextItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr)  {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val list: RecyclerView
     private val textContainer: ViewGroup
@@ -26,6 +26,7 @@ class ChooseTextItemView @JvmOverloads constructor(
     private val text: TextInputLayout
     private val clickableArea: View
     private val nextButton: View
+    private val progress: View
 
     private var mode = false
 
@@ -39,12 +40,23 @@ class ChooseTextItemView @JvmOverloads constructor(
         text = findViewById(R.id.text)
         clickableArea = findViewById(R.id.clickable_area)
         nextButton = findViewById(R.id.next_button)
+        progress = findViewById(R.id.progress)
         bind()
     }
 
     fun setDataBinder(dataBinder: DataBinder) {
         this.dataBinder = dataBinder
         bindData(dataBinder)
+    }
+
+    fun showProgress() {
+        list.visibility = View.INVISIBLE
+        progress.visibility = View.VISIBLE
+    }
+
+    fun hideProgress() {
+        list.visibility = View.VISIBLE
+        progress.visibility = View.INVISIBLE
     }
 
     private fun bindData(dataBinder: DataBinder) {
@@ -86,8 +98,20 @@ class ChooseTextItemView @JvmOverloads constructor(
         TransitionManager.beginDelayedTransition(this)
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
-        constraintSet.connect(listContainer.id, ConstraintSet.TOP, textContainer.id, ConstraintSet.BOTTOM, 0)
-        constraintSet.connect(nextButton.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+        constraintSet.connect(
+            listContainer.id,
+            ConstraintSet.TOP,
+            textContainer.id,
+            ConstraintSet.BOTTOM,
+            0
+        )
+        constraintSet.connect(
+            nextButton.id,
+            ConstraintSet.TOP,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.BOTTOM,
+            0
+        )
         constraintSet.clear(nextButton.id, ConstraintSet.BOTTOM)
         constraintSet.applyTo(this)
     }
@@ -96,8 +120,20 @@ class ChooseTextItemView @JvmOverloads constructor(
         TransitionManager.beginDelayedTransition(this)
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
-        constraintSet.connect(listContainer.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
-        constraintSet.connect(nextButton.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 0)
+        constraintSet.connect(
+            listContainer.id,
+            ConstraintSet.TOP,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.BOTTOM,
+            0
+        )
+        constraintSet.connect(
+            nextButton.id,
+            ConstraintSet.BOTTOM,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.BOTTOM,
+            0
+        )
         constraintSet.clear(nextButton.id, ConstraintSet.TOP)
         constraintSet.applyTo(this)
     }
@@ -133,7 +169,9 @@ class ChooseTextItemView @JvmOverloads constructor(
         parent: ViewGroup,
         @LayoutRes layoutId: Int,
         private val onClickListener: (Int) -> Unit
-    ) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)) {
+    ) : RecyclerView.ViewHolder(
+        LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
+    ) {
 
         private var itemPosition: Int? = null
 

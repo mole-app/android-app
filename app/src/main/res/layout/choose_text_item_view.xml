@@ -91,18 +91,30 @@
             android:id="@+id/list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintEnd_toEndOf="@id/list"
+            app:layout_constraintStart_toStartOf="@id/list"
+            app:layout_constraintTop_toTopOf="@id/list"
+            android:visibility="invisible"
+            android:layout_marginTop="48dp"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/next_button"
         style="@style/MoleButton.Round"
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_arrow_normal"
-        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
 </merge>
