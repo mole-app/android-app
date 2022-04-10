@@ -59,6 +59,10 @@ class ChooseTextItemView @JvmOverloads constructor(
         progress.visibility = View.INVISIBLE
     }
 
+    fun invalidateList() {
+        list.adapter?.notifyDataSetChanged()
+    }
+
     private fun bindData(dataBinder: DataBinder) {
         val adapter = ListAdapter(dataBinder) {
             fillEditText(dataBinder.textForClickedItem(it))
