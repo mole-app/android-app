@@ -9,6 +9,7 @@ import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentDebtsMainBinding
 import com.mole.android.mole.debts.data.DebtsData
+import com.mole.android.mole.navigation.Screens
 
 class DebtsViewImplementation :
     MoleBaseFragment<FragmentDebtsMainBinding>(FragmentDebtsMainBinding::inflate), DebtsView {
@@ -22,7 +23,19 @@ class DebtsViewImplementation :
         }
 
         override fun onShotClick(chatData: DebtsData.ChatDebtsData) {
-            presenter.onShortChatClick(chatData)
+            component().routingModule.navigationHolder.setNavigator(
+                AppNavigator(
+                    requireActivity(),
+                    R.id.fragment_container
+                )
+            )
+            component().routingModule.router.navigateTo(
+                Screens.Chat(
+                    name = chatData.personName,
+                    totalDebts = chatData.personDebtsTotal,
+                    avatarUrl = chatData.personIcon
+                )
+            )
         }
     })
 
