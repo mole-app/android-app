@@ -3,16 +3,30 @@ package com.mole.android.mole.chat.view
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.R
 import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentChatBinding
+import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class ChatViewImplementation :
     MoleBaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate), ChatView {
 
     private val presenter = component().chatModule.chatPresenter
     private val chatAdapter = ChatAdapter()
+
+
+    override fun getNavigator(): Navigator {
+        return AppNavigator(requireActivity(), R.id.fragment_container)
+    }
+
+    override fun getToolbar(): MoleActionBar {
+        return binding.chatToolbarMessenger
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
