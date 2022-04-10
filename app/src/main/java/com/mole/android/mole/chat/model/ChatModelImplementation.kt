@@ -1,11 +1,27 @@
 package com.mole.android.mole.chat.model
 
-import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.chat.data.testChatData
 import com.mole.android.mole.web.service.ApiResult
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import retrofit2.HttpException
+import java.lang.Thread.sleep
 
-class ChatModelImplementation: ChatModel {
-    override suspend fun getChatData(): ApiResult<List<ChatData>> {
-        return ApiResult.create(testChatData)
+class ChatModelImplementation(
+    private val mainScope: CoroutineScope
+) : ChatModel {
+
+    override suspend fun loadNextData(): ApiResult<ChatModel.SuccessChatResult> {
+        val task = mainScope.async(Dispatchers.IO) {
+            try {
+                sleep(1000)
+                ApiResult.create(ChatModel.SuccessChatResult(testChatData))
+            } catch (exception: HttpException) {
+                // Не хочется падать если что-то не так на сервере
+                ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
+            }
+        }
+        return task.await()
     }
 }

@@ -4,5 +4,6 @@ import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.web.service.ApiResult
 
 interface ChatModel {
-    suspend fun getChatData(): ApiResult<List<ChatData>>
+    suspend fun loadNextData(): ApiResult<SuccessChatResult>
+    class SuccessChatResult(val chatData: List<ChatData>)
 }
