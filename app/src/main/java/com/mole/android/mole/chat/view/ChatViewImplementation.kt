@@ -75,5 +75,14 @@ class ChatViewImplementation :
     override fun setData(data: List<ChatData>) {
         chatAdapter.setData(data)
         chatAdapter.notifyDataSetChanged()
+
+    }
+
+    override fun showLoading() {
+        binding.chatProgressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        binding.chatProgressBar.visibility = View.GONE
     }
 }
