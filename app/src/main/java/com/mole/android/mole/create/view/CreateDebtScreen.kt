@@ -37,16 +37,6 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-    }
-
     private fun withChildNavigation(action: () -> Unit) {
         navigatorHolder.setNavigator(childNavigator)
         action()
