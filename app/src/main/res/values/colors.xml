@@ -12,6 +12,7 @@
     <color name="white_ripple">#40FFFFFF</color>
     <color name="invisible_black">#00212121</color>
 
+    <color name="color_on_surface">@color/white</color>
     <color name="color_accent">@color/orange</color>
     <color name="color_primary">@color/black</color>
     <color name="color_primary_variant">@color/gray</color>

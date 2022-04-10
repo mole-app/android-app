@@ -6,8 +6,6 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import retrofit2.HttpException
-import java.io.IOException
 
 
 class RequestTokenInterceptor : Interceptor {
@@ -20,6 +18,7 @@ class RequestTokenInterceptor : Interceptor {
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val API_KEY_INTERNAL_HEADER = "ApiKey"
         private const val SYNC_OBJECT = "Sync"
+        private const val AUTH_HEADER_PREFIX = "Bearer "
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -37,7 +36,7 @@ class RequestTokenInterceptor : Interceptor {
             val token = accountRepository.accessToken
 
             nameHeader = AUTHORIZATION_HEADER
-            valueHeader = "Bearer $token"
+            valueHeader = AUTH_HEADER_PREFIX + token
         }
 
         val request: Request = chain.request().newBuilder()
@@ -59,13 +58,13 @@ class RequestTokenInterceptor : Interceptor {
                         )
                         accountRepository.accessToken = authTokenData.accessToken
                         accountRepository.refreshToken = authTokenData.refreshToken
-                        val updateAuthHeader = "Bearer ${authTokenData.accessToken}"
+                        val updateAuthHeader = AUTH_HEADER_PREFIX + authTokenData.accessToken
                         val requestWithNewToken: Request = chain.request().newBuilder()
                             .header(nameHeader, updateAuthHeader)
                             .build()
                         chain.proceed(requestWithNewToken)
                     }
-                    val updateAuthHeader = "Bearer ${authTokenData.accessToken}"
+                    val updateAuthHeader = AUTH_HEADER_PREFIX + authTokenData.accessToken
                     val requestWithNewToken: Request = chain.request().newBuilder()
                         .header(nameHeader, updateAuthHeader)
                         .build()

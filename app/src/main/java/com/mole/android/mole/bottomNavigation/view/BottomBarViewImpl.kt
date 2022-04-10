@@ -2,10 +2,10 @@ package com.mole.android.mole.bottomNavigation.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
@@ -14,6 +14,7 @@ import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.debts.view.DebtsViewImplementation
 import com.mole.android.mole.profile.view.ProfileViewImpl
+import com.mole.android.mole.resolveColor
 
 class BottomBarViewImpl private constructor() :
     MoleBaseFragment<FragmentWithBotnavBinding>(FragmentWithBotnavBinding::inflate), BottomBarView {
@@ -124,6 +125,17 @@ class BottomBarViewImpl private constructor() :
     }
 
     override fun openNewDebt() {
-        Toast.makeText(requireContext(), "Open New Debts", Toast.LENGTH_SHORT).show()
+        val snakbar = Snackbar.make(
+            binding.root.findViewById(R.id.snackbarHolder),
+            "message",
+            Snackbar.LENGTH_SHORT
+        )
+        snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
+        snakbar.show()
+
+    }
+
+    override fun getViewUnderSnackbar(): View {
+        return binding.moleBottomNavigationBar.fab
     }
 }
