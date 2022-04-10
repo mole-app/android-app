@@ -5,7 +5,6 @@ import com.mole.android.mole.chat.model.ChatModelImplementation
 import com.mole.android.mole.chat.presentation.ChatPresenter
 
 class ChatModule(
-    routingModule: RoutingModule,
     private val baseScopeModule: BaseScopeModule
 ) {
     val chatPresenter
