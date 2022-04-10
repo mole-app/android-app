@@ -21,6 +21,7 @@ abstract class MoleBaseFragment<T : ViewBinding>
     private val navigatorHolder = component().routingModule.navigationHolder
     private val mainActivity: MainActivity get() = activity as MainActivity
 
+    open fun getSoftMode(): Int = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
     open fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.fragment_container)
     open fun getToolbar(): MoleActionBar? = null
 
@@ -37,6 +38,9 @@ abstract class MoleBaseFragment<T : ViewBinding>
                 appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
                 if (getMenuId() != 0) {
                     setHasOptionsMenu(true)
+                }
+                toolbar.setBackClickListener {
+                    requireActivity().onBackPressed()
                 }
             }
         }
@@ -100,6 +104,11 @@ abstract class MoleBaseFragment<T : ViewBinding>
             navigatorHolder.removeNavigator()
         }
         super.onPause()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.window?.setSoftInputMode(getSoftMode())
     }
 
     open fun onBackPress(): Boolean {
