@@ -33,7 +33,16 @@ class ChatViewImplementation :
 
     private val presenter = component().chatModule.chatPresenter
     private val chatAdapter = ChatAdapter()
-
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val layoutManager: LinearLayoutManager? =
+                recyclerView.layoutManager as? LinearLayoutManager
+            val totalItemCount = layoutManager?.itemCount ?: 0
+            val lastVisibleItemPosition = layoutManager?.findLastVisibleItemPosition() ?: 0
+            presenter.loadData(lastVisibleItemPosition, totalItemCount)
+        }
+    }
 
     override fun getNavigator(): Navigator {
         return AppNavigator(requireActivity(), R.id.fragment_container)
@@ -65,6 +74,7 @@ class ChatViewImplementation :
         binding.chatRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
         binding.chatRecyclerView.adapter = chatAdapter
+        binding.chatRecyclerView.addOnScrollListener(scrollListener)
     }
 
     override fun onDestroyView() {
