@@ -1,7 +1,5 @@
 package com.mole.android.mole.create.view
 
-import android.content.Context
-import android.os.Bundle
 import android.view.WindowManager
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -17,27 +15,37 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
 
     private val router = component().routingModule.router
 
-    override fun getNavigator(): Navigator {
-        return AppNavigator(
+    private val childNavigator by lazy {
+        AppNavigator(
             requireActivity(),
             R.id.create_debt_host,
             fragmentManager = childFragmentManager
         )
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    private val navigatorHolder = component().routingModule.navigationHolder
+
+    override fun getNavigator(): Navigator {
+        return AppNavigator(requireActivity(), R.id.nav_host_fragment)
     }
 
     override fun onStart() {
         super.onStart()
-        router.newChain(Screens.ChooseSide())
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        withChildNavigation {
+            router.newChain(Screens.ChooseSide())
+        }
     }
 
     override fun onStop() {
         super.onStop()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    }
+
+    private fun withChildNavigation(action: () -> Unit) {
+        navigatorHolder.setNavigator(childNavigator)
+        action()
+        navigatorHolder.setNavigator(getNavigator())
     }
 
     internal object Screens {

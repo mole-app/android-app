@@ -74,7 +74,9 @@ abstract class MoleBaseFragment<T : ViewBinding>
     }
 
     override fun onPause() {
-        navigatorHolder.removeNavigator()
+        if (parentFragment != null) {
+            navigatorHolder.removeNavigator()
+        }
         super.onPause()
     }
 

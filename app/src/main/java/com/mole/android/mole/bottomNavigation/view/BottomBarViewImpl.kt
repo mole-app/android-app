@@ -59,9 +59,8 @@ class BottomBarViewImpl private constructor() :
         }
 
         binding.moleBottomNavigationBar.setOnFabClickListener {
-            // do via presenter
             navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
-            router.newRootChain(Screens.CreateDebt())
+            router.navigateTo(Screens.CreateDebt())
         }
         presenter.attachView(this)
     }
