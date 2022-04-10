@@ -15,7 +15,7 @@ class StepsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStepsHolder {
         return when(viewType) {
             Steps.ChooseName.viewType -> ChooseNameViewHolder(parent) { nextClickedListener(0) }
-            Steps.ChooseTag.viewType -> ChooseTagHolder(parent)
+            Steps.ChooseTag.viewType -> ChooseTagHolder(parent) { nextClickedListener(1) }
             Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent)
             else -> throw IllegalStateException("Illegal view type")
         }

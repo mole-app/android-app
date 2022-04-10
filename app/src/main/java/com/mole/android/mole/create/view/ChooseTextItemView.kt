@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -27,6 +28,7 @@ class ChooseTextItemView @JvmOverloads constructor(
     private val clickableArea: View
     private val nextButton: View
     private val progress: View
+    private val title: TextView
 
     private var mode = false
 
@@ -41,6 +43,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         clickableArea = findViewById(R.id.clickable_area)
         nextButton = findViewById(R.id.next_button)
         progress = findViewById(R.id.progress)
+        title = findViewById(R.id.title)
         bind()
     }
 
@@ -74,6 +77,7 @@ class ChooseTextItemView @JvmOverloads constructor(
             }
         }
         list.adapter = adapter
+        title.setText(dataBinder.titleId)
     }
 
     private fun fillEditText(textToFill: String) {
@@ -94,7 +98,6 @@ class ChooseTextItemView @JvmOverloads constructor(
                 showKeyboard()
             }
         }
-
         nextButton.setOnClickListener { dataBinder?.onNextClicked() }
 
         showKeyboard()
@@ -194,6 +197,7 @@ class ChooseTextItemView @JvmOverloads constructor(
 
     interface DataBinder {
         val layoutId: Int
+        val titleId: Int
         fun itemsCount(): Int
         fun bind(view: View, position: Int)
         fun contentSame(firstPosition: Int, secondPosition: Int): Boolean

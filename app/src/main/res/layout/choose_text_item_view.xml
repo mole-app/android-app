@@ -34,7 +34,6 @@
             android:gravity="center"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/login_title"
             android:textColor="?attr/textColorDisabled"
             app:layout_constraintBottom_toTopOf="@id/text"
             app:layout_constraintEnd_toEndOf="parent"

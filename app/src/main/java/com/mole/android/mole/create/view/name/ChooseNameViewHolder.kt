@@ -12,7 +12,8 @@ import com.mole.android.mole.create.view.ChooseTextItemView
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
 import com.mole.android.mole.profile.data.ProfilePhoto
 
-class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: () -> Unit) : BaseStepsHolder(parent, R.layout.holder_choose_name) {
+class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: () -> Unit) :
+    BaseStepsHolder(parent, R.layout.holder_choose_name) {
     override fun bind() {
         val data = (0..20).map {
             UserPreview(
@@ -29,8 +30,9 @@ class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: (
             chooseItemView.setDataBinder(
                 object : ChooseTextItemView.DataBinder {
                     override val layoutId: Int = R.layout.choose_user_holder
+                    override val titleId: Int = R.string.choose_login_title
                     override fun itemsCount(): Int = data.size
-                    override fun bind(view: View, position: Int) { ViewBinder.bindView(view, data[position]) }
+                    override fun bind(view: View, position: Int) = bindView(view, data[position])
                     override fun contentSame(firstPosition: Int, secondPosition: Int) = false
                     override fun itemSame(firstPosition: Int, secondPosition: Int) = false
                     override fun textForClickedItem(position: Int) = data[position].login
@@ -40,23 +42,21 @@ class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: (
         }
     }
 
-    private object ViewBinder {
-        fun bindView(view: View, item: UserPreview) {
-            val login = view.findViewById<TextView>(R.id.user_login)
-            val name = view.findViewById<TextView>(R.id.user_name)
-            val avatar = view.findViewById<AppCompatImageView>(R.id.user_icon)
-            val uri = item.avatar.photoSmall
+    fun bindView(view: View, item: UserPreview) {
+        val login = view.findViewById<TextView>(R.id.user_login)
+        val name = view.findViewById<TextView>(R.id.user_name)
+        val avatar = view.findViewById<AppCompatImageView>(R.id.user_icon)
+        val uri = item.avatar.photoSmall
 
-            name.text = item.name
-            login.text = item.login
-            if (uri.isNotBlank()) {
-                avatar.load(uri) {
-                    transformations(CircleCropTransformation())
-                }
-            } else {
-                avatar.load(R.drawable.ic_not_avatar_foreground) {
-                    transformations(CircleCropTransformation())
-                }
+        name.text = item.name
+        login.text = item.login
+        if (uri.isNotBlank()) {
+            avatar.load(uri) {
+                transformations(CircleCropTransformation())
+            }
+        } else {
+            avatar.load(R.drawable.ic_not_avatar_foreground) {
+                transformations(CircleCropTransformation())
             }
         }
     }
