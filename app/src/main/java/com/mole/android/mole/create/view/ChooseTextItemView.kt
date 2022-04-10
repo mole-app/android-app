@@ -1,6 +1,7 @@
 package com.mole.android.mole.create.view
 
 import android.content.Context
+import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,7 @@ class ChooseTextItemView @JvmOverloads constructor(
 
     private fun bindData(dataBinder: DataBinder) {
         val adapter = ListAdapter(dataBinder) {
+            fillEditText(dataBinder.textForClickedItem(it))
             if (!mode) {
                 mode = true
                 clickableArea.visibility = View.VISIBLE
@@ -56,6 +58,13 @@ class ChooseTextItemView @JvmOverloads constructor(
             }
         }
         list.adapter = adapter
+    }
+
+    private fun fillEditText(textToFill: String) {
+        text.editText?.let { editText ->
+            editText.text = SpannableStringBuilder(textToFill)
+            editText.setSelection(editText.length())
+        }
     }
 
     private fun bind() {

@@ -20,8 +20,6 @@ class ChooseNameViewHolder(parent: ViewGroup) : BaseStepsHolder(parent, R.layout
                     override fun textForClickedItem(position: Int) = data[position].toString()
                 }
             )
-
         }
-
     }
 }

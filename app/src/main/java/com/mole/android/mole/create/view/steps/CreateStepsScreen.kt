@@ -7,7 +7,8 @@ import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.databinding.FragmentCreateStepsBinding
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
-class CreateStepsScreen : MoleBaseFragment<FragmentCreateStepsBinding>(FragmentCreateStepsBinding::inflate) {
+class CreateStepsScreen :
+    MoleBaseFragment<FragmentCreateStepsBinding>(FragmentCreateStepsBinding::inflate) {
 
     override fun getToolbar(): MoleActionBar {
         return binding.actionBar
@@ -19,6 +20,7 @@ class CreateStepsScreen : MoleBaseFragment<FragmentCreateStepsBinding>(FragmentC
             listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount)
         )
         binding.viewPager.adapter = adapter
+        binding.viewPager.isUserInputEnabled = false
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
         }.attach()
         adapter.notifyDataSetChanged()
