@@ -4,6 +4,7 @@ import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.debts.model.DebtsModel
 import com.mole.android.mole.debts.view.DebtsView
+import com.mole.android.mole.navigation.Screens
 import kotlinx.coroutines.CoroutineScope
 
 class DebtsPresenter(
@@ -18,5 +19,13 @@ class DebtsPresenter(
 
     fun onLongChatClick(){}
 
-    fun onShortChatClick(){}
+    fun onShortChatClick(data: DebtsData.ChatDebtsData) {
+        router.navigateTo(
+            Screens.Chat(
+                name = data.personName,
+                totalDebts = data.personDebtsTotal,
+                avatarUrl = data.personIcon
+            )
+        )
+    }
 }

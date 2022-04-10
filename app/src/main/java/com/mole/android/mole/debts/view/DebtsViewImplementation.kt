@@ -22,7 +22,7 @@ class DebtsViewImplementation :
         }
 
         override fun onShotClick(chatData: DebtsData.ChatDebtsData) {
-            presenter.onShortChatClick()
+            presenter.onShortChatClick(chatData)
         }
     })
 
