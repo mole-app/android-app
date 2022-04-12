@@ -17,7 +17,7 @@ class AuthBeginPresenter(
             view.openBrowser { code ->
                 Log.i("AuthBegin", code)
                 withScope {
-                    it.launch {
+                    launch {
                         model.getUserVk(code).withResult { successResult ->
                             when (successResult) {
                                 is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
@@ -38,7 +38,7 @@ class AuthBeginPresenter(
             val token = view.googleAccount.idToken
             Log.i("Auth", "Google")
             withScope {
-                it.launch {
+                launch {
                     if (token != null) {
                         model.getUserGoogle(token).withResult { successResult ->
                             when (successResult) {

@@ -9,7 +9,7 @@ open class MoleBasePresenter<T : MoleBaseView> {
     private val scope
         get() = view?.scope
 
-    protected fun withScope(action: (LifecycleCoroutineScope) -> Unit) {
+    protected fun withScope(action: LifecycleCoroutineScope.() -> Unit) {
         view?.let { scope?.let(action) }
     }
 

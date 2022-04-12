@@ -12,7 +12,7 @@ class ProfilePresenter(
     override fun attachView(view: ProfileView) {
         super.attachView(view)
         withScope {
-            it.launch {
+            launch {
                 model.getProfileInfo().withResult { result ->
                     val profileUserInfo = result.profileUserInfo
                     view.setProfileLogin(profileUserInfo.login)
