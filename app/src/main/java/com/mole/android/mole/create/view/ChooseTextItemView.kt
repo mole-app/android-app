@@ -1,9 +1,7 @@
 package com.mole.android.mole.create.view
 
 import android.content.Context
-import android.text.Editable
 import android.text.SpannableStringBuilder
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,6 @@ import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DiffUtil.DiffResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
