@@ -1,5 +1,6 @@
 package com.mole.android.mole.web.service
 
+import android.util.Log
 import com.google.gson.Gson
 import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.component
@@ -63,7 +64,10 @@ class RequestTokenInterceptor : Interceptor {
                                 .build()
 
                             val authTokenDataRequest =
-                                Request.Builder().url(authTokenDataUrl).build()
+                                Request.Builder().url(authTokenDataUrl)
+                                    .header(API_KEY_HEADER, BuildConfig.X_API_KEY)
+                                    .build()
+                            Log.i("TAG", "$authTokenDataRequest")
                             val authTokenDataResponse =
                                 okHttpClient.newCall(authTokenDataRequest).execute()
 
@@ -77,6 +81,7 @@ class RequestTokenInterceptor : Interceptor {
                                     accountRepository.refreshToken = authTokenData.refreshToken
                                 }
                                 HTTP_FORBIDDEN, HTTP_UNAUTHORIZED -> {
+                                    // HTTP_UNAUTHORIZED не должен происходить, но кажется логичным в таком случае делать логаут
                                     authTokenData = null
                                     accountRepository.removeAccount { }
                                 }
