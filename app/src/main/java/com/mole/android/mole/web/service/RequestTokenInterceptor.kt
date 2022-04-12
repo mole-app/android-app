@@ -58,11 +58,6 @@ class RequestTokenInterceptor : Interceptor {
                         )
                         accountRepository.accessToken = authTokenData.accessToken
                         accountRepository.refreshToken = authTokenData.refreshToken
-                        val updateAuthHeader = AUTH_HEADER_PREFIX + authTokenData.accessToken
-                        val requestWithNewToken: Request = chain.request().newBuilder()
-                            .header(nameHeader, updateAuthHeader)
-                            .build()
-                        chain.proceed(requestWithNewToken)
                     }
                     val updateAuthHeader = AUTH_HEADER_PREFIX + authTokenData.accessToken
                     val requestWithNewToken: Request = chain.request().newBuilder()
