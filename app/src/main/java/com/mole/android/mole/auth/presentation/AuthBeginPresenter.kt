@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 
 class AuthBeginPresenter(
     private val model: AuthModel,
-    private val scope: CoroutineScope,
 ) :
     MoleBasePresenter<AuthBeginView>() {
 
@@ -17,7 +16,7 @@ class AuthBeginPresenter(
         withView { view ->
             view.openBrowser { code ->
                 Log.i("AuthBegin", code)
-                scope.launch {
+                view.scope.launch {
                     model.getUserVk(code).withResult { successResult ->
                         when(successResult) {
                             is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
@@ -35,7 +34,7 @@ class AuthBeginPresenter(
         withView { view ->
             val token = view.googleAccount.idToken
             Log.i("Auth", "Google")
-            scope.launch {
+            view.scope.launch {
                 if (token != null) {
                     model.getUserGoogle(token).withResult { successResult ->
                         when(successResult) {

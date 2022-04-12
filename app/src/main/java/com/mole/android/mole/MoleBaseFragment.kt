@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -24,6 +26,8 @@ abstract class MoleBaseFragment<T : ViewBinding>
     open fun getSoftMode(): Int = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
     open fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.fragment_container)
     open fun getToolbar(): MoleActionBar? = null
+
+    val scope: LifecycleCoroutineScope by lazy { viewLifecycleOwner.lifecycleScope }
 
     @MenuRes
     open fun getMenuId(): Int = 0

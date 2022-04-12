@@ -1,8 +1,8 @@
 package com.mole.android.mole.profile.view
 
-import android.net.Uri
+import com.mole.android.mole.MoleBaseView
 
-interface ProfileView {
+interface ProfileView : MoleBaseView {
     fun setProfileName(name: String)
 
     fun setProfileLogin(login: String)

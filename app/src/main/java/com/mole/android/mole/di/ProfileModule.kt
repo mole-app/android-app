@@ -10,7 +10,7 @@ class ProfileModule(
     private val baseScopeModule: BaseScopeModule,
 ) {
     val profilePresenter
-        get() = ProfilePresenter(profileModel, baseScopeModule.mainScope)
+        get() = ProfilePresenter(profileModel)
 
     private val profileModel: ProfileModel by lazy {
         ProfileModelImpl(
