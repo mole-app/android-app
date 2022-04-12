@@ -1,16 +1,14 @@
 package com.mole.android.mole.web.service
 
+import com.google.gson.Gson
 import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.component
 import kotlinx.coroutines.runBlocking
-import okhttp3.Interceptor
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
+import java.net.HttpURLConnection.*
 
 
 class RequestTokenInterceptor : Interceptor {
-
-    lateinit var refreshService: TokenRefreshService
 
     companion object {
         const val API_KEY = "ApiKey: true"
@@ -19,6 +17,8 @@ class RequestTokenInterceptor : Interceptor {
         private const val API_KEY_INTERNAL_HEADER = "ApiKey"
         private const val SYNC_OBJECT = "Sync"
         private const val AUTH_HEADER_PREFIX = "Bearer "
+        private const val UPDATE_TOKEN_URL = "api/auth/refreshToken"
+        private val okHttpClient: OkHttpClient = OkHttpClient()
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -45,25 +45,57 @@ class RequestTokenInterceptor : Interceptor {
             .build()
 
         val response = chain.proceed(request)
-        if ((response.code() == 401) && !isApiKeyAuth) {
+        if ((response.code() == HTTP_UNAUTHORIZED) && !isApiKeyAuth) {
             val accountRepository = component().accountManagerModule.accountRepository
             if (accountRepository.refreshToken != null) {
                 return synchronized(SYNC_OBJECT) {
-                    val refreshToken = accountRepository.refreshToken!!
-                    val authTokenData: AuthTokenData
-                    runBlocking {
-                        authTokenData = refreshService.getNewAuthToken(
-                            refreshToken,
-                            component().firebaseModule.fingerprint.toString()
-                        )
-                        accountRepository.accessToken = authTokenData.accessToken
-                        accountRepository.refreshToken = authTokenData.refreshToken
+                    val refreshToken = accountRepository.refreshToken
+                    if (refreshToken != null) {
+                        val authTokenData: AuthTokenData?
+                        runBlocking {
+                            val authTokenDataUrl: HttpUrl = HttpUrl.Builder()
+                                .scheme("https")
+                                .host("mole-app-dev.ru")
+                                .port(8443)
+                                .addPathSegments(UPDATE_TOKEN_URL)
+                                .addQueryParameter("refreshToken", refreshToken)
+                                .addQueryParameter("fingerprint", component().firebaseModule.fingerprint.toString())
+                                .build()
+
+                            val authTokenDataRequest =
+                                Request.Builder().url(authTokenDataUrl).build()
+                            val authTokenDataResponse =
+                                okHttpClient.newCall(authTokenDataRequest).execute()
+
+                            when (authTokenDataResponse.code()) {
+                                HTTP_OK -> {
+                                    authTokenData = Gson().fromJson(
+                                        authTokenDataResponse.body()?.string(),
+                                        AuthTokenData::class.java
+                                    )
+                                    accountRepository.accessToken = authTokenData.accessToken
+                                    accountRepository.refreshToken = authTokenData.refreshToken
+                                }
+                                HTTP_FORBIDDEN, HTTP_UNAUTHORIZED -> {
+                                    authTokenData = null
+                                    accountRepository.removeAccount { }
+                                }
+                                else -> authTokenData = null
+                            }
+                        }
+                        if (authTokenData != null) {
+                            val updateAuthHeader = AUTH_HEADER_PREFIX + authTokenData.accessToken
+                            val requestWithNewToken: Request = chain.request().newBuilder()
+                                .header(nameHeader, updateAuthHeader)
+                                .build()
+                            chain.proceed(requestWithNewToken)
+                        } else {
+                            response
+                        }
+                    } else {
+                        accountRepository.removeAccount { }
+                        response
                     }
-                    val updateAuthHeader = AUTH_HEADER_PREFIX + authTokenData.accessToken
-                    val requestWithNewToken: Request = chain.request().newBuilder()
-                        .header(nameHeader, updateAuthHeader)
-                        .build()
-                    chain.proceed(requestWithNewToken)
                 }
             } else {
                 accountRepository.removeAccount { }
