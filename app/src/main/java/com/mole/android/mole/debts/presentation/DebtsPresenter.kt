@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 class DebtsPresenter(
     private val model: DebtsModel,
     private val router: Router,
-    private val scope: CoroutineScope
 ): MoleBasePresenter<DebtsView>() {
 
     fun getData(): List<DebtsData>{

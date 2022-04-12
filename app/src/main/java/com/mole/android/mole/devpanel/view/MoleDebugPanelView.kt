@@ -1,6 +1,8 @@
 package com.mole.android.mole.devpanel.view
 
-interface MoleDebugPanelView {
+import com.mole.android.mole.MoleBaseView
+
+interface MoleDebugPanelView : MoleBaseView {
     fun hide()
 
     fun corruptedAccessButtonEnable(enable: Boolean)

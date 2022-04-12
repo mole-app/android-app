@@ -23,7 +23,6 @@ class AuthModule(
     val beginPresenter
         get() = AuthBeginPresenter(
             authModel,
-            baseScopeModule.mainScope,
         )
 
     val loginPresenter: (AuthDataLogin) -> AuthLoginPresenter = {
