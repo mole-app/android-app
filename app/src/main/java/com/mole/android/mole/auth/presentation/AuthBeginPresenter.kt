@@ -16,14 +16,17 @@ class AuthBeginPresenter(
         withView { view ->
             view.openBrowser { code ->
                 Log.i("AuthBegin", code)
-                view.scope.launch {
-                    model.getUserVk(code).withResult { successResult ->
-                        when(successResult) {
-                            is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
-                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(successResult.login)
+                withScope {
+                    it.launch {
+                        model.getUserVk(code).withResult { successResult ->
+                            when (successResult) {
+                                is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
+                                is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(
+                                    successResult.login
+                                )
+                            }
+                        }.withError {
                         }
-                    } .withError {
-
                     }
                 }
             }
@@ -34,15 +37,18 @@ class AuthBeginPresenter(
         withView { view ->
             val token = view.googleAccount.idToken
             Log.i("Auth", "Google")
-            view.scope.launch {
-                if (token != null) {
-                    model.getUserGoogle(token).withResult { successResult ->
-                        when(successResult) {
-                            is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
-                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(successResult.login)
+            withScope {
+                it.launch {
+                    if (token != null) {
+                        model.getUserGoogle(token).withResult { successResult ->
+                            when (successResult) {
+                                is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
+                                is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(
+                                    successResult.login
+                                )
+                            }
+                        }.withError {
                         }
-                    } .withError {
-
                     }
                 }
             }
