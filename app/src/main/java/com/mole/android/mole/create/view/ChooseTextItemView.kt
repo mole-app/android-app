@@ -11,9 +11,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
@@ -70,6 +68,7 @@ class ChooseTextItemView @JvmOverloads constructor(
                 val callback = DiffCallback(contract)
                 val productDiffResult = DiffUtil.calculateDiff(callback)
                 productDiffResult.dispatchUpdatesTo(adapter)
+                list.scrollToPosition(0)
             }
         }
     }
