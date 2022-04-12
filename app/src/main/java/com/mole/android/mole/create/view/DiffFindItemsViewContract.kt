@@ -30,7 +30,15 @@ abstract class DiffFindItemsViewContract<T>(
     }
 
     override fun textForClickedItem(position: Int): String {
-        return textForItem(currentData[position])
+        return when {
+            position < currentData.size -> {
+                textForItem(currentData[position])
+            }
+            position < newData.size -> {
+                textForItem(newData[position])
+            }
+            else -> ""
+        }
     }
 
     fun updateData(data: List<T>) {
