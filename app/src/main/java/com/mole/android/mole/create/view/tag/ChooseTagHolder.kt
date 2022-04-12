@@ -13,11 +13,8 @@ class ChooseTagHolder(parent: ViewGroup, private val nextClickedListener: () -> 
 
     data class TagPreviewUi(val isNew: Boolean, val preview: TagPreview)
 
-    private val data: List<TagPreviewUi> = (0..20).map {
-            TagPreview(
-                name = "${it * 10}",
-                count = it
-            ).toUi()
+    private val data: List<TagPreviewUi> = tagsTestData.map {
+        it.toUi()
     }
 
     init {
