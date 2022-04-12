@@ -28,7 +28,7 @@ class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: (
         }
         (itemView as? ChooseTextItemView)?.let { chooseItemView ->
             chooseItemView.setDataBinder(
-                object : ChooseTextItemView.DataBinder {
+                object : ChooseTextItemView.ItemViewContract {
                     override val layoutId: Int = R.layout.choose_user_holder
                     override val titleId: Int = R.string.choose_login_title
                     override fun itemsCount(): Int = data.size
@@ -37,6 +37,7 @@ class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: (
                     override fun itemSame(firstPosition: Int, secondPosition: Int) = false
                     override fun textForClickedItem(position: Int) = data[position].login
                     override fun onNextClicked() = nextClickedListener()
+                    override fun onTextChanged(text: String) {}
                 }
             )
         }

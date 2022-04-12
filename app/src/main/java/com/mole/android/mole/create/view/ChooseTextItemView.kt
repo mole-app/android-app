@@ -1,7 +1,9 @@
 package com.mole.android.mole.create.view
 
 import android.content.Context
+import android.text.Editable
 import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
+import com.mole.android.mole.onTextChangeSkipped
 
 class ChooseTextItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -32,7 +35,7 @@ class ChooseTextItemView @JvmOverloads constructor(
 
     private var mode = false
 
-    private var dataBinder: DataBinder? = null
+    private var itemViewContract: ItemViewContract? = null
 
     init {
         inflate(getContext(), R.layout.choose_text_item_view, this)
@@ -47,9 +50,9 @@ class ChooseTextItemView @JvmOverloads constructor(
         bind()
     }
 
-    fun setDataBinder(dataBinder: DataBinder) {
-        this.dataBinder = dataBinder
-        bindData(dataBinder)
+    fun setDataBinder(itemViewContract: ItemViewContract) {
+        this.itemViewContract = itemViewContract
+        bindData(itemViewContract)
     }
 
     fun showProgress() {
@@ -66,9 +69,9 @@ class ChooseTextItemView @JvmOverloads constructor(
         list.adapter?.notifyDataSetChanged()
     }
 
-    private fun bindData(dataBinder: DataBinder) {
-        val adapter = ListAdapter(dataBinder) {
-            fillEditText(dataBinder.textForClickedItem(it))
+    private fun bindData(itemViewContract: ItemViewContract) {
+        val adapter = ListAdapter(itemViewContract) {
+            fillEditText(itemViewContract.textForClickedItem(it))
             if (!mode) {
                 mode = true
                 clickableArea.visibility = View.VISIBLE
@@ -77,7 +80,7 @@ class ChooseTextItemView @JvmOverloads constructor(
             }
         }
         list.adapter = adapter
-        title.setText(dataBinder.titleId)
+        title.setText(itemViewContract.titleId)
     }
 
     private fun fillEditText(textToFill: String) {
@@ -98,7 +101,11 @@ class ChooseTextItemView @JvmOverloads constructor(
                 showKeyboard()
             }
         }
-        nextButton.setOnClickListener { dataBinder?.onNextClicked() }
+        nextButton.setOnClickListener { itemViewContract?.onNextClicked() }
+
+        text.editText?.onTextChangeSkipped {
+            itemViewContract?.onTextChanged(it)
+        }
 
         showKeyboard()
     }
@@ -158,20 +165,20 @@ class ChooseTextItemView @JvmOverloads constructor(
     }
 
     private class ListAdapter(
-        private val dataBinder: DataBinder,
+        private val itemViewContract: ItemViewContract,
         private val clickListener: (Int) -> Unit
     ) : RecyclerView.Adapter<ItemViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-            return ItemViewHolder(parent, dataBinder.layoutId, clickListener)
+            return ItemViewHolder(parent, itemViewContract.layoutId, clickListener)
         }
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
             holder.bind(position)
-            dataBinder.bind(holder.itemView, position)
+            itemViewContract.bind(holder.itemView, position)
         }
 
-        override fun getItemCount() = dataBinder.itemsCount()
+        override fun getItemCount() = itemViewContract.itemsCount()
     }
 
     private class ItemViewHolder(
@@ -195,7 +202,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         }
     }
 
-    interface DataBinder {
+    interface ItemViewContract {
         val layoutId: Int
         val titleId: Int
         fun itemsCount(): Int
@@ -204,6 +211,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         fun itemSame(firstPosition: Int, secondPosition: Int): Boolean
         fun textForClickedItem(position: Int): String
         fun onNextClicked()
+        fun onTextChanged(text: String)
     }
 
 }
