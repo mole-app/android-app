@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.DiffResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
@@ -66,7 +68,13 @@ class ChooseTextItemView @JvmOverloads constructor(
     }
 
     fun invalidateList() {
-        list.adapter?.notifyDataSetChanged()
+        itemViewContract?.let { contract ->
+            list.adapter?.let { adapter ->
+                val callback = DiffCallback(contract)
+                val productDiffResult = DiffUtil.calculateDiff(callback)
+                productDiffResult.dispatchUpdatesTo(adapter)
+            }
+        }
     }
 
     private fun bindData(itemViewContract: ItemViewContract) {
@@ -202,10 +210,18 @@ class ChooseTextItemView @JvmOverloads constructor(
         }
     }
 
+    private class DiffCallback(private val contract: ItemViewContract) : DiffUtil.Callback() {
+        override fun getOldListSize() = contract.itemsCount()
+        override fun getNewListSize() = contract.newListCount()
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = contract.itemSame(oldItemPosition, newItemPosition)
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = contract.contentSame(oldItemPosition, newItemPosition)
+    }
+
     interface ItemViewContract {
         val layoutId: Int
         val titleId: Int
         fun itemsCount(): Int
+        fun newListCount(): Int
         fun bind(view: View, position: Int)
         fun contentSame(firstPosition: Int, secondPosition: Int): Boolean
         fun itemSame(firstPosition: Int, secondPosition: Int): Boolean

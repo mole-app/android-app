@@ -15,6 +15,8 @@ abstract class DiffFindItemsViewContract<T>(
 
     override fun itemsCount() = currentData.size
 
+    override fun newListCount() = newData.size
+
     override fun bind(view: View, position: Int) {
         bindView(view, currentData[position])
     }
