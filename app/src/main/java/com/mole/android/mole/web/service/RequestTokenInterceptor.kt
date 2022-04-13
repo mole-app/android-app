@@ -18,6 +18,11 @@ class RequestTokenInterceptor : Interceptor {
         private const val API_KEY_INTERNAL_HEADER = "ApiKey"
         private const val SYNC_OBJECT = "Sync"
         private const val AUTH_HEADER_PREFIX = "Bearer "
+        private const val SCHEME = "https"
+        private const val HOST = "mole-app-dev.ru"
+        private const val PORT = 8443
+        private const val REFRESH_TOKEN_QUERY = "refreshToken"
+        private const val FINGERPRINT_TOKEN_QUERY = "fingerprint"
         private const val UPDATE_TOKEN_URL = "api/auth/refreshToken"
         private val okHttpClient: OkHttpClient = OkHttpClient()
     }
@@ -55,19 +60,18 @@ class RequestTokenInterceptor : Interceptor {
                         val authTokenData: AuthTokenData?
                         runBlocking {
                             val authTokenDataUrl: HttpUrl = HttpUrl.Builder()
-                                .scheme("https")
-                                .host("mole-app-dev.ru")
-                                .port(8443)
+                                .scheme(SCHEME)
+                                .host(HOST)
+                                .port(PORT)
                                 .addPathSegments(UPDATE_TOKEN_URL)
-                                .addQueryParameter("refreshToken", refreshToken)
-                                .addQueryParameter("fingerprint", component().firebaseModule.fingerprint.toString())
+                                .addQueryParameter(REFRESH_TOKEN_QUERY, refreshToken)
+                                .addQueryParameter(FINGERPRINT_TOKEN_QUERY, component().firebaseModule.fingerprint.toString())
                                 .build()
 
                             val authTokenDataRequest =
                                 Request.Builder().url(authTokenDataUrl)
                                     .header(API_KEY_HEADER, BuildConfig.X_API_KEY)
                                     .build()
-                            Log.i("TAG", "$authTokenDataRequest")
                             val authTokenDataResponse =
                                 okHttpClient.newCall(authTokenDataRequest).execute()
 
