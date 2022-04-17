@@ -15,7 +15,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 abstract class MoleBaseFragment<T : ViewBinding>
-    (private val inflation: (LayoutInflater, ViewGroup?, Boolean) -> T) : Fragment() {
+    (private val inflation: (LayoutInflater, ViewGroup?, Boolean) -> T) : Fragment(), MoleBaseView {
 
     private var _binding: T? = null
     protected val binding get() = _binding!!
@@ -27,7 +27,7 @@ abstract class MoleBaseFragment<T : ViewBinding>
     open fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.fragment_container)
     open fun getToolbar(): MoleActionBar? = null
 
-    val scope: LifecycleCoroutineScope by lazy { viewLifecycleOwner.lifecycleScope }
+    override val scope: LifecycleCoroutineScope by lazy { viewLifecycleOwner.lifecycleScope }
 
     @MenuRes
     open fun getMenuId(): Int = 0
