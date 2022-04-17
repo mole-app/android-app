@@ -178,7 +178,6 @@ class ChooseTextItemView @JvmOverloads constructor(
         }
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-            holder.bind(position)
             itemViewContract.bind(holder.itemView, position)
         }
 
@@ -192,17 +191,11 @@ class ChooseTextItemView @JvmOverloads constructor(
     ) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
     ) {
-
-        private var itemPosition: Int? = null
-
         init {
             itemView.setOnClickListener {
-                itemPosition?.let(onClickListener)
+                onClickListener(adapterPosition)
+                adapterPosition.let(onClickListener)
             }
-        }
-
-        fun bind(position: Int) {
-            itemPosition = position
         }
     }
 
