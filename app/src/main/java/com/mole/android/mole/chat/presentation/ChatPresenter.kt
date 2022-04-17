@@ -12,18 +12,18 @@ class ChatPresenter(
 ) : MoleBasePresenter<ChatView>() {
     private var isDataLoading = false
     private var leftDataCount: Int = 0
+    private val itemCountBeforeRequest = 10
 
     override fun attachView(view: ChatView) {
         super.attachView(view)
-        withView { view ->
-            view.showLoading()
-            dataLoading(view)
-        }
+        view.showLoading()
+        dataLoading(view)
+
     }
 
     fun loadData(lastItemVisiblePosition: Int, itemCount: Int) {
         if (!isDataLoading) {
-            if (lastItemVisiblePosition + 1 + 10 >= itemCount) {
+            if (lastItemVisiblePosition + 1 + itemCountBeforeRequest >= itemCount) {
                 withView { view ->
                     dataLoading(view)
                 }
