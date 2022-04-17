@@ -19,19 +19,19 @@ class MoleActionBarMessenger @JvmOverloads constructor(
     private val nameTextView: TextView = findViewById(R.id.name)
     private val balanceBarMoleMessageView: MoleMessageView = findViewById(R.id.balance_bar)
 
-    fun setName(name: String?) {
+    fun setName(name: String) {
         nameTextView.text = name
     }
 
-    fun setAvatar(avatarUrl: String?) {
+    fun setAvatar(avatarUrl: String) {
         avatarImageView.load(avatarUrl) {
             error(R.drawable.ic_not_avatar_foreground)
             transformations(CircleCropTransformation())
         }
     }
 
-    fun setBalance(balance: Int?) {
-        balanceBarMoleMessageView.balance = balance ?: 0
+    fun setBalance(balance: Int) {
+        balanceBarMoleMessageView.balance = balance
     }
 
     override fun customView(parent: ViewGroup): View {

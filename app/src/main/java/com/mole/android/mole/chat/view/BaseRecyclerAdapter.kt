@@ -1,6 +1,5 @@
 package com.mole.android.mole.chat.view
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
@@ -15,7 +14,6 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHo
     abstract fun getViewTypeOfData(position: Int): Int
 
     override fun getItemViewType(position: Int): Int {
-        super.getItemViewType(position)
         return getViewTypeOfData(position)
     }
 

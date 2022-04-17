@@ -62,9 +62,9 @@ class ChatViewImplementation :
     }
 
     private fun initToolbar() {
-        val name = arguments?.getString(ARG_NAME)
-        val totalDebts = arguments?.getInt(ARG_TOTAL_DEBTS)
-        val avatarUrl = arguments?.getString(ARG_AVATAR_URL)
+        val name = arguments?.getString(ARG_NAME) as String
+        val totalDebts = arguments?.getInt(ARG_TOTAL_DEBTS) as Int
+        val avatarUrl = arguments?.getString(ARG_AVATAR_URL) as String
         with(binding.chatToolbarMessenger) {
             setName(name)
             setBalance(totalDebts)

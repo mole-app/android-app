@@ -22,7 +22,6 @@ class ChatModelImplementation(
                     )
                 )
             } catch (exception: HttpException) {
-                // Не хочется падать если что-то не так на сервере
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
