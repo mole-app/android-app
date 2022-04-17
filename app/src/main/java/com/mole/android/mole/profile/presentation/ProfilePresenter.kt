@@ -7,21 +7,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class ProfilePresenter(
-    private val model: ProfileModel,
-    private val scope: CoroutineScope,
+    private val model: ProfileModel
 ) : MoleBasePresenter<ProfileView>() {
     override fun attachView(view: ProfileView) {
         super.attachView(view)
-        scope.launch {
-            model.getProfileInfo().withResult { result ->
-                val profileUserInfo = result.profileUserInfo
-                view.setProfileLogin(profileUserInfo.login)
-                view.setProfileName(profileUserInfo.name)
-                view.setIcon(profileUserInfo.photoNormal)
-                view.setTags(profileUserInfo.tags)
-                view.setTotalDebtsSummary(profileUserInfo.totalSum)
-            } .withError {
-                view.showSnackBar(it.description)
+        withScope {
+            launch {
+                model.getProfileInfo().withResult { result ->
+                    val profileUserInfo = result.profileUserInfo
+                    view.setProfileLogin(profileUserInfo.login)
+                    view.setProfileName(profileUserInfo.name)
+                    view.setIcon(profileUserInfo.photoNormal)
+                    view.setTags(profileUserInfo.tags)
+                    view.setTotalDebtsSummary(profileUserInfo.totalSum)
+                }.withError {
+                    view.showSnackBar(it.description)
+                }
             }
         }
     }
