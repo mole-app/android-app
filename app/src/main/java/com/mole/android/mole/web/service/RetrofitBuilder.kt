@@ -1,5 +1,8 @@
 package com.mole.android.mole.web.service
 
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.mole.android.mole.component
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,6 +26,14 @@ object RetrofitBuilder {
             .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .addInterceptor(tokenInterceptor)
+            .addInterceptor(
+                ChuckerInterceptor.Builder(component().context)
+                    .collector(ChuckerCollector(component().context))
+                    .maxContentLength(250000L)
+                    .redactHeaders(emptySet())
+                    .alwaysReadResponseBody(false)
+                    .build()
+            )
             .build()
 
         val retrofit = Retrofit.Builder()

@@ -56,6 +56,9 @@ apply plugin: 'com.google.gms.google-services'
 
 dependencies {
 
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+
     //Coil
     implementation 'io.coil-kt:coil:1.3.2'
 
