@@ -3,7 +3,6 @@ package com.mole.android.mole.web.service
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.mole.android.mole.component
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -36,16 +35,10 @@ object RetrofitBuilder {
             )
             .build()
 
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-
-        val tokenRefreshService = retrofit.create(TokenRefreshService::class.java)
-        tokenInterceptor.refreshService = tokenRefreshService
-
-
-        return retrofit
     }
 }
