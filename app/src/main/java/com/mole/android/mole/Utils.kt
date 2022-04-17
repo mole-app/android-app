@@ -3,10 +3,15 @@ package com.mole.android.mole
 import android.content.Context
 import android.content.ContextWrapper
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -78,4 +83,24 @@ fun EditText.onTextChangeSkipped(skipMs: Long = 300L, action: (String) -> Unit) 
         }
         override fun afterTextChanged(s: Editable?) {}
     })
+}
+
+fun TextView.setHighLightedText(textToHighlight: String, @ColorInt color: Int, ignoreCase: Boolean = true) {
+    val tvt = this.text.toString()
+    var ofe = tvt.indexOf(textToHighlight, 0, ignoreCase)
+    val wordToSpan: Spannable = SpannableString(this.text)
+    var ofs = 0
+    while (ofs < tvt.length && ofe != -1) {
+        ofe = tvt.indexOf(textToHighlight, ofs, ignoreCase)
+        if (ofe == -1) break else {
+            wordToSpan.setSpan(
+                ForegroundColorSpan(color),
+                ofe,
+                ofe + textToHighlight.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            this.setText(wordToSpan, TextView.BufferType.SPANNABLE)
+        }
+        ofs = ofe + 1
+    }
 }
