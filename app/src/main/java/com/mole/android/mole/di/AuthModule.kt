@@ -21,12 +21,10 @@ class AuthModule(
 ) {
 
     val beginPresenter
-        get() = AuthBeginPresenter(
-            authModel,
-        )
+        get() = AuthBeginPresenter(authModel, baseScopeModule.mainScope)
 
     val loginPresenter: (AuthDataLogin) -> AuthLoginPresenter = {
-        AuthLoginPresenter(authModel, loginResources, it, baseScopeModule.mainScope)
+        AuthLoginPresenter(authModel, loginResources, it)
     }
 
     private val loginResources: AuthLoginResources by lazy {
