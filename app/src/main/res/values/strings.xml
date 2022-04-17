@@ -40,6 +40,7 @@
     <string name="tag_symbol">#%1$s</string>
     <string name="choose_login_title">Логин</string>
     <string name="choose_tag_title">Тег</string>
+    <string name="rubles_suffix">.р</string>
     <plurals name="tag_count">
         <item quantity="zero">Нет должников</item>
         <item quantity="one">%1$d должник</item>

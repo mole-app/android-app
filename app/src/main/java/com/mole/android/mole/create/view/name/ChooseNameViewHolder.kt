@@ -47,6 +47,10 @@ class ChooseNameViewHolder(parent: ViewGroup, private val nextClickedListener: (
         }
     }
 
+    override fun requestFocus() {
+        (itemView as? ChooseTextItemView)?.focus()
+    }
+
     private fun itemsSame(first: UserPreviewUi, second: UserPreviewUi): Boolean {
         return first.userPreview.id == second.userPreview.id
     }

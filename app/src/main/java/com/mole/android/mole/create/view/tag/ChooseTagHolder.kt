@@ -52,6 +52,10 @@ class ChooseTagHolder(parent: ViewGroup, private val nextClickedListener: () -> 
 
     }
 
+    override fun requestFocus() {
+        (itemView as? ChooseTextItemView)?.focus()
+    }
+
     private fun TagPreview.toUi(isNew: Boolean = false): TagPreviewUi {
         return TagPreviewUi(
             isNew = isNew,

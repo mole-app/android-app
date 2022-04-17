@@ -1,11 +1,18 @@
 package com.mole.android.mole.create.view.amount
 
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.view.doOnAttach
 import com.mole.android.mole.R
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
 
 class ChooseAmountViewHolder(parent: ViewGroup) : BaseStepsHolder(parent, R.layout.holder_choose_amount) {
     override fun bind() {
 
+    }
+
+    override fun requestFocus() {
+        val editText = itemView.findViewById<EditText>(R.id.amount_edit_text)
+        editText.requestFocus()
     }
 }

@@ -62,6 +62,11 @@ class ChooseTextItemView @JvmOverloads constructor(
         progress.visibility = View.INVISIBLE
     }
 
+    fun focus() {
+        text.editText?.requestFocus()
+        showKeyboard()
+    }
+
     fun invalidateList() {
         itemViewContract?.let { contract ->
             list.adapter?.let { adapter ->
@@ -111,7 +116,6 @@ class ChooseTextItemView @JvmOverloads constructor(
             itemViewContract?.onTextChanged(it)
         }
 
-        showKeyboard()
     }
 
     private fun expandList() {

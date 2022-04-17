@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amount_text_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:boxBackgroundMode="filled"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:suffixText="@string/rubles_suffix">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amount_edit_text"
+            style="@style/MoleText.Medium.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_space_edit_text"
+            android:drawableEnd="@drawable/ic_space_edit_text"
+            android:gravity="center"
+            android:text="0"
+            android:inputType="text"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/amount_confirm_button"
+        style="@style/MoleButton.Round"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_arrow_normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

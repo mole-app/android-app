@@ -12,16 +12,29 @@ class StepsAdapter(
     private val nextClickedListener: (Int) -> Unit
 ) : RecyclerView.Adapter<BaseStepsHolder>() {
 
+    private var focusable: Focusable? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStepsHolder {
         return when(viewType) {
-            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent) { nextClickedListener(0) }
-            Steps.ChooseTag.viewType -> ChooseTagHolder(parent) { nextClickedListener(1) }
+            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent) {
+                nextClickedListener(0)
+                focusable?.requestFocus()
+            }
+            Steps.ChooseTag.viewType -> ChooseTagHolder(parent) {
+                nextClickedListener(1)
+                focusable?.requestFocus()
+            }
             Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent)
             else -> throw IllegalStateException("Illegal view type")
         }
     }
 
     override fun onBindViewHolder(holder: BaseStepsHolder, position: Int) {
+        if (position == 0) {
+            holder.requestFocus()
+        } else {
+            focusable = holder
+        }
         holder.bind()
     }
 
@@ -31,6 +44,10 @@ class StepsAdapter(
 
     override fun getItemCount(): Int {
         return steps.size
+    }
+
+    interface Focusable {
+        fun requestFocus()
     }
 
 }

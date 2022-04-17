@@ -6,6 +6,6 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseStepsHolder(parent: ViewGroup, @LayoutRes layoutId: Int) :
-    RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)) {
+    RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)), StepsAdapter.Focusable {
     abstract fun bind()
 }
