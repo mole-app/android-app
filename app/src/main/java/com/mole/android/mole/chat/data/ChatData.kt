@@ -1,16 +1,27 @@
 package com.mole.android.mole.chat.data
 
+import com.mole.android.mole.dateToString
+import com.mole.android.mole.timeToString
+import java.util.*
+
 sealed class ChatData {
     data class ChatDate(
+        private val remoteDate: Date
+    ) : ChatData() {
         val date: String
-    ) : ChatData()
+            get() = dateToString(remoteDate)
+    }
 
     data class ChatMessage(
         val isMessageOfTheDebtor: Boolean,
         val debtValue: Int,
         val tag: String = "",
-        val time: String =""
-    ) : ChatData()
+        val isRead: Boolean = false,
+        private val remoteDate: Date = Date()
+    ) : ChatData() {
+        val time: String
+            get() = timeToString(remoteDate)
+    }
 }
 
 val testChatData = mutableListOf<ChatData>(
