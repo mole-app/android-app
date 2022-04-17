@@ -1,6 +1,8 @@
 package com.mole.android.mole.web.service
 
-import okhttp3.Interceptor
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.mole.android.mole.component
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,18 +25,20 @@ object RetrofitBuilder {
             .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .addInterceptor(tokenInterceptor)
+            .addInterceptor(
+                ChuckerInterceptor.Builder(component().context)
+                    .collector(ChuckerCollector(component().context))
+                    .maxContentLength(250000L)
+                    .redactHeaders(emptySet())
+                    .alwaysReadResponseBody(false)
+                    .build()
+            )
             .build()
 
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-
-        val tokenRefreshService = retrofit.create(TokenRefreshService::class.java)
-        tokenInterceptor.refreshService = tokenRefreshService
-
-
-        return retrofit
     }
 }

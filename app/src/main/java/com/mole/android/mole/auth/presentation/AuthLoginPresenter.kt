@@ -11,8 +11,7 @@ import kotlinx.coroutines.*
 class AuthLoginPresenter(
     private val model: AuthModel,
     private val authLoginResources: AuthLoginResources,
-    private val client: AuthDataLogin,
-    private val scope: CoroutineScope
+    private val client: AuthDataLogin
 ) :
     MoleBasePresenter<AuthLoginView>() {
 
@@ -28,12 +27,15 @@ class AuthLoginPresenter(
 
     fun onFabClick() {
         withView { view ->
-            scope.launch {
-                Log.i("AuthPresenter", "Fab login = $login")
-                if (model.addUser(login)) {
-                    view.hideError()
-                } else {
-                    view.showLoginExistError()
+            withScope {
+                launch {
+                    Log.i("AuthPresenter", "Fab login = $login")
+                    if (model.addUser(login)) {
+                        view.hideError()
+                        view.openDebts()
+                    } else {
+                        view.showLoginExistError()
+                    }
                 }
             }
         }

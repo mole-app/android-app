@@ -8,4 +8,6 @@ interface AuthLoginView : MoleBaseView {
     fun hideError()
 
     fun setUserLogin(login: String)
+
+    fun openDebts()
 }
