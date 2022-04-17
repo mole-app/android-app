@@ -82,6 +82,7 @@ class ChatViewImplementation :
         binding.chatRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
         binding.chatRecyclerView.adapter = chatAdapter
+        binding.chatRecyclerView.addItemDecoration(ChatFirstPositionItemDecoration())
         binding.chatRecyclerView.addOnScrollListener(scrollListener)
     }
 
