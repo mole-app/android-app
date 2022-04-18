@@ -45,6 +45,14 @@ class MoleDebugPanelViewImpl :
             80f.dp()
         )
 
+        binding.debugPanelRemoveRemoteAccount.setOnClickListener {
+            presenter.onButtonRemoveRemoteAccount()
+        }
+        binding.debugPanelRemoveRemoteAccount.setBorder(
+            Shape.RECTANGLE,
+            80f.dp()
+        )
+
         presenter.attachView(this)
     }
 
@@ -67,5 +75,9 @@ class MoleDebugPanelViewImpl :
 
     override fun removeButtonEnable(enable: Boolean) {
         binding.debugPanelRemoveAccount.isEnabled = enable
+    }
+
+    override fun removeRemoteButtonEnable(enable: Boolean) {
+        binding.debugPanelRemoveRemoteAccount.isEnabled = enable
     }
 }

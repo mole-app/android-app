@@ -14,6 +14,7 @@ class MoleDebugPanelPresenter(
         view.corruptedAccessButtonEnable(hasAccount)
         view.corruptedRefreshButtonEnable(hasAccount)
         view.removeButtonEnable(hasAccount)
+        view.removeRemoteButtonEnable(hasAccount)
     }
 
     fun onButtonBack() {
@@ -36,6 +37,11 @@ class MoleDebugPanelPresenter(
             view.corruptedAccessButtonEnable(false)
             view.corruptedRefreshButtonEnable(false)
             view.removeButtonEnable(false)
+            view.removeRemoteButtonEnable(false)
         }
+    }
+
+    fun onButtonRemoveRemoteAccount() {
+        model.removeRemoteAccount()
     }
 }

@@ -11,4 +11,6 @@ interface MoleDebugPanelView : MoleBaseView {
 
     fun removeButtonEnable(enable: Boolean)
 
+    fun removeRemoteButtonEnable(enable: Boolean)
+
 }
