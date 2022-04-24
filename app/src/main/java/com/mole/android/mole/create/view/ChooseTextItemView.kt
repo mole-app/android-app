@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.*
 import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
+import com.mole.android.mole.keyboardIsVisible
 import com.mole.android.mole.onTextChangeSkipped
 
 class ChooseTextItemView @JvmOverloads constructor(
@@ -206,8 +207,11 @@ class ChooseTextItemView @JvmOverloads constructor(
     private class DiffCallback(private val contract: ItemViewContract) : DiffUtil.Callback() {
         override fun getOldListSize() = contract.itemsCount()
         override fun getNewListSize() = contract.newListCount()
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = contract.itemSame(oldItemPosition, newItemPosition)
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = contract.contentSame(oldItemPosition, newItemPosition)
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            contract.itemSame(oldItemPosition, newItemPosition)
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            contract.contentSame(oldItemPosition, newItemPosition)
     }
 
     interface ItemViewContract {

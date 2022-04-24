@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -104,3 +105,10 @@ fun TextView.setHighLightedText(textToHighlight: String, @ColorInt color: Int, i
         ofs = ofe + 1
     }
 }
+
+val View.keyboardIsVisible: Boolean
+    get() = rootWindowInsets?.let {
+        WindowInsetsCompat
+            .toWindowInsetsCompat(rootWindowInsets)
+            .isVisible(WindowInsetsCompat.Type.ime())
+    } ?: false
