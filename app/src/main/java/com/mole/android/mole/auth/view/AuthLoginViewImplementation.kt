@@ -15,7 +15,6 @@ class AuthLoginViewImplementation :
     MoleBaseFragment<ViewAuthLoginBinding>(ViewAuthLoginBinding::inflate), AuthLoginView {
 
     private lateinit var login: String
-    override fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.nav_host_fragment)
 
     private val router = component().routingModule.router
 

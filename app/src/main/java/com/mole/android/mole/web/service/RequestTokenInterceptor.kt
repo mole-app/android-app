@@ -1,15 +1,17 @@
 package com.mole.android.mole.web.service
 
-import android.util.Log
 import com.google.gson.Gson
 import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.component
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import java.net.HttpURLConnection.*
+import java.util.concurrent.TimeUnit
 
 
-class RequestTokenInterceptor : Interceptor {
+class RequestTokenInterceptor(
+    chuckerInterceptor: Interceptor
+) : Interceptor {
 
     companion object {
         const val API_KEY = "ApiKey: true"
@@ -24,8 +26,14 @@ class RequestTokenInterceptor : Interceptor {
         private const val REFRESH_TOKEN_QUERY = "refreshToken"
         private const val FINGERPRINT_TOKEN_QUERY = "fingerprint"
         private const val UPDATE_TOKEN_URL = "api/auth/refreshToken"
-        private val okHttpClient: OkHttpClient = OkHttpClient()
     }
+
+    private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(chuckerInterceptor)
+        .build()
 
     override fun intercept(chain: Interceptor.Chain): Response {
 

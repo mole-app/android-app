@@ -7,5 +7,7 @@ interface DevPanelModel {
 
     fun removeAccount()
 
+    fun removeRemoteAccount()
+
     fun isHasAccount(): Boolean
 }
