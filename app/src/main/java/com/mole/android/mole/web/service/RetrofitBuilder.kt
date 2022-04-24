@@ -1,8 +1,8 @@
 package com.mole.android.mole.web.service
 
+import com.mole.android.mole.component
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.mole.android.mole.component
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,7 +24,11 @@ object RetrofitBuilder {
             .alwaysReadResponseBody(false)
             .build()
 
-        val tokenInterceptor = RequestTokenInterceptor(chuckerInterceptor)
+        val tokenInterceptor = RequestTokenInterceptor(
+            chuckerInterceptor,
+            component().accountManagerModule.accountRepository,
+            component().firebaseModule
+        )
 
         val client = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
