@@ -1,8 +1,13 @@
 package com.mole.android.mole.devpanel.model
 
 import com.mole.android.mole.web.service.AccountRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-class DevPanelModelImpl(private val accountRepository: AccountRepository) : DevPanelModel {
+class DevPanelModelImpl(
+    private val accountRepository: AccountRepository,
+    private val scope: CoroutineScope
+) : DevPanelModel {
     companion object {
         private const val CORRUPTED_PART = "jgfsf78gfie4bfgqt8436ghf9q34fqo8fon"
     }
@@ -29,6 +34,13 @@ class DevPanelModelImpl(private val accountRepository: AccountRepository) : DevP
 
     override fun removeAccount() {
         accountRepository.removeAccount {}
+    }
+
+    override fun removeRemoteAccount() {
+        scope.launch {
+            DevPanelRemoteAccountRemover.remove()
+            removeAccount()
+        }
     }
 
     override fun isHasAccount(): Boolean {

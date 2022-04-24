@@ -6,14 +6,15 @@ import com.mole.android.mole.component
 import com.mole.android.mole.di.FingerprintRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
-import java.net.HttpURLConnection
 import java.net.HttpURLConnection.*
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.concurrent.read
 import kotlin.concurrent.write
 
 
 class RequestTokenInterceptor(
+    chuckerInterceptor: Interceptor,
     private val accountRepository: AccountRepository,
     private val fingerprintRepository: FingerprintRepository
 ) : Interceptor {
@@ -30,9 +31,15 @@ class RequestTokenInterceptor(
         private const val REFRESH_TOKEN_QUERY = "refreshToken"
         private const val FINGERPRINT_TOKEN_QUERY = "fingerprint"
         private const val UPDATE_TOKEN_URL = "api/auth/refreshToken"
-        private val okHttpClient: OkHttpClient = OkHttpClient()
         private val tokenUpdateSyncer = ReentrantReadWriteLock()
     }
+
+    private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(chuckerInterceptor)
+        .build()
 
     override fun intercept(chain: Interceptor.Chain): Response {
 

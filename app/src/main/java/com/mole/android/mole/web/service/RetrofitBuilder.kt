@@ -17,7 +17,15 @@ object RetrofitBuilder {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
+        val chuckerInterceptor = ChuckerInterceptor.Builder(component().context)
+            .collector(ChuckerCollector(component().context))
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
+
         val tokenInterceptor = RequestTokenInterceptor(
+            chuckerInterceptor,
             component().accountManagerModule.accountRepository,
             component().firebaseModule
         )
@@ -28,14 +36,7 @@ object RetrofitBuilder {
             .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .addInterceptor(tokenInterceptor)
-            .addInterceptor(
-                ChuckerInterceptor.Builder(component().context)
-                    .collector(ChuckerCollector(component().context))
-                    .maxContentLength(250000L)
-                    .redactHeaders(emptySet())
-                    .alwaysReadResponseBody(false)
-                    .build()
-            )
+            .addInterceptor(chuckerInterceptor)
             .build()
 
         return Retrofit.Builder()
