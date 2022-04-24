@@ -40,9 +40,6 @@ abstract class MoleBaseFragment<T : ViewBinding>
             if (appCompatActivity is AppCompatActivity) {
                 appCompatActivity.setSupportActionBar(toolbar)
                 appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
-                if (getMenuId() != 0) {
-                    setHasOptionsMenu(true)
-                }
                 toolbar.setBackClickListener {
                     requireActivity().onBackPressed()
                 }
@@ -52,9 +49,12 @@ abstract class MoleBaseFragment<T : ViewBinding>
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-        inflater.inflate(getMenuId(), menu)
-        getToolbar()?.bindMenu()
+        if (isVisible) {
+            // Check isVisible because nested fragment don't call onPause when isVisible false
+            menu.clear()
+            inflater.inflate(getMenuId(), menu)
+            getToolbar()?.bindMenu()
+        }
     }
 
     override fun onCreateView(
@@ -100,11 +100,13 @@ abstract class MoleBaseFragment<T : ViewBinding>
 
     override fun onResume() {
         super.onResume()
+        setHasOptionsMenu(getMenuId() != 0)
         navigatorHolder.setNavigator(getNavigator())
     }
 
     override fun onPause() {
         navigatorHolder.removeNavigator()
+        setHasOptionsMenu(false)
         super.onPause()
     }
 
