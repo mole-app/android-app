@@ -31,15 +31,14 @@ class AuthModelImplementation(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 val user = service.getVkAuth(code, getFingerprint())
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
+                    user.accessToken,
+                    user.refreshToken
+                )
                 if (user.login == null) {
                     ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessForExistedUser)
                 } else {
-                    val accountRepository = component().accountManagerModule.accountRepository
-                    val success = accountRepository.createAccount(
-                        user.login,
-                        user.accessToken,
-                        user.refreshToken
-                    )
                     ApiResult.create<AuthModel.SuccessAuthResult>(
                         AuthModel.SuccessAuthResult.SuccessNewUser(
                             user.login
@@ -58,15 +57,14 @@ class AuthModelImplementation(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 val user = service.getGoogleAuth(code, getFingerprint())
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
+                    user.accessToken,
+                    user.refreshToken
+                )
                 if (user.login == null) {
                     ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessForExistedUser)
                 } else {
-                    val accountRepository = component().accountManagerModule.accountRepository
-                    val success = accountRepository.createAccount(
-                        user.login,
-                        user.accessToken,
-                        user.refreshToken
-                    )
                     ApiResult.create<AuthModel.SuccessAuthResult>(
                         AuthModel.SuccessAuthResult.SuccessNewUser(
                             user.login

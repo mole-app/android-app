@@ -10,7 +10,7 @@ interface AccountRepository {
 
     fun isHasAccount(): Boolean
 
-    fun createAccount(name: String, accessToken: String, refreshToken: String): Boolean
+    fun createAccount(accessToken: String, refreshToken: String): Boolean
 
     fun removeAccount(onRemoved: () -> Unit)
 

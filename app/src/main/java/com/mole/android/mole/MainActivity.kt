@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
         val accountRepository = component().accountManagerModule.accountRepository
         accountRepository.setEmptyListener {
-            routingModule.router.replaceScreen(AuthBegin())
+            routingModule.router.newRootChain(AuthBegin())
         }
 
         if (accountRepository.isHasAccount()) {

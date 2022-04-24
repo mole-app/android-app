@@ -1,6 +1,8 @@
 package com.mole.android.mole.web.service
 
 import com.mole.android.mole.component
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,7 +17,10 @@ object RetrofitBuilder {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val tokenInterceptor = RequestTokenInterceptor(component().accountManagerModule.accountRepository, component().firebaseModule)
+        val tokenInterceptor = RequestTokenInterceptor(
+            component().accountManagerModule.accountRepository,
+            component().firebaseModule
+        )
 
         val client = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
@@ -23,18 +28,20 @@ object RetrofitBuilder {
             .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .addInterceptor(tokenInterceptor)
+            .addInterceptor(
+                ChuckerInterceptor.Builder(component().context)
+                    .collector(ChuckerCollector(component().context))
+                    .maxContentLength(250000L)
+                    .redactHeaders(emptySet())
+                    .alwaysReadResponseBody(false)
+                    .build()
+            )
             .build()
 
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-
-        val tokenRefreshService = retrofit.create(TokenRefreshService::class.java)
-        tokenInterceptor.refreshService = tokenRefreshService
-
-
-        return retrofit
     }
 }

@@ -11,6 +11,7 @@ class AccountRepositoryImpl(context: Context, private val activity: AppCompatAct
     companion object {
         const val ACCESS_TOKEN = "accessAuthToken"
         const val REFRESH_TOKEN = "refreshAuthToken"
+        const val ACCOUNT_NAME = "Mole"
     }
 
     private val accountManager by lazy { AccountManager.get(context) }
@@ -58,8 +59,8 @@ class AccountRepositoryImpl(context: Context, private val activity: AppCompatAct
         return accounts.isNotEmpty()
     }
 
-    override fun createAccount(name: String, accessToken: String, refreshToken: String): Boolean {
-        val account = Account(name, BuildConfig.APPLICATION_ID)
+    override fun createAccount(accessToken: String, refreshToken: String): Boolean {
+        val account = Account(ACCOUNT_NAME, BuildConfig.APPLICATION_ID)
         val success = accountManager.addAccountExplicitly(account, null, null)
         accountManager.setAuthToken(account, ACCESS_TOKEN, accessToken)
         accountManager.setAuthToken(account, REFRESH_TOKEN, refreshToken)
