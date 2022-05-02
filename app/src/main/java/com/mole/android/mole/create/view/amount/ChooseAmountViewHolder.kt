@@ -49,7 +49,7 @@ class ChooseAmountViewHolder(parent: ViewGroup) :
         val imm =
             itemView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.toggleSoftInput(
-            InputMethodManager.SHOW_FORCED,
+            InputMethodManager.SHOW_IMPLICIT,
             InputMethodManager.HIDE_IMPLICIT_ONLY
         )
     }
