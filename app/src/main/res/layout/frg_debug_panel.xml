@@ -32,6 +32,12 @@
             android:layout_margin="16dp"
             android:text="@string/debug_panel_remove_account" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/debug_panel_remove_remote_account"
+            style="@style/MoleButton.Rectangle"
+            android:layout_margin="16dp"
+            android:text="@string/debug_panel_remove_remote_account" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton

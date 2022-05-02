@@ -1,8 +1,8 @@
 package com.mole.android.mole.web.service
 
+import com.mole.android.mole.component
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.mole.android.mole.component
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +17,18 @@ object RetrofitBuilder {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val tokenInterceptor = RequestTokenInterceptor()
+        val chuckerInterceptor = ChuckerInterceptor.Builder(component().context)
+            .collector(ChuckerCollector(component().context))
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
+
+        val tokenInterceptor = RequestTokenInterceptor(
+            chuckerInterceptor,
+            component().accountManagerModule.accountRepository,
+            component().firebaseModule
+        )
 
         val client = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
@@ -25,14 +36,7 @@ object RetrofitBuilder {
             .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .addInterceptor(tokenInterceptor)
-            .addInterceptor(
-                ChuckerInterceptor.Builder(component().context)
-                    .collector(ChuckerCollector(component().context))
-                    .maxContentLength(250000L)
-                    .redactHeaders(emptySet())
-                    .alwaysReadResponseBody(false)
-                    .build()
-            )
+            .addInterceptor(chuckerInterceptor)
             .build()
 
         return Retrofit.Builder()
