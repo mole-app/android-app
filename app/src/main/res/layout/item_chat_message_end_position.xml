@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.mole.android.mole.ui.MoleMessageView
+    <com.mole.android.mole.ui.MoleMessageViewWithInfo
         android:id="@+id/message_end_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        app:additional_info="true"
-        app:postfix="@string/postfix_balance" />
+        app:check_marks="true"
+        app:postfix_with_info="@string/postfix_balance" />
 </FrameLayout>
 
