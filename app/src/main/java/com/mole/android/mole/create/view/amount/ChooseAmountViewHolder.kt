@@ -8,14 +8,19 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.doOnAttach
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.mole.android.mole.R
+import com.mole.android.mole.create.presentation.ChooseAmountPresenter
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
 import com.mole.android.mole.keyboardIsVisible
 import com.mole.android.mole.setHighLightedText
 
 @SuppressLint("SetTextI18n")
-class ChooseAmountViewHolder(parent: ViewGroup) :
-    BaseStepsHolder(parent, R.layout.holder_choose_amount) {
+class ChooseAmountViewHolder(
+    parent: ViewGroup,
+    override val scope: LifecycleCoroutineScope,
+    private val presenter: ChooseAmountPresenter
+) : BaseStepsHolder(parent, R.layout.holder_choose_amount), ChooseAmountView {
 
     private val amountText = itemView.findViewById<TextView>(R.id.amount_text)
     private val editText = itemView.findViewById<EditText>(R.id.amount_edit_text)
@@ -36,12 +41,13 @@ class ChooseAmountViewHolder(parent: ViewGroup) :
                 )
             }
         }
-    }
-
-    override fun bind() {
         amountText.setOnClickListener {
             showKeyboard()
         }
+    }
+
+    override fun bind() {
+        presenter.attachView(this)
     }
 
     private fun showKeyboard() {

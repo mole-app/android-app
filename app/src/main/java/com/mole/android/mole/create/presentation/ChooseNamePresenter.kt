@@ -13,6 +13,7 @@ class ChooseNamePresenter : MoleBasePresenter<ChooseNameView>() {
 
     override fun attachView(view: ChooseNameView) {
         super.attachView(view)
+        filtered = data.toMutableList()
         view.show(data)
     }
 

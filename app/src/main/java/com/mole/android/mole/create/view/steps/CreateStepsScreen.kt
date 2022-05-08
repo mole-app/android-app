@@ -1,5 +1,6 @@
 package com.mole.android.mole.create.view.steps
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
@@ -20,6 +21,7 @@ class CreateStepsScreen :
 
     private val chooseNamePresenter = component().createDebtsModule.chooseNamePresenter
     private val chooseTagPresenter = component().createDebtsModule.chooseTagPresenter
+    private val chooseAmountPresenter = component().createDebtsModule.chooseAmountPresenter
 
     override fun getSoftMode(): Int {
         return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -29,13 +31,15 @@ class CreateStepsScreen :
         return binding.actionBar
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = StepsAdapter(
             listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount),
             scope,
             chooseNamePresenter,
-            chooseTagPresenter
+            chooseTagPresenter,
+            chooseAmountPresenter
         ) {
             binding.viewPager.setCurrentItem(it + 1, true)
         }
@@ -43,8 +47,7 @@ class CreateStepsScreen :
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.offscreenPageLimit = 1
         binding.tabLayout.touchables.forEach { it.isClickable = false }
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-        }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
         adapter.notifyDataSetChanged()
     }
 
@@ -52,6 +55,7 @@ class CreateStepsScreen :
         super.onDestroy()
         chooseNamePresenter.detachView()
         chooseTagPresenter.detachView()
+        chooseAmountPresenter.detachView()
     }
 
     class NonTouchableTabLayout : TabLayout {

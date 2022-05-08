@@ -15,6 +15,7 @@ class ChooseTagPresenter : MoleBasePresenter<ChooseTagView>() {
 
     override fun attachView(view: ChooseTagView) {
         super.attachView(view)
+        filtered = data.toMutableList()
         view.show(filtered)
     }
 

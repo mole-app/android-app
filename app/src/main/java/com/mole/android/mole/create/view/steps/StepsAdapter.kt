@@ -3,6 +3,7 @@ package com.mole.android.mole.create.view.steps
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
+import com.mole.android.mole.create.presentation.ChooseAmountPresenter
 import com.mole.android.mole.create.presentation.ChooseNamePresenter
 import com.mole.android.mole.create.presentation.ChooseTagPresenter
 import com.mole.android.mole.create.view.amount.ChooseAmountViewHolder
@@ -15,6 +16,7 @@ class StepsAdapter(
     private val scope: LifecycleCoroutineScope,
     private val chooseNamePresenter: ChooseNamePresenter,
     private val chooseTagPresenter: ChooseTagPresenter,
+    private val chooseAmountPresenter: ChooseAmountPresenter,
     private val nextClickedListener: (Int) -> Unit,
     ) : RecyclerView.Adapter<BaseStepsHolder>() {
 
@@ -30,7 +32,7 @@ class StepsAdapter(
                 nextClickedListener(1)
                 focusable?.requestFocus()
             }
-            Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent)
+            Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent, scope, chooseAmountPresenter)
             else -> throw IllegalStateException("Illegal view type")
         }
     }
