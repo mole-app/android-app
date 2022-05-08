@@ -27,9 +27,20 @@ class ChooseNameViewHolder(
 
     private var contract: DiffFindItemsViewContract<ChooseNameView.UserPreviewUi>? = null
 
-    override fun bind() {
+    init {
         (itemView as? ChooseTextItemView)?.let(this::bindItemView)
+    }
+
+    override fun bind() {
         presenter.attachView(this)
+    }
+
+    override fun requestFocus() {
+        (itemView as? ChooseTextItemView)?.focus()
+    }
+
+    override fun show(data: List<ChooseNameView.UserPreviewUi>) {
+        contract?.updateData(data)
     }
 
     private fun bindItemView(view: ChooseTextItemView) {
@@ -47,14 +58,6 @@ class ChooseNameViewHolder(
         }
         view.setDataBinder(contract)
         this.contract = contract
-    }
-
-    override fun requestFocus() {
-        (itemView as? ChooseTextItemView)?.focus()
-    }
-
-    override fun show(data: List<ChooseNameView.UserPreviewUi>) {
-        contract?.updateData(data)
     }
 
     private fun itemsSame(first: ChooseNameView.UserPreviewUi, second: ChooseNameView.UserPreviewUi): Boolean {

@@ -3,64 +3,56 @@ package com.mole.android.mole.create.view.tag
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.mole.android.mole.R
-import com.mole.android.mole.create.model.TagPreview
+import com.mole.android.mole.create.presentation.ChooseTagPresenter
 import com.mole.android.mole.create.view.ChooseTextItemView
 import com.mole.android.mole.create.view.DiffFindItemsViewContract
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
+import com.mole.android.mole.create.view.tag.ChooseTagView.TagPreviewUi
 
-class ChooseTagHolder(parent: ViewGroup, private val nextClickedListener: () -> Unit) : BaseStepsHolder(parent, R.layout.holder_choose_tag) {
+class ChooseTagHolder(
+    parent: ViewGroup,
+    override val scope: LifecycleCoroutineScope,
+    private val presenter: ChooseTagPresenter,
+    private val nextClickedListener: () -> Unit
+    ) : BaseStepsHolder(parent, R.layout.holder_choose_tag), ChooseTagView {
 
-    data class TagPreviewUi(val isNew: Boolean, val preview: TagPreview)
-
-    private val data: List<TagPreviewUi> = tagsTestData.map {
-        it.toUi()
-    }
+    private var contract: DiffFindItemsViewContract<TagPreviewUi>? = null
 
     init {
-        val newData = data.toMutableList()
-        newData.add(0, TagPreview("", 0).toUi(true))
-        (itemView as? ChooseTextItemView)?.let { chooseItemView ->
-            val contract = object : DiffFindItemsViewContract<TagPreviewUi>(
-                chooseItemView,
-                this@ChooseTagHolder::itemsSame,
-                this@ChooseTagHolder::contentSame,
-                this@ChooseTagHolder::bindView,
-                { it.preview.name }
-            ) {
-                override val layoutId: Int = R.layout.choose_tag_item_holder
-                override val titleId: Int = R.string.choose_tag_title
-                override fun onNextClicked() = nextClickedListener()
-                override fun onTextChanged(text: String) {
-                    val updatedData = data.filter {
-                        it.preview.name.contains(text, true)
-                    }.toMutableList()
-
-                    val item = data.find { it.preview.name == text }
-                    if (item == null) {
-                        updatedData.add(0, TagPreview(text, 0).toUi(true))
-                    }
-                    updateData(updatedData)
-                }
-            }
-            chooseItemView.setDataBinder(contract)
-            contract.updateData(newData)
-        }
+        (itemView as? ChooseTextItemView)?.let(this::bindView)
     }
 
     override fun bind() {
+        presenter.attachView(this)
+    }
 
+    override fun show(data: List<TagPreviewUi>) {
+        contract?.updateData(data)
     }
 
     override fun requestFocus() {
         (itemView as? ChooseTextItemView)?.focus()
     }
 
-    private fun TagPreview.toUi(isNew: Boolean = false): TagPreviewUi {
-        return TagPreviewUi(
-            isNew = isNew,
-            preview = this
-        )
+    private fun bindView(chooseItemView: ChooseTextItemView) {
+        val contract = object : DiffFindItemsViewContract<TagPreviewUi>(
+            chooseItemView,
+            this@ChooseTagHolder::itemsSame,
+            this@ChooseTagHolder::contentSame,
+            this@ChooseTagHolder::bindView,
+            { it.preview.name }
+        ) {
+            override val layoutId: Int = R.layout.choose_tag_item_holder
+            override val titleId: Int = R.string.choose_tag_title
+            override fun onNextClicked() = nextClickedListener()
+            override fun onTextChanged(text: String) {
+                presenter.onInputChange(text)
+            }
+        }
+        chooseItemView.setDataBinder(contract)
+        this.contract = contract
     }
 
     private fun itemsSame(first: TagPreviewUi, second: TagPreviewUi): Boolean {
@@ -83,4 +75,5 @@ class ChooseTagHolder(parent: ViewGroup, private val nextClickedListener: () -> 
             count.text = newCount
         }
     }
+
 }

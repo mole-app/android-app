@@ -19,6 +19,7 @@ class CreateStepsScreen :
     MoleBaseFragment<FragmentCreateStepsBinding>(FragmentCreateStepsBinding::inflate) {
 
     private val chooseNamePresenter = component().createDebtsModule.chooseNamePresenter
+    private val chooseTagPresenter = component().createDebtsModule.chooseTagPresenter
 
     override fun getSoftMode(): Int {
         return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -33,7 +34,8 @@ class CreateStepsScreen :
         val adapter = StepsAdapter(
             listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount),
             scope,
-            chooseNamePresenter
+            chooseNamePresenter,
+            chooseTagPresenter
         ) {
             binding.viewPager.setCurrentItem(it + 1, true)
         }
@@ -49,6 +51,7 @@ class CreateStepsScreen :
     override fun onDestroy() {
         super.onDestroy()
         chooseNamePresenter.detachView()
+        chooseTagPresenter.detachView()
     }
 
     class NonTouchableTabLayout : TabLayout {

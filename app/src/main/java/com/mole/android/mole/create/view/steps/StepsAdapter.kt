@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import com.mole.android.mole.create.presentation.ChooseNamePresenter
+import com.mole.android.mole.create.presentation.ChooseTagPresenter
 import com.mole.android.mole.create.view.amount.ChooseAmountViewHolder
 import com.mole.android.mole.create.view.name.ChooseNameViewHolder
 import com.mole.android.mole.create.view.tag.ChooseTagHolder
@@ -13,6 +14,7 @@ class StepsAdapter(
     private val steps: List<Steps>,
     private val scope: LifecycleCoroutineScope,
     private val chooseNamePresenter: ChooseNamePresenter,
+    private val chooseTagPresenter: ChooseTagPresenter,
     private val nextClickedListener: (Int) -> Unit,
     ) : RecyclerView.Adapter<BaseStepsHolder>() {
 
@@ -24,7 +26,7 @@ class StepsAdapter(
                 nextClickedListener(0)
                 focusable?.requestFocus()
             }
-            Steps.ChooseTag.viewType -> ChooseTagHolder(parent) {
+            Steps.ChooseTag.viewType -> ChooseTagHolder(parent, scope, chooseTagPresenter) {
                 nextClickedListener(1)
                 focusable?.requestFocus()
             }
