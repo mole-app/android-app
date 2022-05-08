@@ -1,7 +1,9 @@
 package com.mole.android.mole.create.view.steps
 
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
+import com.mole.android.mole.create.presentation.ChooseNamePresenter
 import com.mole.android.mole.create.view.amount.ChooseAmountViewHolder
 import com.mole.android.mole.create.view.name.ChooseNameViewHolder
 import com.mole.android.mole.create.view.tag.ChooseTagHolder
@@ -9,14 +11,16 @@ import java.lang.IllegalStateException
 
 class StepsAdapter(
     private val steps: List<Steps>,
-    private val nextClickedListener: (Int) -> Unit
-) : RecyclerView.Adapter<BaseStepsHolder>() {
+    private val scope: LifecycleCoroutineScope,
+    private val chooseNamePresenter: ChooseNamePresenter,
+    private val nextClickedListener: (Int) -> Unit,
+    ) : RecyclerView.Adapter<BaseStepsHolder>() {
 
     private var focusable: Focusable? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStepsHolder {
         return when(viewType) {
-            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent) {
+            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent, scope, chooseNamePresenter) {
                 nextClickedListener(0)
                 focusable?.requestFocus()
             }

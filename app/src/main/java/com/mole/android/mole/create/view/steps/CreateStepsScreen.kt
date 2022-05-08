@@ -11,11 +11,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentCreateStepsBinding
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class CreateStepsScreen :
     MoleBaseFragment<FragmentCreateStepsBinding>(FragmentCreateStepsBinding::inflate) {
+
+    private val chooseNamePresenter = component().createDebtsModule.chooseNamePresenter
 
     override fun getSoftMode(): Int {
         return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -29,6 +32,8 @@ class CreateStepsScreen :
         super.onViewCreated(view, savedInstanceState)
         val adapter = StepsAdapter(
             listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount),
+            scope,
+            chooseNamePresenter
         ) {
             binding.viewPager.setCurrentItem(it + 1, true)
         }
@@ -39,6 +44,11 @@ class CreateStepsScreen :
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
         }.attach()
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        chooseNamePresenter.detachView()
     }
 
     class NonTouchableTabLayout : TabLayout {
