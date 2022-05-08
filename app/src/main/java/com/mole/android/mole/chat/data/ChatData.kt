@@ -16,7 +16,7 @@ sealed class ChatData {
         val isMessageOfTheDebtor: Boolean,
         val debtValue: Int,
         val tag: String = "",
-        val isRead: Boolean = false,
+        val isRead: Boolean = true,
         private val remoteDate: Date = Date()
     ) : ChatData() {
         val time: String
@@ -25,24 +25,25 @@ sealed class ChatData {
 }
 
 val testChatData = mutableListOf<ChatData>(
+    ChatData.ChatMessage(false, +1000, "ресторан", false, Date()),
+    ChatData.ChatDate(Date()),
+    ChatData.ChatMessage(true, -1000, "ресторан1", true, Date()),
+    ChatData.ChatMessage(true, -1000, "ресторан2", false, Date()),
     ChatData.ChatMessage(false, +1000),
-    ChatData.ChatDate("03.04.2022"),
+    ChatData.ChatDate(Date()),
     ChatData.ChatMessage(false, -1000),
-    ChatData.ChatDate("02.04.2022"),
+    ChatData.ChatMessage(false, -1000),
+    ChatData.ChatDate(Date()),
     ChatData.ChatMessage(false, +1000),
-    ChatData.ChatDate("01.04.2022"),
+    ChatData.ChatDate(Date()),
     ChatData.ChatMessage(false, -1000),
-    ChatData.ChatDate("31.03.2022"),
-    ChatData.ChatMessage(false, +1000),
-    ChatData.ChatDate("30.03.2022"),
-    ChatData.ChatMessage(false, -1000),
-    ChatData.ChatDate("29.03.2022"),
+    ChatData.ChatDate(Date()),
     ChatData.ChatMessage(true, +1800),
     ChatData.ChatMessage(true, +150),
-    ChatData.ChatDate("27.03.2022"),
+    ChatData.ChatDate(Date()),
     ChatData.ChatMessage(false, -800),
     ChatData.ChatMessage(false, +1000),
     ChatData.ChatMessage(true, -150),
-    ChatData.ChatDate("26.03.2022"),
+    ChatData.ChatDate(Date()),
 
 )

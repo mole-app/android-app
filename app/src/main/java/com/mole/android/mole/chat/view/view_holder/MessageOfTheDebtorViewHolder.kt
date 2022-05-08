@@ -8,6 +8,11 @@ import com.mole.android.mole.databinding.ItemChatMessageEndPositionBinding
 class MessageOfTheDebtorViewHolder(val binding: ItemChatMessageEndPositionBinding) :
     RecyclerView.ViewHolder(binding.root), Binder<ChatData.ChatMessage> {
     override fun bind(data: ChatData.ChatMessage) {
-        binding.messageEndPosition.balance = data.debtValue
+        with(binding.messageEndPosition){
+            balance = data.debtValue
+            tag = data.tag
+            time = data.time
+            isRead = data.isRead
+        }
     }
 }
