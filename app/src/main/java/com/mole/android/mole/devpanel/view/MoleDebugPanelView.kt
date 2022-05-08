@@ -1,6 +1,8 @@
 package com.mole.android.mole.devpanel.view
 
-interface MoleDebugPanelView {
+import com.mole.android.mole.MoleBaseView
+
+interface MoleDebugPanelView : MoleBaseView {
     fun hide()
 
     fun corruptedAccessButtonEnable(enable: Boolean)
@@ -8,5 +10,7 @@ interface MoleDebugPanelView {
     fun corruptedRefreshButtonEnable(enable: Boolean)
 
     fun removeButtonEnable(enable: Boolean)
+
+    fun removeRemoteButtonEnable(enable: Boolean)
 
 }

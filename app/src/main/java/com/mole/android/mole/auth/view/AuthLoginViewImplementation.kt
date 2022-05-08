@@ -8,13 +8,15 @@ import com.mole.android.mole.*
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
 import com.mole.android.mole.databinding.ViewAuthLoginBinding
+import com.mole.android.mole.navigation.Screens
 
 
 class AuthLoginViewImplementation :
     MoleBaseFragment<ViewAuthLoginBinding>(ViewAuthLoginBinding::inflate), AuthLoginView {
 
     private lateinit var login: String
-    override fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.nav_host_fragment)
+
+    private val router = component().routingModule.router
 
     companion object {
         private const val LOGIN_ID = "login_id"
@@ -39,6 +41,10 @@ class AuthLoginViewImplementation :
 
     override fun setUserLogin(login: String) {
         binding.authLogo.editText?.setText(resources.getString(R.string.login_prefix, login))
+    }
+
+    override fun openDebts() {
+        router.newRootScreen(Screens.Debts())
     }
 
     override fun getToolbar() = binding.moleAuthToolbar

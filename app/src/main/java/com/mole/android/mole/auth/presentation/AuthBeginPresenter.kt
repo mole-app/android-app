@@ -19,12 +19,13 @@ class AuthBeginPresenter(
                 Log.i("AuthBegin", code)
                 scope.launch {
                     model.getUserVk(code).withResult { successResult ->
-                        when(successResult) {
+                        when (successResult) {
                             is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
-                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(successResult.login)
+                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(
+                                successResult.login
+                            )
                         }
-                    } .withError {
-
+                    }.withError {
                     }
                 }
             }
@@ -35,15 +36,18 @@ class AuthBeginPresenter(
         withView { view ->
             val token = view.googleAccount.idToken
             Log.i("Auth", "Google")
-            scope.launch {
-                if (token != null) {
-                    model.getUserGoogle(token).withResult { successResult ->
-                        when(successResult) {
-                            is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
-                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(successResult.login)
+            withScope {
+                launch {
+                    if (token != null) {
+                        model.getUserGoogle(token).withResult { successResult ->
+                            when (successResult) {
+                                is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
+                                is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(
+                                    successResult.login
+                                )
+                            }
+                        }.withError {
                         }
-                    } .withError {
-
                     }
                 }
             }

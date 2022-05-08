@@ -1,5 +1,8 @@
 package com.mole.android.mole.web.service
 
+import java.net.HttpURLConnection.HTTP_FORBIDDEN
+import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
+
 class ApiResult<T> private constructor(
     private val result: T? = null,
     private val error: MoleError? = null
@@ -10,7 +13,11 @@ class ApiResult<T> private constructor(
     }
 
     fun withError(action: (MoleError) -> Unit): ApiResult<T> {
-        error?.let(action)
+        error?.let {
+            if (error.code != HTTP_UNAUTHORIZED && error.code != HTTP_FORBIDDEN) {
+                action(it)
+            }
+        }
         return this
     }
 

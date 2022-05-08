@@ -5,11 +5,11 @@ import com.mole.android.mole.debts.model.DebtsModelImplementation
 import com.mole.android.mole.debts.presentation.DebtsPresenter
 
 class DebtsModule(
-    baseScopeModule: BaseScopeModule,
+    routingModule: RoutingModule,
 ) {
     private val debtsModel: DebtsModel by lazy {
         DebtsModelImplementation()
     }
 
-    val debtsPresenter = DebtsPresenter(debtsModel, baseScopeModule.mainScope)
+    val debtsPresenter = DebtsPresenter(debtsModel, routingModule.router)
 }

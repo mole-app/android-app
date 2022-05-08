@@ -31,6 +31,7 @@
     <string name="debug_panel_button">Назад</string>
     <string name="debug_panel_corrupted_token_access">Повредить токен доступа</string>
     <string name="debug_panel_remove_account">Удалить аккаунт</string>
+    <string name="debug_panel_remove_remote_account">Удалить аккаунт на сервере</string>
     <string name="debug_panel_corrupted_token_refresh">Повредить рефреш токен</string>
     <string name="profile_icon_description">Profile icon</string>
     <string name="all_debts_profile_title">All debts</string>

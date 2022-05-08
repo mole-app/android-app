@@ -7,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 abstract class MoleBaseFragment<T : ViewBinding>
-    (private val inflation: (LayoutInflater, ViewGroup?, Boolean) -> T) : Fragment() {
+    (private val inflation: (LayoutInflater, ViewGroup?, Boolean) -> T) : Fragment(), MoleBaseView {
 
     private var _binding: T? = null
     protected val binding get() = _binding!!
@@ -24,6 +26,8 @@ abstract class MoleBaseFragment<T : ViewBinding>
     open fun getSoftMode(): Int = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
     open fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.fragment_container)
     open fun getToolbar(): MoleActionBar? = null
+
+    override val scope: LifecycleCoroutineScope by lazy { viewLifecycleOwner.lifecycleScope }
 
     @MenuRes
     open fun getMenuId(): Int = 0
@@ -36,9 +40,6 @@ abstract class MoleBaseFragment<T : ViewBinding>
             if (appCompatActivity is AppCompatActivity) {
                 appCompatActivity.setSupportActionBar(toolbar)
                 appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
-                if (getMenuId() != 0) {
-                    setHasOptionsMenu(true)
-                }
                 toolbar.setBackClickListener {
                     requireActivity().onBackPressed()
                 }
@@ -48,9 +49,12 @@ abstract class MoleBaseFragment<T : ViewBinding>
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-        inflater.inflate(getMenuId(), menu)
-        getToolbar()?.bindMenu()
+        if (isVisible) {
+            // Check isVisible because nested fragment don't call onPause when isVisible false
+            menu.clear()
+            inflater.inflate(getMenuId(), menu)
+            getToolbar()?.bindMenu()
+        }
     }
 
     override fun onCreateView(
@@ -96,11 +100,13 @@ abstract class MoleBaseFragment<T : ViewBinding>
 
     override fun onResume() {
         super.onResume()
+        setHasOptionsMenu(getMenuId() != 0)
         navigatorHolder.setNavigator(getNavigator())
     }
 
     override fun onPause() {
         navigatorHolder.removeNavigator()
+        setHasOptionsMenu(false)
         super.onPause()
     }
 

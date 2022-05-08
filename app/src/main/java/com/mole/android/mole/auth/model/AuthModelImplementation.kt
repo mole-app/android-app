@@ -2,16 +2,16 @@ package com.mole.android.mole.auth.model
 
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.component
+import com.mole.android.mole.di.FingerprintRepository
 import kotlinx.coroutines.*
 
-import com.mole.android.mole.di.FirebaseModule
 import com.mole.android.mole.web.service.ApiResult
 import retrofit2.HttpException
 
 
 class AuthModelImplementation(
     private val service: AuthService,
-    private val firebaseInst: FirebaseModule,
+    private val fingerprintRepository: FingerprintRepository,
     private val mainScope: CoroutineScope
 ) : AuthModel {
 
@@ -31,15 +31,14 @@ class AuthModelImplementation(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 val user = service.getVkAuth(code, getFingerprint())
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
+                    user.accessToken,
+                    user.refreshToken
+                )
                 if (user.login == null) {
                     ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessForExistedUser)
                 } else {
-                    val accountRepository = component().accountManagerModule.accountRepository
-                    val success = accountRepository.createAccount(
-                        user.login,
-                        user.accessToken,
-                        user.refreshToken
-                    )
                     ApiResult.create<AuthModel.SuccessAuthResult>(
                         AuthModel.SuccessAuthResult.SuccessNewUser(
                             user.login
@@ -58,15 +57,14 @@ class AuthModelImplementation(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 val user = service.getGoogleAuth(code, getFingerprint())
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
+                    user.accessToken,
+                    user.refreshToken
+                )
                 if (user.login == null) {
                     ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessForExistedUser)
                 } else {
-                    val accountRepository = component().accountManagerModule.accountRepository
-                    val success = accountRepository.createAccount(
-                        user.login,
-                        user.accessToken,
-                        user.refreshToken
-                    )
                     ApiResult.create<AuthModel.SuccessAuthResult>(
                         AuthModel.SuccessAuthResult.SuccessNewUser(
                             user.login
@@ -82,7 +80,7 @@ class AuthModelImplementation(
     }
 
     private suspend fun getFingerprint(): String {
-        return firebaseInst.fingerprint.toString()
+        return fingerprintRepository.fingerprint.toString()
     }
 
 }

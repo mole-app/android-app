@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 
 class ChatPresenter(
     private val model: ChatModel,
-    private val scope: CoroutineScope
 ) : MoleBasePresenter<ChatView>() {
     private var isDataLoading = false
     private var leftDataCount: Int = 0
@@ -39,19 +38,21 @@ class ChatPresenter(
 
     private fun dataLoading(view: ChatView) {
         isDataLoading = true
-        scope.launch {
-            model.loadNextData(leftDataCount).withResult { result ->
-                when (result) {
-                    is ChatModel.SuccessChatResult.SuccessLoadData -> {
-                        leftDataCount = result.chatData.size
-                        view.setData(result.chatData)
-                        view.hideLoading()
-                        isDataLoading = false
-                    }
-                    is ChatModel.SuccessChatResult.SuccessDataAlreadyLoaded -> {
-                        leftDataCount = 0
-                        view.hideLoading()
-                        isDataLoading = false
+        withScope {
+            launch {
+                model.loadNextData(leftDataCount).withResult { result ->
+                    when (result) {
+                        is ChatModel.SuccessChatResult.SuccessLoadData -> {
+                            leftDataCount = result.chatData.size
+                            view.setData(result.chatData)
+                            view.hideLoading()
+                            isDataLoading = false
+                        }
+                        is ChatModel.SuccessChatResult.SuccessDataAlreadyLoaded -> {
+                            leftDataCount = 0
+                            view.hideLoading()
+                            isDataLoading = false
+                        }
                     }
                 }
             }

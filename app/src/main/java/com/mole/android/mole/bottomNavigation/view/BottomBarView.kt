@@ -1,6 +1,8 @@
 package com.mole.android.mole.bottomNavigation.view
 
-interface BottomBarView {
+import com.mole.android.mole.MoleBaseView
+
+interface BottomBarView : MoleBaseView {
     fun openDebts()
 
     fun openProfile()
