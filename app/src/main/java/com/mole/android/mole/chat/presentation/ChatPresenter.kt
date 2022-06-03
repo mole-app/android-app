@@ -19,18 +19,18 @@ class ChatPresenter(
 
     }
 
-    fun loadData(lastItemVisiblePosition: Int, itemCount: Int) {
+    fun onChatPreScrolledToTop(){
         if (!isDataLoading) {
-            if (lastItemVisiblePosition + 1 + itemCountBeforeRequest >= itemCount) {
-                withView { view ->
-                    dataLoading(view)
-                }
+            withView { view ->
+                dataLoading(view)
             }
-        } else {
-            if (lastItemVisiblePosition + 1 == itemCount) {
-                withView { view ->
-                    view.showLoading()
-                }
+        }
+    }
+
+    fun onChatScrolledToTop() {
+        if (isDataLoading) {
+            withView { view ->
+                view.showLoading()
             }
         }
     }

@@ -34,6 +34,7 @@ class ChatViewImplementation :
 
     private val presenter = component().chatModule.chatPresenter
     private val chatAdapter = ChatAdapter()
+    private val itemCountBeforeListScrollToTop = 10
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
@@ -41,7 +42,12 @@ class ChatViewImplementation :
                 recyclerView.layoutManager as? LinearLayoutManager
             val totalItemCount = layoutManager?.itemCount ?: 0
             val lastVisibleItemPosition = layoutManager?.findLastVisibleItemPosition() ?: 0
-            presenter.loadData(lastVisibleItemPosition, totalItemCount)
+            if (lastVisibleItemPosition + 1 == totalItemCount) {
+                presenter.onChatScrolledToTop()
+            }
+            else if (lastVisibleItemPosition + 1 + itemCountBeforeListScrollToTop >= totalItemCount) {
+                presenter.onChatPreScrolledToTop()
+            }
         }
     }
 
