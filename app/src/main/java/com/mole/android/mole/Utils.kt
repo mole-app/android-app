@@ -7,23 +7,23 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun summaryToString(summary: Long): String {
-    val format = DecimalFormat( "###,###.##" )
+    val format = DecimalFormat("###,###.##")
     format.positivePrefix = "+ "
     format.negativePrefix = "- "
     return format.format(summary)
@@ -36,6 +36,18 @@ fun tagsToString(tags: List<String>): String {
         tagsText += ", #$tag"
     }
     return tagsText
+}
+
+fun dateToString(date: Date): String {
+    val formatter = SimpleDateFormat("dd.MM.yyyy", Locale.ROOT)
+    formatter.timeZone = TimeZone.getDefault()
+    return formatter.format(date)
+}
+
+fun timeToString(time : Date): String {
+    val formatter = SimpleDateFormat("HH:mm", Locale.ROOT)
+    formatter.timeZone = TimeZone.getDefault()
+    return formatter.format(time)
 }
 
 fun <T> throttleLatest(

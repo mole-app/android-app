@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.mole.android.mole.ui.MoleMessageViewWithInfo
+        android:id="@+id/message_start_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="120dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        app:check_marks="false"
+        app:postfix_with_info="@string/postfix_balance"
+        />
+</FrameLayout>

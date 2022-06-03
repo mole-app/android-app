@@ -11,11 +11,9 @@ class DebtsPresenter(
     private val router: Router,
 ): MoleBasePresenter<DebtsView>() {
 
-    fun getData(): List<DebtsData>{
+    fun getData(): List<DebtsData> {
         return model.getDebtsData()
     }
 
-    fun onLongChatClick(){}
-
-    fun onShortChatClick(){}
+    fun onLongChatClick() {}
 }
