@@ -7,6 +7,6 @@ interface ChatModel {
     suspend fun loadNextData(leftCountData: Int): ApiResult<SuccessChatResult>
     sealed class SuccessChatResult {
         object DataIsOver : SuccessChatResult()
-        class DataBurst(val chatData: List<ChatData>) : SuccessChatResult()
+        class DataBatch(val chatData: List<ChatData>) : SuccessChatResult()
     }
 }

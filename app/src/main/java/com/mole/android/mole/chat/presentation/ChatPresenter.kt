@@ -41,7 +41,7 @@ class ChatPresenter(
             launch {
                 model.loadNextData(leftDataCount).withResult { result ->
                     when (result) {
-                        is ChatModel.SuccessChatResult.DataBurst -> {
+                        is ChatModel.SuccessChatResult.DataBatch -> {
                             leftDataCount = result.chatData.size
                             view.setData(result.chatData)
                             view.hideLoading()
