@@ -1,9 +1,9 @@
-package com.mole.android.mole.chat.view
+package com.mole.android.mole
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class MoleBaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val data: MutableList<T> = mutableListOf()
 
     abstract fun getViewHolder(
@@ -22,7 +22,7 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as Binder<T>).bind(data[position])
+        (holder as MoleBinder<T>).bind(data[position])
     }
 
     override fun getItemCount() = data.size
