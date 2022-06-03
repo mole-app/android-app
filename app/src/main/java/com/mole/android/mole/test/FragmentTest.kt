@@ -20,7 +20,8 @@ import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.mole.android.mole.*
-import com.mole.android.mole.ui.BlurView
+import com.mole.android.mole.ui.blur.BlurView
+import com.mole.android.mole.ui.MoleMessageView
 import com.mole.android.mole.ui.MoleScrollView
 import com.mole.android.mole.ui.PopupView
 import com.mole.android.mole.ui.actionbar.MoleActionBar

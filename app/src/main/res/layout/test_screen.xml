@@ -21,19 +21,19 @@
             android:id="@+id/test_buttons"
             layout="@layout/test_buttons" />
 
-        <com.mole.android.mole.MoleMessageView
+        <com.mole.android.mole.ui.MoleMessageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:additional_info="false"
             app:postfix="@string/postfix_balance" />
 
-        <com.mole.android.mole.MoleMessageView
+        <com.mole.android.mole.ui.MoleMessageViewWithInfo
             android:id="@+id/test_mole_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:additional_info="true" />
+            app:check_marks="true"
+            app:postfix_with_info="@string/postfix_balance"/>
 
         <include
             android:id="@+id/test_colors"

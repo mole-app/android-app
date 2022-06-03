@@ -1,71 +1,86 @@
 package com.mole.android.mole.auth.model
 
-import android.util.Log
-import android.widget.Toast
-import com.google.firebase.installations.FirebaseInstallations
-import com.mole.android.mole.auth.data.AuthDataVkLogin
+import com.mole.android.mole.auth.data.AuthDataLogin
+import com.mole.android.mole.component
+import com.mole.android.mole.di.FingerprintRepository
 import kotlinx.coroutines.*
+
+import com.mole.android.mole.web.service.ApiResult
+import retrofit2.HttpException
+
 
 class AuthModelImplementation(
     private val service: AuthService,
-    private val firebaseInst: FirebaseInstallations,
+    private val fingerprintRepository: FingerprintRepository,
     private val mainScope: CoroutineScope
 ) : AuthModel {
 
-    private val data: AuthDataVkLogin =
-        AuthDataVkLogin(
-            "accessToken",
-            "refreshToken",
-            "expiresIn",
-            "vasiapupkin"
+    private val data: AuthDataLogin =
+        AuthDataLogin(
+            "",
+            "",
+            "",
+            ""
         )
 
     override suspend fun addUser(login: String): Boolean {
         return login != "first"
     }
 
-    override suspend fun getUserVk(code: String): String {
-        val task = mainScope.async {
-            val login: String
-            withContext(Dispatchers.IO) {
-                login = try {
-                    service.getVkAuth(code, getFingerprint()).login
-                } catch (exception: Exception) {
-                    // Не хочется падать если что-то не так на сервере
-                    exception.printStackTrace()
-                    ""
+    override suspend fun getUserVk(code: String): ApiResult<AuthModel.SuccessAuthResult> {
+        val task = mainScope.async(Dispatchers.IO) {
+            try {
+                val user = service.getVkAuth(code, getFingerprint())
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
+                    user.accessToken,
+                    user.refreshToken
+                )
+                if (user.login == null) {
+                    ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessForExistedUser)
+                } else {
+                    ApiResult.create<AuthModel.SuccessAuthResult>(
+                        AuthModel.SuccessAuthResult.SuccessNewUser(
+                            user.login
+                        )
+                    )
                 }
-                login
+            } catch (exception: HttpException) {
+                // Не хочется падать если что-то не так на сервере
+                ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
-        val login: String = task.await()
-        Log.i("Auth", "User vk login: $login")
-//        return login
-        return "VovchikPut"
+        return task.await()
     }
 
-    override suspend fun getUserGoogle(code: String): String {
-        val task = mainScope.async {
-            val login: String
-            withContext(Dispatchers.IO) {
-                login = try {
-                    service.getGoogleAuth(code, getFingerprint()).login
-                } catch (exception: Exception) {
-                    // Не хочется падать если что-то не так на сервере
-                    exception.printStackTrace()
-                    ""
+    override suspend fun getUserGoogle(code: String): ApiResult<AuthModel.SuccessAuthResult> {
+        val task = mainScope.async(Dispatchers.IO) {
+            try {
+                val user = service.getGoogleAuth(code, getFingerprint())
+                val accountRepository = component().accountManagerModule.accountRepository
+                val success = accountRepository.createAccount(
+                    user.accessToken,
+                    user.refreshToken
+                )
+                if (user.login == null) {
+                    ApiResult.create<AuthModel.SuccessAuthResult>(AuthModel.SuccessAuthResult.SuccessForExistedUser)
+                } else {
+                    ApiResult.create<AuthModel.SuccessAuthResult>(
+                        AuthModel.SuccessAuthResult.SuccessNewUser(
+                            user.login
+                        )
+                    )
                 }
-                login
+            } catch (exception: HttpException) {
+                // Не хочется падать если что-то не так на сервере
+                ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
-        val login: String = task.await()
-        Log.i("Auth", "User google login: $login")
-        return login
+        return task.await()
     }
 
     private suspend fun getFingerprint(): String {
-        firebaseInst.id
-        return "333333333333"
+        return fingerprintRepository.fingerprint.toString()
     }
 
 }

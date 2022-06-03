@@ -1,7 +1,7 @@
 package com.mole.android.mole.di
 
 import android.content.Context
-import com.mole.android.mole.auth.data.AuthDataVkLogin
+import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.model.AuthService
@@ -13,20 +13,15 @@ import com.mole.android.mole.auth.view.AuthLoginResourcesImplementation
 class AuthModule(
     private val context: Context,
     private val retrofitModule: RetrofitModule,
-    private val routingModule: RoutingModule,
     private val baseScopeModule: BaseScopeModule,
-    private val firebaseModule: FirebaseModule
-) : Module() {
+    private val fingerprintRepository: FingerprintRepository,
+) {
 
     val beginPresenter
-        get() = AuthBeginPresenter(
-            authModel,
-            routingModule.router,
-            baseScopeModule.mainScope
-        )
+        get() = AuthBeginPresenter(authModel, baseScopeModule.mainScope)
 
-    val loginPresenter: (AuthDataVkLogin) -> AuthLoginPresenter = {
-        AuthLoginPresenter(authModel, loginResources, it, baseScopeModule.mainScope)
+    val loginPresenter: (AuthDataLogin) -> AuthLoginPresenter = {
+        AuthLoginPresenter(authModel, loginResources, it)
     }
 
     private val loginResources: AuthLoginResources by lazy {
@@ -36,7 +31,7 @@ class AuthModule(
     private val authModel: AuthModel by lazy {
         AuthModelImplementation(
             authService,
-            firebaseModule.instInstallation,
+            fingerprintRepository,
             baseScopeModule.mainScope
         )
     }

@@ -1,50 +1,55 @@
 package com.mole.android.mole.auth.presentation
 
 import android.util.Log
-import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.auth.view.AuthBeginView
-import com.mole.android.mole.navigation.Screens
-import kotlinx.coroutines.launch
 import com.mole.android.mole.auth.model.AuthModel
+import com.mole.android.mole.auth.view.AuthBeginView
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class AuthBeginPresenter(
     private val model: AuthModel,
-    private val router: Router,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
 ) :
     MoleBasePresenter<AuthBeginView>() {
 
-    companion object {
-        private const val VK_URL = "https://oauth.vk.com/authorize?" +
-                "client_id=7843036" +
-                "&display=mobile" +
-                "&redirect_uri=https://mole-app.ru/android/auth" +
-                "&scope=friends" +
-                "&response_type=code" +
-                "&v=5.131"
-    }
-
     fun onVkClick() {
-        router.setResultListener("code") { data ->
-            val code = data as String
-            Log.i("AuthBegin", code)
-            scope.launch {
-                val login = model.getUserVk(code)
-                router.replaceScreen(Screens.AuthLogin(login))
+        withView { view ->
+            view.openBrowser { code ->
+                Log.i("AuthBegin", code)
+                scope.launch {
+                    model.getUserVk(code).withResult { successResult ->
+                        when (successResult) {
+                            is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
+                            is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(
+                                successResult.login
+                            )
+                        }
+                    }.withError {
+                    }
+                }
             }
         }
-        router.navigateTo(Screens.AuthBrowser(VK_URL))
     }
 
     fun onGoogleClick() {
-        val token = view?.googleAccount?.idToken
-        Log.i("Auth", "Google")
-        scope.launch {
-            if (token != null) {
-                val login = model.getUserGoogle(token)
-                router.replaceScreen(Screens.AuthLogin(login))
+        withView { view ->
+            val token = view.googleAccount.idToken
+            Log.i("Auth", "Google")
+            withScope {
+                launch {
+                    if (token != null) {
+                        model.getUserGoogle(token).withResult { successResult ->
+                            when (successResult) {
+                                is AuthModel.SuccessAuthResult.SuccessForExistedUser -> view.openDebts()
+                                is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(
+                                    successResult.login
+                                )
+                            }
+                        }.withError {
+                        }
+                    }
+                }
             }
         }
     }

@@ -3,4 +3,9 @@
     <dimen name="design_fab_image_size" tools:override="true">56dp</dimen>
     <dimen name="mole_message_margin_selected">4dp</dimen>
     <dimen name="menu_item_icon_size">56dp</dimen>
+    <dimen name="debt_main_screen_title_margin">16dp</dimen>
+    <dimen name="debt_main_screen_chat_margin">8dp</dimen>
+    <dimen name="debt_main_screen_chat_margin_boundaries">16dp</dimen>
+    <dimen name="profile_icon_size">160dp</dimen>
+    <dimen name="profile_icon_size_top_margin">16dp</dimen>
 </resources>

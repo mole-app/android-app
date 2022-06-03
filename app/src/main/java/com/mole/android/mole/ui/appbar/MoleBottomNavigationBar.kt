@@ -3,6 +3,7 @@ package com.mole.android.mole.ui.appbar
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import androidx.annotation.IdRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -17,11 +18,15 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
         inflate(context, R.layout.view_bottom_app_bar, this)
     }
 
-    private val fab: MaterialButton = findViewById(R.id.background_fab_view)
+    val fab: MaterialButton = findViewById(R.id.background_fab_view)
     private val navigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
     init {
         init(context, attrs)
+    }
+
+    fun setSelectedItem(@IdRes itemId: Int) {
+        navigationView.selectedItemId = itemId
     }
 
     fun setOnFabClickListener(listener: OnClickListener) {

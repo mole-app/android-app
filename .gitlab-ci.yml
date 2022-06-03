@@ -3,6 +3,7 @@ image: jangrewe/gitlab-ci-android
 before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
 - chmod +x ./gradlew
+- echo ${FIREBASE_CONFIGURATION} > app/google-services.json
 
 cache:
   key: ${CI_PROJECT_ID}
@@ -27,11 +28,10 @@ assembleDebug:
     refs:
     - master
   script:
-    - ./gradlew assembleDebug
+    - ./gradlew -i assembleDebug
   artifacts:
     paths:
-    - app/build/outputs/apk/debug/app-debug.apk
-
+      - app/build/outputs/apk/debug/app-debug.apk
 
 lintDebugManual:
   stage: build
@@ -47,7 +47,7 @@ assembleDebugManual:
   except:
     - master
   script:
-    - ./gradlew assembleDebug
+    - ./gradlew -i assembleDebug
   artifacts:
     paths:
     - app/build/outputs/apk/debug/app-debug.apk

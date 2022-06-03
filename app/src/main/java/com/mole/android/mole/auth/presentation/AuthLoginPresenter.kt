@@ -2,7 +2,7 @@ package com.mole.android.mole.auth.presentation
 
 import android.util.Log
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.auth.data.AuthDataVkLogin
+import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.view.AuthLoginResources
 import com.mole.android.mole.auth.view.AuthLoginView
@@ -11,30 +11,32 @@ import kotlinx.coroutines.*
 class AuthLoginPresenter(
     private val model: AuthModel,
     private val authLoginResources: AuthLoginResources,
-    private val client: AuthDataVkLogin,
-    private val scope: CoroutineScope
+    private val client: AuthDataLogin
 ) :
     MoleBasePresenter<AuthLoginView>() {
 
     private var login: String = ""
 
     override fun attachView(view: AuthLoginView) {
-        this.view = view
+        super.attachView(view)
         val login = client.login
-        if (login != "") {
-            val prefix = authLoginResources.loginPrefix
-            view.setUserLogin(prefix + login)
+        if (login != null && login != "") {
+            view.setUserLogin(login)
         }
     }
 
     fun onFabClick() {
-        scope.launch {
-            Log.i("AuthPresenter", "Fab login = $login")
-            if (model.addUser(login)) {
-                view?.hideError()
-
-            } else {
-                view?.showLoginExistError()
+        withView { view ->
+            withScope {
+                launch {
+                    Log.i("AuthPresenter", "Fab login = $login")
+                    if (model.addUser(login)) {
+                        view.hideError()
+                        view.openDebts()
+                    } else {
+                        view.showLoginExistError()
+                    }
+                }
             }
         }
     }
@@ -42,7 +44,9 @@ class AuthLoginPresenter(
     fun onTextChanged(charSequence: CharSequence) {
         login = charSequence.toString()
         Log.i("AuthPresenter", "EditText login = $login")
-        view?.hideError()
+        withView { view ->
+            view.hideError()
+        }
     }
 
 }
