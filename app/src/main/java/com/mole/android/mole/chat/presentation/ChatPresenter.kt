@@ -3,7 +3,6 @@ package com.mole.android.mole.chat.presentation
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.chat.model.ChatModel
 import com.mole.android.mole.chat.view.ChatView
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class ChatPresenter(
@@ -42,13 +41,13 @@ class ChatPresenter(
             launch {
                 model.loadNextData(leftDataCount).withResult { result ->
                     when (result) {
-                        is ChatModel.SuccessChatResult.SuccessLoadData -> {
+                        is ChatModel.SuccessChatResult.DataBurst -> {
                             leftDataCount = result.chatData.size
                             view.setData(result.chatData)
                             view.hideLoading()
                             isDataLoading = false
                         }
-                        is ChatModel.SuccessChatResult.SuccessDataAlreadyLoaded -> {
+                        is ChatModel.SuccessChatResult.DataIsOver -> {
                             leftDataCount = 0
                             view.hideLoading()
                             isDataLoading = false

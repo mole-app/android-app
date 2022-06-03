@@ -17,7 +17,7 @@ class ChatModelImplementation(
             try {
                 sleep(1000)
                 ApiResult.create<ChatModel.SuccessChatResult>(
-                    ChatModel.SuccessChatResult.SuccessLoadData(
+                    ChatModel.SuccessChatResult.DataBurst(
                         testChatData
                     )
                 )

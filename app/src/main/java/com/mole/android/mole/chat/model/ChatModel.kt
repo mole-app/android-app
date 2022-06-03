@@ -6,7 +6,7 @@ import com.mole.android.mole.web.service.ApiResult
 interface ChatModel {
     suspend fun loadNextData(leftCountData: Int): ApiResult<SuccessChatResult>
     sealed class SuccessChatResult {
-        object SuccessDataAlreadyLoaded : SuccessChatResult()
-        class SuccessLoadData(val chatData: List<ChatData>) : SuccessChatResult()
+        object DataIsOver : SuccessChatResult()
+        class DataBurst(val chatData: List<ChatData>) : SuccessChatResult()
     }
 }
