@@ -1,30 +1,42 @@
 package com.mole.android.mole.create.presentation
 
 import com.mole.android.mole.MoleBasePresenter
+import com.mole.android.mole.create.data.FindUserModel
+import com.mole.android.mole.create.data.SuccessPreviewsResult
 import com.mole.android.mole.create.view.name.ChooseNameView
-import com.mole.android.mole.create.view.name.usersTestData
+import com.mole.android.mole.create.model.UserPreview
+import com.mole.android.mole.web.service.ApiResult
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 
-class ChooseNamePresenter : MoleBasePresenter<ChooseNameView>() {
+class ChooseNamePresenter(
+    private val findUserModel: FindUserModel
+) : MoleBasePresenter<ChooseNameView>() {
 
-    private var data = usersTestData.map {
-        ChooseNameView.UserPreviewUi(it, "")
-    }
-    private var filtered = data
+    private var disposable: Deferred<ApiResult<SuccessPreviewsResult>>? = null
 
     override fun attachView(view: ChooseNameView) {
         super.attachView(view)
-        filtered = data.toMutableList()
-        view.show(data)
+        view.showProgress()
+        loadData()
     }
 
     fun onInputChange(text: String) {
-        filtered = data.filter {
-                    it.userPreview.name.contains(text, true) ||
-                            it.userPreview.login.contains(text, true)
-                }
-                    .map { ChooseNameView.UserPreviewUi(it.userPreview, text) }
-                    .toMutableList()
-        view?.show(filtered)
+        loadData(text)
     }
+
+    private fun loadData(filter: String = "") {
+        disposable?.cancel()
+        withScope {
+            disposable = async {
+                findUserModel.profilePreviews(filter)
+                    .withResult { result -> view?.show(result.mapToUi(filter)) }
+                    .withError { view?.showError() }
+            }
+        }
+    }
+
+    private fun Iterable<UserPreview>.mapToUi(filter: String)
+        = map { ChooseNameView.UserPreviewUi(it, filter) }
 
 }

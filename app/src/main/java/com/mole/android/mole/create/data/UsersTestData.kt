@@ -1,4 +1,4 @@
-package com.mole.android.mole.create.view.name
+package com.mole.android.mole.create.data
 
 import com.mole.android.mole.create.model.UserPreview
 import com.mole.android.mole.profile.data.ProfilePhoto

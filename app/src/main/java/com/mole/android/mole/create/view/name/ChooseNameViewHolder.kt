@@ -26,9 +26,10 @@ class ChooseNameViewHolder(
     BaseStepsHolder(parent, R.layout.holder_choose_name), ChooseNameView {
 
     private var contract: DiffFindItemsViewContract<ChooseNameView.UserPreviewUi>? = null
+    private val itemsContainer = itemView as? ChooseTextItemView
 
     init {
-        (itemView as? ChooseTextItemView)?.let(this::bindItemView)
+        itemsContainer?.let(this::bindItemView)
     }
 
     override fun bind() {
@@ -36,11 +37,20 @@ class ChooseNameViewHolder(
     }
 
     override fun requestFocus() {
-        (itemView as? ChooseTextItemView)?.focus()
+        itemsContainer?.focus()
     }
 
     override fun show(data: List<ChooseNameView.UserPreviewUi>) {
+        itemsContainer?.hideProgress()
         contract?.updateData(data)
+    }
+
+    override fun showProgress() {
+        itemsContainer?.showProgress()
+    }
+
+    override fun showError() {
+        // Show error
     }
 
     private fun bindItemView(view: ChooseTextItemView) {
