@@ -19,9 +19,10 @@ class ChooseTagHolder(
     ) : BaseStepsHolder(parent, R.layout.holder_choose_tag), ChooseTagView {
 
     private var contract: DiffFindItemsViewContract<TagPreviewUi>? = null
+    private val containerView = (itemView as? ChooseTextItemView)
 
     init {
-        (itemView as? ChooseTextItemView)?.let(this::bindView)
+        containerView?.let(this::bindView)
     }
 
     override fun bind() {
@@ -29,11 +30,20 @@ class ChooseTagHolder(
     }
 
     override fun show(data: List<TagPreviewUi>) {
+        containerView?.hideProgress()
         contract?.updateData(data)
     }
 
+    override fun showProgress() {
+        containerView?.showProgress()
+    }
+
+    override fun showError() {
+        // Show error
+    }
+
     override fun requestFocus() {
-        (itemView as? ChooseTextItemView)?.focus()
+        containerView?.focus()
     }
 
     private fun bindView(chooseItemView: ChooseTextItemView) {

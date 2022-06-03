@@ -1,4 +1,4 @@
-package com.mole.android.mole.create.view.tag
+package com.mole.android.mole.create.data
 
 import com.mole.android.mole.create.model.TagPreview
 

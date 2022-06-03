@@ -1,34 +1,62 @@
 package com.mole.android.mole.create.presentation
 
 import com.mole.android.mole.MoleBasePresenter
+import com.mole.android.mole.create.data.ProvideTagsModel
+import com.mole.android.mole.create.data.SuccessTagsResult
 import com.mole.android.mole.create.model.TagPreview
 import com.mole.android.mole.create.view.tag.ChooseTagView
-import com.mole.android.mole.create.view.tag.tagsTestData
+import kotlinx.coroutines.launch
 
-class ChooseTagPresenter : MoleBasePresenter<ChooseTagView>() {
+class ChooseTagPresenter(private val model: ProvideTagsModel) : MoleBasePresenter<ChooseTagView>() {
 
-    private val data: List<ChooseTagView.TagPreviewUi> = tagsTestData.map {
-        it.toUi()
-    }
-
-    private var filtered = data.toMutableList()
+    private var data: List<ChooseTagView.TagPreviewUi>? = null
+    private var lastInput: String? = null
 
     override fun attachView(view: ChooseTagView) {
         super.attachView(view)
-        filtered = data.toMutableList()
-        view.show(filtered)
+        view.showProgress()
+        loadData()
     }
 
     fun onInputChange(text: String) {
-        filtered = data.filter {
-            it.preview.name.contains(text, true)
+        val models = data
+        lastInput = text
+        if (models != null) {
+            view?.show(models.applyFilter(text))
+        }
+    }
+
+    private fun loadData() {
+        withScope {
+            launch {
+                model.provideTags()
+                    .withResult { result -> handleResult(result) }
+                    .withError { view?.showError() }
+            }
+        }
+    }
+
+    private fun handleResult(result: SuccessTagsResult) {
+        val uiModels = result.toUi()
+        val input = lastInput
+        data = uiModels
+        view?.show(uiModels.applyFilter(input ?: ""))
+    }
+
+    private fun Iterable<ChooseTagView.TagPreviewUi>.applyFilter(filter: String): List<ChooseTagView.TagPreviewUi> {
+        val filtered = filter {
+            it.preview.name.contains(filter, true)
         }.toMutableList()
 
-        val item = data.find { it.preview.name == text }
+        val item = find { it.preview.name == filter }
         if (item == null) {
-            filtered.add(0, TagPreview(text, 0).toUi(true))
+            filtered.add(0, TagPreview(filter, 0).toUi(true))
         }
-        view?.show(filtered)
+        return filtered
+    }
+
+    private fun SuccessTagsResult.toUi(): List<ChooseTagView.TagPreviewUi> {
+        return map { it.toUi() }
     }
 
     private fun TagPreview.toUi(isNew: Boolean = false): ChooseTagView.TagPreviewUi {
