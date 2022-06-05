@@ -44,6 +44,8 @@
     <string name="choose_tag_title">Тег</string>
     <string name="rubles_suffix">.р</string>
     <string name="amount_title">Сумма</string>
+    <string name="loading_error">Ошибка загрузки</string>
+    <string name="reload">Повторить</string>
     <plurals name="tag_count">
         <item quantity="zero">Нет должников</item>
         <item quantity="one">%1$d должник</item>

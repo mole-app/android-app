@@ -15,11 +15,14 @@ class ChooseNamePresenter(
 
     private var disposable: Deferred<ApiResult<SuccessPreviewsResult>>? = null
     private var lastData: List<ChooseNameView.UserPreviewUi>? = null
+    private var isInErrorState = false
+    private var lastFilter: String = ""
 
     override fun attachView(view: ChooseNameView) {
         super.attachView(view)
-        view.showProgress()
-        loadData()
+        loadData {
+            view.showKeyboard()
+        }
     }
 
     fun onInputChange(text: String) {
@@ -27,13 +30,23 @@ class ChooseNamePresenter(
         loadData(text)
     }
 
-    private fun loadData(filter: String = "") {
+    fun onRetryClicked() {
+        loadData(lastFilter) {
+            view?.showKeyboard()
+        }
+    }
+
+    private fun loadData(filter: String = "", onSuccess: () -> Unit = {}) {
+        lastFilter = filter
+        view?.showProgress()
         disposable?.cancel()
         withScope {
             disposable = async {
                 findUserModel.profilePreviews(filter)
                     .withResult { result -> handleResult(filter, result) }
+                    .withResult { onSuccess() }
                     .withError { view?.showError() }
+                    .withError { isInErrorState = true }
             }
         }
     }

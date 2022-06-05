@@ -18,7 +18,7 @@ class StepsAdapter(
     private val chooseTagPresenter: ChooseTagPresenter,
     private val chooseAmountPresenter: ChooseAmountPresenter,
     private val nextClickedListener: (Int) -> Unit,
-    ) : RecyclerView.Adapter<BaseStepsHolder>() {
+) : RecyclerView.Adapter<BaseStepsHolder>() {
 
     private var focusable: Focusable? = null
 

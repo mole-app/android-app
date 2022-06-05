@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,11 +26,13 @@ class ChooseTextItemView @JvmOverloads constructor(
     private val list: RecyclerView
     private val textContainer: ViewGroup
     private val listContainer: ViewGroup
+    private val errorContainer: ViewGroup
     private val text: TextInputLayout
     private val clickableArea: View
     private val nextButton: View
     private val progress: View
     private val title: TextView
+    private val retryButton: Button
 
     private var mode = false
 
@@ -45,6 +48,8 @@ class ChooseTextItemView @JvmOverloads constructor(
         nextButton = findViewById(R.id.next_button)
         progress = findViewById(R.id.progress)
         title = findViewById(R.id.title)
+        errorContainer = findViewById(R.id.error_container)
+        retryButton = findViewById(R.id.retry_button)
         bind()
     }
 
@@ -54,13 +59,31 @@ class ChooseTextItemView @JvmOverloads constructor(
     }
 
     fun showProgress() {
-        list.visibility = View.INVISIBLE
-        progress.visibility = View.VISIBLE
+        list.setVisibility(false)
+        progress.setVisibility(true)
+        errorContainer.setVisibility(false)
     }
 
     fun hideProgress() {
-        list.visibility = View.VISIBLE
-        progress.visibility = View.INVISIBLE
+        list.setVisibility(true)
+        progress.setVisibility(false)
+        errorContainer.setVisibility(false)
+    }
+
+    fun showError() {
+        list.setVisibility(false)
+        progress.setVisibility(false)
+        errorContainer.setVisibility(true)
+    }
+
+    fun hideError() {
+        list.setVisibility(true)
+        progress.setVisibility(false)
+        errorContainer.setVisibility(false)
+    }
+
+    fun setOnRetryClickListener(listener: () -> Unit) {
+        retryButton.setOnClickListener { listener() }
     }
 
     fun focus() {
@@ -161,6 +184,11 @@ class ChooseTextItemView @JvmOverloads constructor(
         )
         constraintSet.clear(nextButton.id, ConstraintSet.TOP)
         constraintSet.applyTo(this)
+    }
+
+    private fun View.setVisibility(isVisible: Boolean) {
+        val viewVisibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+        if (viewVisibility != visibility) visibility = viewVisibility
     }
 
     private fun showKeyboard() {

@@ -30,6 +30,7 @@ class ChooseNameViewHolder(
 
     init {
         itemsContainer?.let(this::bindItemView)
+        itemsContainer?.setOnRetryClickListener { presenter.onRetryClicked() }
     }
 
     override fun bind() {
@@ -37,6 +38,10 @@ class ChooseNameViewHolder(
     }
 
     override fun requestFocus() {
+        // NOTHING TO FOCUS
+    }
+
+    override fun showKeyboard() {
         itemsContainer?.focus()
     }
 
@@ -50,7 +55,7 @@ class ChooseNameViewHolder(
     }
 
     override fun showError() {
-        // Show error
+        itemsContainer?.showError()
     }
 
     private fun bindItemView(view: ChooseTextItemView) {

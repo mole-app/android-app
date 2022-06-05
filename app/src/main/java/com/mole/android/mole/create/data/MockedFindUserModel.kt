@@ -11,6 +11,7 @@ class MockedFindUserModel(private val scope: CoroutineScope) : FindUserModel {
         val delay = Random.nextLong(300, 1000)
         val task = scope.async {
             delay(delay)
+            if (filter == "error") return@async ApiResult.create(ApiResult.MoleError(0, "Error"))
             val data = usersTestData
             val filtered = data.filter {
                 it.name.contains(filter, true) ||
