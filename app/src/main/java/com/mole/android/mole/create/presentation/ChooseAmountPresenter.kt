@@ -4,6 +4,7 @@ import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.create.data.CreateDebtModel
 import com.mole.android.mole.create.data.CreateDebtsDataRepository
 import com.mole.android.mole.create.view.amount.ChooseAmountView
+import kotlinx.coroutines.launch
 
 class ChooseAmountPresenter(
     private val createDebtModel: CreateDebtModel,
@@ -11,11 +12,17 @@ class ChooseAmountPresenter(
 ) : MoleBasePresenter<ChooseAmountView>()  {
 
     fun confirm(amount: Int) {
-//        createDebtModel.createDebt(
-//            userId = dataRepository.userId(),
-//            side = dataRepository.side(),
-//            tag = dataRepository.tag(),
-//            amount = amount
-//        )
+        withScope {
+            launch {
+                createDebtModel.createDebt(
+                    userId = dataRepository.userId(),
+                    side = dataRepository.side(),
+                    tag = dataRepository.tag(),
+                    amount = amount
+                )
+                    .withResult { view?.closeScreen(it.id) }
+                    .withError { view?.showError() }
+            }
+        }
     }
 }

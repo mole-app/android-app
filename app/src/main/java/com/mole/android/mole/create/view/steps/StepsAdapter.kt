@@ -18,6 +18,7 @@ class StepsAdapter(
     private val chooseTagPresenter: ChooseTagPresenter,
     private val chooseAmountPresenter: ChooseAmountPresenter,
     private val nextClickedListener: (Int, StepResult) -> Unit,
+    private val onConfirmCreatingListener: (Int) -> Unit
 ) : RecyclerView.Adapter<BaseStepsHolder>() {
 
     sealed class StepResult {
@@ -37,7 +38,7 @@ class StepsAdapter(
                 nextClickedListener(1, StepResult.TagResult(tag))
                 holders.find { it is ChooseAmountViewHolder }?.requestFocus()
             }
-            Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent, scope, chooseAmountPresenter)
+            Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent, scope, chooseAmountPresenter, onConfirmCreatingListener)
             else -> throw IllegalStateException("Illegal view type")
         }.apply {
             holders.add(this)

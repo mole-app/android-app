@@ -12,6 +12,7 @@ import com.mole.android.mole.component
 import com.mole.android.mole.create.view.chooseside.ChooseSideScreen
 import com.mole.android.mole.create.view.steps.CreateStepsScreen
 import com.mole.android.mole.databinding.FragmentCreateDebtBinding
+import com.mole.android.mole.setResultListenerGeneric
 
 class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCreateDebtBinding::inflate) {
 
@@ -35,6 +36,10 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
         withChildNavigation {
             val id = arguments?.getInt(EXTRA_ID, -1)
             router.newChain(Screens.ChooseSide(id ?: -1))
+        }
+        router.setResultListenerGeneric<Int>(CreateStepsScreen.CREATE_STEPS_EXTRA_ID_RESULT_KEY) {
+            router.sendResult(CREATED_DEBT_ID_KEY, id)
+            router.exit()
         }
     }
 
@@ -60,6 +65,7 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
             }
         }
         private const val EXTRA_ID = "create_debt_screen_extra_id"
+        const val CREATED_DEBT_ID_KEY = "created_debt_id_key"
     }
 
 }

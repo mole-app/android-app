@@ -2,19 +2,17 @@ package com.mole.android.mole.bottomNavigation.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.google.android.material.snackbar.Snackbar
-import com.mole.android.mole.MoleBaseFragment
-import com.mole.android.mole.R
+import com.mole.android.mole.*
 import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
-import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.debts.view.DebtsViewImplementation
 import com.mole.android.mole.profile.view.ProfileViewImpl
-import com.mole.android.mole.resolveColor
 
 class BottomBarViewImpl private constructor() :
     MoleBaseFragment<FragmentWithBotnavBinding>(FragmentWithBotnavBinding::inflate), BottomBarView {
@@ -62,6 +60,9 @@ class BottomBarViewImpl private constructor() :
         binding.moleBottomNavigationBar.setOnFabClickListener {
             navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
             router.navigateTo(Screens.CreateDebt())
+            router.setResultListenerGeneric<Int>(CreateDebtScreen.CREATED_DEBT_ID_KEY) {
+                Toast.makeText(context, "Debt created with id $it", Toast.LENGTH_SHORT).show()
+            }
         }
         presenter.attachView(this)
     }

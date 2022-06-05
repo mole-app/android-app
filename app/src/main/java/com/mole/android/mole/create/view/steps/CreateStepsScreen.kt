@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.component
 import com.mole.android.mole.create.data.CreateDebtsDataRepository
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentCreateStepsBinding
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -33,6 +34,8 @@ class CreateStepsScreen :
             override fun side() = side
         }
     )
+
+    private val router = component().routingModule.router
 
     override fun getSoftMode(): Int {
         return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -58,14 +61,19 @@ class CreateStepsScreen :
             scope,
             chooseNamePresenter,
             chooseTagPresenter,
-            chooseAmountPresenter
-        ) { ix, result ->
-            when(result) {
-                is StepsAdapter.StepResult.TagResult -> debtTag = result.tag
-                is StepsAdapter.StepResult.UserResult -> userId = result.id
+            chooseAmountPresenter,
+            { ix, result ->
+                when(result) {
+                    is StepsAdapter.StepResult.TagResult -> debtTag = result.tag
+                    is StepsAdapter.StepResult.UserResult -> userId = result.id
+                }
+                binding.viewPager.setCurrentItem(ix + 1, true)
+            },
+            {
+                router.exit()
+                router.sendResult(CREATE_STEPS_EXTRA_ID_RESULT_KEY, it)
             }
-            binding.viewPager.setCurrentItem(ix + 1, true)
-        }
+        )
         binding.viewPager.adapter = adapter
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.offscreenPageLimit = 1
@@ -103,5 +111,7 @@ class CreateStepsScreen :
 
         private const val EXTRA_SIDE = "create_steps_screen_extra_side"
         private const val EXTRA_ID = "create_steps_screen_extra_id"
+
+        const val CREATE_STEPS_EXTRA_ID_RESULT_KEY = "create_steps_extra_id_result_key"
     }
 }

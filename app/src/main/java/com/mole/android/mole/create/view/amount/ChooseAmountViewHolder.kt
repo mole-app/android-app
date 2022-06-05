@@ -22,7 +22,8 @@ import com.mole.android.mole.setHighLightedText
 class ChooseAmountViewHolder(
     parent: ViewGroup,
     override val scope: LifecycleCoroutineScope,
-    private val presenter: ChooseAmountPresenter
+    private val presenter: ChooseAmountPresenter,
+    private val onConfirmCreatingListener: (Int) -> Unit
 ) : BaseStepsHolder(parent, R.layout.holder_choose_amount), ChooseAmountView {
 
     private val amountText = itemView.findViewById<TextView>(R.id.amount_text)
@@ -45,6 +46,10 @@ class ChooseAmountViewHolder(
 
     override fun bind() {
         presenter.attachView(this)
+    }
+
+    override fun closeScreen(resultId: Int) {
+        onConfirmCreatingListener(resultId)
     }
 
     private fun provideTextToField(text: Editable?) {

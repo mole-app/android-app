@@ -11,12 +11,12 @@ class MockedProvideTagsModel(private val scope: CoroutineScope) : ProvideTagsMod
         val delay = Random.nextLong(300, 1000)
         val task = scope.async {
             delay(delay)
-        val random = Random.nextBoolean()
-            if (random) {
+//        val random = Random.nextBoolean()
+//            if (random) {
                 ApiResult.create(tagsTestData)
-            } else {
-                ApiResult.create(ApiResult.MoleError(0, "Error"))
-            }
+//            } else {
+//                ApiResult.create(ApiResult.MoleError(0, "Error"))
+//            }
         }
         return task.await()
     }

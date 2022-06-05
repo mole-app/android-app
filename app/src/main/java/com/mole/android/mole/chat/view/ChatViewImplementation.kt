@@ -16,6 +16,7 @@ import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
 import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.setResultListenerGeneric
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class ChatViewImplementation :
@@ -86,6 +87,9 @@ class ChatViewImplementation :
     private fun initChatFabView() {
         binding.chatFabView.setOnClickListener {
             router.navigateTo(FragmentScreen { CreateDebtScreen.instance(1) })
+            router.setResultListenerGeneric<Int>(CreateDebtScreen.CREATED_DEBT_ID_KEY) {
+                Toast.makeText(context, "Debt created with id $it", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
