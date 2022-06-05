@@ -45,8 +45,16 @@ class CreateStepsScreen :
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val id = arguments?.getInt(EXTRA_ID, -1) ?: -1
+        if (id >= 0) {
+            userId = id
+        }
         val adapter = StepsAdapter(
-            listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount),
+            if (id < 0) {
+                listOf(Steps.ChooseName, Steps.ChooseTag, Steps.ChooseAmount)
+            } else {
+                listOf(Steps.ChooseTag, Steps.ChooseAmount)
+            },
             scope,
             chooseNamePresenter,
             chooseTagPresenter,
@@ -81,5 +89,19 @@ class CreateStepsScreen :
         override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
             return true
         }
+    }
+
+    companion object {
+        fun instance(side: Boolean, id: Int): CreateStepsScreen {
+            return CreateStepsScreen().apply {
+                arguments = Bundle().apply {
+                    putBoolean(EXTRA_SIDE, side)
+                    putInt(EXTRA_ID, id)
+                }
+            }
+        }
+
+        private const val EXTRA_SIDE = "create_steps_screen_extra_side"
+        private const val EXTRA_ID = "create_steps_screen_extra_id"
     }
 }

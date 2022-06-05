@@ -109,7 +109,7 @@ class BottomBarViewImpl private constructor() :
     private object Screens {
         fun Debts() = FragmentScreen { DebtsViewImplementation() }
         fun Profile() = FragmentScreen { ProfileViewImpl() }
-        fun CreateDebt() = FragmentScreen { CreateDebtScreen() }
+        fun CreateDebt(id: Int = -1) = FragmentScreen { CreateDebtScreen.instance(id) }
     }
 
     override fun openDebts() {

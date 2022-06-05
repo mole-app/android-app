@@ -33,7 +33,8 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         withChildNavigation {
-            router.newChain(Screens.ChooseSide())
+            val id = arguments?.getInt(EXTRA_ID, -1)
+            router.newChain(Screens.ChooseSide(id ?: -1))
         }
     }
 
@@ -44,8 +45,21 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
     }
 
     internal object Screens {
-        fun ChooseSide() = FragmentScreen { ChooseSideScreen() }
-        fun CreateSteps() = FragmentScreen { CreateStepsScreen() }
+        fun ChooseSide(id: Int) = FragmentScreen { ChooseSideScreen.instance(id) }
+        fun CreateSteps(side: Boolean, id: Int) = FragmentScreen {
+            CreateStepsScreen.instance(side, id)
+        }
+    }
+
+    companion object {
+        fun instance(id: Int = -1): CreateDebtScreen {
+            return CreateDebtScreen().apply {
+                arguments = Bundle().apply {
+                    putInt(EXTRA_ID, id)
+                }
+            }
+        }
+        private const val EXTRA_ID = "create_debt_screen_extra_id"
     }
 
 }

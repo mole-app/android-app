@@ -25,17 +25,17 @@ class StepsAdapter(
         class TagResult(val tag: String): StepResult()
     }
 
-    private val holders: MutableList<RecyclerView.ViewHolder> = mutableListOf()
+    private val holders: MutableList<BaseStepsHolder> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStepsHolder {
         return when(viewType) {
             Steps.ChooseName.viewType -> ChooseNameViewHolder(parent, scope, chooseNamePresenter) { id ->
                 nextClickedListener(0, StepResult.UserResult(id))
-                (holders.find { it is ChooseTagHolder } as? Focusable)?.requestFocus()
+                holders.find { it is ChooseTagHolder }?.requestFocus()
             }
             Steps.ChooseTag.viewType -> ChooseTagHolder(parent, scope, chooseTagPresenter) { tag ->
                 nextClickedListener(1, StepResult.TagResult(tag))
-                (holders.find { it is ChooseAmountViewHolder } as? Focusable)?.requestFocus()
+                holders.find { it is ChooseAmountViewHolder }?.requestFocus()
             }
             Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent, scope, chooseAmountPresenter)
             else -> throw IllegalStateException("Illegal view type")
@@ -45,6 +45,9 @@ class StepsAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseStepsHolder, position: Int) {
+        if (position == 0 && holder is ChooseTagHolder) {
+            holder.requestFocus()
+        }
         holder.bind()
     }
 

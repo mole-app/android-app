@@ -44,7 +44,19 @@ class ChooseSideScreen : MoleBaseFragment<FragmentChooseSideBinding>(FragmentCho
     }
 
     override fun openNextScreen(side: Boolean) {
-        router.navigateTo(CreateDebtScreen.Screens.CreateSteps())
+        router.navigateTo(CreateDebtScreen.Screens.CreateSteps(side, arguments?.getInt(EXTRA_ID) ?: -1))
+    }
+
+    companion object {
+        fun instance(id: Int): ChooseSideScreen {
+            return ChooseSideScreen().apply {
+                arguments = Bundle().apply {
+                    putInt(EXTRA_ID, id)
+                }
+            }
+        }
+
+        private const val EXTRA_ID = "choose_side_screen_extra_id"
     }
 
 }

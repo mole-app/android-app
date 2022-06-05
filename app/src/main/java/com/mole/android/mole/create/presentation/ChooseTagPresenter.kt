@@ -17,8 +17,6 @@ class ChooseTagPresenter(private val model: ProvideTagsModel) : MoleBasePresente
         super.attachView(view)
         view.showProgress()
         loadData(showKeyboard = true)
-        focusRequested = false
-        lastInput = null
     }
 
     fun onInputChange(text: String) {
@@ -50,6 +48,12 @@ class ChooseTagPresenter(private val model: ProvideTagsModel) : MoleBasePresente
                     .withError { view?.showError() }
             }
         }
+    }
+
+    override fun detachView() {
+        super.detachView()
+        focusRequested = false
+        lastInput = null
     }
 
     private fun handleResult(result: SuccessTagsResult) {
