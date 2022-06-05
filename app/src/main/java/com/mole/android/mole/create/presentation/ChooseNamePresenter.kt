@@ -20,17 +20,26 @@ class ChooseNamePresenter(
 
     override fun attachView(view: ChooseNameView) {
         super.attachView(view)
+        view.showProgress()
         loadData {
             view.showKeyboard()
         }
     }
 
     fun onInputChange(text: String) {
-        lastData?.let { data -> view?.show(data.applyFilter(text)) }
+        lastData?.let { data ->
+            val newData = data.applyFilter(text)
+            if (newData.isEmpty()) {
+                view?.showProgress()
+            } else {
+                view?.show(newData)
+            }
+        }
         loadData(text)
     }
 
     fun onRetryClicked() {
+        view?.showProgress()
         loadData(lastFilter) {
             view?.showKeyboard()
         }
@@ -38,7 +47,6 @@ class ChooseNamePresenter(
 
     private fun loadData(filter: String = "", onSuccess: () -> Unit = {}) {
         lastFilter = filter
-        view?.showProgress()
         disposable?.cancel()
         withScope {
             disposable = async {
