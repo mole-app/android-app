@@ -45,6 +45,10 @@ class ChooseNameViewHolder(
         itemsContainer?.focus()
     }
 
+    override fun showEmptyState() {
+        itemsContainer?.showEmptyState()
+    }
+
     override fun show(data: List<ChooseNameView.UserPreviewUi>) {
         itemsContainer?.hideProgress()
         contract?.updateData(data)

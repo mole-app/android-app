@@ -33,6 +33,7 @@ class ChooseTextItemView @JvmOverloads constructor(
     private val progress: View
     private val title: TextView
     private val retryButton: Button
+    private val emptyStub: View
 
     private var mode = false
 
@@ -50,6 +51,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         title = findViewById(R.id.title)
         errorContainer = findViewById(R.id.error_container)
         retryButton = findViewById(R.id.retry_button)
+        emptyStub = findViewById(R.id.empty_stub)
         bind()
     }
 
@@ -62,24 +64,40 @@ class ChooseTextItemView @JvmOverloads constructor(
         list.setVisibility(false)
         progress.setVisibility(true)
         errorContainer.setVisibility(false)
+        emptyStub.setVisibility(false)
     }
 
     fun hideProgress() {
-        list.setVisibility(true)
-        progress.setVisibility(false)
-        errorContainer.setVisibility(false)
+        showList()
     }
 
     fun showError() {
         list.setVisibility(false)
         progress.setVisibility(false)
         errorContainer.setVisibility(true)
+        emptyStub.setVisibility(false)
+    }
+
+    fun showEmptyState() {
+        list.setVisibility(false)
+        progress.setVisibility(false)
+        errorContainer.setVisibility(false)
+        emptyStub.setVisibility(true)
+    }
+
+    fun hideEmptyState() {
+        showList()
     }
 
     fun hideError() {
+        showList()
+    }
+
+    private fun showList() {
         list.setVisibility(true)
         progress.setVisibility(false)
         errorContainer.setVisibility(false)
+        emptyStub.setVisibility(false)
     }
 
     fun setOnRetryClickListener(listener: () -> Unit) {

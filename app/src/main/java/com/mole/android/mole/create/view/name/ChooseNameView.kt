@@ -9,4 +9,5 @@ interface ChooseNameView : MoleBaseView {
     fun showProgress()
     fun showError()
     fun showKeyboard()
+    fun showEmptyState()
 }

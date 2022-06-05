@@ -60,6 +60,10 @@ class ChooseNamePresenter(
     }
 
     private fun handleResult(filter: String, result: SuccessPreviewsResult) {
+        if (result.isEmpty()) {
+            view?.showEmptyState()
+            return
+        }
         val uiModels = result.mapToUi(filter)
         lastData = uiModels
         view?.show(uiModels)
