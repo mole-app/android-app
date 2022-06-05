@@ -22,8 +22,7 @@ class ChooseNameViewHolder(
     override val scope: LifecycleCoroutineScope,
     private val presenter: ChooseNamePresenter,
     private val nextClickedListener: () -> Unit
-) :
-    BaseStepsHolder(parent, R.layout.holder_choose_name), ChooseNameView {
+) : BaseStepsHolder(parent, R.layout.holder_choose_name), ChooseNameView {
 
     private var contract: DiffFindItemsViewContract<ChooseNameView.UserPreviewUi>? = null
     private val itemsContainer = itemView as? ChooseTextItemView

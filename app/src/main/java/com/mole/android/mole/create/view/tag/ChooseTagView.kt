@@ -8,4 +8,5 @@ interface ChooseTagView : MoleBaseView {
     fun show(data: List<TagPreviewUi>)
     fun showProgress()
     fun showError()
+    fun showKeyboard()
 }

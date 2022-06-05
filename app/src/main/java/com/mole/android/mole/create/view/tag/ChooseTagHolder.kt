@@ -9,6 +9,7 @@ import com.mole.android.mole.create.presentation.ChooseTagPresenter
 import com.mole.android.mole.create.view.ChooseTextItemView
 import com.mole.android.mole.create.view.DiffFindItemsViewContract
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
+import com.mole.android.mole.create.view.steps.StepsAdapter
 import com.mole.android.mole.create.view.tag.ChooseTagView.TagPreviewUi
 
 class ChooseTagHolder(
@@ -16,13 +17,14 @@ class ChooseTagHolder(
     override val scope: LifecycleCoroutineScope,
     private val presenter: ChooseTagPresenter,
     private val nextClickedListener: () -> Unit
-    ) : BaseStepsHolder(parent, R.layout.holder_choose_tag), ChooseTagView {
+) : BaseStepsHolder(parent, R.layout.holder_choose_tag), ChooseTagView, StepsAdapter.Focusable {
 
     private var contract: DiffFindItemsViewContract<TagPreviewUi>? = null
     private val containerView = (itemView as? ChooseTextItemView)
 
     init {
         containerView?.let(this::bindView)
+        containerView?.setOnRetryClickListener { presenter.onRetryClicked() }
     }
 
     override fun bind() {
@@ -39,11 +41,15 @@ class ChooseTagHolder(
     }
 
     override fun showError() {
-        // Show error
+        containerView?.showError()
+    }
+
+    override fun showKeyboard() {
+        containerView?.focus()
     }
 
     override fun requestFocus() {
-        containerView?.focus()
+        presenter.onFocusRequested()
     }
 
     private fun bindView(chooseItemView: ChooseTextItemView) {

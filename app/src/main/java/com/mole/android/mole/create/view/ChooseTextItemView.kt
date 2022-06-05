@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.*
 import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
-import com.mole.android.mole.keyboardIsVisible
 import com.mole.android.mole.onTextChangeSkipped
 
 class ChooseTextItemView @JvmOverloads constructor(

@@ -11,11 +11,14 @@ class ChooseTagPresenter(private val model: ProvideTagsModel) : MoleBasePresente
 
     private var data: List<ChooseTagView.TagPreviewUi>? = null
     private var lastInput: String? = null
+    private var focusRequested = false
 
     override fun attachView(view: ChooseTagView) {
         super.attachView(view)
         view.showProgress()
-        loadData()
+        loadData(showKeyboard = true)
+        focusRequested = false
+        lastInput = null
     }
 
     fun onInputChange(text: String) {
@@ -26,10 +29,23 @@ class ChooseTagPresenter(private val model: ProvideTagsModel) : MoleBasePresente
         }
     }
 
-    private fun loadData() {
+    fun onRetryClicked() {
+        view?.showProgress()
+        loadData()
+    }
+
+    fun onFocusRequested() {
+        focusRequested = true
+        if (data != null) {
+            view?.showKeyboard()
+        }
+    }
+
+    private fun loadData(showKeyboard: Boolean = false) {
         withScope {
             launch {
                 model.provideTags()
+                    .withResult { if (focusRequested && showKeyboard) view?.showKeyboard() }
                     .withResult { result -> handleResult(result) }
                     .withError { view?.showError() }
             }

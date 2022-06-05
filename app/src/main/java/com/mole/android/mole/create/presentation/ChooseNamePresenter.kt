@@ -24,6 +24,7 @@ class ChooseNamePresenter(
         loadData {
             view.showKeyboard()
         }
+        lastFilter = ""
     }
 
     fun onInputChange(text: String) {
@@ -40,9 +41,7 @@ class ChooseNamePresenter(
 
     fun onRetryClicked() {
         view?.showProgress()
-        loadData(lastFilter) {
-            view?.showKeyboard()
-        }
+        loadData(lastFilter)
     }
 
     private fun loadData(filter: String = "", onSuccess: () -> Unit = {}) {
