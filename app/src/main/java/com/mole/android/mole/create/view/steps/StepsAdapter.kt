@@ -17,19 +17,24 @@ class StepsAdapter(
     private val chooseNamePresenter: ChooseNamePresenter,
     private val chooseTagPresenter: ChooseTagPresenter,
     private val chooseAmountPresenter: ChooseAmountPresenter,
-    private val nextClickedListener: (Int) -> Unit,
+    private val nextClickedListener: (Int, StepResult) -> Unit,
 ) : RecyclerView.Adapter<BaseStepsHolder>() {
+
+    sealed class StepResult {
+        class UserResult(val id: Int): StepResult()
+        class TagResult(val tag: String): StepResult()
+    }
 
     private val holders: MutableList<RecyclerView.ViewHolder> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStepsHolder {
         return when(viewType) {
-            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent, scope, chooseNamePresenter) {
-                nextClickedListener(0)
+            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent, scope, chooseNamePresenter) { id ->
+                nextClickedListener(0, StepResult.UserResult(id))
                 (holders.find { it is ChooseTagHolder } as? Focusable)?.requestFocus()
             }
-            Steps.ChooseTag.viewType -> ChooseTagHolder(parent, scope, chooseTagPresenter) {
-                nextClickedListener(1)
+            Steps.ChooseTag.viewType -> ChooseTagHolder(parent, scope, chooseTagPresenter) { tag ->
+                nextClickedListener(1, StepResult.TagResult(tag))
                 (holders.find { it is ChooseAmountViewHolder } as? Focusable)?.requestFocus()
             }
             Steps.ChooseAmount.viewType -> ChooseAmountViewHolder(parent, scope, chooseAmountPresenter)

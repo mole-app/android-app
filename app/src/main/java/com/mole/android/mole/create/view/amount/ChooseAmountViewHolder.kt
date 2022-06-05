@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.doOnAttach
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -72,5 +73,9 @@ class ChooseAmountViewHolder(
 
     override fun requestFocus() {
         showKeyboard()
+    }
+
+    override fun showError() {
+        Toast.makeText(itemView.context, R.string.loading_error, Toast.LENGTH_SHORT).show()
     }
 }

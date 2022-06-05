@@ -35,6 +35,8 @@ class ChooseTextItemView @JvmOverloads constructor(
     private val emptyStub: View
 
     private var mode = false
+    private var selectedIx = 0
+    private var payload: Any? = null
 
     private var itemViewContract: ItemViewContract? = null
 
@@ -122,6 +124,8 @@ class ChooseTextItemView @JvmOverloads constructor(
     private fun bindData(itemViewContract: ItemViewContract) {
         val adapter = ListAdapter(itemViewContract) {
             fillEditText(itemViewContract.textForClickedItem(it))
+            selectedIx = it
+            payload = itemViewContract.payload(selectedIx)
             if (!mode) {
                 mode = true
                 clickableArea.visibility = View.VISIBLE
@@ -151,7 +155,7 @@ class ChooseTextItemView @JvmOverloads constructor(
                 showKeyboard()
             }
         }
-        nextButton.setOnClickListener { itemViewContract?.onNextClicked() }
+        nextButton.setOnClickListener { itemViewContract?.onNextClicked(selectedIx, payload) }
 
         text.editText?.onTextChangeSkipped {
             itemViewContract?.onTextChanged(it)
@@ -268,8 +272,9 @@ class ChooseTextItemView @JvmOverloads constructor(
         fun contentSame(firstPosition: Int, secondPosition: Int): Boolean
         fun itemSame(firstPosition: Int, secondPosition: Int): Boolean
         fun textForClickedItem(position: Int): String
-        fun onNextClicked()
+        fun onNextClicked(selectedPosition: Int, payload: Any?)
         fun onTextChanged(text: String)
+        fun payload(position: Int): Any?
     }
 
 }

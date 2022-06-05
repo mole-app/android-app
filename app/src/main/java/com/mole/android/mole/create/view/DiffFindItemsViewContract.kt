@@ -41,6 +41,14 @@ abstract class DiffFindItemsViewContract<T>(
         }
     }
 
+    override fun payload(position: Int): Any? = currentData.getOrNull(position)
+
+    override fun onNextClicked(selectedPosition: Int, payload: Any?) {
+        (payload as? T)?.let { onSelectedItemNextClicked(it) }
+    }
+
+    open fun onSelectedItemNextClicked(item: T) {}
+
     fun updateData(data: List<T>) {
         newData = data
         view.invalidateList()

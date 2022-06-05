@@ -16,7 +16,7 @@ class ChooseTagHolder(
     parent: ViewGroup,
     override val scope: LifecycleCoroutineScope,
     private val presenter: ChooseTagPresenter,
-    private val nextClickedListener: () -> Unit
+    private val nextClickedListener: (String) -> Unit
 ) : BaseStepsHolder(parent, R.layout.holder_choose_tag), ChooseTagView, StepsAdapter.Focusable {
 
     private var contract: DiffFindItemsViewContract<TagPreviewUi>? = null
@@ -62,7 +62,7 @@ class ChooseTagHolder(
         ) {
             override val layoutId: Int = R.layout.choose_tag_item_holder
             override val titleId: Int = R.string.choose_tag_title
-            override fun onNextClicked() = nextClickedListener()
+            override fun onSelectedItemNextClicked(item: TagPreviewUi) = nextClickedListener(item.preview.name)
             override fun onTextChanged(text: String) {
                 presenter.onInputChange(text)
             }

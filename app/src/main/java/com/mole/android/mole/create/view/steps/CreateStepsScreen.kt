@@ -13,15 +13,26 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.component
+import com.mole.android.mole.create.data.CreateDebtsDataRepository
 import com.mole.android.mole.databinding.FragmentCreateStepsBinding
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class CreateStepsScreen :
     MoleBaseFragment<FragmentCreateStepsBinding>(FragmentCreateStepsBinding::inflate) {
 
+    private var userId: Int = 0
+    private var side: Boolean = false
+    private var debtTag: String = ""
+
     private val chooseNamePresenter = component().createDebtsModule.chooseNamePresenter
     private val chooseTagPresenter = component().createDebtsModule.chooseTagPresenter
-    private val chooseAmountPresenter = component().createDebtsModule.chooseAmountPresenter
+    private val chooseAmountPresenter = component().createDebtsModule.chooseAmountPresenter(
+        object : CreateDebtsDataRepository {
+            override fun userId() = userId
+            override fun tag() = debtTag
+            override fun side() = side
+        }
+    )
 
     override fun getSoftMode(): Int {
         return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
@@ -40,8 +51,12 @@ class CreateStepsScreen :
             chooseNamePresenter,
             chooseTagPresenter,
             chooseAmountPresenter
-        ) {
-            binding.viewPager.setCurrentItem(it + 1, true)
+        ) { ix, result ->
+            when(result) {
+                is StepsAdapter.StepResult.TagResult -> debtTag = result.tag
+                is StepsAdapter.StepResult.UserResult -> userId = result.id
+            }
+            binding.viewPager.setCurrentItem(ix + 1, true)
         }
         binding.viewPager.adapter = adapter
         binding.viewPager.isUserInputEnabled = false
