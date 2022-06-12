@@ -21,7 +21,7 @@ class ChooseNameViewHolder(
     parent: ViewGroup,
     override val scope: LifecycleCoroutineScope,
     private val presenter: ChooseNamePresenter,
-    private val nextClickedListener: (id: Int) -> Unit
+    private val nextClickedListener: (id: Int, avatarUri: String, userName: String) -> Unit
 ) : BaseStepsHolder(parent, R.layout.holder_choose_name), ChooseNameView {
 
     private var contract: DiffFindItemsViewContract<ChooseNameView.UserPreviewUi>? = null
@@ -71,7 +71,8 @@ class ChooseNameViewHolder(
         ) {
             override val layoutId: Int = R.layout.choose_user_holder
             override val titleId: Int = R.string.choose_login_title
-            override fun onSelectedItemNextClicked(item: ChooseNameView.UserPreviewUi) = nextClickedListener(item.userPreview.id)
+            override fun onSelectedItemNextClicked(item: ChooseNameView.UserPreviewUi)
+                = nextClickedListener(item.userPreview.id, item.userPreview.avatar.photoSmall, item.userPreview.name)
             override fun onTextChanged(text: String) = presenter.onInputChange(text)
         }
         view.setDataBinder(contract)

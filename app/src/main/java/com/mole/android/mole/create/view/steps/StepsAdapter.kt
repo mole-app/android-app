@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mole.android.mole.create.presentation.ChooseAmountPresenter
 import com.mole.android.mole.create.presentation.ChooseNamePresenter
 import com.mole.android.mole.create.presentation.ChooseTagPresenter
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.create.view.amount.ChooseAmountViewHolder
 import com.mole.android.mole.create.view.name.ChooseNameViewHolder
 import com.mole.android.mole.create.view.tag.ChooseTagHolder
@@ -18,11 +19,11 @@ class StepsAdapter(
     private val chooseTagPresenter: ChooseTagPresenter,
     private val chooseAmountPresenter: ChooseAmountPresenter,
     private val nextClickedListener: (Int, StepResult) -> Unit,
-    private val onConfirmCreatingListener: (Int) -> Unit
+    private val onConfirmCreatingListener: (CreateDebtScreen.CreatedDebt) -> Unit
 ) : RecyclerView.Adapter<BaseStepsHolder>() {
 
     sealed class StepResult {
-        class UserResult(val id: Int): StepResult()
+        class UserResult(val id: Int, val avatarUri: String, val userName: String): StepResult()
         class TagResult(val tag: String): StepResult()
     }
 
@@ -30,8 +31,8 @@ class StepsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStepsHolder {
         return when(viewType) {
-            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent, scope, chooseNamePresenter) { id ->
-                nextClickedListener(0, StepResult.UserResult(id))
+            Steps.ChooseName.viewType -> ChooseNameViewHolder(parent, scope, chooseNamePresenter) { id, uri, name ->
+                nextClickedListener(0, StepResult.UserResult(id, uri, name))
                 holders.find { it is ChooseTagHolder }?.requestFocus()
             }
             Steps.ChooseTag.viewType -> ChooseTagHolder(parent, scope, chooseTagPresenter) { tag ->

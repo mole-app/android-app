@@ -7,14 +7,11 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.component
 import com.mole.android.mole.create.data.CreateDebtsDataRepository
-import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentCreateStepsBinding
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -24,6 +21,8 @@ class CreateStepsScreen :
     private var userId: Int = 0
     private var side: Boolean = false
     private var debtTag: String = ""
+    private var avatarUri: String = ""
+    private var userName: String = ""
 
     private val chooseNamePresenter = component().createDebtsModule.chooseNamePresenter
     private val chooseTagPresenter = component().createDebtsModule.chooseTagPresenter
@@ -32,6 +31,8 @@ class CreateStepsScreen :
             override fun userId() = userId
             override fun tag() = debtTag
             override fun side() = side
+            override fun avatarUri() = avatarUri
+            override fun userName() = userName
         }
     )
 
@@ -65,13 +66,16 @@ class CreateStepsScreen :
             { ix, result ->
                 when(result) {
                     is StepsAdapter.StepResult.TagResult -> debtTag = result.tag
-                    is StepsAdapter.StepResult.UserResult -> userId = result.id
+                    is StepsAdapter.StepResult.UserResult -> {
+                        userId = result.id
+                        avatarUri = result.avatarUri
+                        userName = result.userName
+                    }
                 }
                 binding.viewPager.setCurrentItem(ix + 1, true)
             },
             {
-                router.exit()
-                router.sendResult(CREATE_STEPS_EXTRA_ID_RESULT_KEY, it)
+                router.sendResult(EXTRA_CREATED_DEBT, it)
             }
         )
         binding.viewPager.adapter = adapter
@@ -112,6 +116,6 @@ class CreateStepsScreen :
         private const val EXTRA_SIDE = "create_steps_screen_extra_side"
         private const val EXTRA_ID = "create_steps_screen_extra_id"
 
-        const val CREATE_STEPS_EXTRA_ID_RESULT_KEY = "create_steps_extra_id_result_key"
+        const val EXTRA_CREATED_DEBT = "create_steps_extra_id_result_key"
     }
 }

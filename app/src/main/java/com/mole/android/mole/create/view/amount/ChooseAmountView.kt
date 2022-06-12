@@ -1,8 +1,9 @@
 package com.mole.android.mole.create.view.amount
 
 import com.mole.android.mole.MoleBaseView
+import com.mole.android.mole.create.view.CreateDebtScreen
 
 interface ChooseAmountView : MoleBaseView {
     fun showError()
-    fun closeScreen(resultId: Int)
+    fun closeScreen(result: CreateDebtScreen.CreatedDebt)
 }

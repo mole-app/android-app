@@ -14,6 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.mole.android.mole.R
 import com.mole.android.mole.create.presentation.ChooseAmountPresenter
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
 import com.mole.android.mole.keyboardIsVisible
 import com.mole.android.mole.setHighLightedText
@@ -23,7 +24,7 @@ class ChooseAmountViewHolder(
     parent: ViewGroup,
     override val scope: LifecycleCoroutineScope,
     private val presenter: ChooseAmountPresenter,
-    private val onConfirmCreatingListener: (Int) -> Unit
+    private val onConfirmCreatingListener: (CreateDebtScreen.CreatedDebt) -> Unit
 ) : BaseStepsHolder(parent, R.layout.holder_choose_amount), ChooseAmountView {
 
     private val amountText = itemView.findViewById<TextView>(R.id.amount_text)
@@ -48,8 +49,8 @@ class ChooseAmountViewHolder(
         presenter.attachView(this)
     }
 
-    override fun closeScreen(resultId: Int) {
-        onConfirmCreatingListener(resultId)
+    override fun closeScreen(result: CreateDebtScreen.CreatedDebt) {
+        onConfirmCreatingListener(result)
     }
 
     private fun provideTextToField(text: Editable?) {

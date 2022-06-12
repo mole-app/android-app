@@ -60,9 +60,6 @@ class BottomBarViewImpl private constructor() :
         binding.moleBottomNavigationBar.setOnFabClickListener {
             navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
             router.navigateTo(Screens.CreateDebt())
-            router.setResultListenerGeneric<Int>(CreateDebtScreen.CREATED_DEBT_ID_KEY) {
-                Toast.makeText(context, "Debt created with id $it", Toast.LENGTH_SHORT).show()
-            }
         }
         presenter.attachView(this)
     }
@@ -110,7 +107,7 @@ class BottomBarViewImpl private constructor() :
     private object Screens {
         fun Debts() = FragmentScreen { DebtsViewImplementation() }
         fun Profile() = FragmentScreen { ProfileViewImpl() }
-        fun CreateDebt(id: Int = -1) = FragmentScreen { CreateDebtScreen.instance(id) }
+        fun CreateDebt(id: Int = -1) = FragmentScreen { CreateDebtScreen.instance(id, true) }
     }
 
     override fun openDebts() {

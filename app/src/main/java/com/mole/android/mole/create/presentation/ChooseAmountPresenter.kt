@@ -3,6 +3,7 @@ package com.mole.android.mole.create.presentation
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.create.data.CreateDebtModel
 import com.mole.android.mole.create.data.CreateDebtsDataRepository
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.create.view.amount.ChooseAmountView
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,18 @@ class ChooseAmountPresenter(
                     tag = dataRepository.tag(),
                     amount = amount
                 )
-                    .withResult { view?.closeScreen(it.id) }
+                    .withResult { view?.closeScreen(
+                            CreateDebtScreen.CreatedDebt(
+                                    id = it.id,
+                                    side = dataRepository.side(),
+                                    avatarUrl = dataRepository.avatarUri(),
+                                    userId = dataRepository.userId(),
+                                    name = dataRepository.userName(),
+                                    tag = dataRepository.tag(),
+                                    amount = amount
+                                )
+                        )
+                    }
                     .withError { view?.showError() }
             }
         }
