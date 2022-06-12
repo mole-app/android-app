@@ -53,6 +53,7 @@ ext {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 dependencies {
 
@@ -65,10 +66,11 @@ dependencies {
     implementation 'com.github.terrakok:cicerone:7.0'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
-    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation platform('com.google.firebase:firebase-bom:30.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:23.0.1'
     implementation 'com.google.firebase:firebase-installations:17.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
