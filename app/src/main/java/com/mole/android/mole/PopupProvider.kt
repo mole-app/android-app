@@ -198,7 +198,7 @@ class PopupProvider(
             "backgroundTint",
             ArgbEvaluator(),
             animationView.backgroundTintList!!.defaultColor,
-            ContextCompat.getColor(context, R.color.color_accent)
+            context.resolveColor(R.attr.colorAccent)
         )
 
         animator.interpolator = DecelerateInterpolator()

@@ -2,16 +2,14 @@ package com.mole.android.mole.ui
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import com.mole.android.mole.R
+import com.mole.android.mole.resolveColor
 
 class DarkView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -40,12 +38,10 @@ class DarkView @JvmOverloads constructor(
 
     private val fixRect = Rect()
     private val location = IntArray(2)
-    private val paint = Paint()
 
     init {
-        paint.color = Color.parseColor("#802FC97F")
         startColorAnimation()
-        setBackgroundColor(Color.parseColor("#80212121"))
+        setBackgroundColor(context.resolveColor(R.attr.colorDarkBackground))
     }
 
     private fun startColorAnimation() {
@@ -55,11 +51,11 @@ class DarkView @JvmOverloads constructor(
             "backgroundColor",
             ArgbEvaluator(),
             Color.TRANSPARENT,
-            Color.parseColor("#A0212121")
+            context.resolveColor(R.attr.colorDarkBackground)
         )
 
         animator.interpolator = DecelerateInterpolator()
-        animator.duration = 300
+        animator.duration = resources.getInteger(R.integer.duration_animation).toLong()
 
         animator.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int
@@ -70,23 +66,6 @@ class DarkView @JvmOverloads constructor(
     }
 
     private fun reverseColorAnimation() {
-//        val animator: ObjectAnimator = ObjectAnimator.ofObject(
-//            this,
-//            "backgroundColor",
-//            ArgbEvaluator(),
-//            Color.parseColor("#A0212121"),
-//            Color.TRANSPARENT
-//        )
-//
-//        animator.interpolator = DecelerateInterpolator()
-//        animator.duration = 300
-//
-//        animator.addUpdateListener { animation ->
-//            val animatedValue = animation.animatedValue as Int
-//            this.backgroundTintList = ColorStateList.valueOf(animatedValue)
-//        }
-//
-//        animator.start()
         backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
     }
 
@@ -98,7 +77,6 @@ class DarkView @JvmOverloads constructor(
 
             fixRect.set(rect)
             fixRect.top -= offsetCutout
-//            canvas?.drawRect(0f, 0f, fixRect.right.toFloat(), fixRect.bottom.toFloat(), paint)
             canvas?.clipRect(fixRect)
             canvas?.translate(location[0].toFloat(), location[1].toFloat() - offsetCutout)
 
