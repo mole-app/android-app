@@ -2,7 +2,7 @@
 <com.mole.android.mole.ui.blur.BlurView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/blur_popup"
-    android:layout_width="168dp"
+    android:layout_width="@dimen/popup_width"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_background"
     android:paddingTop="8dp"

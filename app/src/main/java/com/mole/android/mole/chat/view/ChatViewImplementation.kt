@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.PopupProvider
 import com.mole.android.mole.R
 import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.component
@@ -33,7 +34,8 @@ class ChatViewImplementation :
     }
 
     private val presenter = component().chatModule.chatPresenter
-    private val chatAdapter = ChatAdapter()
+    private val chatAdapter by lazy { ChatAdapter(popupProvider) }
+    private lateinit var popupProvider: PopupProvider
     private val itemCountBeforeListScrollToTop = 10
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -64,6 +66,7 @@ class ChatViewImplementation :
         presenter.attachView(this)
         initToolbar()
         initChatFabView()
+        popupProvider = PopupProvider(requireContext(), binding.chatRecyclerView, view)
         initRecyclerView()
     }
 

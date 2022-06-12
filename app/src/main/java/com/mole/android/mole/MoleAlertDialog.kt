@@ -15,9 +15,7 @@ class MoleAlertDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view: View = LayoutInflater.from(context).inflate(R.layout.view_dialog_alert, null)
         val blurView: BlurView = view.findViewById(R.id.dialog_root)
-        blurView.setupWith(rootView!!).setBlurRadius(12f)
-        blurView.cornerRadius(8f.dp())
-        blurView.setBorder()
+        blurView.setupWith(rootView!!).setupBlurRadius(12f).setupCornerRadius(8f.dp).setupBorder()
 
         val alertDialog = Dialog(requireActivity(), R.style.MoleDialog)
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
