@@ -13,14 +13,14 @@ sealed class ChatData {
     }
 
     data class ChatMessage(
-        val isMessageOfTheDebtor: Boolean,
+        val isMessageOfUser: Boolean,
         val debtValue: Int,
         val tag: String = "",
         val isRead: Boolean = true,
-        private val remoteDate: Date = Date()
+        private val remoteTime: Date = Date()
     ) : ChatData() {
         val time: String
-            get() = timeToString(remoteDate)
+            get() = timeToString(remoteTime)
     }
 }
 
