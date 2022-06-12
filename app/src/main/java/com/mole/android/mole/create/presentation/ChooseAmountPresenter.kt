@@ -13,6 +13,7 @@ class ChooseAmountPresenter(
 ) : MoleBasePresenter<ChooseAmountView>()  {
 
     fun confirm(amount: Int) {
+        view?.disableButton()
         withScope {
             launch {
                 createDebtModel.createDebt(
@@ -33,7 +34,10 @@ class ChooseAmountPresenter(
                                 )
                         )
                     }
-                    .withError { view?.showError() }
+                    .withError {
+                        view?.showError()
+                        view?.enableButton()
+                    }
             }
         }
     }

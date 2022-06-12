@@ -53,6 +53,14 @@ class ChooseAmountViewHolder(
         onConfirmCreatingListener(result)
     }
 
+    override fun disableButton() {
+        confirmButton.isEnabled = false
+    }
+
+    override fun enableButton() {
+        confirmButton.isEnabled = true
+    }
+
     private fun provideTextToField(text: Editable?) {
         val string = text.toString()
         val number = string.toIntOrNull(10)
