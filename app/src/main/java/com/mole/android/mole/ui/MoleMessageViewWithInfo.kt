@@ -101,9 +101,9 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
     private fun inflateView() {
         inflate(context, R.layout.view_message_with_info, this)
         setPaddingRelative(
-            16.dp(),
+            16.dp,
             0,
-            16.dp(),
+            16.dp,
             0
         )
     }

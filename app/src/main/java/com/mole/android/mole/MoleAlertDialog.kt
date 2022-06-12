@@ -30,7 +30,7 @@ class MoleAlertDialog : DialogFragment() {
         val display = wm.defaultDisplay
         val size = Point()
         display?.getSize(size)
-        val width = 312.dp()
+        val width = 312.dp
 
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.copyFrom(alertDialog.window?.attributes)

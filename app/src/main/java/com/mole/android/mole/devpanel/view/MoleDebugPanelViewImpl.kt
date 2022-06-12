@@ -18,7 +18,7 @@ class MoleDebugPanelViewImpl :
         }
         binding.debugPanelCorruptedTokenAccess.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelCorruptedTokenRefresh.setOnClickListener {
@@ -26,7 +26,7 @@ class MoleDebugPanelViewImpl :
         }
         binding.debugPanelCorruptedTokenRefresh.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelButtonBack.setOnClickListener {
@@ -34,7 +34,7 @@ class MoleDebugPanelViewImpl :
         }
         binding.debugPanelButtonBack.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelRemoveAccount.setOnClickListener {
@@ -42,7 +42,7 @@ class MoleDebugPanelViewImpl :
         }
         binding.debugPanelRemoveAccount.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelRemoveRemoteAccount.setOnClickListener {
@@ -50,7 +50,7 @@ class MoleDebugPanelViewImpl :
         }
         binding.debugPanelRemoveRemoteAccount.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         presenter.attachView(this)

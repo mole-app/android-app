@@ -26,8 +26,8 @@ class TestScreenFragment : Fragment() {
             view.findViewById(R.id.test_screen_circle_button_disable)
         circleImageButton.setupBorder(
             Shape.OVAL,
-            80f.dp(),
-            1f.dp(),
+            80f.dp,
+            1f.dp,
             R.attr.colorIconDisabled,
             R.attr.colorGradientStroke
         )
