@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.PopupProvider
 import com.mole.android.mole.R
 import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.component
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
 import com.mole.android.mole.ui.MoleMessageViewWithInfo
+import com.mole.android.mole.setResultListenerGeneric
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class ChatViewImplementation :
@@ -53,6 +56,7 @@ class ChatViewImplementation :
             }
         }
     }
+    private val router = component().routingModule.router
 
     override fun getNavigator(): Navigator {
         return AppNavigator(requireActivity(), R.id.fragment_container)
@@ -93,7 +97,10 @@ class ChatViewImplementation :
 
     private fun initChatFabView() {
         binding.chatFabView.setOnClickListener {
-            Toast.makeText(context, "create new debt", Toast.LENGTH_SHORT).show()
+            router.navigateTo(FragmentScreen { CreateDebtScreen.instance(1) })
+            router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
+                Toast.makeText(context, "$it", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

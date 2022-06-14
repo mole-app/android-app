@@ -1,5 +1,23 @@
 package com.mole.android.mole
 
+import android.content.Context
+import android.content.ContextWrapper
+import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,3 +49,78 @@ fun timeToString(time : Date): String {
     formatter.timeZone = TimeZone.getDefault()
     return formatter.format(time)
 }
+
+fun <T> throttleLatest(
+    intervalMs: Long = 300L,
+    coroutineScope: CoroutineScope,
+    destinationFunction: (T) -> Unit
+): (T) -> Unit {
+    var throttleJob: Job? = null
+    var latestParam: T
+    return { param: T ->
+        latestParam = param
+        if (throttleJob?.isCompleted != false) {
+            throttleJob = coroutineScope.launch {
+                delay(intervalMs)
+                latestParam.let(destinationFunction)
+            }
+        }
+    }
+}
+
+fun Context.lifecycleOwner(): LifecycleOwner? {
+    var curContext = this
+    var maxDepth = 20
+    while (maxDepth-- > 0 && curContext !is LifecycleOwner) {
+        curContext = (curContext as ContextWrapper).baseContext
+    }
+    return if (curContext is LifecycleOwner) {
+        curContext as LifecycleOwner
+    } else {
+        null
+    }
+}
+
+fun EditText.onTextChangeSkipped(skipMs: Long = 300L, action: (String) -> Unit) {
+    val delayedAction = context.lifecycleOwner()?.lifecycleScope?.let { scope ->
+        throttleLatest(
+            intervalMs = 300L,
+            scope,
+            action
+        )
+    }
+    addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            delayedAction?.invoke(s?.toString() ?: "")
+        }
+        override fun afterTextChanged(s: Editable?) {}
+    })
+}
+
+fun TextView.setHighLightedText(textToHighlight: String, @ColorInt color: Int, ignoreCase: Boolean = true) {
+    val tvt = this.text.toString()
+    var ofe = tvt.indexOf(textToHighlight, 0, ignoreCase)
+    val wordToSpan: Spannable = SpannableString(this.text)
+    var ofs = 0
+    while (ofs < tvt.length && ofe != -1) {
+        ofe = tvt.indexOf(textToHighlight, ofs, ignoreCase)
+        if (ofe == -1) break else {
+            wordToSpan.setSpan(
+                ForegroundColorSpan(color),
+                ofe,
+                ofe + textToHighlight.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            this.setText(wordToSpan, TextView.BufferType.SPANNABLE)
+        }
+        ofs = ofe + 1
+    }
+}
+
+val View.keyboardIsVisible: Boolean
+    get() = rootWindowInsets?.let {
+        WindowInsetsCompat
+            .toWindowInsetsCompat(rootWindowInsets)
+            .isVisible(WindowInsetsCompat.Type.ime())
+    } ?: false
