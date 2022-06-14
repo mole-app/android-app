@@ -71,13 +71,13 @@ class ChatViewImplementation :
         presenter.attachView(this)
         initToolbar()
         initChatFabView()
-        popupProvider = PopupProvider(requireContext(), binding.chatRecyclerView, view)
+        popupProvider = PopupProvider(requireContext(), binding.chatRecyclerView, view, true)
 
         popupProvider.setOnDeleteListener { deletedView, id ->
             presenter.onDeleteItem(id)
             val chatItem = (deletedView as? MoleMessageViewWithInfo)
             chatItem?.apply {
-                setDisabled()
+                isDisabled = true
             }
         }
 

@@ -18,7 +18,8 @@ sealed class ChatData {
         val id: Int,
         val tag: String = "",
         val isRead: Boolean = true,
-        private val remoteDate: Date = Date()
+        private val remoteDate: Date = Date(),
+        var isDisabled: Boolean = false
     ) : ChatData() {
         val time: String
             get() = timeToString(remoteDate)

@@ -32,6 +32,7 @@ class MessageOfTheDebtorViewHolder(
             tag = data.tag
             time = data.time
             isRead = data.isRead
+            isDisabled = data.isDisabled
         }
         currentId = data.id
     }

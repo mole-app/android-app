@@ -31,6 +31,7 @@ class MessageOfOtherDebtorViewHolder(
             balance = data.debtValue
             tag = data.tag
             time = data.time
+            isDisabled = data.isDisabled
         }
         currentId = data.id
     }

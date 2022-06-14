@@ -1,5 +1,6 @@
 package com.mole.android.mole.chat.model
 
+import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.chat.data.testChatData
 import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +33,18 @@ class ChatModelImplementation(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 sleep(1000)
+                var itemIndex = -1
+
+                testChatData.filterIndexed { index, chatData ->
+                    (chatData as? ChatData.ChatMessage).run {
+                        this?.id == id
+                    }.also {
+                        if (it) itemIndex = index
+                    }
+                }
+
+                val deletedItem = testChatData[itemIndex]
+                (deletedItem as? ChatData.ChatMessage)?.isDisabled = true
                 ApiResult.create<ChatModel.SuccessChatResult>(
                     ChatModel.SuccessChatResult.ItemDeleted
                 )

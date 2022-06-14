@@ -8,17 +8,16 @@ import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Point
 import android.graphics.PointF
-import android.graphics.Rect
 import android.os.Build
 import android.view.*
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.mole.android.mole.ui.PopupView
 import com.mole.android.mole.ui.blur.BlurView
 
@@ -26,7 +25,9 @@ import com.mole.android.mole.ui.blur.BlurView
 class PopupProvider<T>(
     private val context: Context,
     private val scrollView: RecyclerView,
-    private val rootView: View
+    private val rootView: View,
+    isEditDisable: Boolean = false,
+    isDeleteDisable: Boolean = false,
 ) {
     val touchListener = View.OnTouchListener { view, event -> // save the X,Y coordinates
 
@@ -65,22 +66,41 @@ class PopupProvider<T>(
         popupView.setupWith(root).setupBlurRadius(12f).setupCornerRadius(8f.dp).setupBorder()
 
         val editButton: Button = popupView.findViewById(R.id.edit_popup)
-        editButton.setOnClickListener {
-            popupWindow?.dismiss()
+        val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
+        if (isEditDisable) {
+            editButton.visibility = View.GONE
+            val params =
+                ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 48.dp)
+            params.setMargins(0, 0, 0, 0)
+            deleteButton.layoutParams = params
+        } else {
+            editButton.setOnClickListener {
+                popupWindow?.dismiss()
+            }
         }
 
-        val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
-        deleteButton.setOnClickListener { _ ->
-            popupWindow?.dismiss()
-            val myDialogFragment = MoleAlertDialog()
-            myDialogFragment.rootView = root
-            myDialogFragment.setOnAcceptListener {
-                currentItem?.let { current -> currentSelectView?.let { deleteListener?.invoke(it, current) } }
-            }
-            val activity = rootView.context as? FragmentActivity
-            activity?.apply {
-                val manager = this.supportFragmentManager
-                myDialogFragment.show(manager, "myDialog")
+        if (isDeleteDisable) {
+            deleteButton.visibility = View.GONE
+        } else {
+            deleteButton.setOnClickListener { _ ->
+                popupWindow?.dismiss()
+                val myDialogFragment = MoleAlertDialog()
+                myDialogFragment.rootView = root
+                myDialogFragment.setOnAcceptListener {
+                    currentItem?.let { current ->
+                        currentSelectView?.let {
+                            deleteListener?.invoke(
+                                it,
+                                current
+                            )
+                        }
+                    }
+                }
+                val activity = rootView.context as? FragmentActivity
+                activity?.apply {
+                    val manager = this.supportFragmentManager
+                    myDialogFragment.show(manager, "myDialog")
+                }
             }
         }
     }
@@ -96,58 +116,9 @@ class PopupProvider<T>(
         deleteListener = listener
     }
 
-    private fun compareHighRect(outRect: Rect, innerRect: Rect): Int {
-
-        if (outRect.top > innerRect.top) {
-            return innerRect.top - outRect.top
-        }
-
-        if (outRect.bottom < innerRect.bottom) {
-            return innerRect.bottom - outRect.bottom
-        }
-        return 0
-    }
-
     private fun onAnimationEnd(animView: View, position: Position) {
-        val rect = Rect()
-        val visibleRect = Rect()
-        animView.getDrawingRect(rect)
-        val l = IntArray(2)
-        animView.getLocationOnScreen(l)
-        rect.left += l[0]
-        rect.right += l[0]
-        rect.bottom += l[1]
-        rect.top += l[1]
-
-        animView.getWindowVisibleDisplayFrame(visibleRect)
-
-        val highBottomBar =
-            resources.getDimension(R.dimen.design_fab_image_size).toInt()
-        val invisibleDiff =
-            resources.getDimension(R.dimen.mole_message_margin_selected).toInt()
-        val bottomInvisibleDiff = highBottomBar + invisibleDiff
-        visibleRect.bottom -= bottomInvisibleDiff
-        visibleRect.top += invisibleDiff
-        val diff: Int = compareHighRect(visibleRect, rect)
-
-        if (diff == 0) {
-            scrollView.addOnItemTouchListener(RecyclerViewDisabler)
-            longClickOnMessage(animView, position)
-        } else {
-            scrollView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    when (newState) {
-                        SCROLL_STATE_IDLE -> {
-                            longClickOnMessage(animView, position)
-                            recyclerView.removeOnScrollListener(this)
-                        }
-                    }
-                }
-
-            })
-            scrollView.addOnItemTouchListener(RecyclerViewDisabler)
-            scrollView.smoothScrollBy(0, diff)
-        }
+        scrollView.addOnItemTouchListener(RecyclerViewDisabler)
+        longClickOnMessage(animView, position)
     }
 
     private fun longClickOnMessage(view: View, position: Position) {
