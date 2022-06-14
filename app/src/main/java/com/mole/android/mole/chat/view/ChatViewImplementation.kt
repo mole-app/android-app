@@ -13,6 +13,7 @@ import com.mole.android.mole.R
 import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentChatBinding
+import com.mole.android.mole.ui.MoleMessageViewWithInfo
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class ChatViewImplementation :
@@ -35,7 +36,7 @@ class ChatViewImplementation :
 
     private val presenter = component().chatModule.chatPresenter
     private val chatAdapter by lazy { ChatAdapter(popupProvider) }
-    private lateinit var popupProvider: PopupProvider
+    private lateinit var popupProvider: PopupProvider<Int>
     private val itemCountBeforeListScrollToTop = 10
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -67,6 +68,15 @@ class ChatViewImplementation :
         initToolbar()
         initChatFabView()
         popupProvider = PopupProvider(requireContext(), binding.chatRecyclerView, view)
+
+        popupProvider.setOnDeleteListener { deletedView, id ->
+            presenter.onDeleteItem(id)
+            val chatItem = (deletedView as? MoleMessageViewWithInfo)
+            chatItem?.apply {
+                setDisabled()
+            }
+        }
+
         initRecyclerView()
     }
 

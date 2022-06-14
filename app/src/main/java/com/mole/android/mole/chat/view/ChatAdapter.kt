@@ -13,7 +13,7 @@ import com.mole.android.mole.databinding.ItemChatDateBinding
 import com.mole.android.mole.databinding.ItemChatMessageEndPositionBinding
 import com.mole.android.mole.databinding.ItemChatMessageStartPositionBinding
 
-class ChatAdapter(private val popupProvider: PopupProvider? = null) : MoleBaseRecyclerAdapter<ChatData>() {
+class ChatAdapter(private val popupProvider: PopupProvider<Int>? = null) : MoleBaseRecyclerAdapter<ChatData>() {
 
     private companion object ChatDataType {
         private const val DATE = 0

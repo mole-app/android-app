@@ -15,6 +15,7 @@ sealed class ChatData {
     data class ChatMessage(
         val isMessageOfTheDebtor: Boolean,
         val debtValue: Int,
+        val id: Int,
         val tag: String = "",
         val isRead: Boolean = true,
         private val remoteDate: Date = Date()
@@ -24,26 +25,26 @@ sealed class ChatData {
     }
 }
 
-val testChatData = listOf<ChatData>(
-    ChatData.ChatMessage(false, +1000, "ресторан", false, Date()),
+val testChatData = listOf(
+    ChatData.ChatMessage(false, +1000, 1, "ресторан", false, Date()),
     ChatData.ChatDate(Date()),
-    ChatData.ChatMessage(true, -1000, "ресторан1", true, Date()),
-    ChatData.ChatMessage(true, -1000, "ресторан2", false, Date()),
-    ChatData.ChatMessage(false, +1000),
+    ChatData.ChatMessage(true, -1000, 2, "ресторан1", true, Date()),
+    ChatData.ChatMessage(true, -1000, 3, "ресторан2", false, Date()),
+    ChatData.ChatMessage(false, +1000, 4),
     ChatData.ChatDate(Date()),
-    ChatData.ChatMessage(false, -1000),
-    ChatData.ChatMessage(false, -1000),
+    ChatData.ChatMessage(false, -1000, 5),
+    ChatData.ChatMessage(false, -1000, 6),
     ChatData.ChatDate(Date()),
-    ChatData.ChatMessage(false, +1000),
+    ChatData.ChatMessage(false, +1000, 7),
     ChatData.ChatDate(Date()),
-    ChatData.ChatMessage(false, -1000),
+    ChatData.ChatMessage(false, -1000, 8),
     ChatData.ChatDate(Date()),
-    ChatData.ChatMessage(true, +1800),
-    ChatData.ChatMessage(true, +150),
+    ChatData.ChatMessage(true, +1800, 9),
+    ChatData.ChatMessage(true, +150, 10),
     ChatData.ChatDate(Date()),
-    ChatData.ChatMessage(false, -800),
-    ChatData.ChatMessage(false, +1000),
-    ChatData.ChatMessage(true, -150),
+    ChatData.ChatMessage(false, -800, 11),
+    ChatData.ChatMessage(false, +1000, 12),
+    ChatData.ChatMessage(true, -150, 13),
     ChatData.ChatDate(Date()),
 
 )

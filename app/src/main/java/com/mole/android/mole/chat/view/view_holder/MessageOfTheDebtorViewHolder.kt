@@ -8,16 +8,18 @@ import com.mole.android.mole.databinding.ItemChatMessageEndPositionBinding
 
 class MessageOfTheDebtorViewHolder(
     val binding: ItemChatMessageEndPositionBinding,
-    private val popupProvider: PopupProvider? = null
+    private val popupProvider: PopupProvider<Int>? = null
 ) :
     RecyclerView.ViewHolder(binding.root), MoleBinder<ChatData.ChatMessage> {
+
+    private var currentId: Int = -1
 
     init {
         if (popupProvider != null) {
             with(binding.messageEndPosition) {
                 setOnTouchListener(popupProvider.touchListener)
                 setOnLongClickListener {
-                    popupProvider.start(it, PopupProvider.Position.RIGHT)
+                    popupProvider.start(it, currentId, PopupProvider.Position.RIGHT)
                     true
                 }
             }
@@ -31,5 +33,6 @@ class MessageOfTheDebtorViewHolder(
             time = data.time
             isRead = data.isRead
         }
+        currentId = data.id
     }
 }

@@ -47,6 +47,8 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
             field = value
         }
 
+    private var isDisabled = false
+
     @ColorInt
     private val colorAccept: Int
 
@@ -79,6 +81,11 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
         checkMarkImageView = findViewById(R.id.check_mark)
 
         setVisibilityImageView()
+    }
+
+    fun setDisabled() {
+        isDisabled = true
+        backgroundTintList = ColorStateList.valueOf(colorDisabled)
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
@@ -129,6 +136,11 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
                 backgroundTintList = ColorStateList.valueOf(colorDisabled)
             }
         }
+
+        if (isDisabled) {
+            backgroundTintList = ColorStateList.valueOf(colorDisabled)
+        }
+
         balanceTextView.text = context.getString(
             R.string.mole_message_balance,
             sign,

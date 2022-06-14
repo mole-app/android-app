@@ -57,4 +57,12 @@ class ChatPresenter(
             }
         }
     }
+
+    fun onDeleteItem(id: Int) {
+        withScope {
+            launch {
+                model.deleteItem(id)
+            }
+        }
+    }
 }

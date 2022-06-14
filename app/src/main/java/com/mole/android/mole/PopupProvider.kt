@@ -16,7 +16,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.core.animation.doOnEnd
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
@@ -24,7 +23,7 @@ import com.mole.android.mole.ui.PopupView
 import com.mole.android.mole.ui.blur.BlurView
 
 
-class PopupProvider(
+class PopupProvider<T>(
     private val context: Context,
     private val scrollView: RecyclerView,
     private val rootView: View
@@ -49,11 +48,14 @@ class PopupProvider(
 
     // class member variable to save the X,Y coordinates
     private val lastTouchDown = PointF()
+    private var deleteListener: ((View, T) -> Unit)? = null
 
     @ColorInt
     private var colorTint: Int = 0
     private var selectedView: View? = null
     private var popupWindow: PopupView? = null
+    private var currentItem: T? = null
+    private var currentSelectView: View? = null
 
     private val popupView: BlurView =
         View.inflate(this.context, R.layout.view_popup_window, null) as BlurView
@@ -68,16 +70,30 @@ class PopupProvider(
         }
 
         val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
-        deleteButton.setOnClickListener {
+        deleteButton.setOnClickListener { _ ->
             popupWindow?.dismiss()
             val myDialogFragment = MoleAlertDialog()
             myDialogFragment.rootView = root
+            myDialogFragment.setOnAcceptListener {
+                currentItem?.let { current -> currentSelectView?.let { deleteListener?.invoke(it, current) } }
+            }
             val activity = rootView.context as? FragmentActivity
             activity?.apply {
                 val manager = this.supportFragmentManager
                 myDialogFragment.show(manager, "myDialog")
             }
         }
+    }
+
+
+    fun start(view: View, item: T, position: Position = Position.LEFT) {
+        currentItem = item
+        currentSelectView = view
+        startColorAnimation(view, position)
+    }
+
+    fun setOnDeleteListener(listener: (View, T) -> Unit) {
+        deleteListener = listener
     }
 
     private fun compareHighRect(outRect: Rect, innerRect: Rect): Int {
@@ -171,7 +187,7 @@ class PopupProvider(
                     dismiss()
                 }
                 val offset: Int = when (position) {
-                    Position.RIGHT -> - context.resources.getDimension(R.dimen.popup_width).toInt()
+                    Position.RIGHT -> -context.resources.getDimension(R.dimen.popup_width).toInt()
                     else -> 0
                 }
 
@@ -180,10 +196,6 @@ class PopupProvider(
                 showAtLocation(view, Gravity.START or Gravity.TOP, x, y)
             }
         }
-    }
-
-    fun start(view: View, position: Position = Position.LEFT) {
-        startColorAnimation(view, position)
     }
 
     @SuppressLint("ObjectAnimatorBinding")

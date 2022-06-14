@@ -27,4 +27,18 @@ class ChatModelImplementation(
         }
         return task.await()
     }
+
+    override suspend fun deleteItem(id: Int): ApiResult<ChatModel.SuccessChatResult> {
+        val task = mainScope.async(Dispatchers.IO) {
+            try {
+                sleep(1000)
+                ApiResult.create<ChatModel.SuccessChatResult>(
+                    ChatModel.SuccessChatResult.ItemDeleted
+                )
+            } catch (exception: HttpException) {
+                ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
+            }
+        }
+        return task.await()
+    }
 }
