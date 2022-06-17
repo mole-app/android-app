@@ -3,6 +3,7 @@ package com.mole.android.mole.chat.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mole.android.mole.MoleBaseRecyclerAdapter
 import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.chat.view.view_holder.DateViewHolder
 import com.mole.android.mole.chat.view.view_holder.MessageOfOtherDebtorViewHolder
@@ -11,7 +12,7 @@ import com.mole.android.mole.databinding.ItemChatDateBinding
 import com.mole.android.mole.databinding.ItemChatMessageEndPositionBinding
 import com.mole.android.mole.databinding.ItemChatMessageStartPositionBinding
 
-class ChatAdapter : BaseRecyclerAdapter<ChatData>() {
+class ChatAdapter : MoleBaseRecyclerAdapter<ChatData>() {
 
     private companion object ChatDataType {
         private const val DATE = 0

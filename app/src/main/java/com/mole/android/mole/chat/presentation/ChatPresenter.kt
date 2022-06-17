@@ -3,7 +3,6 @@ package com.mole.android.mole.chat.presentation
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.chat.model.ChatModel
 import com.mole.android.mole.chat.view.ChatView
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class ChatPresenter(
@@ -20,18 +19,18 @@ class ChatPresenter(
 
     }
 
-    fun loadData(lastItemVisiblePosition: Int, itemCount: Int) {
+    fun onChatPreScrolledToTop(){
         if (!isDataLoading) {
-            if (lastItemVisiblePosition + 1 + itemCountBeforeRequest >= itemCount) {
-                withView { view ->
-                    dataLoading(view)
-                }
+            withView { view ->
+                dataLoading(view)
             }
-        } else {
-            if (lastItemVisiblePosition + 1 == itemCount) {
-                withView { view ->
-                    view.showLoading()
-                }
+        }
+    }
+
+    fun onChatScrolledToTop() {
+        if (isDataLoading) {
+            withView { view ->
+                view.showLoading()
             }
         }
     }
@@ -42,13 +41,13 @@ class ChatPresenter(
             launch {
                 model.loadNextData(leftDataCount).withResult { result ->
                     when (result) {
-                        is ChatModel.SuccessChatResult.SuccessLoadData -> {
+                        is ChatModel.SuccessChatResult.DataBatch -> {
                             leftDataCount = result.chatData.size
                             view.setData(result.chatData)
                             view.hideLoading()
                             isDataLoading = false
                         }
-                        is ChatModel.SuccessChatResult.SuccessDataAlreadyLoaded -> {
+                        is ChatModel.SuccessChatResult.DataIsOver -> {
                             leftDataCount = 0
                             view.hideLoading()
                             isDataLoading = false

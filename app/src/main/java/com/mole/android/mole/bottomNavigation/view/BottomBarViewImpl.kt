@@ -2,18 +2,17 @@ package com.mole.android.mole.bottomNavigation.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.google.android.material.snackbar.Snackbar
-import com.mole.android.mole.MoleBaseFragment
-import com.mole.android.mole.R
+import com.mole.android.mole.*
 import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
-import com.mole.android.mole.component
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.debts.view.DebtsViewImplementation
 import com.mole.android.mole.profile.view.ProfileViewImpl
-import com.mole.android.mole.resolveColor
 
 class BottomBarViewImpl private constructor() :
     MoleBaseFragment<FragmentWithBotnavBinding>(FragmentWithBotnavBinding::inflate), BottomBarView {
@@ -56,6 +55,11 @@ class BottomBarViewImpl private constructor() :
                 }
             }
             true
+        }
+
+        binding.moleBottomNavigationBar.setOnFabClickListener {
+            navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
+            router.navigateTo(Screens.CreateDebt())
         }
         presenter.attachView(this)
     }
@@ -103,11 +107,12 @@ class BottomBarViewImpl private constructor() :
     private object Screens {
         fun Debts() = FragmentScreen { DebtsViewImplementation() }
         fun Profile() = FragmentScreen { ProfileViewImpl() }
+        fun CreateDebt(id: Int = -1) = FragmentScreen { CreateDebtScreen.instance(id, true) }
     }
 
     override fun openDebts() {
         arguments?.putString(FRAGMENT_ID, DEBTS_TAG)
-        router.newRootScreen(Screens.Debts())
+        router.navigateTo(Screens.Debts())
         currentFragmentTag = DEBTS_TAG
     }
 

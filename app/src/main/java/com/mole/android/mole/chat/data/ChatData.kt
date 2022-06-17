@@ -24,7 +24,7 @@ sealed class ChatData {
     }
 }
 
-val testChatData = mutableListOf<ChatData>(
+val testChatData = listOf<ChatData>(
     ChatData.ChatMessage(false, +1000, "ресторан", false, Date()),
     ChatData.ChatDate(Date()),
     ChatData.ChatMessage(true, -1000, "ресторан1", true, Date()),
