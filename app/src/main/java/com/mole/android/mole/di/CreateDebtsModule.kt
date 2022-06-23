@@ -5,7 +5,6 @@ import com.mole.android.mole.create.presentation.ChooseAmountPresenter
 import com.mole.android.mole.create.presentation.ChooseNamePresenter
 import com.mole.android.mole.create.presentation.ChooseSidePresenter
 import com.mole.android.mole.create.presentation.ChooseTagPresenter
-import com.mole.android.mole.profile.model.ProfileService
 
 class CreateDebtsModule(baseScopeModule: BaseScopeModule, retrofitModule: RetrofitModule) {
     val chooseSidePresenter by lazy { ChooseSidePresenter() }
@@ -19,5 +18,5 @@ class CreateDebtsModule(baseScopeModule: BaseScopeModule, retrofitModule: Retrof
     }
     private val provideTagsModel by lazy { MockedProvideTagsModel(baseScopeModule.ioScope) }
     private val createDebtModel by lazy { MockedCreateDebtModel(baseScopeModule.ioScope) }
-    private val usersService by lazy { retrofitModule.retrofit.create(FindUserService::class.java) }
+    private val usersService by lazy { retrofitModule.retrofit.create(CreateDebtService::class.java) }
 }

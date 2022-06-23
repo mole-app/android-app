@@ -7,13 +7,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 
 class RemoteFindUserModel(
-    private val findUserService: FindUserService,
+    private val createDebtService: CreateDebtService,
     private val scope: CoroutineScope
 ) : FindUserModel {
 
     override suspend fun profilePreviews(filter: String): ApiResult<SuccessPreviewsResult> {
         val task = scope.async {
-            call { findUserService.findUsers(filter, 30).asDomain() }
+            call { createDebtService.findUsers(filter, 30).asDomain() }
         }
         return task.await()
     }
