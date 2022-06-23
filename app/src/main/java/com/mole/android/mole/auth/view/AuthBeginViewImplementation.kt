@@ -3,6 +3,7 @@ package com.mole.android.mole.auth.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -11,7 +12,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.*
 import com.mole.android.mole.auth.view.AuthWebViewImpl.Companion.CODE_SIGN
 import com.mole.android.mole.databinding.ViewAuthBeginBinding
@@ -24,6 +24,7 @@ class AuthBeginViewImplementation :
 
     private val presenter = component().authModule.beginPresenter
     private val router = component().routingModule.router
+    private val remoteConfig = component().remoteConfigModule.remoteConfig
 
     private lateinit var client: GoogleSignInClient
     override lateinit var googleAccount: GoogleSignInAccount
@@ -64,9 +65,13 @@ class AuthBeginViewImplementation :
             presenter.onVkClick()
         }
 
-        binding.googleButton.setOnClickListener {
-            val intent = client.signInIntent
-            mainActivityResultLauncher.launch(intent)
+        if (remoteConfig.getGoogleEnable()) {
+            binding.googleButton.setOnClickListener {
+                val intent = client.signInIntent
+                mainActivityResultLauncher.launch(intent)
+            }
+        } else {
+            binding.googleButton.visibility = GONE
         }
 
         presenter.attachView(this)
