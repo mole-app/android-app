@@ -101,7 +101,7 @@ class BottomBarViewImpl private constructor() :
 
         binding.moleBottomNavigationBar.setOnFabClickListener {
             navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
-            router.navigateTo(Screens.CreateDebt())
+            router.navigateTo(CreateDebt())
         }
         presenter.attachView(this)
     }
@@ -154,7 +154,7 @@ class BottomBarViewImpl private constructor() :
 
     override fun openDebts() {
         arguments?.putString(FRAGMENT_ID, DEBTS_TAG)
-        router.navigateTo(Screens.Debts())
+        router.navigateTo(Debts())
         currentFragmentTag = DEBTS_TAG
     }
 
