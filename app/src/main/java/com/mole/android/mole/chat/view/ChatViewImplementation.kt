@@ -11,6 +11,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.chat.data.ChatData
+import com.mole.android.mole.chat.data.ChatUserInfo
 import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
@@ -21,20 +22,17 @@ class ChatViewImplementation :
     MoleBaseFragment<FragmentChatBinding>(FragmentChatBinding::inflate), ChatView {
 
     companion object {
-        private const val ARG_NAME = "name"
-        private const val ARG_TOTAL_DEBTS = "total_debts"
-        private const val ARG_AVATAR_URL = "avatar_url"
-        fun newInstance(name: String, totalDebts: Int, avatarUrl: String?): ChatViewImplementation {
+        private const val ARG_USER_ID = "user_id"
+        fun newInstance(userId: Int): ChatViewImplementation {
             val args = Bundle()
             val fragment = ChatViewImplementation()
-            args.putString(ARG_NAME, name)
-            args.putInt(ARG_TOTAL_DEBTS, totalDebts)
-            args.putString(ARG_AVATAR_URL, avatarUrl)
+            args.putInt(ARG_USER_ID, userId)
             fragment.arguments = args
             return fragment
         }
     }
 
+    private var userId: Int = -1
     private val presenter = component().chatModule.chatPresenter
     private val chatAdapter = ChatAdapter()
     private val itemCountBeforeListScrollToTop = 10
@@ -47,8 +45,7 @@ class ChatViewImplementation :
             val lastVisibleItemPosition = layoutManager?.findLastVisibleItemPosition() ?: 0
             if (lastVisibleItemPosition + 1 == totalItemCount) {
                 presenter.onChatScrolledToTop()
-            }
-            else if (lastVisibleItemPosition + 1 + itemCountBeforeListScrollToTop >= totalItemCount) {
+            } else if (lastVisibleItemPosition + 1 + itemCountBeforeListScrollToTop >= totalItemCount) {
                 presenter.onChatPreScrolledToTop()
             }
         }
@@ -66,25 +63,14 @@ class ChatViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        initToolbar()
+        userId = arguments?.getInt(ARG_USER_ID) as Int
         initChatFabView()
         initRecyclerView()
     }
 
-    private fun initToolbar() {
-        val name = arguments?.getString(ARG_NAME) as String
-        val totalDebts = arguments?.getInt(ARG_TOTAL_DEBTS) as Int
-        val avatarUrl = arguments?.getString(ARG_AVATAR_URL) as String
-        with(binding.chatToolbarMessenger) {
-            setName(name)
-            setBalance(totalDebts)
-            setAvatar(avatarUrl)
-        }
-    }
-
     private fun initChatFabView() {
         binding.chatFabView.setOnClickListener {
-            router.navigateTo(FragmentScreen { CreateDebtScreen.instance(1) })
+            router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
             router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
                 Toast.makeText(context, "$it", Toast.LENGTH_LONG).show()
             }
@@ -110,11 +96,31 @@ class ChatViewImplementation :
 
     }
 
+    override fun setToolbarData(data: ChatUserInfo) {
+        with(binding.chatToolbarMessenger) {
+            setName(data.name)
+            setBalance(data.balance)
+            setAvatar(data.avatarUrl)
+        }
+    }
+
+    override fun setToolbarLoading() {
+        with(binding.chatToolbarMessenger) {
+            setName("...")
+            setBalance(0)
+            setAvatar("")
+        }
+    }
+
     override fun showLoading() {
         binding.chatProgressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
         binding.chatProgressBar.visibility = View.GONE
+    }
+
+    override fun getUserId(): Int {
+        return userId
     }
 }
