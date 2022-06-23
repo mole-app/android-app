@@ -25,9 +25,9 @@ class RequestTokenInterceptor(
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val API_KEY_INTERNAL_HEADER = "ApiKey"
         private const val AUTH_HEADER_PREFIX = "Bearer "
-        private const val SCHEME = "https"
+        private const val SCHEME = "http"
         private const val HOST = "mole-app-dev.ru"
-        private const val PORT = 8443
+        private const val PORT = 8080
         private const val REFRESH_TOKEN_QUERY = "refreshToken"
         private const val FINGERPRINT_TOKEN_QUERY = "fingerprint"
         private const val UPDATE_TOKEN_URL = "api/auth/refreshToken"
