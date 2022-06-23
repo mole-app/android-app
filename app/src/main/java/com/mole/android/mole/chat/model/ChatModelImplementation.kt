@@ -28,7 +28,9 @@ class ChatModelImplementation(
                                     debtsDomain = serverData.debts,
                                     userId = serverData.debtor.debtorInfo.idUser
                                 ),
-                                userInfo = ChatUserInfo()
+                                userInfo = ChatDataConverter.convertDebtorDomainToUserInfo(
+                                   debtor =  serverData.debtor
+                                )
                             )
                         )
                     }

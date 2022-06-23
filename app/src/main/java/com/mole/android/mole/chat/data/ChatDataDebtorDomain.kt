@@ -1,6 +1,6 @@
 package com.mole.android.mole.chat.data
 
-data class ChatDataDebtor(
+data class ChatDataDebtorDomain(
     val debtorInfo: ChatDebtorInfo,
     val debtorStatistic: ChatDebtorStatistic,
     val mainPhotoUrl: ChatDebtorPhotoUrl

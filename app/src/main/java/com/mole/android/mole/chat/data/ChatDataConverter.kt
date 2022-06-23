@@ -5,6 +5,15 @@ import java.util.*
 
 object ChatDataConverter {
 
+    fun convertDebtorDomainToUserInfo(debtor: ChatDataDebtorDomain): ChatUserInfo {
+        return ChatUserInfo(
+            id = debtor.debtorInfo.idUser,
+            name = debtor.debtorInfo.name,
+            avatarUrl = debtor.mainPhotoUrl.photoSmall,
+            balance = debtor.debtorStatistic.debtSum
+        )
+    }
+
     fun convertDebtDomainToChatData(debtsDomain: List<ChatDataDebtDomain>, userId: Int): List<ChatData> {
         val debts: MutableList<ChatData> = mutableListOf()
         var lastDate: Date = stringToDate(debtsDomain[0].createTime)
