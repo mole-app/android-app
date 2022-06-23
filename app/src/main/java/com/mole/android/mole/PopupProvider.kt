@@ -107,6 +107,7 @@ class PopupProvider<T>(
 
 
     fun start(view: View, item: T, position: Position = Position.LEFT) {
+        scrollView.addOnItemTouchListener(RecyclerViewDisabler)
         currentItem = item
         currentSelectView = view
         startColorAnimation(view, position)
@@ -117,7 +118,6 @@ class PopupProvider<T>(
     }
 
     private fun onAnimationEnd(animView: View, position: Position) {
-        scrollView.addOnItemTouchListener(RecyclerViewDisabler)
         longClickOnMessage(animView, position)
     }
 
