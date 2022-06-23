@@ -2,9 +2,9 @@ package com.mole.android.mole.create.data
 
 import com.mole.android.mole.create.model.asDomain
 import com.mole.android.mole.web.service.ApiResult
+import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import retrofit2.HttpException
 
 class RemoteFindUserModel(
     private val findUserService: FindUserService,
@@ -13,17 +13,7 @@ class RemoteFindUserModel(
 
     override suspend fun profilePreviews(filter: String): ApiResult<SuccessPreviewsResult> {
         val task = scope.async {
-            try {
-                val usersPreview = findUserService.findUsers(filter, 30)
-                ApiResult.create(usersPreview.asDomain())
-            } catch (exception: Exception) {
-                ApiResult.create(
-                    ApiResult.MoleError(
-                        0,
-                        ""
-                    )
-                )
-            }
+            call { findUserService.findUsers(filter, 30).asDomain() }
         }
         return task.await()
     }
