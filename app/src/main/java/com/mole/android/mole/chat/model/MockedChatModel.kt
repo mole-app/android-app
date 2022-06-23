@@ -5,6 +5,7 @@ import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import retrofit2.HttpException
 
 class MockedChatModel(
@@ -13,7 +14,7 @@ class MockedChatModel(
     override suspend fun loadNextData(leftCountData: Int): ApiResult<ChatModel.SuccessChatResult> {
         val task = mainScope.async(Dispatchers.IO) {
             try {
-                Thread.sleep(1000)
+                delay(1000)
                 ApiResult.create<ChatModel.SuccessChatResult>(
                     ChatModel.SuccessChatResult.DataBatch(
                         testChatData
