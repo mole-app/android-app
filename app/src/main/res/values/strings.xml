@@ -6,6 +6,7 @@
     <string name="plus_prefix">"+ "</string>
     <string name="minus_prefix">"- "</string>
     <string name="mole_message_balance">%1$s%2$d%3$s</string>
+    <string name="mole_message_tag">#%1$s</string>
     <string name="postfix_balance">" р."</string>
     <string name="test_action_bar_title_with_back">MOLE</string>
     <string name="test_action_bar_title">Новый Долг</string>
@@ -35,4 +36,22 @@
     <string name="profile_icon_description">Profile icon</string>
     <string name="all_debts_profile_title">All debts</string>
     <string name="tags_profile_title">Tags</string>
+    <string name="his_debt">Мне \n должны</string>
+    <string name="my_debt">Я \n должен</string>
+    <string name="new_debt">Новый долг</string>
+    <string name="tag_symbol">#%1$s</string>
+    <string name="choose_login_title">Логин</string>
+    <string name="choose_tag_title">Тег</string>
+    <string name="rubles_suffix">.р</string>
+    <string name="amount_title">Сумма</string>
+    <string name="loading_error">Ошибка загрузки</string>
+    <string name="reload">Повторить</string>
+    <string name="nothing_found">Ничего не найдено</string>
+    <plurals name="tag_count">
+        <item quantity="zero">Нет должников</item>
+        <item quantity="one">%1$d должник</item>
+        <item quantity="few">%1$d должника</item>
+        <item quantity="many">%1$d должников</item>
+        <item quantity="other">%1$d должник</item>
+    </plurals>
 </resources>

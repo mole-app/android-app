@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="snackbarHolder" type="id"/>
+    <item name="snackbarHolder" type="id" />
     <attr name="colorAccept" format="color" />
     <attr name="colorDeny" format="color" />
     <attr name="colorDisabled" format="color" />
@@ -30,8 +30,11 @@
         <attr name="backVisible" format="boolean" />
         <attr name="titleVisible" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="MoleMessageViewWithInfo">
+        <attr name="postfix_with_info" format="string" />
+        <attr name="check_marks" format="boolean"/>
+    </declare-styleable>
     <declare-styleable name="MoleMessageView">
-        <attr name="additional_info" format="boolean" />
         <attr name="postfix" format="string" />
     </declare-styleable>
     <declare-styleable name="BlurView">

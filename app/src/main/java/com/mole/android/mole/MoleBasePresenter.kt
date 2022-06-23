@@ -2,7 +2,6 @@ package com.mole.android.mole
 
 import androidx.lifecycle.LifecycleCoroutineScope
 
-
 open class MoleBasePresenter<T : MoleBaseView> {
     protected var view: T? = null
 
