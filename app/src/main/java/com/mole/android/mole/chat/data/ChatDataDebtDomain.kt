@@ -1,6 +1,6 @@
 package com.mole.android.mole.chat.data
 
-data class ChatDataDebt(
+data class ChatDataDebtDomain(
     val id: Int,
     val sum: Int,
     val idUser: Int,

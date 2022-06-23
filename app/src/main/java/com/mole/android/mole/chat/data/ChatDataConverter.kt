@@ -1,12 +1,11 @@
 package com.mole.android.mole.chat.data
 
 import com.mole.android.mole.stringToDate
-import java.lang.IllegalStateException
 import java.util.*
 
 object ChatDataConverter {
 
-    fun convertDebtDomainToChatData(debtsDomain: List<ChatDataDebt>, userId: Int): List<ChatData> {
+    fun convertDebtDomainToChatData(debtsDomain: List<ChatDataDebtDomain>, userId: Int): List<ChatData> {
         val debts: MutableList<ChatData> = mutableListOf()
         var lastDate: Date = stringToDate(debtsDomain[0].createTime)
         for (debtDomain in debtsDomain) {
