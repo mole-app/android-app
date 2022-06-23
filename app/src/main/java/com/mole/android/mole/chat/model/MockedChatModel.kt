@@ -11,7 +11,11 @@ import retrofit2.HttpException
 class MockedChatModel(
     private val mainScope: CoroutineScope
 ) : ChatModel {
-    override suspend fun loadNextData(leftCountData: Int): ApiResult<ChatModel.SuccessChatResult> {
+
+    override suspend fun loadChatData(
+        userId: Int,
+        isLoadUserInfo: Boolean
+    ): ApiResult<ChatModel.SuccessChatResult> {
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 delay(1000)
