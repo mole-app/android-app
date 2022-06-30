@@ -1,6 +1,7 @@
 package com.mole.android.mole.navigation
 
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.mole.android.mole.about.view.AboutViewImpl
 import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import com.mole.android.mole.auth.view.AuthLoginViewImplementation
 import com.mole.android.mole.auth.view.AuthWebViewImpl
@@ -17,6 +18,8 @@ object Screens {
     fun DevPanel() = FragmentScreen { MoleDebugPanelViewImpl() }
 
     fun AuthBegin() = FragmentScreen { AuthBeginViewImplementation() }
+
+    fun About() = FragmentScreen { AboutViewImpl() }
 
     fun TestScreen() = FragmentScreen { FragmentBottomBarTest() }
 

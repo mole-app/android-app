@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:orientation="vertical">
+
+
+        <com.mole.android.mole.ui.actionbar.MoleActionBar
+            android:id="@+id/mole_about_toolbar"
+            style="@style/MoleToolbar"
+            app:backVisible="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textTitle="MOLE"
+            app:titleVisible="true" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageLogo"
+            android:scaleType="matrix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:src="@drawable/ic_icon"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MoleText.Medium.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mole for Android v1.0.0 (001)"
+            android:textColor="@color/white_alpha_50" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/codeSourceGroup"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ripple_borderless_section"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                style="@style/MoleText.Medium.Text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="16dp"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="GitHub"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="31dp"
+                android:src="@drawable/ic_chevron"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/aboutNameGroup"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/ripple_borderless_section"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                style="@style/MoleText.Medium.Text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="16dp"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="About app name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="31dp"
+                android:src="@drawable/ic_chevron"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MoleText.Medium.Text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="О нас" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MoleText.Medium.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/about_text" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
