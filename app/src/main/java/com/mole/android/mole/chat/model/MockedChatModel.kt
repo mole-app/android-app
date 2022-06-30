@@ -1,6 +1,7 @@
 package com.mole.android.mole.chat.model
 
 import com.mole.android.mole.chat.data.testChatData
+import com.mole.android.mole.chat.data.testChatUserInfo
 import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,11 +20,20 @@ class MockedChatModel(
         val task = mainScope.async(Dispatchers.IO) {
             try {
                 delay(1000)
-                ApiResult.create<ChatModel.SuccessChatResult>(
-                    ChatModel.SuccessChatResult.DataBatch(
-                        testChatData
+                if (isLoadUserInfo) {
+                    ApiResult.create<ChatModel.SuccessChatResult>(
+                        ChatModel.SuccessChatResult.DataWithUserInfo(
+                            testChatData,
+                            testChatUserInfo
+                        )
                     )
-                )
+                } else {
+                    ApiResult.create<ChatModel.SuccessChatResult>(
+                        ChatModel.SuccessChatResult.DataBatch(
+                            testChatData
+                        )
+                    )
+                }
             } catch (exception: HttpException) {
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
