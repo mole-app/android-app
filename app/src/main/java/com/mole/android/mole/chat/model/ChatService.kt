@@ -2,8 +2,16 @@ package com.mole.android.mole.chat.model
 
 import com.mole.android.mole.chat.data.ChatDataDomain
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ChatService {
     @GET("dept/debts")
-    suspend fun getChatData(idUser: Int, idDebtMax: Int = 0): ChatDataDomain
+    suspend fun getChatData(
+        @Query("idUser")
+        idUser: Int,
+        @Query("idDebtMax")
+        idDebtMax: Int = 0,
+        @Query("limit")
+        limit: Int = 0
+    ): ChatDataDomain
 }
