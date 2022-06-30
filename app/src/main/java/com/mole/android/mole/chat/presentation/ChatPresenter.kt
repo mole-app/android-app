@@ -15,7 +15,17 @@ class ChatPresenter(
         super.attachView(view)
         view.setToolbarLoading()
         view.showLoading()
-        dataLoading(view, view.getUserId())
+        dataLoading(view, view.getUserId(), true)
+    }
+
+    fun onCallbackToChat() {
+        if (!isDataLoading) {
+            withView { view ->
+                view.setToolbarLoading()
+                view.showLoading()
+                dataLoading(view, view.getUserId())
+            }
+        }
     }
 
     fun onChatPreScrolledToTop() {

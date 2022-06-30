@@ -64,7 +64,7 @@ class ChatAdapter : MoleBaseRecyclerAdapter<ChatData>() {
         }
     }
 
-    fun setData(data: List<ChatData>){
+    fun setChatData(data: List<ChatData>){
         update(data)
     }
 }

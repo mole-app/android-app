@@ -2,7 +2,6 @@ package com.mole.android.mole.chat.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.Navigator
@@ -72,7 +71,7 @@ class ChatViewImplementation :
         binding.chatFabView.setOnClickListener {
             router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
             router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
-                Toast.makeText(context, "$it", Toast.LENGTH_LONG).show()
+//                presenter.onCallbackToChat()
             }
         }
     }
@@ -91,7 +90,7 @@ class ChatViewImplementation :
     }
 
     override fun setData(data: List<ChatData>) {
-        chatAdapter.setData(data)
+        chatAdapter.setChatData(data)
         chatAdapter.notifyDataSetChanged()
 
     }
