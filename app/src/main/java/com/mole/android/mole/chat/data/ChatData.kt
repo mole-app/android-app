@@ -16,7 +16,7 @@ sealed class ChatData {
         val id: Int,
         val isMessageOfUser: Boolean,
         val debtValue: Int,
-        val tag: String = "",
+        val tag: String? = "",
         val isRead: Boolean = true,
         private val remoteTime: Date = Date()
     ) : ChatData() {

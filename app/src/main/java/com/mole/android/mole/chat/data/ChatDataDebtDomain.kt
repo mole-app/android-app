@@ -18,5 +18,5 @@ data class ChatDataDebtDomain(
     @SerializedName("createTime")
     val createTime: String,
     @SerializedName("tag")
-    val tag: String
+    val tag: String?
 )
