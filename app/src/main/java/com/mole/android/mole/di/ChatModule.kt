@@ -11,14 +11,14 @@ class ChatModule(
     private val baseScopeModule: BaseScopeModule
 ) {
     val chatPresenter
-        get() = ChatPresenter(chatModel, baseScopeModule.mainScope)
+        get() = ChatPresenter(chatModel)
 
     private val chatModel: ChatModel by lazy {
-//        ChatModelImplementation(
-//            chatService,
-//            baseScopeModule.mainScope
-//        )
-        MockedChatModel(baseScopeModule.mainScope)
+        ChatModelImplementation(
+            chatService,
+            baseScopeModule.mainScope
+        )
+//        MockedChatModel(baseScopeModule.mainScope)
     }
 
     private val chatService by lazy {
