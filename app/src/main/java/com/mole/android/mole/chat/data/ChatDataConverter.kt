@@ -14,7 +14,10 @@ object ChatDataConverter {
         )
     }
 
-    fun convertDebtDomainToChatData(debtsDomain: List<ChatDataDebtDomain>, userId: Int): List<ChatData> {
+    fun convertDebtDomainToChatData(
+        debtsDomain: List<ChatDataDebtDomain>,
+        userId: Int
+    ): List<ChatData> {
         val debts: MutableList<ChatData> = mutableListOf()
         var lastDate: Date = stringToDate(debtsDomain[0].createTime)
         for (debtDomain in debtsDomain) {
@@ -39,6 +42,9 @@ object ChatDataConverter {
                     remoteTime = newDate
                 )
             )
+            if (debtDomain.id == debtsDomain.last().id) {
+                debts.add(ChatData.ChatDate(lastDate))
+            }
         }
         return debts
     }
