@@ -27,7 +27,8 @@ abstract class MoleBaseFragment<T : ViewBinding>
     open fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.fragment_container)
     open fun getToolbar(): MoleActionBar? = null
 
-    override val scope: LifecycleCoroutineScope by lazy { viewLifecycleOwner.lifecycleScope }
+    override val scope: LifecycleCoroutineScope
+        get() = viewLifecycleOwner.lifecycleScope
 
     @MenuRes
     open fun getMenuId(): Int = 0
