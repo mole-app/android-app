@@ -14,14 +14,17 @@ class CreateDebtsModule(baseScopeModule: BaseScopeModule, retrofitModule: Retrof
     private val findUserModel by lazy {
         // MOCK
         // MockedFindUserModel(baseScopeModule.ioScope)
-        RemoteFindUserModel(usersService, baseScopeModule.ioScope)
+        RemoteFindUserModel(service, baseScopeModule.ioScope)
     }
-    private val provideTagsModel by lazy { MockedProvideTagsModel(baseScopeModule.ioScope) }
+    private val provideTagsModel by lazy {
+        // MOCK
+        // MockedProvideTagsModel(baseScopeModule.ioScope)
+        RemoteProvideTagsModel(service, baseScopeModule.ioScope)
+    }
     private val createDebtModel by lazy {
         // MOCK
         // MockedCreateDebtModel(baseScopeModule.ioScope)
-        RemoteCreateDebtModel(createDebtService, baseScopeModule.ioScope)
+        RemoteCreateDebtModel(service, baseScopeModule.ioScope)
     }
-    private val usersService by lazy { retrofitModule.retrofit.create(CreateDebtService::class.java) }
-    private val createDebtService by lazy { retrofitModule.retrofit.create(CreateDebtService::class.java) }
+    private val service by lazy { retrofitModule.retrofit.create(CreateDebtService::class.java) }
 }
