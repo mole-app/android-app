@@ -11,8 +11,14 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitBuilder {
-//    private const val BASE_URL = "https://mole-app-dev.ru:8443/api/"
-    private const val BASE_URL = "http://mole-app-dev.ru:8080/api/"
+    const val SCHEME = "http"
+//    const val SCHEME = "https"
+    const val HOST = "mole-app-dev.ru"
+    const val PORT = 8080
+//    const val PORT = 8443
+    const val API_PATH = "api"
+
+    private const val BASE_URL = "$SCHEME://$HOST:$PORT/$API_PATH/"
 
     fun build(): Retrofit {
         val interceptor = HttpLoggingInterceptor()

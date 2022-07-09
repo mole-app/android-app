@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.github.terrakok.cicerone.Navigator
+import androidx.fragment.app.Fragment
+import com.github.terrakok.cicerone.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.google.android.material.snackbar.Snackbar
@@ -23,8 +25,48 @@ class BottomBarViewImpl private constructor() :
     private val router = component().routingModule.router
     private val navigatorHolder = component().routingModule.navigationHolder
 
+    private val profileTabFragment: ProfileViewImpl by lazy {
+        childFragmentManager.findFragmentByTag(PROFILE_TAG) as? ProfileViewImpl ?: ProfileViewImpl()
+    }
+    private val debtsTabFragment: DebtsViewImplementation by lazy {
+        childFragmentManager.findFragmentByTag(DEBTS_TAG) as? DebtsViewImplementation
+            ?: DebtsViewImplementation()
+    }
+
     override fun getNavigator(): Navigator {
-        return AppNavigator(requireActivity(), R.id.nav_host_fragment)
+        return object : Navigator {
+            override fun applyCommands(commands: Array<out Command>) {
+                for (command in commands) applyCommand(command)
+            }
+
+            private fun applyCommand(command: Command) {
+                when (command) {
+//                    is Back -> finish()
+                    is Forward -> {
+                        when (command.screen.screenKey) {
+                            PROFILE_TAG -> changeTab(profileTabFragment)
+                            DEBTS_TAG -> changeTab(debtsTabFragment)
+                        }
+                    }
+                }
+            }
+
+            private fun changeTab(targetFragment: Fragment) {
+                with(childFragmentManager.beginTransaction()) {
+                    childFragmentManager.fragments.filter { it != targetFragment }.forEach {
+                        hide(it)
+                    }
+                    targetFragment.let {
+                        if (it.isAdded) {
+                            show(it)
+                        } else {
+                            add(R.id.nav_host_fragment, it, it.tag)
+                        }
+                    }
+                    commit()
+                }
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -59,7 +101,7 @@ class BottomBarViewImpl private constructor() :
 
         binding.moleBottomNavigationBar.setOnFabClickListener {
             navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
-            router.navigateTo(Screens.CreateDebt())
+            router.navigateTo(CreateDebt())
         }
         presenter.attachView(this)
     }
@@ -68,10 +110,10 @@ class BottomBarViewImpl private constructor() :
         super.onResume()
         when (currentFragmentTag) {
             DEBTS_TAG -> {
-                router.newRootScreen(Screens.Debts())
+                router.navigateTo(Debts())
             }
             PROFILE_TAG -> {
-                router.newChain(Screens.Profile())
+                router.navigateTo(Profile())
             }
         }
     }
@@ -104,21 +146,21 @@ class BottomBarViewImpl private constructor() :
         return false
     }
 
-    private object Screens {
-        fun Debts() = FragmentScreen { DebtsViewImplementation() }
-        fun Profile() = FragmentScreen { ProfileViewImpl() }
-        fun CreateDebt(id: Int = -1) = FragmentScreen { CreateDebtScreen.instance(id, true) }
+    private fun Debts() = FragmentScreen(DEBTS_TAG) { debtsTabFragment }
+    private fun Profile() = FragmentScreen(PROFILE_TAG) { profileTabFragment }
+    private fun CreateDebt(id: Int = -1) = FragmentScreen {
+        CreateDebtScreen.instance(id, true)
     }
 
     override fun openDebts() {
         arguments?.putString(FRAGMENT_ID, DEBTS_TAG)
-        router.navigateTo(Screens.Debts())
+        router.navigateTo(Debts())
         currentFragmentTag = DEBTS_TAG
     }
 
     override fun openProfile() {
         arguments?.putString(FRAGMENT_ID, PROFILE_TAG)
-        router.newChain(Screens.Profile())
+        router.navigateTo(Profile())
         currentFragmentTag = PROFILE_TAG
     }
 

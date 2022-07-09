@@ -4,6 +4,10 @@ import com.google.gson.Gson
 import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.component
 import com.mole.android.mole.di.FingerprintRepository
+import com.mole.android.mole.web.service.RetrofitBuilder.API_PATH
+import com.mole.android.mole.web.service.RetrofitBuilder.HOST
+import com.mole.android.mole.web.service.RetrofitBuilder.PORT
+import com.mole.android.mole.web.service.RetrofitBuilder.SCHEME
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import java.net.HttpURLConnection.*
@@ -25,12 +29,9 @@ class RequestTokenInterceptor(
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val API_KEY_INTERNAL_HEADER = "ApiKey"
         private const val AUTH_HEADER_PREFIX = "Bearer "
-        private const val SCHEME = "http"
-        private const val HOST = "mole-app-dev.ru"
-        private const val PORT = 8080
         private const val REFRESH_TOKEN_QUERY = "refreshToken"
         private const val FINGERPRINT_TOKEN_QUERY = "fingerprint"
-        private const val UPDATE_TOKEN_URL = "api/auth/refreshToken"
+        private const val UPDATE_TOKEN_URL = "$API_PATH/auth/refreshToken"
         private val tokenUpdateSyncer = ReentrantReadWriteLock()
     }
 
