@@ -1,6 +1,7 @@
 package com.mole.android.mole.chat.model
 
 import com.mole.android.mole.chat.data.ChatDataConverter
+import com.mole.android.mole.chat.data.ChatDataDomain
 import com.mole.android.mole.chat.data.ChatUserInfo
 import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.CoroutineScope
@@ -15,11 +16,16 @@ class ChatModelImplementation(
 
     override suspend fun loadChatData(
         userId: Int,
-        isLoadUserInfo: Boolean
+        isLoadUserInfo: Boolean,
+        idDebtMax: Int?
     ): ApiResult<ChatModel.SuccessChatResult> {
         val task = mainScope.async(Dispatchers.IO) {
             try {
-                val serverData = service.getChatData(userId)
+                val serverData: ChatDataDomain = if (idDebtMax != null) {
+                    service.getChatDataBeforeIdDebtMax(userId, idDebtMax, LIMIT)
+                } else {
+                    service.getChatData(userId, LIMIT)
+                }
                 when {
                     isLoadUserInfo -> {
                         ApiResult.create<ChatModel.SuccessChatResult>(
@@ -29,7 +35,7 @@ class ChatModelImplementation(
                                     userId = serverData.debtor.debtorInfo.idUser
                                 ),
                                 userInfo = ChatDataConverter.convertDebtorDomainToUserInfo(
-                                   debtor =  serverData.debtor
+                                    debtor = serverData.debtor
                                 )
                             )
                         )
@@ -56,5 +62,9 @@ class ChatModelImplementation(
             }
         }
         return task.await()
+    }
+
+    companion object {
+        private const val LIMIT = 30
     }
 }

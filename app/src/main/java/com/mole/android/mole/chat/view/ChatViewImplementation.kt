@@ -122,4 +122,8 @@ class ChatViewImplementation :
     override fun getUserId(): Int {
         return userId
     }
+
+    override fun getIdDebtMax(): Int? {
+        return (chatAdapter.data.last() as? ChatData.ChatMessage)?.id
+    }
 }

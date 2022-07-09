@@ -15,7 +15,8 @@ class MockedChatModel(
 
     override suspend fun loadChatData(
         userId: Int,
-        isLoadUserInfo: Boolean
+        isLoadUserInfo: Boolean,
+        idDebtMax: Int?
     ): ApiResult<ChatModel.SuccessChatResult> {
         val task = mainScope.async(Dispatchers.IO) {
             try {

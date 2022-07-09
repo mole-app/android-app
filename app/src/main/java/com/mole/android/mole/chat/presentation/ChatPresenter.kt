@@ -9,7 +9,6 @@ class ChatPresenter(
     private val model: ChatModel,
 ) : MoleBasePresenter<ChatView>() {
     private var isDataLoading = false
-    private var leftDataCount: Int = 0
 
     override fun attachView(view: ChatView) {
         super.attachView(view)
@@ -31,7 +30,7 @@ class ChatPresenter(
     fun onChatPreScrolledToTop() {
         if (!isDataLoading) {
             withView { view ->
-                dataLoading(view, view.getUserId())
+                dataLoading(view, view.getUserId(), false, view.getIdDebtMax())
             }
         }
     }
@@ -44,7 +43,12 @@ class ChatPresenter(
         }
     }
 
-    private fun dataLoading(view: ChatView, userId: Int, isLoadUserInfo: Boolean = false) {
+    private fun dataLoading(
+        view: ChatView,
+        userId: Int,
+        isLoadUserInfo: Boolean = false,
+        idDebtMax: Int? = null
+    ) {
         isDataLoading = true
         withScope {
             launch {

@@ -9,9 +9,17 @@ interface ChatService {
     suspend fun getChatData(
         @Query("idUser")
         idUser: Int,
-        @Query("idDebtMax")
-        idDebtMax: Int = 0,
         @Query("limit")
-        limit: Int = 0
+        limit: Int
+    ): ChatDataDomain
+
+    @GET("dept/debts")
+    suspend fun getChatDataBeforeIdDebtMax(
+        @Query("idUser")
+        idUser: Int,
+        @Query("idDebtMax")
+        idDebtMax: Int,
+        @Query("limit")
+        limit: Int
     ): ChatDataDomain
 }
