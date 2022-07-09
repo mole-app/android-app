@@ -52,22 +52,20 @@ class ChatPresenter(
         isDataLoading = true
         withScope {
             launch {
-                model.loadChatData(userId, isLoadUserInfo).withResult { result ->
+                model.loadChatData(userId, isLoadUserInfo, idDebtMax).withResult { result ->
                     when (result) {
                         is ChatModel.SuccessChatResult.DataWithUserInfo -> {
-                            leftDataCount = result.chatData.size
+                            view.hideLoading()
                             view.setToolbarData(result.userInfo)
                             view.setData(result.chatData)
-                            view.hideLoading()
+                            isDataLoading = false
                         }
                         is ChatModel.SuccessChatResult.DataBatch -> {
-                            leftDataCount = result.chatData.size
                             view.setData(result.chatData)
                             view.hideLoading()
                             isDataLoading = false
                         }
                         is ChatModel.SuccessChatResult.DataIsOver -> {
-                            leftDataCount = 0
                             view.hideLoading()
                             isDataLoading = false
                         }

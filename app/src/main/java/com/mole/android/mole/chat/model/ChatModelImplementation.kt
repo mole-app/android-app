@@ -2,7 +2,6 @@ package com.mole.android.mole.chat.model
 
 import com.mole.android.mole.chat.data.ChatDataConverter
 import com.mole.android.mole.chat.data.ChatDataDomain
-import com.mole.android.mole.chat.data.ChatUserInfo
 import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,13 +20,14 @@ class ChatModelImplementation(
     ): ApiResult<ChatModel.SuccessChatResult> {
         val task = mainScope.async(Dispatchers.IO) {
             try {
-                val serverData: ChatDataDomain = if (idDebtMax != null) {
-                    service.getChatDataBeforeIdDebtMax(userId, idDebtMax, LIMIT)
-                } else {
-                    service.getChatData(userId, LIMIT)
-                }
-                when {
-                    isLoadUserInfo -> {
+                if (debtLeft != 0) {
+                    val serverData: ChatDataDomain = if (idDebtMax != null) {
+                        service.getChatDataBeforeIdDebtMax(userId, idDebtMax, LIMIT)
+                    } else {
+                        service.getChatData(userId, LIMIT)
+                    }
+                    debtLeft = serverData.debtLeft
+                    if (isLoadUserInfo) {
                         ApiResult.create<ChatModel.SuccessChatResult>(
                             ChatModel.SuccessChatResult.DataWithUserInfo(
                                 chatData = ChatDataConverter.convertDebtDomainToChatData(
@@ -39,14 +39,7 @@ class ChatModelImplementation(
                                 )
                             )
                         )
-                    }
-                    serverData.debtLeft <= 0 -> {
-                        ApiResult.create<ChatModel.SuccessChatResult>(
-                            ChatModel.SuccessChatResult.DataIsOver
-                        )
-                    }
-
-                    else -> {
+                    } else {
                         ApiResult.create<ChatModel.SuccessChatResult>(
                             ChatModel.SuccessChatResult.DataBatch(
                                 ChatDataConverter.convertDebtDomainToChatData(
@@ -56,6 +49,10 @@ class ChatModelImplementation(
                             )
                         )
                     }
+                } else {
+                    ApiResult.create<ChatModel.SuccessChatResult>(
+                        ChatModel.SuccessChatResult.DataIsOver
+                    )
                 }
             } catch (exception: HttpException) {
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
@@ -66,5 +63,6 @@ class ChatModelImplementation(
 
     companion object {
         private const val LIMIT = 30
+        private var debtLeft: Int = -1
     }
 }
