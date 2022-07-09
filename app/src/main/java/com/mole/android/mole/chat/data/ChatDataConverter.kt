@@ -27,6 +27,7 @@ object ChatDataConverter {
             val isMessageOfUser = idCompare(userId, debtDomain.idUser)
             debts.add(
                 ChatData.ChatMessage(
+                    id = debtDomain.id,
                     isMessageOfUser = isMessageOfUser,
                     debtValue = calculateDebtValue(
                         isMessageOfUser,
