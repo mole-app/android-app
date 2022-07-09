@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ChatService {
-    @GET("dept/debts")
+    @GET("debt/debts")
     suspend fun getChatData(
         @Query("idUser")
         idUser: Int,
@@ -13,7 +13,7 @@ interface ChatService {
         limit: Int
     ): ChatDataDomain
 
-    @GET("dept/debts")
+    @GET("debt/debts")
     suspend fun getChatDataBeforeIdDebtMax(
         @Query("idUser")
         idUser: Int,
