@@ -33,7 +33,7 @@ class AuthBeginViewImplementation :
     }
 
     override fun openDebts() {
-        router.replaceScreen(Screens.Debts())
+        router.newRootScreen(Screens.Debts())
     }
 
     override fun openBrowser(actionAfter: (String) -> Unit) {

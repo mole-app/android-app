@@ -71,7 +71,7 @@ class BottomBarViewImpl private constructor() :
                 router.newRootScreen(Screens.Debts())
             }
             PROFILE_TAG -> {
-                router.newChain(Screens.Profile())
+                router.navigateTo(Screens.Profile())
             }
         }
     }
@@ -112,13 +112,13 @@ class BottomBarViewImpl private constructor() :
 
     override fun openDebts() {
         arguments?.putString(FRAGMENT_ID, DEBTS_TAG)
-        router.navigateTo(Screens.Debts())
+        router.newRootScreen(Screens.Debts())
         currentFragmentTag = DEBTS_TAG
     }
 
     override fun openProfile() {
         arguments?.putString(FRAGMENT_ID, PROFILE_TAG)
-        router.newChain(Screens.Profile())
+        router.navigateTo(Screens.Profile())
         currentFragmentTag = PROFILE_TAG
     }
 

@@ -96,11 +96,11 @@ abstract class MoleBaseFragment<T : ViewBinding>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        mainActivity.stackFragments.add(this)
+        mainActivity.stackFragments.add(this)
     }
 
     override fun onDestroy() {
-//        mainActivity.stackFragments.remove(this)
+        mainActivity.stackFragments.remove(this)
         super.onDestroy()
         _binding = null
     }

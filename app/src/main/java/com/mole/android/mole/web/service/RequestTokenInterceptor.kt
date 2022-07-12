@@ -68,10 +68,10 @@ class RequestTokenInterceptor(
         val response = chain.proceed(request)
         if ((response.code() == HTTP_UNAUTHORIZED) && !isApiKeyAuth) {
             val accountRepository = component().accountManagerModule.accountRepository
-            if (accountRepository.refreshToken != null) {
+            val refreshToken = accountRepository.refreshToken
+            if (refreshToken != null) {
                 tokenUpdateSyncer.write {
-                    val refreshToken = accountRepository.refreshToken
-                    if (refreshToken != null) {
+                    run {
                         val authTokenData: AuthTokenData?
                         runBlocking {
                             val authTokenDataUrl: HttpUrl = HttpUrl.Builder()
@@ -110,9 +110,6 @@ class RequestTokenInterceptor(
                                 else -> authTokenData = null
                             }
                         }
-                    } else {
-                        accountRepository.removeAccount { }
-                        response
                     }
                 }
                 val updateAuthHeader: String
