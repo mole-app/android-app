@@ -15,6 +15,8 @@ class MoleComponent(
     val accountManagerModule = AccountManagerModule(context, activity)
     val authModule = AuthModule(context, retrofitModule, scopeModule, firebaseModule)
     val profileModule = ProfileModule(retrofitModule, scopeModule)
+    val settingsModule = SettingsModule()
+    val aboutModule = AboutModule(retrofitModule, scopeModule)
     val debtsModule = DebtsModule(routingModule)
     val devPanelModule = DevPanelModule(accountManagerModule, scopeModule)
     val chatModule = ChatModule(scopeModule)

@@ -8,7 +8,8 @@ import com.mole.android.mole.auth.view.AuthWebViewImpl
 import com.mole.android.mole.bottomNavigation.view.BottomBarViewImpl
 import com.mole.android.mole.chat.view.ChatViewImplementation
 import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
-import com.mole.android.mole.test.FragmentBottomBarTest
+import com.mole.android.mole.settings.view.SettingsViewImpl
+import com.mole.android.mole.test.TestScreenFragment
 
 object Screens {
     fun AuthLogin(login: String) = FragmentScreen { AuthLoginViewImplementation.newInstance(login) }
@@ -21,7 +22,9 @@ object Screens {
 
     fun About() = FragmentScreen { AboutViewImpl() }
 
-    fun TestScreen() = FragmentScreen { FragmentBottomBarTest() }
+    fun Settings() = FragmentScreen { SettingsViewImpl() }
+
+    fun TestScreen() = FragmentScreen { TestScreenFragment() }
 
     fun Debts() = FragmentScreen { BottomBarViewImpl.withDebts() }
 

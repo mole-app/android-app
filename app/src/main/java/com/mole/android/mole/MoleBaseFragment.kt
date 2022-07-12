@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.*
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
@@ -54,6 +56,11 @@ abstract class MoleBaseFragment<T : ViewBinding>
             menu.clear()
             inflater.inflate(getMenuId(), menu)
             getToolbar()?.bindMenu()
+            menu.iterator().forEach { menuItem ->
+                menuItem.actionView?.findViewById<AppCompatImageButton>(R.id.menu_icon)?.setOnClickListener {
+                    onOptionsItemSelected(menuItem)
+                }
+            }
         }
     }
 
