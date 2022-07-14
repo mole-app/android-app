@@ -17,6 +17,7 @@ import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
 import com.mole.android.mole.onTextChangeSkipped
+import com.mole.android.mole.openKeyboard
 
 class ChooseTextItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -213,8 +214,7 @@ class ChooseTextItemView @JvmOverloads constructor(
     }
 
     private fun showKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        openKeyboard()
     }
 
     private fun hideKeyBoard() {
