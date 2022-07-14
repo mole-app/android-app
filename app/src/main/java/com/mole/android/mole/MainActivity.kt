@@ -6,6 +6,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.mole.android.mole.di.MoleFirebaseRemoteConfig
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.AuthBegin
 import com.mole.android.mole.navigation.Screens.TestScreen
@@ -28,6 +33,14 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
+        val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+        remoteConfig.activate()
+        remoteConfig.fetch()
 
         val navigator = AppNavigator(this, R.id.fragment_container)
         routingModule.navigationHolder.setNavigator(navigator)
