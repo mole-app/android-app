@@ -10,6 +10,7 @@ class MoleComponent(
     private val scopeModule = BaseScopeModule()
     var activity: AppCompatActivity? = null
     val remoteConfigModule: RemoteConfigModule = RemoteConfigModule()
+    val buildConfigModule: BuildConfigModule = BuildConfigModule()
     val firebaseModule = FirebaseModule()
     val routingModule = RoutingModule()
     val accountManagerModule = AccountManagerModule(context, activity)

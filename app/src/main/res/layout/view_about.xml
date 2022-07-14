@@ -31,10 +31,10 @@
             android:src="@drawable/ic_icon"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/versionUnderline"
             style="@style/MoleText.Medium.Text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mole for Android v1.0.0 (001)"
             android:textColor="@color/white_alpha_50" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
