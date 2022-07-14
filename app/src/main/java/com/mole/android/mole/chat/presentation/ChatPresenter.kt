@@ -9,6 +9,7 @@ class ChatPresenter(
     private val model: ChatModel,
 ) : MoleBasePresenter<ChatView>() {
     private var isDataLoading = false
+    private var debtLeft = -1
 
     override fun attachView(view: ChatView) {
         super.attachView(view)
@@ -52,24 +53,21 @@ class ChatPresenter(
         isDataLoading = true
         withScope {
             launch {
-                model.loadChatData(userId, isLoadUserInfo, idDebtMax).withResult { result ->
-                    when (result) {
-                        is ChatModel.SuccessChatResult.DataWithUserInfo -> {
-                            view.hideLoading()
-                            view.setToolbarData(result.userInfo)
-                            view.setData(result.chatData)
-                            isDataLoading = false
+                if (debtLeft != 0) {
+                    model.loadChatData(userId, idDebtMax).withResult { result ->
+                        debtLeft = result.debtLeft
+                        if (isLoadUserInfo) {
+                            view.setToolbarData(result.debtor)
+                            view.setData(result.debts)
+                        } else {
+                            view.setData(result.debts)
                         }
-                        is ChatModel.SuccessChatResult.DataBatch -> {
-                            view.setData(result.chatData)
-                            view.hideLoading()
-                            isDataLoading = false
-                        }
-                        is ChatModel.SuccessChatResult.DataIsOver -> {
-                            view.hideLoading()
-                            isDataLoading = false
-                        }
+                        view.hideLoading()
+                        isDataLoading = false
                     }
+                } else {
+                    view.hideLoading()
+                    isDataLoading = false
                 }
             }
         }
