@@ -4,5 +4,4 @@ import com.mole.android.mole.MoleBaseView
 
 interface SettingsView : MoleBaseView {
 
-    fun exitAccount()
 }

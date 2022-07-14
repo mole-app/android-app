@@ -15,7 +15,7 @@
         <com.mole.android.mole.ui.actionbar.MoleActionBar
             android:id="@+id/mole_about_toolbar"
             style="@style/MoleToolbar"
-            app:backVisible="false"
+            app:backVisible="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

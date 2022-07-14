@@ -9,10 +9,12 @@ import com.mole.android.mole.navigation.Screens.About
 import com.mole.android.mole.settings.presentation.SettingsPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
-class SettingsViewImpl : MoleBaseFragment<ViewSettingsBinding>(ViewSettingsBinding::inflate), SettingsView {
+class SettingsViewImpl :
+    MoleBaseFragment<ViewSettingsBinding>(ViewSettingsBinding::inflate), SettingsView {
 
     private lateinit var presenter: SettingsPresenter
     private val routing = component().routingModule.router
+    private val accountRepository = component().accountManagerModule.accountRepository
 
 
     override fun getToolbar(): MoleActionBar {
@@ -27,10 +29,9 @@ class SettingsViewImpl : MoleBaseFragment<ViewSettingsBinding>(ViewSettingsBindi
         binding.aboutGroup.setOnClickListener {
             routing.navigateTo(About())
         }
-    }
 
-    override fun exitAccount() {
-        TODO("Not yet implemented")
+        binding.exitGroup.setOnClickListener {
+            accountRepository.removeAccount { }
+        }
     }
-
 }

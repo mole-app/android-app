@@ -23,6 +23,7 @@ abstract class MoleBaseFragment<T : ViewBinding>
     protected val binding get() = _binding!!
 
     private val navigatorHolder = component().routingModule.navigationHolder
+    private val router = component().routingModule.router
     private val mainActivity: MainActivity get() = activity as MainActivity
 
     open fun getSoftMode(): Int = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -72,7 +73,7 @@ abstract class MoleBaseFragment<T : ViewBinding>
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         _binding = inflation(inflater, container, false)
-
+        setRetainInstance(false)
         val root = binding.root
         val viewUnderSnackbar = getViewUnderSnackbar()
         if (viewUnderSnackbar != null) {
@@ -126,7 +127,8 @@ abstract class MoleBaseFragment<T : ViewBinding>
     }
 
     open fun onBackPress(): Boolean {
-        return false
+        router.exit()
+        return true
     }
 
     open fun getViewUnderSnackbar(): View? = null
