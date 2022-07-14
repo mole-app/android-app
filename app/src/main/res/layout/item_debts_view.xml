@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemChatView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,51 +10,55 @@
         android:id="@+id/personIcon"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginStart="@dimen/debt_main_screen_chat_margin_boundaries"
         android:layout_marginTop="@dimen/debt_main_screen_chat_margin"
         android:layout_marginBottom="@dimen/debt_main_screen_chat_margin"
-        android:layout_marginStart="@dimen/debt_main_screen_chat_margin_boundaries"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"/>
+        tools:src="@drawable/ic_not_avatar_foreground" />
 
     <TextView
         android:id="@+id/personName"
         style="@style/MoleText.Medium.Text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/debt_main_screen_chat_margin"
         app:layout_constraintBottom_toTopOf="@id/personDebtsCount"
         app:layout_constraintStart_toEndOf="@id/personIcon"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/debt_main_screen_chat_margin"/>
+        tools:text="Александр" />
 
     <TextView
         android:id="@+id/personDebtsCount"
         style="@style/MoleText.Medium.Text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/debt_main_screen_chat_margin"
+        android:textColor="@color/white_alpha_50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/personIcon"
         app:layout_constraintTop_toBottomOf="@id/personName"
-        android:layout_marginStart="@dimen/debt_main_screen_chat_margin"/>
+        tools:text="10 долгов" />
 
     <com.mole.android.mole.ui.MoleMessageView
         android:id="@+id/personDebtsTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/debt_main_screen_chat_margin_boundaries"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="@dimen/debt_main_screen_chat_margin_boundaries"
         app:postfix="@string/postfix_balance" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/white"
-        app:layout_constraintStart_toEndOf="@id/personIcon"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/debt_main_screen_chat_margin"
+        android:background="@color/white_alpha_5"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="@dimen/debt_main_screen_chat_margin"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/personIcon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:id="@+id/titleChatTextView"
+        style="@style/MoleText.Light.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/debt_main_screen_title_margin"
+        android:layout_marginTop="@dimen/debt_main_screen_title_margin"
+        tools:text="Всего: +12 000 р."/>
+</FrameLayout>

@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha_50">#80FFFFFF</color>
     <color name="white_alpha_25">#40FFFFFF</color>
+    <color name="white_alpha_5">#0DFFFFFF</color>
     <color name="white_ripple">#40FFFFFF</color>
     <color name="invisible_black">#00212121</color>
 
