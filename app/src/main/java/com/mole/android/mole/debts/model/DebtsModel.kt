@@ -1,7 +1,9 @@
 package com.mole.android.mole.debts.model
 
 import com.mole.android.mole.debts.data.DebtsData
+import com.mole.android.mole.web.service.ApiResult
 
 interface DebtsModel {
-    fun getDebtsData(): List<DebtsData>
+    suspend fun getDebtsData(): ApiResult<SuccessDebtsResult>
+    class SuccessDebtsResult(val debtsData: List<DebtsData>)
 }

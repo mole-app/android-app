@@ -14,7 +14,7 @@ sealed class DebtsData{
     ): DebtsData()
 }
 
-val testData = listOf<DebtsData>(
+val testDebtsData = listOf<DebtsData>(
     DebtsData.TotalDebtsData(0, +12000),
     DebtsData.ChatDebtsData( 1, "Александр", 10, "1", +1500),
     DebtsData.ChatDebtsData(2, "Андрей", 1, "2", -500),
