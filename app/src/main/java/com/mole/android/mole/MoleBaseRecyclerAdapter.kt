@@ -39,4 +39,8 @@ abstract class MoleBaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     fun add(data: T) {
         this.data.add(data)
     }
+
+    fun getPositionData(position: Int): T {
+        return data[position]
+    }
 }
