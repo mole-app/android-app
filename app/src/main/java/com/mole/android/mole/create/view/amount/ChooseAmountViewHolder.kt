@@ -34,14 +34,18 @@ class ChooseAmountViewHolder(
     init {
         amountText.text = "0 ${itemView.context.getString(R.string.rubles_suffix)}"
         amountText.setHighLightedText("0", itemView.context.getColor(R.color.white_alpha_50))
-        editText.addTextChangedListener {
-            provideTextToField(it)
+        confirmButton.isEnabled = false
+        editText.addTextChangedListener { text ->
+            confirmButton.isEnabled = !text.isNullOrEmpty()
+            provideTextToField(text)
         }
         amountText.setOnClickListener {
             showKeyboard()
         }
         confirmButton.setOnClickListener {
-            presenter.confirm(editText.text.toString().toInt())
+            editText.text.toString().toIntOrNull()?.let {
+                presenter.confirm(it)
+            }
         }
     }
 
