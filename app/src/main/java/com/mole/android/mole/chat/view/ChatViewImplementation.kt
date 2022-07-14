@@ -71,7 +71,7 @@ class ChatViewImplementation :
         binding.chatFabView.setOnClickListener {
             router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
             router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
-//                presenter.onCallbackToChat()
+//                presenter.onDebtsCreated()
             }
         }
     }

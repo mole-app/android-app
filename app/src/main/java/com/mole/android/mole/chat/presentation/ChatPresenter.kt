@@ -14,15 +14,15 @@ class ChatPresenter(
         super.attachView(view)
         view.setToolbarLoading()
         view.showLoading()
-        dataLoading(view, view.getUserId(), true)
+        loadData(view, view.getUserId(), true)
     }
 
-    fun onCallbackToChat() {
+    fun onDebtsCreated() {
         if (!isDataLoading) {
             withView { view ->
                 view.setToolbarLoading()
                 view.showLoading()
-                dataLoading(view, view.getUserId())
+                loadData(view, view.getUserId())
             }
         }
     }
@@ -30,7 +30,7 @@ class ChatPresenter(
     fun onChatPreScrolledToTop() {
         if (!isDataLoading) {
             withView { view ->
-                dataLoading(view, view.getUserId(), false, view.getIdDebtMax())
+                loadData(view, view.getUserId(), false, view.getIdDebtMax())
             }
         }
     }
@@ -43,7 +43,7 @@ class ChatPresenter(
         }
     }
 
-    private fun dataLoading(
+    private fun loadData(
         view: ChatView,
         userId: Int,
         isLoadUserInfo: Boolean = false,
