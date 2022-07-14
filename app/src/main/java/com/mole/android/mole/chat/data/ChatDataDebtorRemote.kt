@@ -2,16 +2,16 @@ package com.mole.android.mole.chat.data
 
 import com.google.gson.annotations.SerializedName
 
-data class ChatDataDebtorDomain(
+data class ChatDataDebtorRemote(
     @SerializedName("debtorInfo")
-    val debtorInfo: ChatDebtorInfo,
+    val debtorInfo: ChatDebtorInfoRemote,
     @SerializedName("debtorStatistic")
-    val debtorStatistic: ChatDebtorStatistic,
+    val debtorStatistic: ChatDebtorStatisticRemote,
     @SerializedName("mainPhotoUrl")
-    val mainPhotoUrl: ChatDebtorPhotoUrl
+    val mainPhotoUrl: ChatDebtorPhotoUrlRemote
 )
 
-data class ChatDebtorInfo(
+data class ChatDebtorInfoRemote(
     @SerializedName("idUser")
     val idUser: Int,
     @SerializedName("name")
@@ -20,16 +20,25 @@ data class ChatDebtorInfo(
     val mainPhotoName: String
 )
 
-data class ChatDebtorStatistic(
+data class ChatDebtorStatisticRemote(
     @SerializedName("debtSum")
     val debtSum: Int,
     @SerializedName("debtCount")
     val debtCount: Int
 )
 
-data class ChatDebtorPhotoUrl(
+data class ChatDebtorPhotoUrlRemote(
     @SerializedName("photoSmall")
     val photoSmall: String,
     @SerializedName("photoNormal")
     val photoNormal: String
 )
+
+fun ChatDataDebtorRemote.asDomain(): ChatUserInfo {
+    return ChatUserInfo(
+        id = debtorInfo.idUser,
+        name = debtorInfo.name,
+        avatarUrl = mainPhotoUrl.photoSmall,
+        balance = debtorStatistic.debtSum
+    )
+}

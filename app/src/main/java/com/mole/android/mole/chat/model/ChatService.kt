@@ -1,6 +1,6 @@
 package com.mole.android.mole.chat.model
 
-import com.mole.android.mole.chat.data.ChatDataDomain
+import com.mole.android.mole.chat.data.ChatDataRemote
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,7 +11,7 @@ interface ChatService {
         idUser: Int,
         @Query("limit")
         limit: Int
-    ): ChatDataDomain
+    ): ChatDataRemote
 
     @GET("debt/debts")
     suspend fun getChatDataBeforeIdDebtMax(
@@ -21,5 +21,5 @@ interface ChatService {
         idDebtMax: Int,
         @Query("limit")
         limit: Int
-    ): ChatDataDomain
+    ): ChatDataRemote
 }

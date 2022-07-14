@@ -4,6 +4,6 @@ import android.view.View
 import com.mole.android.mole.debts.data.DebtsData
 
 interface OnItemChatClickListener {
-    fun onLongClick(view: View, chatData: DebtsData.ChatDebtsData)
-    fun onShotClick(chatData: DebtsData.ChatDebtsData)
+    fun onLongClick(view: View, chatData: DebtsData.ChatDebtorData)
+    fun onShotClick(chatData: DebtsData.ChatDebtorData)
 }

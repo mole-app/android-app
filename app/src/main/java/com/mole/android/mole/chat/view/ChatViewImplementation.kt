@@ -9,7 +9,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
-import com.mole.android.mole.chat.data.ChatData
+import com.mole.android.mole.chat.data.ChatDebtsData
 import com.mole.android.mole.chat.data.ChatUserInfo
 import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
@@ -89,7 +89,7 @@ class ChatViewImplementation :
         presenter.detachView()
     }
 
-    override fun setData(data: List<ChatData>) {
+    override fun setData(data: List<ChatDebtsData>) {
         chatAdapter.setChatData(data)
         chatAdapter.notifyDataSetChanged()
 
@@ -124,6 +124,6 @@ class ChatViewImplementation :
     }
 
     override fun getIdDebtMax(): Int? {
-        return (chatAdapter.data.last() as? ChatData.ChatMessage)?.id
+        return (chatAdapter.data.last() as? ChatDebtsData.ChatMessage)?.id
     }
 }

@@ -5,31 +5,22 @@ import java.util.*
 
 object ChatDataConverter {
 
-    fun convertDebtorDomainToUserInfo(debtor: ChatDataDebtorDomain): ChatUserInfo {
-        return ChatUserInfo(
-            id = debtor.debtorInfo.idUser,
-            name = debtor.debtorInfo.name,
-            avatarUrl = debtor.mainPhotoUrl.photoSmall,
-            balance = debtor.debtorStatistic.debtSum
-        )
-    }
-
-    fun convertDebtDomainToChatData(
-        debtsDomain: List<ChatDataDebtDomain>,
+    fun debtsAsDomain(
+        debtsDomain: List<ChatDataDebtRemote>,
         userId: Int
-    ): List<ChatData> {
-        val debts: MutableList<ChatData> = mutableListOf()
+    ): List<ChatDebtsData> {
+        val debts: MutableList<ChatDebtsData> = mutableListOf()
         var lastDate: Date = stringToDate(debtsDomain[0].createTime)
         for (debtDomain in debtsDomain) {
             val newDate = stringToDate(debtDomain.createTime)
             if (isNewDate(newDate, lastDate)) {
-                debts.add(ChatData.ChatDate(lastDate))
+                debts.add(ChatDebtsData.ChatDate(lastDate))
             }
             lastDate = newDate
 
-            val isMessageOfUser = idCompare(userId, debtDomain.idUser)
+            val isMessageOfUser = userId == debtDomain.idUser
             debts.add(
-                ChatData.ChatMessage(
+                ChatDebtsData.ChatMessage(
                     id = debtDomain.id,
                     isMessageOfUser = isMessageOfUser,
                     debtValue = calculateDebtValue(
@@ -43,24 +34,22 @@ object ChatDataConverter {
                 )
             )
             if (debtDomain.id == debtsDomain.last().id) {
-                debts.add(ChatData.ChatDate(lastDate))
+                debts.add(ChatDebtsData.ChatDate(lastDate))
             }
         }
         return debts
     }
 
     private fun isNewDate(newDate: Date, oldDate: Date): Boolean {
-        val millisInDay = (60 * 60 * 24 * 1000).toLong()
         val newDateWithoutTime = removeTime(newDate)
         val oldDateWithoutTime = removeTime(oldDate)
-        return (oldDateWithoutTime.time - newDateWithoutTime.time >= millisInDay)
+        return (oldDateWithoutTime.time - newDateWithoutTime.time >= MILLIS_IN_DAY)
 
     }
 
     private fun removeTime(date: Date): Date {
-        val millisInDay = (60 * 60 * 24 * 1000).toLong()
         val currentTime = date.time
-        val dateInMillisWithoutTime = (currentTime / millisInDay) * millisInDay
+        val dateInMillisWithoutTime = (currentTime / MILLIS_IN_DAY) * MILLIS_IN_DAY
         return Date(dateInMillisWithoutTime)
 
     }
@@ -82,7 +71,5 @@ object ChatDataConverter {
         }
     }
 
-    private fun idCompare(userId: Int, debtId: Int): Boolean {
-        return userId == debtId
-    }
+    private const val MILLIS_IN_DAY = (60 * 60 * 24 * 1000).toLong()
 }

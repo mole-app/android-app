@@ -2,7 +2,7 @@ package com.mole.android.mole.chat.data
 
 import com.google.gson.annotations.SerializedName
 
-data class ChatDataDebtDomain(
+data class ChatDataDebtRemote(
     @SerializedName("id")
     val id: Int,
     @SerializedName("sum")
