@@ -8,6 +8,7 @@ import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -118,9 +119,13 @@ fun TextView.setHighLightedText(textToHighlight: String, @ColorInt color: Int, i
     }
 }
 
-val View.keyboardIsVisible: Boolean
-    get() = rootWindowInsets?.let {
-        WindowInsetsCompat
-            .toWindowInsetsCompat(rootWindowInsets)
-            .isVisible(WindowInsetsCompat.Type.ime())
-    } ?: false
+fun View.openKeyboard() {
+    // Delay to fix some devices keyboards issues
+    postDelayed({
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(
+            InputMethodManager.SHOW_IMPLICIT,
+            InputMethodManager.HIDE_IMPLICIT_ONLY
+        )
+    }, 100L)
+}
