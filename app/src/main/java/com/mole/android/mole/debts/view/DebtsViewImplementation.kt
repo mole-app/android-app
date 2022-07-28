@@ -3,6 +3,7 @@ package com.mole.android.mole.debts.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.MoleBaseFragment
@@ -61,8 +62,10 @@ class DebtsViewImplementation :
             R.string.total_debts,
             summaryToString(data.debtsSumTotal.toLong())
         )
-        debtsAdapter.update(data.debtors)
-        debtsAdapter.notifyDataSetChanged()
+        val diffUtilCallback = DebtsDiffUtilCallback(debtsAdapter.getData(), data.debtors)
+        val diffUtilResult = DiffUtil.calculateDiff(diffUtilCallback)
+        debtsAdapter.addAll(data.debtors)
+        diffUtilResult.dispatchUpdatesTo(debtsAdapter)
     }
 
     override fun showLoading() {
