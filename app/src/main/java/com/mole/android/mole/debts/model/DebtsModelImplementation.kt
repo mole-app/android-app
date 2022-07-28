@@ -1,36 +1,19 @@
 package com.mole.android.mole.debts.model
 
-import com.mole.android.mole.debts.data.testDebtsData
+import com.mole.android.mole.debts.data.asDomain
 import com.mole.android.mole.web.service.ApiResult
+import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import retrofit2.HttpException
 
 
 class DebtsModelImplementation(
     private val service: DebtsService,
-    private val mainScope: CoroutineScope
+    private val scope: CoroutineScope
 ) : DebtsModel {
-    override suspend fun getDebtsData(): ApiResult<DebtsModel.SuccessDebtsResult> {
-        val task = mainScope.async(Dispatchers.IO) {
-            try {
-                delay(1000)
-                ApiResult.create(
-                    DebtsModel.SuccessDebtsResult(
-                        testDebtsData
-                    )
-                )
-
-            } catch (exception: HttpException) {
-                ApiResult.create(
-                    ApiResult.MoleError(
-                        exception.code(),
-                        exception.message()
-                    )
-                )
-            }
+    override suspend fun loadDebtsData(): ApiResult<SuccessDebtsResult> {
+        val task = scope.async {
+            call { service.getDebtors().asDomain() }
         }
         return task.await()
     }
