@@ -27,9 +27,9 @@ class DebtsPresenter(
     private fun dataLoading(view: DebtsView) {
         withScope {
             launch {
-                model.getDebtsData()
+                model.loadDebtsData()
                     .withResult { result ->
-                        view.setData(result.debtsData)
+                        view.setData(result)
                         view.hideLoading()
                     }
                     .withError { error ->
