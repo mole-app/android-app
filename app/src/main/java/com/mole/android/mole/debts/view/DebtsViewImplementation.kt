@@ -47,6 +47,7 @@ class DebtsViewImplementation :
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = debtsAdapter
+            addItemDecoration(DebtsLastPositionItemDecoration())
         }
     }
 
