@@ -18,5 +18,5 @@ class MoleComponent(
     val debtsModule = DebtsModule(retrofitModule, scopeModule)
     val devPanelModule = DevPanelModule(accountManagerModule, scopeModule)
     val chatModule = ChatModule(scopeModule)
-    val createDebtsModule = CreateDebtsModule(scopeModule)
+    val createDebtsModule = CreateDebtsModule(scopeModule, retrofitModule)
 }

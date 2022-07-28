@@ -50,6 +50,7 @@ class CreateStepsScreen :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val id = arguments?.getInt(EXTRA_ID, -1) ?: -1
+        side = arguments?.getBoolean(EXTRA_SIDE, false) ?: false
         if (id >= 0) {
             userId = id
         }

@@ -5,18 +5,16 @@ import android.content.Context
 import android.text.Editable
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.doOnAttach
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.mole.android.mole.R
 import com.mole.android.mole.create.presentation.ChooseAmountPresenter
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
-import com.mole.android.mole.keyboardIsVisible
+import com.mole.android.mole.openKeyboard
 import com.mole.android.mole.setHighLightedText
 
 @SuppressLint("SetTextI18n")
@@ -34,14 +32,18 @@ class ChooseAmountViewHolder(
     init {
         amountText.text = "0 ${itemView.context.getString(R.string.rubles_suffix)}"
         amountText.setHighLightedText("0", itemView.context.getColor(R.color.white_alpha_50))
-        editText.addTextChangedListener {
-            provideTextToField(it)
+        confirmButton.isEnabled = false
+        editText.addTextChangedListener { text ->
+            confirmButton.isEnabled = !text.isNullOrEmpty()
+            provideTextToField(text)
         }
         amountText.setOnClickListener {
             showKeyboard()
         }
         confirmButton.setOnClickListener {
-            presenter.confirm(editText.text.toString().toInt())
+            editText.text.toString().toIntOrNull()?.let {
+                presenter.confirm(it)
+            }
         }
     }
 
@@ -77,12 +79,7 @@ class ChooseAmountViewHolder(
 
     private fun showKeyboard() {
         editText.requestFocus()
-        val imm =
-            itemView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(
-            InputMethodManager.SHOW_IMPLICIT,
-            InputMethodManager.HIDE_IMPLICIT_ONLY
-        )
+        editText.openKeyboard()
     }
 
     override fun requestFocus() {
