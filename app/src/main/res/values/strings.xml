@@ -22,6 +22,7 @@
     <string name="login_prefix">\@%s</string>
     <string name="welcome_string">Добро пожаловать!</string>
     <string name="total_debts">Всего: %s p.</string>
+    <string name="debts_action_bar">Долги</string>
     <plurals name="debts_plurals">
         <item quantity="one">%1$d долг</item>
         <item quantity="few">%1$d долга</item>

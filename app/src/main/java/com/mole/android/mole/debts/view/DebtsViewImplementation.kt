@@ -11,6 +11,7 @@ import com.mole.android.mole.component
 import com.mole.android.mole.databinding.FragmentDebtsBinding
 import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class DebtsViewImplementation :
     MoleBaseFragment<FragmentDebtsBinding>(FragmentDebtsBinding::inflate), DebtsView {
@@ -28,6 +29,10 @@ class DebtsViewImplementation :
     private val debtsAdapter = DebtsAdapter(listener)
 
     override fun getNavigator() = AppNavigator(requireActivity(), R.id.nav_host_fragment)
+
+    override fun getToolbar(): MoleActionBar? {
+        return binding.actionBar
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
