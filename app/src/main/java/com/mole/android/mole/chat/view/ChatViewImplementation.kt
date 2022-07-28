@@ -9,8 +9,8 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
-import com.mole.android.mole.chat.data.ChatDebtsData
 import com.mole.android.mole.chat.data.ChatDebtorData
+import com.mole.android.mole.chat.data.ChatDebtsData
 import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
@@ -31,8 +31,10 @@ class ChatViewImplementation :
         }
     }
 
-    private var userId: Int = -1
-    private val presenter = component().chatModule.chatPresenter
+    private val presenter by lazy {
+        val userId = arguments?.getInt(ARG_USER_ID) ?: 0
+        component().chatModule.chatPresenter(userId)
+    }
     private val chatAdapter = ChatAdapter()
     private val itemCountBeforeListScrollToTop = 10
     private val scrollListener = object : RecyclerView.OnScrollListener() {
@@ -62,17 +64,13 @@ class ChatViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        userId = arguments?.getInt(ARG_USER_ID) as Int
         initChatFabView()
         initRecyclerView()
     }
 
     private fun initChatFabView() {
         binding.chatFabView.setOnClickListener {
-            router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
-            router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
-//                presenter.onDebtsCreated()
-            }
+            presenter.onFabViewClicked()
         }
     }
 
@@ -119,11 +117,10 @@ class ChatViewImplementation :
         binding.chatProgressBar.visibility = View.GONE
     }
 
-    override fun getUserId(): Int {
-        return userId
-    }
-
-    override fun getIdDebtMax(): Int? {
-        return (chatAdapter.data.last() as? ChatDebtsData.ChatMessage)?.id
+    override fun showCreateDebtScreen(userId: Int) {
+        router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
+        router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
+            //                presenter.onDebtsCreated()
+        }
     }
 }

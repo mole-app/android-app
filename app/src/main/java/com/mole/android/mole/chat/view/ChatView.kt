@@ -10,6 +10,5 @@ interface ChatView: MoleBaseView {
     fun setToolbarData(data: ChatDebtorData)
     fun showLoading()
     fun hideLoading()
-    fun getUserId() : Int
-    fun getIdDebtMax(): Int?
+    fun showCreateDebtScreen(userId: Int)
 }

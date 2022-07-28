@@ -10,8 +10,10 @@ class ChatModule(
     retrofitModule: RetrofitModule,
     private val baseScopeModule: BaseScopeModule
 ) {
-    val chatPresenter
-        get() = ChatPresenter(chatModel)
+
+    fun chatPresenter(id: Int): ChatPresenter{
+        return ChatPresenter(chatModel, id)
+    }
 
     private val chatModel: ChatModel by lazy {
         ChatModelImplementation(

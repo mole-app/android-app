@@ -18,9 +18,9 @@ class ChatModelImplementation(
         val task = scope.async {
             call {
                 if (idDebtMax != null) {
-                    service.getChatDataBeforeIdDebtMax(userId, LIMIT, idDebtMax).asDomain()
+                    service.getChatDataBeforeIdDebtMax(4, LIMIT, idDebtMax).asDomain()
                 } else {
-                    service.getChatData(userId, LIMIT).asDomain()
+                    service.getChatData(4, LIMIT).asDomain()
                 }
             }
         }
