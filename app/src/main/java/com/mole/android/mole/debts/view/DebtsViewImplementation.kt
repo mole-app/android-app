@@ -64,7 +64,7 @@ class DebtsViewImplementation :
         )
         val diffUtilCallback = DebtsDiffUtilCallback(debtsAdapter.getData(), data.debtors)
         val diffUtilResult = DiffUtil.calculateDiff(diffUtilCallback)
-        debtsAdapter.addAll(data.debtors)
+        debtsAdapter.update(data.debtors)
         diffUtilResult.dispatchUpdatesTo(debtsAdapter)
     }
 
@@ -95,9 +95,6 @@ class DebtsViewImplementation :
                 R.id.fragment_container
             )
         )
-        component().routingModule.router.navigateTo(
-            Screens.Chat("Александр", 12000, "url")
-        )
-//        component().routingModule.router.navigateTo(Screens.Chat(idDebtor))
+        component().routingModule.router.navigateTo(Screens.Chat(idDebtor))
     }
 }
