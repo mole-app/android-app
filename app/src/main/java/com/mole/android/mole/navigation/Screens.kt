@@ -11,6 +11,7 @@ import com.mole.android.mole.auth.view.AuthWebViewImpl
 import com.mole.android.mole.bottomNavigation.view.BottomBarViewImpl
 import com.mole.android.mole.chat.view.ChatViewImplementation
 import com.mole.android.mole.component
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
 import com.mole.android.mole.settings.view.SettingsViewImpl
 import com.mole.android.mole.test.TestScreenFragment
@@ -38,6 +39,6 @@ object Screens {
 
     fun Profile() = FragmentScreen { BottomBarViewImpl.withProfile() }
 
-    fun Chat(name: String, totalDebts: Int, avatarUrl: String?) =
-        FragmentScreen { ChatViewImplementation.newInstance(name, totalDebts, avatarUrl) }
+    fun Chat(userId: Int) =
+        FragmentScreen { ChatViewImplementation.newInstance(userId) }
 }

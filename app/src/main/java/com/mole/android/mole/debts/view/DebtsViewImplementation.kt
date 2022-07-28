@@ -31,9 +31,7 @@ class DebtsViewImplementation :
             )
             component().routingModule.router.navigateTo(
                 Screens.Chat(
-                    name = chatData.personName,
-                    totalDebts = chatData.personDebtsTotal,
-                    avatarUrl = chatData.personIcon
+                    0
                 )
             )
         }

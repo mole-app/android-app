@@ -1,13 +1,15 @@
 package com.mole.android.mole.chat.model
 
-import com.mole.android.mole.chat.data.asDomain
+import com.mole.android.mole.chat.data.ChatData
+import com.mole.android.mole.chat.data.testChatData
+import com.mole.android.mole.chat.data.testChatUserInfo
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 
-class ChatModelImplementation(
-    private val service: ChatService,
+class MockedChatModel(
     private val scope: CoroutineScope
 ) : ChatModel {
 
@@ -17,17 +19,14 @@ class ChatModelImplementation(
     ): ApiResult<SuccessChatResult> {
         val task = scope.async {
             call {
-                if (idDebtMax != null) {
-                    service.getChatDataBeforeIdDebtMax(4, LIMIT, idDebtMax).asDomain()
-                } else {
-                    service.getChatData(4, LIMIT).asDomain()
-                }
+                delay(1000)
+                ChatData(
+                    testChatData,
+                    testChatUserInfo,
+                    1
+                )
             }
         }
         return task.await()
-    }
-
-    companion object {
-        private const val LIMIT = 30
     }
 }

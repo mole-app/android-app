@@ -29,7 +29,7 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
             field = value
         }
 
-    var tag = tagDefaultValue
+    var tag: String? = tagDefaultValue
         set(value) {
             updateTag(value)
             field = value
@@ -137,9 +137,8 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
         )
     }
 
-    private fun updateTag(value: String) {
-        tagTextView.text =
-            if (value.isNotEmpty()) context.getString(R.string.mole_message_tag, value) else ""
+    private fun updateTag(value: String?) {
+        tagTextView.text = value
     }
 
     private fun updateTime(value: String) {

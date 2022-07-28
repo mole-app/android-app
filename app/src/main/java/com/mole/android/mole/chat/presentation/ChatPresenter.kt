@@ -1,28 +1,40 @@
 package com.mole.android.mole.chat.presentation
 
 import com.mole.android.mole.MoleBasePresenter
+import com.mole.android.mole.chat.data.ChatDebtsData
 import com.mole.android.mole.chat.model.ChatModel
 import com.mole.android.mole.chat.view.ChatView
 import kotlinx.coroutines.launch
 
 class ChatPresenter(
     private val model: ChatModel,
+    private val userId: Int
 ) : MoleBasePresenter<ChatView>() {
     private var isDataLoading = false
-    private var leftDataCount: Int = 0
-    private val itemCountBeforeRequest = 10
+    private var debtLeft = -1
+    private var idDebtMax: Int? = null
 
     override fun attachView(view: ChatView) {
         super.attachView(view)
+        view.setToolbarLoading()
         view.showLoading()
-        dataLoading(view)
-
+        loadData(view, true)
     }
 
-    fun onChatPreScrolledToTop(){
+    fun onDebtsCreated() {
         if (!isDataLoading) {
             withView { view ->
-                dataLoading(view)
+                view.setToolbarLoading()
+                view.showLoading()
+                loadData(view)
+            }
+        }
+    }
+
+    fun onChatPreScrolledToTop() {
+        if (!isDataLoading) {
+            withView { view ->
+                loadData(view, false)
             }
         }
     }
@@ -35,26 +47,41 @@ class ChatPresenter(
         }
     }
 
-    private fun dataLoading(view: ChatView) {
+    fun onFabViewClicked() {
+        withView { view ->
+            view.showLoading()
+        }
+    }
+
+    private fun loadData(
+        view: ChatView,
+        isLoadUserInfo: Boolean = false
+    ) {
         isDataLoading = true
         withScope {
             launch {
-                model.loadNextData(leftDataCount).withResult { result ->
-                    when (result) {
-                        is ChatModel.SuccessChatResult.DataBatch -> {
-                            leftDataCount = result.chatData.size
-                            view.setData(result.chatData)
-                            view.hideLoading()
-                            isDataLoading = false
+                if (debtLeft != 0) {
+                    model.loadChatData(userId, idDebtMax).withResult { result ->
+                        debtLeft = result.debtLeft
+                        idDebtMax = calculateLastDebtId(result.debts)
+                        if (isLoadUserInfo) {
+                            view.setToolbarData(result.debtor)
+                            view.setData(result.debts)
+                        } else {
+                            view.setData(result.debts)
                         }
-                        is ChatModel.SuccessChatResult.DataIsOver -> {
-                            leftDataCount = 0
-                            view.hideLoading()
-                            isDataLoading = false
-                        }
+                        view.hideLoading()
+                        isDataLoading = false
                     }
+                } else {
+                    view.hideLoading()
+                    isDataLoading = false
                 }
             }
         }
+    }
+
+    private fun calculateLastDebtId(debts: List<ChatDebtsData>): Int? {
+        return (debts[debts.size - 2] as? ChatDebtsData.ChatMessage)?.id
     }
 }
