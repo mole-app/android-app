@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class MoleBaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val data: MutableList<T> = mutableListOf()
+    private val data: MutableList<T> = mutableListOf()
 
     abstract fun getViewHolder(
         viewGroup: ViewGroup,
@@ -28,6 +28,21 @@ abstract class MoleBaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     override fun getItemCount() = data.size
 
     fun update(data: List<T>) {
+        this.data.clear()
         this.data.addAll(data)
     }
+
+    fun addAll(data: List<T>) {
+        this.data.addAll(data)
+    }
+
+    fun add(data: T) {
+        this.data.add(data)
+    }
+
+    fun getPositionData(position: Int): T {
+        return data[position]
+    }
+
+    fun getData(): List<T> = data
 }

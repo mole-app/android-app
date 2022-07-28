@@ -1,19 +1,42 @@
 package com.mole.android.mole.debts.presentation
-import com.github.terrakok.cicerone.Router
+
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.debts.model.DebtsModel
 import com.mole.android.mole.debts.view.DebtsView
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class DebtsPresenter(
-    private val model: DebtsModel,
-    private val router: Router,
-): MoleBasePresenter<DebtsView>() {
+    private val model: DebtsModel
+) : MoleBasePresenter<DebtsView>() {
 
-    fun getData(): List<DebtsData> {
-        return model.getDebtsData()
+    override fun attachView(view: DebtsView) {
+        super.attachView(view)
+        view.showLoading()
+        dataLoading(view)
+
     }
 
-    fun onLongChatClick() {}
+    fun onItemShortClick(idDebtor: Int) {
+        view?.showChatScreen(idDebtor)
+    }
+
+    fun onItemLongClick() {
+        view?.showDeleteDialog()
+    }
+
+    private fun dataLoading(view: DebtsView) {
+        withScope {
+            launch {
+                model.loadDebtsData()
+                    .withResult { result ->
+                        view.setData(result)
+                        view.hideLoading()
+                    }
+                    .withError { error ->
+                        view.hideLoading()
+                        view.showError(error.code, error.description)
+                    }
+            }
+        }
+    }
 }
