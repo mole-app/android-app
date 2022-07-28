@@ -26,7 +26,7 @@ class ChatPresenter(
             withView { view ->
                 view.setToolbarLoading()
                 view.showLoading()
-                loadData(view)
+                loadData(view, true)
             }
         }
     }
@@ -49,7 +49,7 @@ class ChatPresenter(
 
     fun onFabViewClicked() {
         withView { view ->
-            view.showLoading()
+            view.showCreateDebtScreen(userId)
         }
     }
 
