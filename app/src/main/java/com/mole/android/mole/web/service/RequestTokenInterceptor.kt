@@ -1,7 +1,6 @@
 package com.mole.android.mole.web.service
 
 import com.google.gson.Gson
-import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.component
 import com.mole.android.mole.di.FingerprintRepository
 import com.mole.android.mole.web.service.RetrofitBuilder.API_PATH
@@ -20,7 +19,8 @@ import kotlin.concurrent.write
 class RequestTokenInterceptor(
     chuckerInterceptor: Interceptor,
     private val accountRepository: AccountRepository,
-    private val fingerprintRepository: FingerprintRepository
+    private val fingerprintRepository: FingerprintRepository,
+    private val apiKey: String,
 ) : Interceptor {
 
     companion object {
@@ -51,7 +51,7 @@ class RequestTokenInterceptor(
         val valueHeader: String
         if (isApiKeyAuth) {
             nameHeader = API_KEY_HEADER
-            valueHeader = BuildConfig.X_API_KEY
+            valueHeader = apiKey
         } else {
             tokenUpdateSyncer.read {
                 val token = accountRepository.accessToken
@@ -69,10 +69,10 @@ class RequestTokenInterceptor(
         val response = chain.proceed(request)
         if ((response.code() == HTTP_UNAUTHORIZED) && !isApiKeyAuth) {
             val accountRepository = component().accountManagerModule.accountRepository
-            if (accountRepository.refreshToken != null) {
+            val refreshToken = accountRepository.refreshToken
+            if (refreshToken != null) {
                 tokenUpdateSyncer.write {
-                    val refreshToken = accountRepository.refreshToken
-                    if (refreshToken != null) {
+                    run {
                         val authTokenData: AuthTokenData?
                         runBlocking {
                             val authTokenDataUrl: HttpUrl = HttpUrl.Builder()
@@ -89,7 +89,7 @@ class RequestTokenInterceptor(
 
                             val authTokenDataRequest =
                                 Request.Builder().url(authTokenDataUrl)
-                                    .header(API_KEY_HEADER, BuildConfig.X_API_KEY)
+                                    .header(API_KEY_HEADER, apiKey)
                                     .build()
                             val authTokenDataResponse =
                                 okHttpClient.newCall(authTokenDataRequest).execute()
@@ -111,9 +111,6 @@ class RequestTokenInterceptor(
                                 else -> authTokenData = null
                             }
                         }
-                    } else {
-                        accountRepository.removeAccount { }
-                        response
                     }
                 }
                 val updateAuthHeader: String
