@@ -55,9 +55,9 @@ class ChatAdapter : MoleBaseRecyclerAdapter<ChatDebtsData>() {
     }
 
     override fun getViewTypeOfData(position: Int): Int {
-        return when (data[position]) {
+        return when (getPositionData(position)) {
             is ChatDebtsData.ChatMessage -> {
-                if ((data[position] as ChatDebtsData.ChatMessage).isMessageOfUser) MESSAGE_OF_CREATOR
+                if ((getPositionData(position) as ChatDebtsData.ChatMessage).isMessageOfUser) MESSAGE_OF_CREATOR
                 else MESSAGE_OF_USER
             }
             is ChatDebtsData.ChatDate -> DATE
