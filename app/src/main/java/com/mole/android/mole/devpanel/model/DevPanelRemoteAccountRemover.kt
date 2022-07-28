@@ -1,12 +1,14 @@
 package com.mole.android.mole.devpanel.model
 
 import com.google.gson.Gson
-import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.await
 import com.mole.android.mole.component
 import com.mole.android.mole.profile.data.ProfileUserInfoDomain
 import com.mole.android.mole.web.service.AuthTokenData
-import com.mole.android.mole.web.service.RequestTokenInterceptor
+import com.mole.android.mole.web.service.RetrofitBuilder.API_PATH
+import com.mole.android.mole.web.service.RetrofitBuilder.HOST
+import com.mole.android.mole.web.service.RetrofitBuilder.PORT
+import com.mole.android.mole.web.service.RetrofitBuilder.SCHEME
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -15,18 +17,16 @@ import java.net.HttpURLConnection.HTTP_OK
 object DevPanelRemoteAccountRemover {
 
     private const val API_KEY_HEADER = "x-api-key"
-    private const val SCHEME = "https"
-    private const val HOST = "mole-app-dev.ru"
-    private const val PORT = 8443
     private const val ID_USER_QUERY = "idUser"
-    private const val DELETE_USER_URL = "api/db/deleteUser"
-    private const val USER_INFO_URL = "api/profile/getProfileInfo"
+    private const val DELETE_USER_URL = "$API_PATH/db/deleteUser"
+    private const val USER_INFO_URL = "$API_PATH/profile/getProfileInfo"
     private const val REFRESH_TOKEN_QUERY = "refreshToken"
     private const val FINGERPRINT_TOKEN_QUERY = "fingerprint"
-    private const val UPDATE_TOKEN_URL = "api/auth/refreshToken"
+    private const val UPDATE_TOKEN_URL = "$API_PATH/auth/refreshToken"
     private val okHttpClient: OkHttpClient = OkHttpClient()
     private const val AUTHORIZATION_HEADER = "Authorization"
     private const val AUTH_HEADER_PREFIX = "Bearer "
+    private val apiKey = component().buildConfigModule.X_API_KEY
 
     suspend fun remove() {
         val userInfoUrl: HttpUrl = HttpUrl.Builder()
@@ -64,7 +64,7 @@ object DevPanelRemoteAccountRemover {
 
             val authTokenDataRequest =
                 Request.Builder().url(authTokenDataUrl)
-                    .header(API_KEY_HEADER, BuildConfig.X_API_KEY)
+                    .header(API_KEY_HEADER, apiKey)
                     .build()
             val authTokenDataResponse =
                 okHttpClient.newCall(authTokenDataRequest).await()

@@ -52,7 +52,7 @@ class BottomBarFragment: Fragment() {
         navigationAppBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_debts -> {
-                    router.navigateTo(Screens.Debts())
+                    router.newRootScreen(Screens.Debts())
 //                    replaceOnTestScreen(TAG_1, TestScreenFragment())
                 }
                 R.id.navigation_profile -> {
