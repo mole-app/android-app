@@ -9,7 +9,6 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mole.android.mole.R
-import com.mole.android.mole.create.model.UserPreview
 import com.mole.android.mole.create.presentation.ChooseNamePresenter
 import com.mole.android.mole.create.view.ChooseTextItemView
 import com.mole.android.mole.create.view.DiffFindItemsViewContract
