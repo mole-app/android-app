@@ -17,6 +17,19 @@
         app:textTitle="@string/debts_action_bar"
         app:titleVisible="true" />
 
+    <TextView
+        android:id="@+id/total_debts_sum"
+        style="@style/MoleText.Light.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_bar"
+        tools:text="Всего: +12 000 р." />
+
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
@@ -25,13 +38,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/total_debts_sum" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/DebtsRecyclerView"
+        android:id="@+id/debts_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/action_bar"
+        app:layout_constraintTop_toBottomOf="@id/total_debts_sum"
         tools:listitem="@layout/item_debts_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
