@@ -34,7 +34,8 @@ object RetrofitBuilder {
         val tokenInterceptor = RequestTokenInterceptor(
             chuckerInterceptor,
             component().accountManagerModule.accountRepository,
-            component().firebaseModule
+            component().firebaseModule,
+            component().buildConfigModule.X_API_KEY
         )
 
         val client = OkHttpClient.Builder()

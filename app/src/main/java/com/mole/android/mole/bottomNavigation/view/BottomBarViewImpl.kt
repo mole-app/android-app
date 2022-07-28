@@ -2,10 +2,11 @@ package com.mole.android.mole.bottomNavigation.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import com.github.terrakok.cicerone.Command
+import com.github.terrakok.cicerone.Forward
 import com.github.terrakok.cicerone.Navigator
 import androidx.fragment.app.Fragment
-import com.github.terrakok.cicerone.*
+import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.google.android.material.snackbar.Snackbar
@@ -16,7 +17,7 @@ import com.mole.android.mole.databinding.FragmentWithBotnavBinding
 import com.mole.android.mole.debts.view.DebtsViewImplementation
 import com.mole.android.mole.profile.view.ProfileViewImpl
 
-class BottomBarViewImpl private constructor() :
+class BottomBarViewImpl :
     MoleBaseFragment<FragmentWithBotnavBinding>(FragmentWithBotnavBinding::inflate), BottomBarView {
 
     private val presenter: BottomBarPresenter = BottomBarPresenter()
@@ -41,8 +42,13 @@ class BottomBarViewImpl private constructor() :
 
             private fun applyCommand(command: Command) {
                 when (command) {
-//                    is Back -> finish()
                     is Forward -> {
+                        when (command.screen.screenKey) {
+                            PROFILE_TAG -> changeTab(profileTabFragment)
+                            DEBTS_TAG -> changeTab(debtsTabFragment)
+                        }
+                    }
+                    is Replace -> {
                         when (command.screen.screenKey) {
                             PROFILE_TAG -> changeTab(profileTabFragment)
                             DEBTS_TAG -> changeTab(debtsTabFragment)
@@ -143,7 +149,7 @@ class BottomBarViewImpl private constructor() :
 
     override fun onBackPress(): Boolean {
         binding.moleBottomNavigationBar.setSelectedItem(R.id.navigation_debts)
-        return false
+        return super.onBackPress()
     }
 
     private fun Debts() = FragmentScreen(DEBTS_TAG) { debtsTabFragment }
@@ -154,7 +160,7 @@ class BottomBarViewImpl private constructor() :
 
     override fun openDebts() {
         arguments?.putString(FRAGMENT_ID, DEBTS_TAG)
-        router.navigateTo(Debts())
+        router.newRootScreen(Debts())
         currentFragmentTag = DEBTS_TAG
     }
 

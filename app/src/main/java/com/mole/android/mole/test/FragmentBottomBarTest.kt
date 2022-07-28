@@ -37,7 +37,7 @@ class FragmentBottomBarTest :
                     router.newRootScreen(Screens.Debts())
                 }
                 R.id.navigation_profile -> {
-                    router.newChain(Screens.DevPanel())
+                    router.navigateTo(Screens.DevPanel())
                 }
             }
             true
@@ -51,7 +51,7 @@ class FragmentBottomBarTest :
                 router.newRootScreen(Screens.Debts())
             }
             TAG_2 -> {
-                router.newChain(Screens.DevPanel())
+                router.navigateTo(Screens.DevPanel())
             }
         }
     }

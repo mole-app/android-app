@@ -10,8 +10,6 @@ class RoutingModule {
 
     val navigationHolder get() = cicerone.getNavigatorHolder()
 
-//    val navigator by lazy { AppNavigator(this, R.id.fragment_container) }
-
     private val cicerone by lazy { Cicerone.create() }
 
 }

@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
     private val shakeDetector = ShakeDetector()
     private lateinit var sensorManager: SensorManager
     private lateinit var accelerometer: Sensor
-    val stackFragments: MutableList<MoleBaseFragment<ViewBinding>> = mutableListOf()
+    val stackFragments: MutableList<MoleBaseFragment<*>> = mutableListOf()
     val routingModule = component().routingModule
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
         val accountRepository = component().accountManagerModule.accountRepository
         accountRepository.setEmptyListener {
-            routingModule.router.newRootChain(AuthBegin())
+            routingModule.router.newRootScreen(AuthBegin())
         }
 
         if (accountRepository.isHasAccount()) {
-            routingModule.router.replaceScreen(Screens.Debts())
+            routingModule.router.newRootScreen(Screens.Debts())
         } else {
             routingModule.router.replaceScreen(AuthBegin())
         }

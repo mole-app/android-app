@@ -49,7 +49,7 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
         }
         router.setResultListenerGeneric<CreatedDebt>(CreateStepsScreen.EXTRA_CREATED_DEBT) {
             if (openChat) {
-                router.replaceScreen(Screens.Chat(it.name, -1, it.avatarUrl))
+                router.replaceScreen(Screens.Chat(it.userId))
             } else {
                 router.exit()
                 router.sendResult(EXTRA_CREATED_DEBT, it)
@@ -66,7 +66,7 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
     internal object Screens {
         fun ChooseSide(id: Int) = FragmentScreen { ChooseSideScreen.instance(id) }
         fun CreateSteps(side: Boolean, id: Int) = FragmentScreen { CreateStepsScreen.instance(side, id) }
-        fun Chat(name: String, totalDebts: Int, avatarUrl: String?) = FragmentScreen { ChatViewImplementation.newInstance(name, totalDebts, avatarUrl) }
+        fun Chat(id: Int) = FragmentScreen { ChatViewImplementation.newInstance(id) }
     }
 
     data class CreatedDebt(

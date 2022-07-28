@@ -1,6 +1,7 @@
 package com.mole.android.mole.profile.view
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import coil.load
@@ -8,11 +9,14 @@ import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentProfileBinding
+import com.mole.android.mole.navigation.Screens.Settings
 import com.mole.android.mole.profile.presentation.ProfilePresenter
 
-class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
+class ProfileViewImpl : ProfileView,
+    MoleBaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     private lateinit var presenter: ProfilePresenter
+    private val router = component().routingModule.router
 
     override fun getToolbar() = binding.moleProfileToolbar
     override fun getMenuId() = R.menu.profile_menu
@@ -54,6 +58,16 @@ class ProfileViewImpl : ProfileView, MoleBaseFragment<FragmentProfileBinding>(Fr
             binding.personProfileIcon.load(R.drawable.ic_not_avatar_foreground) {
                 transformations(CircleCropTransformation())
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.setting_menu_item -> {
+                router.navigateTo(Settings())
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

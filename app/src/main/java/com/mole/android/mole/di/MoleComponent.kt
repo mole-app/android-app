@@ -10,13 +10,17 @@ class MoleComponent(
     private val scopeModule = BaseScopeModule()
     var activity: AppCompatActivity? = null
     val remoteConfigModule: RemoteConfigModule = RemoteConfigModule()
+    val buildConfigModule: BuildConfigModule = BuildConfigModule()
     val firebaseModule = FirebaseModule()
     val routingModule = RoutingModule()
     val accountManagerModule = AccountManagerModule(context, activity)
     val authModule = AuthModule(context, retrofitModule, scopeModule, firebaseModule)
     val profileModule = ProfileModule(retrofitModule, scopeModule)
     val debtsModule = DebtsModule(retrofitModule, scopeModule)
+    val settingsModule = SettingsModule()
+    val aboutModule = AboutModule(retrofitModule, scopeModule)
+    val debtsModule = DebtsModule(routingModule)
     val devPanelModule = DevPanelModule(accountManagerModule, scopeModule)
-    val chatModule = ChatModule(scopeModule)
+    val chatModule = ChatModule(retrofitModule, scopeModule)
     val createDebtsModule = CreateDebtsModule(scopeModule, retrofitModule)
 }
