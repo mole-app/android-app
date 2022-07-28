@@ -1,13 +1,13 @@
 package com.mole.android.mole.chat.data
 
-data class ChatUserInfo(
+data class ChatDebtorData(
     val id: Int,
     val name: String,
     val avatarUrl: String,
     val balance: Int
 )
 
-val testChatUserInfo = ChatUserInfo(
+val testChatUserInfo = ChatDebtorData(
     id = 0,
     name = "Александр",
     avatarUrl = "",

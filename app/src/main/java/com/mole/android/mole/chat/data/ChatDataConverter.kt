@@ -6,38 +6,43 @@ import java.util.*
 object ChatDataConverter {
 
     fun debtsAsDomain(
-        debtsDomain: List<ChatDataDebtRemote>,
+        debtsDomain: List<ChatDataDebtRemote>?,
         userId: Int
     ): List<ChatDebtsData> {
         val debts: MutableList<ChatDebtsData> = mutableListOf()
-        var lastDate: Date = stringToDate(debtsDomain[0].createTime)
-        for (debtDomain in debtsDomain) {
-            val newDate = stringToDate(debtDomain.createTime)
-            if (isNewDate(newDate, lastDate)) {
-                debts.add(ChatDebtsData.ChatDate(lastDate))
-            }
-            lastDate = newDate
+        return if (debtsDomain.isNullOrEmpty()) {
+            debts
+        } else {
+            var lastDate: Date = stringToDate(debtsDomain[0].createTime)
+            for (debtDomain in debtsDomain) {
+                val newDate = stringToDate(debtDomain.createTime)
+                if (isNewDate(newDate, lastDate)) {
+                    debts.add(ChatDebtsData.ChatDate(lastDate))
+                }
+                lastDate = newDate
 
-            val isMessageOfUser = userId == debtDomain.idUser
-            debts.add(
-                ChatDebtsData.ChatMessage(
-                    id = debtDomain.id,
-                    isMessageOfUser = isMessageOfUser,
-                    debtValue = calculateDebtValue(
-                        isMessageOfUser,
-                        debtDomain.debtType,
-                        debtDomain.sum
-                    ),
-                    tag = debtDomain.tag,
-                    isRead = true,
-                    remoteTime = newDate
+                val isMessageOfUser = userId == debtDomain.idUser
+                debts.add(
+                    ChatDebtsData.ChatMessage(
+                        id = debtDomain.id,
+                        isMessageOfUser = isMessageOfUser,
+                        debtValue = calculateDebtValue(
+                            isMessageOfUser,
+                            debtDomain.debtType,
+                            debtDomain.sum
+                        ),
+                        tag = debtDomain.tag,
+                        isRead = true,
+                        remoteTime = newDate
+                    )
                 )
-            )
-            if (debtDomain.id == debtsDomain.last().id) {
-                debts.add(ChatDebtsData.ChatDate(lastDate))
+                if (debtDomain.id == debtsDomain.last().id) {
+                    debts.add(ChatDebtsData.ChatDate(lastDate))
+                }
             }
+            debts
         }
-        return debts
+
     }
 
     private fun isNewDate(newDate: Date, oldDate: Date): Boolean {

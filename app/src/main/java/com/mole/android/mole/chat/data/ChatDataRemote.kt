@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ChatDataRemote(
     @SerializedName("debts")
-    val debts: List<ChatDataDebtRemote>,
+    val debts: List<ChatDataDebtRemote>?,
     @SerializedName("debtor")
     val debtor: ChatDataDebtorRemote,
     @SerializedName("debtLeft")

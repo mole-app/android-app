@@ -34,8 +34,8 @@ data class ChatDebtorPhotoUrlRemote(
     val photoNormal: String
 )
 
-fun ChatDataDebtorRemote.asDomain(): ChatUserInfo {
-    return ChatUserInfo(
+fun ChatDataDebtorRemote.asDomain(): ChatDebtorData {
+    return ChatDebtorData(
         id = debtorInfo.idUser,
         name = debtorInfo.name,
         avatarUrl = mainPhotoUrl.photoSmall,
