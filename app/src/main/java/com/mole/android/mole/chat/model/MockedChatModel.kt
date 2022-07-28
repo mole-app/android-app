@@ -6,19 +6,18 @@ import com.mole.android.mole.chat.data.testChatUserInfo
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 
 class MockedChatModel(
-    private val mainScope: CoroutineScope
+    private val scope: CoroutineScope
 ) : ChatModel {
 
     override suspend fun loadChatData(
         userId: Int,
         idDebtMax: Int?
     ): ApiResult<SuccessChatResult> {
-        val task = mainScope.async(Dispatchers.IO) {
+        val task = scope.async {
             call {
                 delay(1000)
                 ChatData(

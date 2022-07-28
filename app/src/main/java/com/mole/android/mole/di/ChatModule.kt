@@ -16,9 +16,9 @@ class ChatModule(
     private val chatModel: ChatModel by lazy {
         ChatModelImplementation(
             chatService,
-            baseScopeModule.mainScope
+            baseScopeModule.ioScope
         )
-//        MockedChatModel(baseScopeModule.mainScope)
+//        MockedChatModel(baseScopeModule.ioScope)
     }
 
     private val chatService by lazy {

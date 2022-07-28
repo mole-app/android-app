@@ -4,19 +4,18 @@ import com.mole.android.mole.chat.data.asDomain
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
 class ChatModelImplementation(
     private val service: ChatService,
-    private val mainScope: CoroutineScope
+    private val scope: CoroutineScope
 ) : ChatModel {
 
     override suspend fun loadChatData(
         userId: Int,
         idDebtMax: Int?
     ): ApiResult<SuccessChatResult> {
-        val task = mainScope.async(Dispatchers.IO) {
+        val task = scope.async {
             call {
                 if (idDebtMax != null) {
                     service.getChatDataBeforeIdDebtMax(userId, LIMIT, idDebtMax).asDomain()
