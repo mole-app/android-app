@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentProfileBinding
@@ -17,6 +18,7 @@ class ProfileViewImpl : ProfileView,
 
     private lateinit var presenter: ProfilePresenter
     private val router = component().routingModule.router
+    private val navigator = component().routingModule.navigationHolder
 
     override fun getToolbar() = binding.moleProfileToolbar
     override fun getMenuId() = R.menu.profile_menu
@@ -64,6 +66,7 @@ class ProfileViewImpl : ProfileView,
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.setting_menu_item -> {
+                navigator.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
                 router.navigateTo(Settings())
                 true
             }
