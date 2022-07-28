@@ -1,13 +1,14 @@
 package com.mole.android.mole.chat.model
 
+import com.mole.android.mole.chat.data.ChatData
 import com.mole.android.mole.chat.data.testChatData
 import com.mole.android.mole.chat.data.testChatUserInfo
 import com.mole.android.mole.web.service.ApiResult
+import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import retrofit2.HttpException
 
 class MockedChatModel(
     private val mainScope: CoroutineScope
@@ -15,28 +16,16 @@ class MockedChatModel(
 
     override suspend fun loadChatData(
         userId: Int,
-        isLoadUserInfo: Boolean,
         idDebtMax: Int?
-    ): ApiResult<ChatModel.SuccessChatResult> {
+    ): ApiResult<SuccessChatResult> {
         val task = mainScope.async(Dispatchers.IO) {
-            try {
+            call {
                 delay(1000)
-                if (isLoadUserInfo) {
-                    ApiResult.create<ChatModel.SuccessChatResult>(
-                        ChatModel.SuccessChatResult.DataWithUserInfo(
-                            testChatData,
-                            testChatUserInfo
-                        )
-                    )
-                } else {
-                    ApiResult.create<ChatModel.SuccessChatResult>(
-                        ChatModel.SuccessChatResult.DataBatch(
-                            testChatData
-                        )
-                    )
-                }
-            } catch (exception: HttpException) {
-                ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
+                ChatData(
+                    testChatData,
+                    testChatUserInfo,
+                    1
+                )
             }
         }
         return task.await()
