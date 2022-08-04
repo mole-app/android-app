@@ -13,6 +13,7 @@
     <attr name="colorButtonIconEnd" format="color" />
     <attr name="colorGlassStart" format="color" />
     <attr name="colorGlassEnd" format="color" />
+    <attr name="colorDarkBackground" format="color" />
     <attr name="textColorPrimary" format="color" />
     <attr name="textColorDisabled" format="color" />
     <attr name="colorIcon" format="color" />

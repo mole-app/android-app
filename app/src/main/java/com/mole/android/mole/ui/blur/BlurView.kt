@@ -58,14 +58,15 @@ class BlurView @JvmOverloads constructor(
         updateBlurParameters(measuredWidth, measuredHeight)
     }
 
-    fun setupWith(rootView: ViewGroup): BlurView {
+    fun setupWith(rootView: ViewGroup?): BlurView {
         this.rootView = rootView
         initialized = false
         return this
     }
 
-    fun setBlurRadius(radius: Float) {
+    fun setupBlurRadius(radius: Float): BlurView {
         blurRadius = radius
+        return this
     }
 
     fun setFrameClearDrawable(frameClearDrawable: Drawable?) {

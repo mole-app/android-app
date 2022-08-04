@@ -84,4 +84,12 @@ class ChatPresenter(
     private fun calculateLastDebtId(debts: List<ChatDebtsData>): Int? {
         return (debts[debts.size - 2] as? ChatDebtsData.ChatMessage)?.id
     }
+
+    fun onDeleteItem(id: Int) {
+        withScope {
+            launch {
+                model.deleteItem(id)
+            }
+        }
+    }
 }

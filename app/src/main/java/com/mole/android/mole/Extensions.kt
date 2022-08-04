@@ -46,17 +46,32 @@ fun Int.isPositive(): Boolean {
     return this.sign == 1
 }
 
+@Deprecated(
+    "Replace to val Int.dp",
+    ReplaceWith("dp")
+)
 fun Int.dp(): Int {
     return (this * Resources.getSystem().displayMetrics.density).toInt()
 }
 
+@Deprecated(
+    "Replace to val Int.dp",
+    ReplaceWith("dp")
+)
 fun Float.dp(): Float {
     return this * Resources.getSystem().displayMetrics.density
 }
 
-fun View.cornerRadius(radius: Float) {
+val Int.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+val Float.dp: Float
+    get() = this * Resources.getSystem().displayMetrics.density
+
+fun <T : View> T.setupCornerRadius(radius: Float): T {
     clipToOutline = true
     outlineProvider = ViewRoundRectOutlineProvider(radius)
+    return this
 }
 
 enum class Shape {
@@ -92,36 +107,36 @@ private fun View.preparePathForBorder(shape: Shape, radiusBorder: Float): Path {
     return pathBorder
 }
 
-fun BlurView.setBorder() {
-    setBorder(
+fun BlurView.setupBorder(): BlurView {
+    return setupBorder(
         Shape.RECTANGLE,
-        8f.dp(),
-        1f.dp(),
+        8f.dp,
+        1f.dp,
         R.attr.colorIconDisabled,
         R.attr.colorGradientStroke
     )
 }
 
-fun View.setBorder(
+fun <T : View> T.setupBorder(
     shape: Shape,
     radiusBorder: Float
-) {
-    setBorder(
+): T {
+    return setupBorder(
         shape,
         radiusBorder,
-        1f.dp(),
+        1f.dp,
         R.attr.colorIconDisabled,
         R.attr.colorGradientStroke
     )
 }
 
-fun View.setBorder(
+fun <T : View> T.setupBorder(
     shape: Shape,
     radiusBorder: Float,
     lineWidth: Float,
     @AttrRes colorStart: Int,
     @AttrRes colorEnd: Int
-) {
+): T {
 
     var isCalled = false
     addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
@@ -164,7 +179,7 @@ fun View.setBorder(
             isCalled = true
         }
     }
-
+    return this
 }
 
 fun EditText.onTextChanged(onTextChanged: (s: CharSequence) -> Unit) {
@@ -186,7 +201,10 @@ fun component(): MoleComponent {
     return MoleApplication.requireComponent()
 }
 
-inline fun <reified T> Router.setResultListenerGeneric(key: String, crossinline action: (T) -> Unit){
+inline fun <reified T> Router.setResultListenerGeneric(
+    key: String,
+    crossinline action: (T) -> Unit
+) {
     this.setResultListener(key) { data ->
         val dataT = data as? T
         if (dataT != null) {

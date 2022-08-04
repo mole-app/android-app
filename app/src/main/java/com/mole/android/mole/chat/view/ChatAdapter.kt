@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mole.android.mole.MoleBaseRecyclerAdapter
+import com.mole.android.mole.PopupProvider
 import com.mole.android.mole.chat.data.ChatDebtsData
 import com.mole.android.mole.chat.view.view_holder.DateViewHolder
 import com.mole.android.mole.chat.view.view_holder.MessageOfUserViewHolder
@@ -12,7 +13,7 @@ import com.mole.android.mole.databinding.ItemChatDateBinding
 import com.mole.android.mole.databinding.ItemChatMessageEndPositionBinding
 import com.mole.android.mole.databinding.ItemChatMessageStartPositionBinding
 
-class ChatAdapter : MoleBaseRecyclerAdapter<ChatDebtsData>() {
+class ChatAdapter(private val popupProvider: PopupProvider<Int>? = null) : MoleBaseRecyclerAdapter<ChatDebtsData>() {
 
     private companion object ChatDataType {
         private const val DATE = 0
@@ -32,7 +33,8 @@ class ChatAdapter : MoleBaseRecyclerAdapter<ChatDebtsData>() {
                         layoutInflater,
                         viewGroup,
                         false
-                    )
+                    ),
+                    popupProvider
                 )
             }
             MESSAGE_OF_USER -> {
@@ -41,7 +43,8 @@ class ChatAdapter : MoleBaseRecyclerAdapter<ChatDebtsData>() {
                         layoutInflater,
                         viewGroup,
                         false
-                    )
+                    ),
+                    popupProvider
                 )
             }
             else -> DateViewHolder(

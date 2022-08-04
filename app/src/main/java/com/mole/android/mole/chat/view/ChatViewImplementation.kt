@@ -8,12 +8,14 @@ import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
+import com.mole.android.mole.PopupProvider
 import com.mole.android.mole.R
 import com.mole.android.mole.chat.data.ChatDebtorData
 import com.mole.android.mole.chat.data.ChatDebtsData
 import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
+import com.mole.android.mole.ui.MoleMessageViewWithInfo
 import com.mole.android.mole.setResultListenerGeneric
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -30,12 +32,12 @@ class ChatViewImplementation :
             return fragment
         }
     }
-
+    private lateinit var popupProvider: PopupProvider<Int>
     private val presenter by lazy {
         val userId = arguments?.getInt(ARG_USER_ID) ?: 0
         component().chatModule.chatPresenter(userId)
     }
-    private val chatAdapter = ChatAdapter()
+    private val chatAdapter by lazy { ChatAdapter(popupProvider) }
     private val itemCountBeforeListScrollToTop = 10
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -65,6 +67,16 @@ class ChatViewImplementation :
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         initChatFabView()
+        popupProvider = PopupProvider(requireContext(), binding.chatRecyclerView, view, true)
+
+        popupProvider.setOnDeleteListener { deletedView, id ->
+            presenter.onDeleteItem(id)
+            val chatItem = (deletedView as? MoleMessageViewWithInfo)
+            chatItem?.apply {
+                isDisabled = true
+            }
+        }
+
         initRecyclerView()
     }
 

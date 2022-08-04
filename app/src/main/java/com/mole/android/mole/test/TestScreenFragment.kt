@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.mole.android.mole.R
 import com.mole.android.mole.Shape
 import com.mole.android.mole.dp
-import com.mole.android.mole.setBorder
+import com.mole.android.mole.setupBorder
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 
@@ -24,10 +24,10 @@ class TestScreenFragment : Fragment() {
         val view = inflater.inflate(R.layout.test_screen, container, false)
         val circleImageButton: AppCompatImageButton =
             view.findViewById(R.id.test_screen_circle_button_disable)
-        circleImageButton.setBorder(
+        circleImageButton.setupBorder(
             Shape.OVAL,
-            80f.dp(),
-            1f.dp(),
+            80f.dp,
+            1f.dp,
             R.attr.colorIconDisabled,
             R.attr.colorGradientStroke
         )

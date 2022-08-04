@@ -47,6 +47,12 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
             field = value
         }
 
+    var isDisabled = false
+        set(value) {
+            if (value) backgroundTintList = ColorStateList.valueOf(colorDisabled)
+            field = value
+        }
+
     @ColorInt
     private val colorAccept: Int
 
@@ -101,9 +107,9 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
     private fun inflateView() {
         inflate(context, R.layout.view_message_with_info, this)
         setPaddingRelative(
-            16.dp(),
+            16.dp,
             0,
-            16.dp(),
+            16.dp,
             0
         )
     }
@@ -129,6 +135,11 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
                 backgroundTintList = ColorStateList.valueOf(colorDisabled)
             }
         }
+
+        if (isDisabled) {
+            backgroundTintList = ColorStateList.valueOf(colorDisabled)
+        }
+
         balanceTextView.text = context.getString(
             R.string.mole_message_balance,
             sign,

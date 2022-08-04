@@ -21,6 +21,7 @@
         <item name="colorButtonIconEnd">@color/gradient_button_icon_end</item>
         <item name="colorGlassStart">@color/gradient_glass_start</item>
         <item name="colorGlassEnd">@color/gradient_glass_end</item>
+        <item name="colorDarkBackground">@color/color_dark_background</item>
         <item name="textColorPrimary">@color/color_text_light</item>
         <item name="textColorDisabled">@color/color_text_disabled_light</item>
         <item name="colorIcon">@color/color_icon_light</item>

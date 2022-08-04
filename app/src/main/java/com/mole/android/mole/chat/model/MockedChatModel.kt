@@ -29,4 +29,8 @@ class MockedChatModel(
         }
         return task.await()
     }
+
+    override suspend fun deleteItem(id: Int): ApiResult<SuccessDeleteResult> {
+        return ApiResult.create(SuccessDeleteResult)
+    }
 }
