@@ -4,6 +4,6 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/menu_icon"
-        style="@style/MoleButton.BorderlessIcon"
+        style="@style/MoleView.BorderlessIcon"
         android:layout_gravity="center|end" />
 </FrameLayout>

@@ -124,7 +124,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/retry_button"
-                style="@style/MoleButton.Rectangle"
+                style="@style/MoleView.Rectangle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -154,7 +154,7 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/next_button"
-        style="@style/MoleButton.Round"
+        style="@style/MoleView.Round"
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_arrow_normal"
         app:layout_constraintEnd_toEndOf="parent"
