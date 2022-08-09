@@ -18,6 +18,7 @@ sealed class ChatDebtsData {
         val debtValue: Int,
         val tag: String? = "",
         val isRead: Boolean = true,
+        val isDeleted: Boolean = false,
         private val remoteTime: Date = Date()
     ) : ChatDebtsData() {
         val time: String
@@ -26,10 +27,10 @@ sealed class ChatDebtsData {
 }
 
 val testChatData = listOf<ChatDebtsData>(
-    ChatDebtsData.ChatMessage(100, false, +1000, "ресторан", false, Date()),
+    ChatDebtsData.ChatMessage(100, false, +1000, "ресторан", false, false, Date()),
     ChatDebtsData.ChatDate(Date()),
-    ChatDebtsData.ChatMessage(99, true, -1000, "ресторан1", true, Date()),
-    ChatDebtsData.ChatMessage(98,true, -1000, "ресторан2", false, Date()),
+    ChatDebtsData.ChatMessage(99, true, -1000, "ресторан1", true, true, Date()),
+    ChatDebtsData.ChatMessage(98,true, -1000, "ресторан2", false, false, Date()),
     ChatDebtsData.ChatMessage(97, false, +1000),
     ChatDebtsData.ChatDate(Date()),
     ChatDebtsData.ChatMessage(96, false, -1000),

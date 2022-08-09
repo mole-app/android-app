@@ -31,8 +31,7 @@ class MessageOfUserViewHolder(
             balance = data.debtValue
             tag = data.tag
             time = data.time
-//            isDisabled = data.isDisabled
-            isDisabled = false
+            isDeleted = data.isDeleted
         }
         currentId = data.id
     }

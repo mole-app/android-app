@@ -73,7 +73,7 @@ class ChatViewImplementation :
             presenter.onDeleteItem(id)
             val chatItem = (deletedView as? MoleMessageViewWithInfo)
             chatItem?.apply {
-                isDisabled = true
+                isDeleted = true
             }
         }
 

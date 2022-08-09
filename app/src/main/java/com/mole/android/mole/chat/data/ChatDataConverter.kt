@@ -33,7 +33,8 @@ object ChatDataConverter {
                         ),
                         tag = debtDomain.tag,
                         isRead = true,
-                        remoteTime = newDate
+                        remoteTime = newDate,
+                        isDeleted = debtDomain.isDelete
                     )
                 )
                 if (debtDomain.id == debtsDomain.last().id) {

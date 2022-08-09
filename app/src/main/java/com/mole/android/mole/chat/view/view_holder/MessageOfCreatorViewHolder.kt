@@ -31,8 +31,7 @@ class MessageOfCreatorViewHolder(
             tag = data.tag
             time = data.time
             isRead = data.isRead
-//            isDisabled = data.isDisabled
-            isDisabled = false
+            isDeleted = data.isDeleted
         }
         currentId = data.id
     }

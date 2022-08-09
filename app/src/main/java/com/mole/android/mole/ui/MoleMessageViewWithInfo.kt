@@ -47,7 +47,7 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
             field = value
         }
 
-    var isDisabled = false
+    var isDeleted = false
         set(value) {
             if (value) backgroundTintList = ColorStateList.valueOf(colorDisabled)
             field = value
@@ -136,7 +136,7 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
             }
         }
 
-        if (isDisabled) {
+        if (isDeleted) {
             backgroundTintList = ColorStateList.valueOf(colorDisabled)
         }
 

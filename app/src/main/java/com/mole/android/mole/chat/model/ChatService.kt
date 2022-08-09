@@ -1,6 +1,7 @@
 package com.mole.android.mole.chat.model
 
 import com.mole.android.mole.chat.data.ChatDataRemote
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -22,4 +23,10 @@ interface ChatService {
         @Query("limit")
         limit: Int
     ): ChatDataRemote
+
+    @DELETE("debt/deleteDebt")
+    suspend fun deleteDebt(
+        @Query("idDebt")
+        idDebt: Int
+    )
 }
