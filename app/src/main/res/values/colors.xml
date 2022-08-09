@@ -28,20 +28,6 @@
     <color name="color_borderless_icon">@color/white</color>
     <color name="color_dark_background">@color/black_alpha_75</color>
 
-    <color name="color_on_surface_light">@color/black</color>
-    <color name="color_accent_light">@color/orange</color>
-    <color name="color_primary_light">@color/white</color>
-    <color name="color_primary_variant_light">@color/gray</color>
-    <color name="color_on_primary_light">@color/white</color>
-    <color name="color_accept_light">@color/green</color>
-    <color name="color_deny_light">@color/red</color>
-    <color name="color_disabled_light">@color/gray</color>
-    <color name="color_text_light">@color/black</color>
-    <color name="color_text_disabled_light">@color/gray</color>
-    <color name="color_icon_light">@color/black</color>
-    <color name="color_icon_disabled_light">@color/gray</color>
-    <color name="color_borderless_icon_light">@color/black</color>
-
     <color name="gradient_button_active_start">#D32701</color>
     <color name="gradient_button_active_end">#FF7A00</color>
     <color name="gradient_button_disable_start">#66FFFFFF</color>
