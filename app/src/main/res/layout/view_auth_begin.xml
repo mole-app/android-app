@@ -26,7 +26,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/vk_button"
-        style="@style/MoleButton.Rectangle"
+        style="@style/MoleView.Rectangle"
         android:layout_margin="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -41,7 +41,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/google_button"
-        style="@style/MoleButton.Rectangle"
+        style="@style/MoleView.Rectangle"
         android:background="@drawable/selector_rectangle_button_light"
         android:layout_margin="16dp"
         android:layout_marginTop="8dp"
