@@ -90,10 +90,11 @@ class ChatViewImplementation :
     }
 
     override fun setData(data: List<ChatDebtsDataUi>) {
-        val diffUtilCallback = ChatDiffUtilCallback(chatAdapter.getData(), data)
-        val diffUtilResult = DiffUtil.calculateDiff(diffUtilCallback)
+//        val diffUtilCallback = ChatDiffUtilCallback(chatAdapter.getData(), data)
+//        val diffUtilResult = DiffUtil.calculateDiff(diffUtilCallback)
         chatAdapter.addAll(data)
-        diffUtilResult.dispatchUpdatesTo(chatAdapter)
+        chatAdapter.notifyDataSetChanged()
+//        diffUtilResult.dispatchUpdatesTo(chatAdapter)
 
     }
 
