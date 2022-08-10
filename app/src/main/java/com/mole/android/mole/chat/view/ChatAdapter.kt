@@ -63,8 +63,4 @@ class ChatAdapter : MoleBaseRecyclerAdapter<ChatDebtsDataUi>() {
             is ChatDebtsDataUi.ChatDate -> DATE
         }
     }
-
-    fun setChatData(data: List<ChatDebtsDataUi>){
-        addAll(data)
-    }
 }

@@ -2,6 +2,7 @@ package com.mole.android.mole.chat.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.Navigator
@@ -35,7 +36,7 @@ class ChatViewImplementation :
         val userId = arguments?.getInt(ARG_USER_ID) ?: 0
         component().chatModule.chatPresenter(userId)
     }
-    private val chatAdapter = ChatAdapter()
+    private lateinit var chatAdapter: ChatAdapter
     private val itemCountBeforeListScrollToTop = 10
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -64,6 +65,7 @@ class ChatViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+        chatAdapter = ChatAdapter()
         initChatFabView()
         initRecyclerView()
     }
@@ -88,8 +90,10 @@ class ChatViewImplementation :
     }
 
     override fun setData(data: List<ChatDebtsDataUi>) {
-        chatAdapter.setChatData(data)
-        chatAdapter.notifyDataSetChanged()
+        val diffUtilCallback = ChatDiffUtilCallback(chatAdapter.getData(), data)
+        val diffUtilResult = DiffUtil.calculateDiff(diffUtilCallback)
+        chatAdapter.addAll(data)
+        diffUtilResult.dispatchUpdatesTo(chatAdapter)
 
     }
 
@@ -120,7 +124,7 @@ class ChatViewImplementation :
     override fun showCreateDebtScreen(userId: Int) {
         router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
         router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
-            //                presenter.onDebtsCreated()
+            presenter.onDebtsCreated()
         }
     }
 }
