@@ -26,7 +26,7 @@ fun ChatDataDebtRemote.asDomain(userId: Int): ChatDataDebtDomain {
     val isMessageOfUser = userId == idUser
     return ChatDataDebtDomain(
         id = id,
-        isMessageOfUser = isMessageOfUser,
+        isMessageOfCreator = isMessageOfUser,
         debtValue = calculateDebtValue(isMessageOfUser, debtType, sum),
         tag = tag,
         isRead = false,
@@ -34,18 +34,18 @@ fun ChatDataDebtRemote.asDomain(userId: Int): ChatDataDebtDomain {
     )
 }
 
-private fun calculateDebtValue(messageOfUser: Boolean, debtType: String, debtSum: Int): Int {
+private fun calculateDebtValue(messageOfCreator: Boolean, debtType: String, debtSum: Int): Int {
     return when (debtType) {
         DebtType.GIVE.stringValue -> {
-            if (messageOfUser) -1 * debtSum
-            else debtSum
-        }
-        DebtType.GET.stringValue -> {
-            if (messageOfUser) debtSum
+            if (messageOfCreator) debtSum
             else -1 * debtSum
         }
+        DebtType.GET.stringValue -> {
+            if (messageOfCreator) -1 * debtSum
+            else debtSum
+        }
         else -> {
-            if (messageOfUser) debtSum
+            if (messageOfCreator) debtSum
             else -1 * debtSum
         }
     }

@@ -4,7 +4,7 @@ import java.util.*
 
 data class ChatDataDebtDomain(
     val id: Int,
-    val isMessageOfUser: Boolean,
+    val isMessageOfCreator: Boolean,
     val debtValue: Int,
     val tag: String? = "",
     val isRead: Boolean = true,

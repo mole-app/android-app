@@ -14,7 +14,7 @@ sealed class ChatDebtsDataUi {
 
     data class ChatMessage(
         val id: Int,
-        val isMessageOfUser: Boolean,
+        val isMessageOfCreator: Boolean,
         val debtValue: Int,
         val tag: String? = "",
         val isRead: Boolean = true,
