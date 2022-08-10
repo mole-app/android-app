@@ -9,8 +9,8 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
-import com.mole.android.mole.chat.data.ChatDebtorData
-import com.mole.android.mole.chat.data.ChatDebtsData
+import com.mole.android.mole.chat.data.ChatDataDebtorDomain
+import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
@@ -87,13 +87,13 @@ class ChatViewImplementation :
         presenter.detachView()
     }
 
-    override fun setData(data: List<ChatDebtsData>) {
+    override fun setData(data: List<ChatDebtsDataUi>) {
         chatAdapter.setChatData(data)
         chatAdapter.notifyDataSetChanged()
 
     }
 
-    override fun setToolbarData(data: ChatDebtorData) {
+    override fun setToolbarData(data: ChatDataDebtorDomain) {
         with(binding.chatToolbarMessenger) {
             setName(data.name)
             setBalance(data.balance)

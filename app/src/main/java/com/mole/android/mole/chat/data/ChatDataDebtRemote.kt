@@ -1,6 +1,7 @@
 package com.mole.android.mole.chat.data
 
 import com.google.gson.annotations.SerializedName
+import com.mole.android.mole.stringToDate
 
 data class ChatDataDebtRemote(
     @SerializedName("id")
@@ -20,3 +21,32 @@ data class ChatDataDebtRemote(
     @SerializedName("tag")
     val tag: String?
 )
+
+fun ChatDataDebtRemote.asDomain(userId: Int): ChatDataDebtDomain {
+    val isMessageOfUser = userId == idUser
+    return ChatDataDebtDomain(
+        id = id,
+        isMessageOfUser = isMessageOfUser,
+        debtValue = calculateDebtValue(isMessageOfUser, debtType, sum),
+        tag = tag,
+        isRead = false,
+        date = stringToDate(createTime)
+    )
+}
+
+private fun calculateDebtValue(messageOfUser: Boolean, debtType: String, debtSum: Int): Int {
+    return when (debtType) {
+        DebtType.GIVE.stringValue -> {
+            if (messageOfUser) -1 * debtSum
+            else debtSum
+        }
+        DebtType.GET.stringValue -> {
+            if (messageOfUser) debtSum
+            else -1 * debtSum
+        }
+        else -> {
+            if (messageOfUser) debtSum
+            else -1 * debtSum
+        }
+    }
+}

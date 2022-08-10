@@ -1,10 +1,9 @@
 package com.mole.android.mole.chat.model
 
-import com.mole.android.mole.chat.data.ChatData
-import com.mole.android.mole.create.model.CreatedDebt
+import com.mole.android.mole.chat.data.ChatDataDomain
 import com.mole.android.mole.web.service.ApiResult
 
-typealias SuccessChatResult = ChatData
+typealias SuccessChatResult = ChatDataDomain
 
 interface ChatModel {
     suspend fun loadChatData(userId: Int, idDebtMax: Int?): ApiResult<SuccessChatResult>
