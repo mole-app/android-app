@@ -17,9 +17,9 @@ interface ChatService {
     suspend fun getChatDataBeforeIdDebtMax(
         @Query("idUser")
         idUser: Int,
-        @Query("idDebtMax")
-        idDebtMax: Int,
         @Query("limit")
-        limit: Int
+        limit: Int,
+        @Query("idDebtMax")
+        idDebtMax: Int
     ): ChatDataRemote
 }
