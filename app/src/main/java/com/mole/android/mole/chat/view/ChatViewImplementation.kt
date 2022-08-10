@@ -124,7 +124,6 @@ class ChatViewImplementation :
     override fun showCreateDebtScreen(userId: Int) {
         router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
         router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
-            presenter.onDebtsCreated()
         }
     }
 }

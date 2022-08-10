@@ -37,16 +37,6 @@ class ChatPresenter(
 
     }
 
-    fun onDebtsCreated() {
-        if (!isDataLoading) {
-            withView { view ->
-                view.setToolbarLoading()
-                view.showLoading()
-                loadData(view)
-            }
-        }
-    }
-
     fun onChatPreScrolledToTop() {
         if (!isDataLoading) {
             withView { view ->
