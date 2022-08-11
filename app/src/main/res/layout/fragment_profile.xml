@@ -55,7 +55,7 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/profileEdit"
-            style="@style/MoleButton.BorderlessIcon"
+            style="@style/MoleView.BorderlessIcon"
             android:src="@drawable/ic_edit_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

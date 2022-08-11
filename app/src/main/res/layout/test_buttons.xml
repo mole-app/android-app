@@ -7,38 +7,38 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageButton
-        style="@style/MoleButton.Round"
+        style="@style/MoleView.Round"
         android:layout_margin="8dp"
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/test_rectangle"
-        style="@style/MoleButton.Rectangle"
+        style="@style/MoleView.Rectangle"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/MoleButton.Rectangle.Borderless"
+        style="@style/MoleView.Rectangle.Borderless"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/test_screen_circle_button_disable"
-        style="@style/MoleButton.Round"
+        style="@style/MoleView.Round"
         android:layout_margin="8dp"
         android:src="@drawable/ic_arrow_normal" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/MoleButton.Rectangle"
+        style="@style/MoleView.Rectangle"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:enabled="false"
         android:text="Отправить ещё раз" />
 
     <androidx.appcompat.widget.AppCompatButton
-        style="@style/MoleButton.Rectangle.Borderless"
+        style="@style/MoleView.Rectangle.Borderless"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:enabled="false"
@@ -56,13 +56,13 @@
             layout="@layout/view_back_menu_icon"/>
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.Icon"
+            style="@style/MoleView.Icon"
             android:layout_marginEnd="16dp"
             android:layout_gravity="center|end"
             android:src="@drawable/ic_setting" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.Icon"
+            style="@style/MoleView.Icon"
             android:layout_marginEnd="16dp"
             android:layout_gravity="center|end"
             android:src="@drawable/ic_search" />
@@ -80,11 +80,11 @@
         android:padding="8dp">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.BorderlessIcon"
+            style="@style/MoleView.BorderlessIcon"
             android:src="@drawable/ic_trash" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            style="@style/MoleButton.BorderlessIcon"
+            style="@style/MoleView.BorderlessIcon"
             android:src="@drawable/ic_edit_profile" />
     </LinearLayout>
 </LinearLayout>

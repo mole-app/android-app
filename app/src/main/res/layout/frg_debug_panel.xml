@@ -16,35 +16,51 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/debug_panel_corrupted_token_access"
-            style="@style/MoleButton.Rectangle"
+            style="@style/MoleView.Rectangle"
             android:layout_margin="16dp"
             android:text="@string/debug_panel_corrupted_token_access" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/debug_panel_corrupted_token_refresh"
-            style="@style/MoleButton.Rectangle"
+            style="@style/MoleView.Rectangle"
             android:layout_margin="16dp"
             android:text="@string/debug_panel_corrupted_token_refresh" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/debug_panel_remove_account"
-            style="@style/MoleButton.Rectangle"
+            style="@style/MoleView.Rectangle"
             android:layout_margin="16dp"
             android:text="@string/debug_panel_remove_account" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/debug_panel_remove_remote_account"
-            style="@style/MoleButton.Rectangle"
+            style="@style/MoleView.Rectangle"
             android:layout_margin="16dp"
             android:text="@string/debug_panel_remove_remote_account" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/leak_canary_switcher"
+                style="@style/MoleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:checked="true"
+                android:text="@string/leak_canary_enable"
+                android:textAlignment="center" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/debug_panel_button_back"
-        style="@style/MoleButton.Rectangle"
-        android:text="@string/debug_panel_button"
+        style="@style/MoleView.Rectangle"
         android:layout_margin="16dp"
+        android:text="@string/debug_panel_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

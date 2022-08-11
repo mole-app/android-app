@@ -10,7 +10,7 @@
 
     <Button
         android:id="@+id/edit_popup"
-        style="@style/MoleButton.Popup"
+        style="@style/MoleView.Popup"
         android:layout_width="@dimen/popup_width"
         android:text="@string/edit"
         app:layout_constraintBottom_toTopOf="@id/delete_popup"
@@ -20,7 +20,7 @@
 
     <Button
         android:id="@+id/delete_popup"
-        style="@style/MoleButton.Popup"
+        style="@style/MoleView.Popup"
         android:layout_width="@dimen/popup_width"
         android:layout_marginTop="10dp"
         android:text="@string/delete"

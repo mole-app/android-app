@@ -91,6 +91,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$androidNavigationVersion"
     implementation "androidx.viewpager2:viewpager2:$viewPager2Version"
     testImplementation "junit:junit:$junitVersion"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
     androidTestImplementation "androidx.test.ext:junit:$testJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$testEspressoVersion"
 }

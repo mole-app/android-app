@@ -1,10 +1,13 @@
 package com.mole.android.mole.chat.presentation
 
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.chat.data.ChatDebtsData
+import com.mole.android.mole.chat.data.ChatDataDebtDomain
+import com.mole.android.mole.chat.data.ChatDataDebtorDomain
+import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.chat.model.ChatModel
 import com.mole.android.mole.chat.view.ChatView
 import kotlinx.coroutines.launch
+import java.util.*
 
 class ChatPresenter(
     private val model: ChatModel,
@@ -13,28 +16,31 @@ class ChatPresenter(
     private var isDataLoading = false
     private var debtLeft = -1
     private var idDebtMax: Int? = null
+    private var chatDebts: List<ChatDataDebtDomain> = listOf()
+    private var chatDebtor: ChatDataDebtorDomain? = null
+    private var lastChatDate: Date? = null
 
     override fun attachView(view: ChatView) {
         super.attachView(view)
         view.setToolbarLoading()
         view.showLoading()
-        loadData(view, true)
+        loadData(view)
     }
 
-    fun onDebtsCreated() {
-        if (!isDataLoading) {
-            withView { view ->
-                view.setToolbarLoading()
-                view.showLoading()
-                loadData(view, true)
-            }
-        }
+    override fun detachView() {
+        super.detachView()
+        debtLeft = -1
+        idDebtMax = null
+        chatDebts = mutableListOf()
+        chatDebtor = null
+        lastChatDate = null
+
     }
 
     fun onChatPreScrolledToTop() {
         if (!isDataLoading) {
             withView { view ->
-                loadData(view, false)
+                loadData(view)
             }
         }
     }
@@ -54,26 +60,27 @@ class ChatPresenter(
     }
 
     private fun loadData(
-        view: ChatView,
-        isLoadUserInfo: Boolean = false
+        view: ChatView
     ) {
         isDataLoading = true
+        if (debtLeft == 0) {
+            view.hideLoading()
+            isDataLoading = false
+            return
+        }
         withScope {
             launch {
-                if (debtLeft != 0) {
-                    model.loadChatData(userId, idDebtMax).withResult { result ->
-                        debtLeft = result.debtLeft
-                        idDebtMax = calculateLastDebtId(result.debts)
-                        if (isLoadUserInfo) {
-                            view.setToolbarData(result.debtor)
-                            view.setData(result.debts)
-                        } else {
-                            view.setData(result.debts)
-                        }
-                        view.hideLoading()
-                        isDataLoading = false
+                model.loadChatData(userId, idDebtMax).withResult { result ->
+                    chatDebts = result.debts
+                    debtLeft = result.debtLeft
+                    idDebtMax = chatDebts.last().id
+                    if (chatDebtor == null) {
+                        chatDebtor = result.debtor
+                        view.setToolbarData(result.debtor)
+                        view.setData(insertDateToChat(chatDebts))
+                    } else {
+                        view.setData(insertDateToChat(chatDebts))
                     }
-                } else {
                     view.hideLoading()
                     isDataLoading = false
                 }
@@ -81,8 +88,60 @@ class ChatPresenter(
         }
     }
 
-    private fun calculateLastDebtId(debts: List<ChatDebtsData>): Int? {
-        return (debts[debts.size - 2] as? ChatDebtsData.ChatMessage)?.id
+    private fun insertDateToChat(debts: List<ChatDataDebtDomain>): List<ChatDebtsDataUi> {
+        val debtsUi: MutableList<ChatDebtsDataUi> = mutableListOf()
+        return if (debts.isNullOrEmpty()) {
+            debtsUi
+        } else {
+            if (lastChatDate == null) {
+                lastChatDate = debts[0].date
+            }
+            for (debt in debts) {
+                val newDate = debt.date
+                lastChatDate?.let { lastChatDate ->
+                    if (isNewDate(newDate, lastChatDate)) {
+                        debtsUi.add(ChatDebtsDataUi.ChatDate(lastChatDate))
+                    }
+                }
+                lastChatDate = newDate
+                debtsUi.add(
+                    ChatDebtsDataUi.ChatMessage(
+                        id = debt.id,
+                        isMessageOfCreator = debt.isMessageOfCreator,
+                        debtValue = debt.debtValue,
+                        tag = debt.tag,
+                        isRead = debt.isRead,
+                        isDeleted = debt.isDeleted,
+                        remoteTime = debt.date
+                    )
+                )
+            }
+            lastChatDate?.let { lastChatDate ->
+                if (debtLeft == 0) {
+                    debtsUi.add(ChatDebtsDataUi.ChatDate(lastChatDate))
+                }
+            }
+            debtsUi
+        }
+    }
+
+
+    private fun isNewDate(newDate: Date, oldDate: Date): Boolean {
+        val newDateWithoutTime = removeTime(newDate)
+        val oldDateWithoutTime = removeTime(oldDate)
+        return (oldDateWithoutTime.time - newDateWithoutTime.time >= MILLIS_IN_DAY)
+
+    }
+
+    private fun removeTime(date: Date): Date {
+        val currentTime = date.time
+        val dateInMillisWithoutTime = (currentTime / MILLIS_IN_DAY) * MILLIS_IN_DAY
+        return Date(dateInMillisWithoutTime)
+
+    }
+
+    companion object {
+        private const val MILLIS_IN_DAY = (60 * 60 * 24 * 1000).toLong()
     }
 
     fun onDeleteItem(id: Int) {

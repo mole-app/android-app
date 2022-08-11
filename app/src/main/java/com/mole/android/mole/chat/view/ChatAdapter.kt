@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mole.android.mole.MoleBaseRecyclerAdapter
+import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.PopupProvider
-import com.mole.android.mole.chat.data.ChatDebtsData
 import com.mole.android.mole.chat.view.view_holder.DateViewHolder
-import com.mole.android.mole.chat.view.view_holder.MessageOfUserViewHolder
 import com.mole.android.mole.chat.view.view_holder.MessageOfCreatorViewHolder
+import com.mole.android.mole.chat.view.view_holder.MessageOfUserViewHolder
 import com.mole.android.mole.databinding.ItemChatDateBinding
 import com.mole.android.mole.databinding.ItemChatMessageEndPositionBinding
 import com.mole.android.mole.databinding.ItemChatMessageStartPositionBinding
 
-class ChatAdapter(private val popupProvider: PopupProvider<Int>? = null) : MoleBaseRecyclerAdapter<ChatDebtsData>() {
+class ChatAdapter(private val popupProvider: PopupProvider<Int>? = null) : MoleBaseRecyclerAdapter<ChatDebtsDataUi>() {
 
     private companion object ChatDataType {
         private const val DATE = 0
@@ -59,15 +59,11 @@ class ChatAdapter(private val popupProvider: PopupProvider<Int>? = null) : MoleB
 
     override fun getViewTypeOfData(position: Int): Int {
         return when (getPositionData(position)) {
-            is ChatDebtsData.ChatMessage -> {
-                if ((getPositionData(position) as ChatDebtsData.ChatMessage).isMessageOfUser) MESSAGE_OF_CREATOR
+            is ChatDebtsDataUi.ChatMessage -> {
+                if ((getPositionData(position) as ChatDebtsDataUi.ChatMessage).isMessageOfCreator) MESSAGE_OF_CREATOR
                 else MESSAGE_OF_USER
             }
-            is ChatDebtsData.ChatDate -> DATE
+            is ChatDebtsDataUi.ChatDate -> DATE
         }
-    }
-
-    fun setChatData(data: List<ChatDebtsData>){
-        update(data)
     }
 }
