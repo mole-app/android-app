@@ -25,6 +25,7 @@
         <item name="textColorDisabled">@color/color_text_disabled</item>
         <item name="colorIcon">@color/color_icon</item>
         <item name="colorIconDisabled">@color/color_icon_disabled</item>
+        <item name="colorDarkBackground">@color/color_dark_background</item>
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:colorBackground">?attr/colorPrimary</item>
         <item name="colorGradientStroke">@color/invisible_black</item>

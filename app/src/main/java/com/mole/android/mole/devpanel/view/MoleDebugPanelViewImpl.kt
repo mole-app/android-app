@@ -21,41 +21,41 @@ class MoleDebugPanelViewImpl :
         binding.debugPanelCorruptedTokenAccess.setOnClickListener {
             presenter.onButtonCorruptedAccessToken()
         }
-        binding.debugPanelCorruptedTokenAccess.setBorder(
+        binding.debugPanelCorruptedTokenAccess.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelCorruptedTokenRefresh.setOnClickListener {
             presenter.onButtonCorruptedRefreshToken()
         }
-        binding.debugPanelCorruptedTokenRefresh.setBorder(
+        binding.debugPanelCorruptedTokenRefresh.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelButtonBack.setOnClickListener {
             presenter.onButtonBack()
         }
-        binding.debugPanelButtonBack.setBorder(
+        binding.debugPanelButtonBack.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelRemoveAccount.setOnClickListener {
             presenter.onButtonRemoveAccount()
         }
-        binding.debugPanelRemoveAccount.setBorder(
+        binding.debugPanelRemoveAccount.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         binding.debugPanelRemoveRemoteAccount.setOnClickListener {
             presenter.onButtonRemoveRemoteAccount()
         }
-        binding.debugPanelRemoveRemoteAccount.setBorder(
+        binding.debugPanelRemoveRemoteAccount.setupBorder(
             Shape.RECTANGLE,
-            80f.dp()
+            80f.dp
         )
 
         presenter.attachView(this)

@@ -5,7 +5,7 @@
     <color name="red">#F27167</color>
     <color name="green">#2FC97F</color>
     <color name="gray">#717171</color>
-    <color name="black_alpha_50">#80212121</color>
+    <color name="black_alpha_75">#A0212121</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha_50">#80FFFFFF</color>
     <color name="white_alpha_25">#40FFFFFF</color>
@@ -26,6 +26,7 @@
     <color name="color_icon">@color/white</color>
     <color name="color_icon_disabled">@color/white_alpha_50</color>
     <color name="color_borderless_icon">@color/white</color>
+    <color name="color_dark_background">@color/black_alpha_75</color>
 
     <color name="gradient_button_active_start">#D32701</color>
     <color name="gradient_button_active_end">#FF7A00</color>

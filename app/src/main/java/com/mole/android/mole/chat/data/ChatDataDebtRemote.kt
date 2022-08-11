@@ -30,6 +30,7 @@ fun ChatDataDebtRemote.asDomain(userId: Int): ChatDataDebtDomain {
         debtValue = calculateDebtValue(isMessageOfUser, debtType, sum),
         tag = tag,
         isRead = false,
+        isDeleted = isDelete,
         date = stringToDate(createTime)
     )
 }

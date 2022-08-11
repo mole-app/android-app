@@ -4,6 +4,7 @@ import com.mole.android.mole.chat.data.asDomain
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
 class ChatModelImplementation(
@@ -22,6 +23,15 @@ class ChatModelImplementation(
                 } else {
                     service.getChatData(userId, LIMIT).asDomain()
                 }
+            }
+        }
+        return task.await()
+    }
+
+    override suspend fun deleteItem(id: Int): ApiResult<SuccessDeleteResult> {
+        val task = scope.async(Dispatchers.IO) {
+            call {
+                service.deleteDebt(id)
             }
         }
         return task.await()

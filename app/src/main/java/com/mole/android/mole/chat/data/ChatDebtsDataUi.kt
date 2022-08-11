@@ -18,6 +18,7 @@ sealed class ChatDebtsDataUi {
         val debtValue: Int,
         val tag: String? = "",
         val isRead: Boolean = true,
+        val isDeleted: Boolean = false,
         private val remoteTime: Date = Date()
     ) : ChatDebtsDataUi() {
         val time: String

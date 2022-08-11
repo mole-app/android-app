@@ -2,8 +2,6 @@ package com.mole.android.mole.auth.view
 
 import android.os.Bundle
 import android.view.View
-import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.*
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
@@ -62,9 +60,9 @@ class AuthLoginViewImplementation :
             presenter.onFabClick()
         }
 
-        binding.authButton.setBorder(
+        binding.authButton.setupBorder(
             Shape.OVAL,
-            16f.dp()
+            16f.dp
         )
 
         presenter =

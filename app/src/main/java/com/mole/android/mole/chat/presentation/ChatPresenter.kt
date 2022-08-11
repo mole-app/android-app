@@ -111,6 +111,7 @@ class ChatPresenter(
                         debtValue = debt.debtValue,
                         tag = debt.tag,
                         isRead = debt.isRead,
+                        isDeleted = debt.isDeleted,
                         remoteTime = debt.date
                     )
                 )
@@ -141,5 +142,13 @@ class ChatPresenter(
 
     companion object {
         private const val MILLIS_IN_DAY = (60 * 60 * 24 * 1000).toLong()
+    }
+
+    fun onDeleteItem(id: Int) {
+        withScope {
+            launch {
+                model.deleteItem(id)
+            }
+        }
     }
 }
