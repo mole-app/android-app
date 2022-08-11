@@ -11,9 +11,13 @@ data class ChatDataRemote(
     val debtLeft: Int
 )
 
-fun ChatDataRemote.asDomain(): ChatData {
-    return ChatData(
-        debts = ChatDataConverter.debtsAsDomain(debts, debtor.debtorInfo.idUser),
+fun ChatDataRemote.asDomain(): ChatDataDomain {
+    return ChatDataDomain(
+        debts = debts?.let { debts ->
+            debts.map { debt ->
+                debt.asDomain(debtor.debtorInfo.idUser)
+            }
+        } ?: listOf(),
         debtor = debtor.asDomain(),
         debtLeft = debtLeft
     )

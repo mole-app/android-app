@@ -2,6 +2,7 @@ package com.mole.android.mole.chat.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.Navigator
@@ -9,8 +10,8 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
-import com.mole.android.mole.chat.data.ChatDebtorData
-import com.mole.android.mole.chat.data.ChatDebtsData
+import com.mole.android.mole.chat.data.ChatDataDebtorDomain
+import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
@@ -35,7 +36,7 @@ class ChatViewImplementation :
         val userId = arguments?.getInt(ARG_USER_ID) ?: 0
         component().chatModule.chatPresenter(userId)
     }
-    private val chatAdapter = ChatAdapter()
+    private lateinit var chatAdapter: ChatAdapter
     private val itemCountBeforeListScrollToTop = 10
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -64,6 +65,7 @@ class ChatViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+        chatAdapter = ChatAdapter()
         initChatFabView()
         initRecyclerView()
     }
@@ -87,13 +89,15 @@ class ChatViewImplementation :
         presenter.detachView()
     }
 
-    override fun setData(data: List<ChatDebtsData>) {
-        chatAdapter.setChatData(data)
-        chatAdapter.notifyDataSetChanged()
-
+    override fun setData(data: List<ChatDebtsDataUi>) {
+        val newData = chatAdapter.getData() + data
+        val diffUtilCallback = ChatDiffUtilCallback(chatAdapter.getData(), newData)
+        val diffUtilResult = DiffUtil.calculateDiff(diffUtilCallback)
+        chatAdapter.addAll(data)
+        diffUtilResult.dispatchUpdatesTo(chatAdapter)
     }
 
-    override fun setToolbarData(data: ChatDebtorData) {
+    override fun setToolbarData(data: ChatDataDebtorDomain) {
         with(binding.chatToolbarMessenger) {
             setName(data.name)
             setBalance(data.balance)
@@ -120,7 +124,6 @@ class ChatViewImplementation :
     override fun showCreateDebtScreen(userId: Int) {
         router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
         router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
-            //                presenter.onDebtsCreated()
         }
     }
 }
