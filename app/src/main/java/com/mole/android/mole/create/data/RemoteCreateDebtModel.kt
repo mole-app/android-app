@@ -17,7 +17,7 @@ class RemoteCreateDebtModel(
         tag: String,
         amount: Int
     ): ApiResult<SuccessCreateDebtResult> {
-        val type = if (side) "Get" else "Give"
+        val type = if (side) "Give" else "Get"
         val task = scope.async {
             call { createDebtService.createDebt(userId, amount, tag, type).asDomain() }
         }

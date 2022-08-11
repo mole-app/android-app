@@ -2,9 +2,9 @@ package com.mole.android.mole.chat.data
 
 import com.google.gson.annotations.SerializedName
 
-enum class DebtType(val stringValue: String) {
+enum class DebtType {
     @SerializedName("Give")
-    GIVE("Give"),
+    GIVE,
     @SerializedName("Get")
-    GET("Get")
+    GET
 }
