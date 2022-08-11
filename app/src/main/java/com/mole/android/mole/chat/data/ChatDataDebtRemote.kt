@@ -15,7 +15,7 @@ data class ChatDataDebtRemote(
     @SerializedName("isDelete")
     val isDelete: Boolean,
     @SerializedName("debtType")
-    val debtType: String,
+    val debtType: DebtType,
     @SerializedName("createTime")
     val createTime: String,
     @SerializedName("tag")
@@ -34,19 +34,15 @@ fun ChatDataDebtRemote.asDomain(userId: Int): ChatDataDebtDomain {
     )
 }
 
-private fun calculateDebtValue(messageOfCreator: Boolean, debtType: String, debtSum: Int): Int {
+private fun calculateDebtValue(messageOfCreator: Boolean, debtType: DebtType, debtSum: Int): Int {
     return when (debtType) {
-        DebtType.GIVE.stringValue -> {
+        DebtType.GIVE -> {
             if (messageOfCreator) debtSum
             else -1 * debtSum
         }
-        DebtType.GET.stringValue -> {
+        DebtType.GET -> {
             if (messageOfCreator) -1 * debtSum
             else debtSum
-        }
-        else -> {
-            if (messageOfCreator) debtSum
-            else -1 * debtSum
         }
     }
 }
