@@ -1,5 +1,6 @@
 package com.mole.android.mole.chat.view.view_holder
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.MoleBinder
@@ -10,7 +11,8 @@ class MessageOfUserViewHolder(
     val binding: ItemChatMessageStartPositionBinding,
     private val popupProvider: PopupProvider<Int>? = null
 ) :
-    RecyclerView.ViewHolder(binding.root), MoleBinder<ChatDebtsDataUi.ChatMessage> {
+    RecyclerView.ViewHolder(binding.root), MoleBinder<ChatDebtsDataUi.ChatMessage>,
+    View.OnLongClickListener {
 
     private var currentId: Int = -1
 
@@ -27,12 +29,22 @@ class MessageOfUserViewHolder(
     }
 
     override fun bind(data: ChatDebtsDataUi.ChatMessage) {
-        with(binding.messageStartPosition){
+        with(binding.messageStartPosition) {
             balance = data.debtValue
             tag = data.tag
             time = data.time
             isDeleted = data.isDeleted
+            if (isDeleted) {
+                binding.messageStartPosition.setOnLongClickListener(null)
+            } else {
+                binding.messageStartPosition.setOnLongClickListener(this@MessageOfUserViewHolder)
+            }
         }
         currentId = data.id
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        popupProvider?.start(view, currentId, PopupProvider.Position.RIGHT)
+        return true
     }
 }
