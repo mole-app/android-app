@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FrgDebugPanelBinding
+import leakcanary.LeakCanary
 
 class MoleDebugPanelViewImpl :
     MoleBaseFragment<FrgDebugPanelBinding>(FrgDebugPanelBinding::inflate), MoleDebugPanelView {
@@ -12,6 +13,10 @@ class MoleDebugPanelViewImpl :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.leakCanarySwitcher.setOnCheckedChangeListener { _, check ->
+            LeakCanary.config = LeakCanary.config.copy(dumpHeap = check)
+        }
 
         binding.debugPanelCorruptedTokenAccess.setOnClickListener {
             presenter.onButtonCorruptedAccessToken()

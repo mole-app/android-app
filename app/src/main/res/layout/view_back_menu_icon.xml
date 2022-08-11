@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.AppCompatImageButton xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/MoleButton.Icon"
+    style="@style/MoleView.Icon"
     android:layout_gravity="start|center"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="9dp"

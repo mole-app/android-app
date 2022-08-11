@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/alert_apply"
-        style="@style/MoleButton.Alert"
+        style="@style/MoleView.Alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7.5dp"
@@ -55,7 +55,7 @@
 
     <Button
         android:id="@+id/alert_cancel"
-        style="@style/MoleButton.Alert"
+        style="@style/MoleView.Alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7.5dp"
