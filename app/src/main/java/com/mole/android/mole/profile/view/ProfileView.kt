@@ -13,5 +13,7 @@ interface ProfileView : MoleBaseView {
 
     fun setIcon(uri: String?)
 
-    fun showSnackBar(message: String)
+    fun showError()
+
+    fun showContent()
 }
