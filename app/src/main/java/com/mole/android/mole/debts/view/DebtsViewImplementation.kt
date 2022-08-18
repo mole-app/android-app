@@ -41,6 +41,15 @@ class DebtsViewImplementation :
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         initRecyclerView()
+        initRetryButton()
+    }
+
+    private fun initRetryButton() {
+        binding.retryButton.setOnClickListener {
+            presenter.onRetryClick()
+            binding.retryButton.isEnabled = false
+            binding.loading.visibility = View.VISIBLE
+        }
     }
 
     private fun initRecyclerView() {
@@ -58,6 +67,8 @@ class DebtsViewImplementation :
     }
 
     override fun setData(data: DebtsData) {
+        binding.errorContainer.visibility = View.GONE
+        showContent()
         binding.totalDebtsSum.text = component().context.resources.getString(
             R.string.total_debts,
             summaryToString(data.debtsSumTotal.toLong())
@@ -81,7 +92,9 @@ class DebtsViewImplementation :
     }
 
     override fun showError(code: Int, description: String) {
-        Toast.makeText(context, "Error: $code $description", Toast.LENGTH_SHORT).show()
+        hideContent()
+        binding.retryButton.isEnabled  = true
+        binding.errorContainer.visibility = View.VISIBLE
     }
 
     override fun showDeleteDialog() {
@@ -96,5 +109,21 @@ class DebtsViewImplementation :
             )
         )
         component().routingModule.router.navigateTo(Screens.Chat(idDebtor))
+    }
+
+    private fun hideContent() {
+        with(binding) {
+            debtsRecyclerView.visibility = View.GONE
+            loading.visibility = View.GONE
+            totalDebtsSum.visibility = View.GONE
+        }
+    }
+
+    private fun showContent() {
+        with(binding) {
+            debtsRecyclerView.visibility = View.VISIBLE
+            loading.visibility = View.VISIBLE
+            totalDebtsSum.visibility = View.VISIBLE
+        }
     }
 }

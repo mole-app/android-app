@@ -24,6 +24,12 @@ class DebtsPresenter(
         view?.showDeleteDialog()
     }
 
+    fun onRetryClick(){
+        withView { view ->
+            dataLoading(view)
+        }
+    }
+
     private fun dataLoading(view: DebtsView) {
         withScope {
             launch {
