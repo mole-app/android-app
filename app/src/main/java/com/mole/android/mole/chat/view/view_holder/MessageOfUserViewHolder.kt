@@ -40,7 +40,7 @@ class MessageOfUserViewHolder(
     }
 
     override fun onLongClick(view: View): Boolean {
-        popupProvider?.start(view, currentId, PopupProvider.Position.RIGHT)
+        popupProvider?.start(view, currentId, PopupProvider.Position.LEFT)
         return true
     }
 }

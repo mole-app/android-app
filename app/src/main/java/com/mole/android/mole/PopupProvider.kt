@@ -9,6 +9,7 @@ import android.content.res.Resources
 import android.graphics.Point
 import android.graphics.PointF
 import android.os.Build
+import android.util.DisplayMetrics
 import android.view.*
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
@@ -157,14 +158,28 @@ class PopupProvider<T>(
                 popupView.setOnClickListener {
                     dismiss()
                 }
-                val offset: Int = when (position) {
-                    Position.RIGHT -> -context.resources.getDimension(R.dimen.popup_width).toInt()
-                    else -> 0
+                val gravity: Int
+                val x: Int
+                when (position) {
+                    Position.RIGHT -> {
+                        val displayMetrics = DisplayMetrics()
+                        val wm = context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager
+                        wm?.apply {
+                            wm.defaultDisplay.getMetrics(displayMetrics)
+                        }
+                        val screenWidth = displayMetrics.widthPixels
+
+                        gravity = Gravity.TOP or Gravity.END
+                        x = screenWidth - (lastTouchDown.x.toInt() + point.x)
+                    }
+                    else -> {
+                        gravity = Gravity.TOP or Gravity.START
+                        x = lastTouchDown.x.toInt() + point.x
+                    }
                 }
 
-                val x = lastTouchDown.x.toInt() + point.x + offset
                 val y = lastTouchDown.y.toInt() + point.y
-                showAtLocation(view, Gravity.START or Gravity.TOP, x, y)
+                showAtLocation(view, gravity, x, y)
             }
         }
     }

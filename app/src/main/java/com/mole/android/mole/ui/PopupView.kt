@@ -33,7 +33,7 @@ class PopupView constructor(
 
     init {
         windowManager =
-            contentView.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            contentView.context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager
         darkView = DarkView(contentView.context)
         darkView.layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
@@ -41,7 +41,7 @@ class PopupView constructor(
         )
 
         val dm = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(dm)
+        windowManager?.defaultDisplay?.getMetrics(dm)
 
     }
 
