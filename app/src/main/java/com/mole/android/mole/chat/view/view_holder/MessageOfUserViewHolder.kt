@@ -20,10 +20,6 @@ class MessageOfUserViewHolder(
         if (popupProvider != null) {
             with(binding.messageStartPosition) {
                 setOnTouchListener(popupProvider.touchListener)
-                setOnLongClickListener {
-                    popupProvider.start(it, currentId, PopupProvider.Position.LEFT)
-                    true
-                }
             }
         }
     }
