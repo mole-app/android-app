@@ -49,7 +49,7 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
 
     var isDeleted = false
         set(value) {
-            if (value) backgroundTintList = ColorStateList.valueOf(colorDisabled)
+            updateColor(balance, value)
             field = value
         }
 
@@ -120,7 +120,18 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
     }
 
     private fun updateBalance(value: Int) {
-        val sign: String
+        val sign = updateColor(value, isDeleted)
+
+        balanceTextView.text = context.getString(
+            R.string.mole_message_balance,
+            sign,
+            value.absoluteValue,
+            postfix
+        )
+    }
+
+    private fun updateColor(value: Int, isDeleted: Boolean): String {
+        val sign : String
         when {
             value.isNegative() -> {
                 sign = context.getString(R.string.minus_prefix)
@@ -139,13 +150,7 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
         if (isDeleted) {
             backgroundTintList = ColorStateList.valueOf(colorDisabled)
         }
-
-        balanceTextView.text = context.getString(
-            R.string.mole_message_balance,
-            sign,
-            value.absoluteValue,
-            postfix
-        )
+        return sign
     }
 
     private fun updateTag(value: String?) {
