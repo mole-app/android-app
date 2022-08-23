@@ -19,7 +19,6 @@
     <string name="login_title">Логин</string>
     <string name="vk_login">Войти через VK</string>
     <string name="google_login">Войти через Google</string>
-    <string name="login_prefix">\@%s</string>
     <string name="welcome_string">Добро пожаловать!</string>
     <string name="total_debts">Всего: %s p.</string>
     <string name="debts_action_bar">Долги</string>

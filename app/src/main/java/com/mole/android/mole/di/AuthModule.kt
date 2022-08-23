@@ -7,8 +7,6 @@ import com.mole.android.mole.auth.model.AuthModelImplementation
 import com.mole.android.mole.auth.model.AuthService
 import com.mole.android.mole.auth.presentation.AuthBeginPresenter
 import com.mole.android.mole.auth.presentation.AuthLoginPresenter
-import com.mole.android.mole.auth.view.AuthLoginResources
-import com.mole.android.mole.auth.view.AuthLoginResourcesImplementation
 
 class AuthModule(
     private val context: Context,
@@ -21,11 +19,7 @@ class AuthModule(
         get() = AuthBeginPresenter(authModel, baseScopeModule.mainScope)
 
     val loginPresenter: (AuthDataLogin) -> AuthLoginPresenter = {
-        AuthLoginPresenter(authModel, loginResources, it)
-    }
-
-    private val loginResources: AuthLoginResources by lazy {
-        AuthLoginResourcesImplementation(context)
+        AuthLoginPresenter(authModel, it)
     }
 
     private val authModel: AuthModel by lazy {

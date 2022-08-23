@@ -40,7 +40,7 @@ class ProfileViewImpl : ProfileView,
     }
 
     override fun setProfileLogin(login: String) {
-        binding.profileLogin.text = resources.getString(R.string.login_prefix, login)
+        binding.profileLogin.text = login
     }
 
     override fun setTotalDebtsSummary(summary: Long) {
