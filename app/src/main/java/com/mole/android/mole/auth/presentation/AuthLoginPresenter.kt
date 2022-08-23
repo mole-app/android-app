@@ -28,10 +28,10 @@ class AuthLoginPresenter(
             withScope {
                 launch {
                     Log.i("AuthPresenter", "Fab login = $login")
-                    if (model.addUser(login)) {
+                    model.addUser(login).withResult {
                         view.hideError()
                         view.openDebts()
-                    } else {
+                    }.withError {
                         view.showLoginExistError()
                     }
                 }

@@ -3,7 +3,7 @@ package com.mole.android.mole.auth.model
 import com.mole.android.mole.web.service.ApiResult
 
 interface AuthModel {
-    suspend fun addUser(login: String): Boolean
+    suspend fun addUser(login: String): ApiResult<SuccessAuthResult>
 
     suspend fun getUserVk(code: String): ApiResult<SuccessAuthResult>
 
@@ -12,5 +12,6 @@ interface AuthModel {
     sealed class SuccessAuthResult {
         object SuccessForExistedUser : SuccessAuthResult()
         class SuccessNewUser(val login: String) : SuccessAuthResult()
+        object SuccessEditLogin : SuccessAuthResult()
     }
 }
