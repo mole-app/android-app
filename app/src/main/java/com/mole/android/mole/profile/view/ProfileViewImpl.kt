@@ -25,13 +25,7 @@ class ProfileViewImpl : ProfileView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         presenter = component().profileModule.profilePresenter
-
-        binding.tagsGroup.setOnClickListener {
-            Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
-        }
-
         presenter.attachView(this)
     }
 
@@ -75,7 +69,11 @@ class ProfileViewImpl : ProfileView,
     }
 
     override fun showSnackBar(message: String) {
-        val snakbar = Snackbar.make(binding.root.findViewById(R.id.snackbarHolder), "message", Snackbar.LENGTH_SHORT)
+        val snakbar = Snackbar.make(
+            binding.root.findViewById(R.id.snackbarHolder),
+            "message",
+            Snackbar.LENGTH_SHORT
+        )
         snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
         snakbar.show()
     }
