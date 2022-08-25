@@ -16,9 +16,10 @@ class ChatPresenter(
     private var isDataLoading = false
     private var debtLeft = -1
     private var idDebtMax: Int? = null
-    private var chatDebts: List<ChatDataDebtDomain> = listOf()
+    private val chatDebts: MutableList<ChatDataDebtDomain> = mutableListOf()
     private var chatDebtor: ChatDataDebtorDomain? = null
     private var lastChatDate: Date? = null
+    private var isRetryBtnInViewHolder: Boolean = false
 
     override fun attachView(view: ChatView) {
         super.attachView(view)
@@ -31,10 +32,19 @@ class ChatPresenter(
         super.detachView()
         debtLeft = -1
         idDebtMax = null
-        chatDebts = mutableListOf()
+        chatDebts.clear()
         chatDebtor = null
         lastChatDate = null
 
+    }
+
+    fun onRetryClick() {
+        if (!isDataLoading) {
+            withView { view ->
+                view.showLoading()
+                loadData(view)
+            }
+        }
     }
 
     fun onChatPreScrolledToTop() {
@@ -70,20 +80,34 @@ class ChatPresenter(
         }
         withScope {
             launch {
-                model.loadChatData(userId, idDebtMax).withResult { result ->
-                    chatDebts = result.debts
-                    debtLeft = result.debtLeft
-                    idDebtMax = chatDebts.last().id
-                    if (chatDebtor == null) {
-                        chatDebtor = result.debtor
-                        view.setToolbarData(result.debtor)
-                        view.setData(insertDateToChat(chatDebts))
-                    } else {
-                        view.setData(insertDateToChat(chatDebts))
+                model.loadChatData(userId, idDebtMax)
+                    .withResult { result ->
+                        view.hideError(isRetryBtnInViewHolder)
+                        isRetryBtnInViewHolder = false
+                        chatDebts.addAll(result.debts)
+                        debtLeft = result.debtLeft
+                        idDebtMax = chatDebts.last().id
+                        if (chatDebtor == null) {
+                            chatDebtor = result.debtor
+                            view.setToolbarData(result.debtor)
+                        }
+                        view.setData(insertDateToChat(result.debts))
+                        view.hideLoading()
+                        isDataLoading = false
                     }
-                    view.hideLoading()
-                    isDataLoading = false
-                }
+                    .withError {
+                        isDataLoading = false
+                        if (chatDebts.isNullOrEmpty()) {
+                            view.showError()
+                        } else {
+                            if (!isRetryBtnInViewHolder) {
+                                isRetryBtnInViewHolder = true
+                                view.setData(listOf(ChatDebtsDataUi.RetryData))
+                            }
+                            view.showErrorToast()
+                        }
+                        view.hideLoading()
+                    }
             }
         }
     }

@@ -34,6 +34,14 @@ class MoleActionBarMessenger @JvmOverloads constructor(
         balanceBarMoleMessageView.balance = balance
     }
 
+    fun setVisibilityToBalance(isVisible: Boolean){
+        if (isVisible){
+            balanceBarMoleMessageView.visibility = View.VISIBLE
+        } else {
+            balanceBarMoleMessageView.visibility = View.GONE
+        }
+    }
+
     override fun customView(parent: ViewGroup): View {
         return inflate(context, R.layout.view_action_bar_messenger, parent)
     }
