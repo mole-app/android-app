@@ -36,6 +36,7 @@
         android:drawableEnd="@drawable/ic_space_edit_text"
         android:foreground="?attr/colorPrimary"
         android:imeOptions="actionDone"
+        android:digits="0123456789"
         android:inputType="numberSigned"
         android:maxLength="9"
         app:layout_constraintEnd_toEndOf="parent"

@@ -66,7 +66,7 @@ class ChooseAmountViewHolder(
     private fun provideTextToField(text: Editable?) {
         val string = text.toString()
         val number = string.toIntOrNull(10)
-        val isEmpty = string.isBlank() || number == null
+        val isEmpty = string.isBlank() || number == null || number <= 0
         amountText.text =
             "${if (isEmpty) "0" else number} ${itemView.context.getString(R.string.rubles_suffix)}"
         if (isEmpty) {
