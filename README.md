@@ -38,5 +38,5 @@ Mole-team
  * Android: [Ярослав](https://github.com/yaroslavok), [Александр](https://github.com/PaladiRka), [Оля](https://github.com/omy-q)
  * iOS: [Егор](https://github.com/EgorKolyshkin)
  * Backend: [Андрей](https://github.com/andreysoldatenkow)
- * QA: Виктория
+ * QA: [Виктория](https://vk.com/id733009633)
  * Design: [Даниэль](https://instagram.com/polozovdaniel?igshid=YmMyMTA2M2Y=)
