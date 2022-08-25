@@ -29,8 +29,8 @@ class ChooseSideCardView @JvmOverloads constructor(
     }
 
     enum class Side(@DrawableRes val iconRes: Int, @StringRes val textRes: Int) {
-        MY_DEBT(iconRes = R.drawable.create_debt_negative, textRes = R.string.my_debt),
-        HIS_DEBT(iconRes = R.drawable.create_debt_positive, textRes = R.string.his_debt)
+        MY_DEBT(iconRes = R.drawable.ic_wallet_empty, textRes = R.string.my_debt),
+        HIS_DEBT(iconRes = R.drawable.ic_wallet_full, textRes = R.string.his_debt)
     }
 
 }

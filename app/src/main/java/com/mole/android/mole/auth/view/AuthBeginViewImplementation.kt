@@ -62,7 +62,11 @@ class AuthBeginViewImplementation :
         client = GoogleSignIn.getClient(requireActivity(), gso)
 
         binding.vkButton.setOnClickListener {
-            presenter.onVkClick()
+            if (isNetworkConnected(requireContext())) {
+                presenter.onVkClick()
+            } else {
+                Toast.makeText(requireContext(), R.string.loading_error, Toast.LENGTH_SHORT).show()
+            }
         }
 
         if (remoteConfig.getGoogleEnable()) {

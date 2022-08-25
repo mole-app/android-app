@@ -7,7 +7,6 @@ import android.widget.Toast
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentProfileBinding
 import com.mole.android.mole.navigation.Screens.Settings
@@ -27,6 +26,15 @@ class ProfileViewImpl : ProfileView,
         super.onViewCreated(view, savedInstanceState)
         presenter = component().profileModule.profilePresenter
         presenter.attachView(this)
+
+        initRetryButton()
+    }
+
+    private fun initRetryButton() {
+        binding.retryButton.setOnClickListener {
+            presenter.onRetryClick()
+            binding.retryButton.isEnabled = false
+        }
     }
 
     override fun setProfileName(name: String) {
@@ -68,13 +76,27 @@ class ProfileViewImpl : ProfileView,
         }
     }
 
-    override fun showSnackBar(message: String) {
-        val snakbar = Snackbar.make(
-            binding.root.findViewById(R.id.snackbarHolder),
-            "message",
-            Snackbar.LENGTH_SHORT
-        )
-        snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
-        snakbar.show()
+    override fun showError() {
+        hideContent()
+        binding.retryButton.isEnabled = true
+        binding.errorContainer.visibility = View.VISIBLE
+    }
+
+    private fun hideContent() {
+        binding.personProfileIcon.visibility = View.GONE
+        binding.profileContainer.visibility = View.GONE
+        binding.profileDebtsSummaryTitle.visibility = View.GONE
+        binding.profileDebtsSummary.visibility = View.GONE
+        binding.tagsGroup.visibility = View.GONE
+    }
+
+    override fun showContent() {
+        binding.retryButton.isEnabled = true
+        binding.personProfileIcon.visibility = View.VISIBLE
+        binding.profileContainer.visibility = View.VISIBLE
+        binding.profileDebtsSummaryTitle.visibility = View.VISIBLE
+        binding.profileDebtsSummary.visibility = View.VISIBLE
+        binding.tagsGroup.visibility = View.VISIBLE
+        binding.errorContainer.visibility  =View.GONE
     }
 }
