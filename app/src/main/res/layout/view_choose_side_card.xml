@@ -31,6 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/choose_text"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/create_debt_positive" />
+        tools:src="@drawable/ic_wallet_full" />
 
 </merge>
