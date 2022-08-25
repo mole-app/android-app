@@ -5,6 +5,7 @@ import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
 class RemoteCreateDebtModel(
     private val createDebtService: CreateDebtService,
@@ -18,10 +19,9 @@ class RemoteCreateDebtModel(
         amount: Int
     ): ApiResult<SuccessCreateDebtResult> {
         val type = if (side) "Give" else "Get"
-        val task = scope.async {
+        return withContext(scope.coroutineContext) {
             call { createDebtService.createDebt(userId, amount, tag, type).asDomain() }
         }
-        return task.await()
     }
 
 }

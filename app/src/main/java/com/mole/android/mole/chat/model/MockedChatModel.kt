@@ -3,15 +3,11 @@ package com.mole.android.mole.chat.model
 import com.mole.android.mole.chat.data.ChatDataDebtDomain
 import com.mole.android.mole.chat.data.ChatDataDebtorDomain
 import com.mole.android.mole.chat.data.ChatDataDomain
-import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import java.util.*
+import kotlinx.coroutines.*
 import retrofit2.HttpException
+import java.util.*
 
 class MockedChatModel(
     private val scope: CoroutineScope
@@ -21,17 +17,16 @@ class MockedChatModel(
         userId: Int,
         idDebtMax: Int?
     ): ApiResult<SuccessChatResult> {
-        val task = scope.async {
+        return withContext(scope.coroutineContext) {
             call {
                 delay(1000)
                 testChatData
             }
         }
-        return task.await()
     }
 
     override suspend fun deleteItem(id: Int): ApiResult<SuccessDeleteResult> {
-        val task = scope.async(Dispatchers.IO) {
+        return withContext(scope.coroutineContext + Dispatchers.IO) {
             try {
 //                val deletedItem = testChatData[itemIndex]
 //                (deletedItem as? ChatDebtsData.ChatMessage)?.isDisabled = true
@@ -42,7 +37,6 @@ class MockedChatModel(
                 ApiResult.create(ApiResult.MoleError(exception.code(), exception.message()))
             }
         }
-        return task.await()
     }
 }
 

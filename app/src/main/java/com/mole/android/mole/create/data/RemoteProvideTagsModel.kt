@@ -4,7 +4,7 @@ import com.mole.android.mole.create.model.asDomain
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
 class RemoteProvideTagsModel(
     private val service: CreateDebtService,
@@ -12,10 +12,9 @@ class RemoteProvideTagsModel(
 ) : ProvideTagsModel {
 
     override suspend fun provideTags(): ApiResult<SuccessTagsResult> {
-        val task = scope.async {
+        return withContext(scope.coroutineContext) {
             call { service.provideTags(EMPTY_FILTER, MAX_COUNT).asDomain() }
         }
-        return task.await()
     }
 
     companion object {

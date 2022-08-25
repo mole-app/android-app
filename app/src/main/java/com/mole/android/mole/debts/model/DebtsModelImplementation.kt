@@ -4,7 +4,7 @@ import com.mole.android.mole.debts.data.asDomain
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
 
 class DebtsModelImplementation(
@@ -12,9 +12,8 @@ class DebtsModelImplementation(
     private val scope: CoroutineScope
 ) : DebtsModel {
     override suspend fun loadDebtsData(): ApiResult<SuccessDebtsResult> {
-        val task = scope.async {
+        return withContext(scope.coroutineContext) {
             call { service.getDebtors().asDomain() }
         }
-        return task.await()
     }
 }

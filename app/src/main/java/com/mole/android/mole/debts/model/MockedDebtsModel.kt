@@ -5,20 +5,19 @@ import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 class MockedDebtsModel(
     private val scope: CoroutineScope
 ) : DebtsModel {
     override suspend fun loadDebtsData(): ApiResult<SuccessDebtsResult> {
-        val task = scope.async {
+        return withContext(scope.coroutineContext) {
             call {
                 delay(1000)
                 testDebtsData
             }
         }
-        return task.await()
     }
 }
 
