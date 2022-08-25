@@ -45,4 +45,9 @@ abstract class MoleBaseRecyclerAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     }
 
     fun getData(): List<T> = data
+
+
+    fun deleteData(position: Int) {
+        this.data.removeAt(position)
+    }
 }

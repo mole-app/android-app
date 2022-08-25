@@ -16,11 +16,8 @@ class ProfileModule(
     private val profileModel: ProfileModel by lazy {
         ProfileModelImpl(
             profileService,
-            baseScopeModule.mainScope
+            baseScopeModule.ioScope
         )
-//        ProfileModelMockImpl(
-//            baseScopeModule.mainScope
-//        )
     }
 
     private val profileService by lazy {

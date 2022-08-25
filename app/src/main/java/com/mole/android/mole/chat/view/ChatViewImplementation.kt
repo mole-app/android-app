@@ -2,22 +2,19 @@ package com.mole.android.mole.chat.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.mole.android.mole.MoleBaseFragment
-import com.mole.android.mole.PopupProvider
-import com.mole.android.mole.R
+import com.mole.android.mole.*
 import com.mole.android.mole.chat.data.ChatDataDebtorDomain
 import com.mole.android.mole.chat.data.ChatDebtsDataUi
-import com.mole.android.mole.component
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
 import com.mole.android.mole.ui.MoleMessageViewWithInfo
-import com.mole.android.mole.setResultListenerGeneric
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class ChatViewImplementation :
@@ -33,6 +30,7 @@ class ChatViewImplementation :
             return fragment
         }
     }
+
     private lateinit var popupProvider: PopupProvider<Int>
     private val presenter by lazy {
         val userId = arguments?.getInt(ARG_USER_ID) ?: 0
@@ -55,6 +53,11 @@ class ChatViewImplementation :
         }
     }
     private val router = component().routingModule.router
+    private val retryListener = object : RetryButtonClickListener {
+        override fun onRetryButtonClicked() {
+            presenter.onRetryClick()
+        }
+    }
 
     override fun getNavigator(): Navigator {
         return AppNavigator(requireActivity(), R.id.fragment_container)
@@ -68,8 +71,9 @@ class ChatViewImplementation :
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         popupProvider = PopupProvider(requireContext(), binding.chatRecyclerView, view, true)
-        chatAdapter = ChatAdapter(popupProvider)
+        chatAdapter = ChatAdapter(popupProvider, retryListener)
         initChatFabView()
+        initRetryButton()
 
         popupProvider.setOnDeleteListener { deletedView, id ->
             presenter.onDeleteItem(id)
@@ -80,6 +84,14 @@ class ChatViewImplementation :
         }
 
         initRecyclerView()
+    }
+
+    private fun initRetryButton() {
+        binding.retryButton.setOnClickListener {
+            binding.retryButton.isEnabled = false
+            binding.retryButton.visibility = View.GONE
+            presenter.onRetryClick()
+        }
     }
 
     private fun initChatFabView() {
@@ -94,6 +106,16 @@ class ChatViewImplementation :
         binding.chatRecyclerView.adapter = chatAdapter
         binding.chatRecyclerView.addItemDecoration(ChatFirstPositionItemDecoration())
         binding.chatRecyclerView.addOnScrollListener(scrollListener)
+    }
+
+    private fun hideContent() {
+        binding.chatRecyclerView.visibility = View.GONE
+        binding.chatFabView.visibility = View.GONE
+    }
+
+    private fun showContent() {
+        binding.chatRecyclerView.visibility = View.VISIBLE
+        binding.chatFabView.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
@@ -136,6 +158,29 @@ class ChatViewImplementation :
     override fun showCreateDebtScreen(userId: Int) {
         router.navigateTo(FragmentScreen { CreateDebtScreen.instance(userId) })
         router.setResultListenerGeneric<CreateDebtScreen.CreatedDebt>(CreateDebtScreen.EXTRA_CREATED_DEBT) {
+        }
+    }
+
+    override fun showErrorToast() {
+        Toast.makeText(context, resources.getString(R.string.loading_error), Toast.LENGTH_LONG)
+            .show()
+    }
+
+    override fun showError() {
+        hideContent()
+        binding.chatToolbarMessenger.setVisibilityToBalance(false)
+        binding.chatToolbarMessenger.setName(resources.getString(R.string.loading_error))
+        binding.retryButton.isEnabled = true
+        binding.retryButton.visibility = View.VISIBLE
+    }
+
+    override fun hideError(isRetryBtnInRecyclerView: Boolean) {
+        showContent()
+        binding.chatToolbarMessenger.setVisibilityToBalance(true)
+        if (isRetryBtnInRecyclerView) {
+            val position = chatAdapter.getData().lastIndex
+            chatAdapter.deleteData(position)
+            chatAdapter.notifyItemRemoved(position)
         }
     }
 }

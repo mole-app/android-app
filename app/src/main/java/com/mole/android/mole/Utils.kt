@@ -2,6 +2,9 @@ package com.mole.android.mole
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -13,7 +16,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
@@ -21,8 +23,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 fun summaryToString(summary: Long): String {
     val format = DecimalFormat("###,###.##")
@@ -131,4 +131,19 @@ fun View.openKeyboard() {
             InputMethodManager.HIDE_IMPLICIT_ONLY
         )
     }, 100L)
+}
+
+fun isNetworkConnected(context: Context): Boolean {
+    val cm: ConnectivityManager? =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+    cm ?: return false
+    val nw = cm.activeNetwork ?: return false
+    val actNw = cm.getNetworkCapabilities(nw) ?:  return false
+    return when {
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+        actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+        else -> false
+    }
 }

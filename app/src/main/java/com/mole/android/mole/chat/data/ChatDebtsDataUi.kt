@@ -24,4 +24,6 @@ sealed class ChatDebtsDataUi {
         val time: String
             get() = timeToString(remoteTime)
     }
+
+    object RetryData: ChatDebtsDataUi()
 }
