@@ -32,12 +32,17 @@ fun summaryToString(summary: Long): String {
 }
 
 fun tagsToString(tags: List<String>): String {
-    var tagsText = "#${tags.first()}"
-    val tagsWithoutFirst = tags.drop(tags.size - 2)
-    for (tag in tagsWithoutFirst) {
-        tagsText += ", #$tag"
+    val firstTag = tags.firstOrNull()
+    return if (firstTag != null) {
+        var tagsText = "#$firstTag"
+        val tagsWithoutFirst = tags.drop(tags.size - 2)
+        for (tag in tagsWithoutFirst) {
+            tagsText += ", #$tag"
+        }
+        tagsText
+    } else {
+        ""
     }
-    return tagsText
 }
 
 fun <T> throttleLatest(

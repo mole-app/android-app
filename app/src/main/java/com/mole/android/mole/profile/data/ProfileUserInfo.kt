@@ -13,7 +13,7 @@ data class ProfileUserInfo(
         profileUserInfoDomain.profile.name,
         profileUserInfoDomain.photo.photoSmall,
         profileUserInfoDomain.photo.photoNormal,
-        listOf("empty", "empty"),
-        5000
+        profileUserInfoDomain.tags,
+        profileUserInfoDomain.debtSum,
     )
 }

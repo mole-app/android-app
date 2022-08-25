@@ -92,6 +92,7 @@
             android:id="@+id/profileEdit"
             style="@style/MoleView.BorderlessIcon"
             android:src="@drawable/ic_edit_profile"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/profileName"
@@ -122,10 +123,7 @@
         android:id="@+id/tagsGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
         android:gravity="center"
-        android:background="@drawable/ripple_borderless_section"
         android:orientation="vertical">
 
         <TextView

@@ -4,13 +4,11 @@ import android.util.Log
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.auth.data.AuthDataLogin
 import com.mole.android.mole.auth.model.AuthModel
-import com.mole.android.mole.auth.view.AuthLoginResources
 import com.mole.android.mole.auth.view.AuthLoginView
 import kotlinx.coroutines.*
 
 class AuthLoginPresenter(
     private val model: AuthModel,
-    private val authLoginResources: AuthLoginResources,
     private val client: AuthDataLogin
 ) :
     MoleBasePresenter<AuthLoginView>() {
@@ -30,10 +28,10 @@ class AuthLoginPresenter(
             withScope {
                 launch {
                     Log.i("AuthPresenter", "Fab login = $login")
-                    if (model.addUser(login)) {
+                    model.addUser(login).withResult {
                         view.hideError()
                         view.openDebts()
-                    } else {
+                    }.withError {
                         view.showLoginExistError()
                     }
                 }

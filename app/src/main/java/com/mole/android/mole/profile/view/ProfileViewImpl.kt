@@ -24,13 +24,7 @@ class ProfileViewImpl : ProfileView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         presenter = component().profileModule.profilePresenter
-
-        binding.tagsGroup.setOnClickListener {
-            Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
-        }
-
         presenter.attachView(this)
 
         initRetryButton()

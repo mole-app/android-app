@@ -12,8 +12,10 @@ interface ProfileService {
     companion object {
         private const val PHOTO = "https://sun9-76.userapi.com/s/v1/if1/9vqE-GMh7yRDDpaa233wVV9yqUTwuZTzd3FutD_iFJrcfXVhglQ40p2tum98hGr4K8T8-_zb.jpg?size=50x50&quality=96&crop=381,67,840,840&ava=1"
         val MOCK = ProfileUserInfoDomain(
-            ProfileData(1000, "Login", "Name"),
-            ProfilePhoto(PHOTO, PHOTO)
+            ProfileData(1000, "Login", "Name", "1"),
+            ProfilePhoto(PHOTO, PHOTO),
+            listOf("Tag"),
+            5000
         )
     }
 }

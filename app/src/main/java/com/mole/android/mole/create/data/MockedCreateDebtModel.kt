@@ -5,6 +5,7 @@ import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class MockedCreateDebtModel(private val scope: CoroutineScope) : CreateDebtModel {
@@ -15,7 +16,7 @@ class MockedCreateDebtModel(private val scope: CoroutineScope) : CreateDebtModel
         amount: Int
     ): ApiResult<SuccessCreateDebtResult> {
         val delay = Random.nextLong(300, 1000)
-        val task = scope.async {
+        return withContext(scope.coroutineContext) {
             delay(delay)
 //        val random = Random.nextBoolean()
 //            if (random) {
@@ -24,6 +25,5 @@ class MockedCreateDebtModel(private val scope: CoroutineScope) : CreateDebtModel
 //                ApiResult.create(ApiResult.MoleError(0, "Error"))
 //            }
         }
-        return task.await()
     }
 }
