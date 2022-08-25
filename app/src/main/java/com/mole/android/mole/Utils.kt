@@ -8,6 +8,7 @@ import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
@@ -70,6 +71,15 @@ fun Context.lifecycleOwner(): LifecycleOwner? {
     }
 }
 
+fun EditText.onSubmit(onConfirm: () -> Unit) {
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            onConfirm()
+        }
+        true
+    }
+}
+
 fun EditText.onTextChangeSkipped(skipMs: Long = 300L, action: (String) -> Unit) {
     val delayedAction = context.lifecycleOwner()?.lifecycleScope?.let { scope ->
         throttleLatest(
@@ -83,11 +93,16 @@ fun EditText.onTextChangeSkipped(skipMs: Long = 300L, action: (String) -> Unit) 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             delayedAction?.invoke(s?.toString() ?: "")
         }
+
         override fun afterTextChanged(s: Editable?) {}
     })
 }
 
-fun TextView.setHighLightedText(textToHighlight: String, @ColorInt color: Int, ignoreCase: Boolean = true) {
+fun TextView.setHighLightedText(
+    textToHighlight: String,
+    @ColorInt color: Int,
+    ignoreCase: Boolean = true
+) {
     val tvt = this.text.toString()
     var ofe = tvt.indexOf(textToHighlight, 0, ignoreCase)
     val wordToSpan: Spannable = SpannableString(this.text)

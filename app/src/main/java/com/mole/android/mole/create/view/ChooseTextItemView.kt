@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.*
 import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.R
+import com.mole.android.mole.onSubmit
 import com.mole.android.mole.onTextChangeSkipped
 import com.mole.android.mole.openKeyboard
 
@@ -124,18 +125,25 @@ class ChooseTextItemView @JvmOverloads constructor(
 
     private fun bindData(itemViewContract: ItemViewContract) {
         val adapter = ListAdapter(itemViewContract) {
-            fillEditText(itemViewContract.textForClickedItem(it))
-            selectedIx = it
-            payload = itemViewContract.payload(selectedIx)
-            if (!mode) {
-                mode = true
-                clickableArea.visibility = View.VISIBLE
-                shrinkList()
-                hideKeyBoard()
-            }
+            confirmItem(it)
         }
         list.adapter = adapter
         title.setText(itemViewContract.titleId)
+    }
+
+    private fun confirmItem(ix: Int) {
+        val contract = itemViewContract ?: return
+        if (contract.itemsCount() <= ix) return
+        val item = contract.textForClickedItem(ix)
+        fillEditText(item)
+        selectedIx = ix
+        payload = contract.payload(selectedIx)
+        if (!mode) {
+            mode = true
+            clickableArea.visibility = View.VISIBLE
+            shrinkList()
+            hideKeyBoard()
+        }
     }
 
     private fun fillEditText(textToFill: String) {
@@ -160,6 +168,10 @@ class ChooseTextItemView @JvmOverloads constructor(
 
         text.editText?.onTextChangeSkipped {
             itemViewContract?.onTextChanged(it)
+        }
+
+        text.editText?.onSubmit {
+            confirmItem(0)
         }
 
     }
