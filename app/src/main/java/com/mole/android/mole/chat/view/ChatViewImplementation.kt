@@ -80,6 +80,7 @@ class ChatViewImplementation :
             val chatItem = (deletedView as? MoleMessageViewWithInfo)
             chatItem?.apply {
                 isDeleted = true
+                binding.chatToolbarMessenger.addToBalance(-balance)
             }
         }
 

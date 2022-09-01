@@ -34,8 +34,12 @@ class MoleActionBarMessenger @JvmOverloads constructor(
         balanceBarMoleMessageView.balance = balance
     }
 
-    fun setVisibilityToBalance(isVisible: Boolean){
-        if (isVisible){
+    fun addToBalance(add: Int) {
+        balanceBarMoleMessageView.balance += add
+    }
+
+    fun setVisibilityToBalance(isVisible: Boolean) {
+        if (isVisible) {
             balanceBarMoleMessageView.visibility = View.VISIBLE
         } else {
             balanceBarMoleMessageView.visibility = View.GONE
