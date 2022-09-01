@@ -32,16 +32,8 @@ fun summaryToString(summary: Long): String {
 }
 
 fun tagsToString(tags: List<String>): String {
-    val firstTag = tags.firstOrNull()
-    return if (firstTag != null) {
-        var tagsText = "#$firstTag"
-        val tagsWithoutFirst = tags.drop(tags.size - 2)
-        for (tag in tagsWithoutFirst) {
-            tagsText += ", #$tag"
-        }
-        tagsText
-    } else {
-        ""
+    return tags.map { "#$it" }.reduce { acc, s ->
+        "$acc, $s"
     }
 }
 
@@ -143,7 +135,7 @@ fun isNetworkConnected(context: Context): Boolean {
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
     cm ?: return false
     val nw = cm.activeNetwork ?: return false
-    val actNw = cm.getNetworkCapabilities(nw) ?:  return false
+    val actNw = cm.getNetworkCapabilities(nw) ?: return false
     return when {
         actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
         actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
