@@ -21,7 +21,7 @@ android {
             properties.load(project.rootProject.file("local.properties").newDataInputStream())
             apiKey = properties.getProperty("X_API_KEY", "")
         }
-        buildConfigField "String", "X_API_KEY", apiKey
+        buildConfigField "String", "X_API_KEY", "\"$apiKey\""
         buildConfigField "String", "PUBLIC_CODE_SOURCE", "$PUBLIC_CODE_SOURCE"//"\"https://gitlab.com/mole-app/mole-android\""
         buildConfigField "String", "APP_VERSION", "$APP_VERSION" //"\"v1.0.0\""
 

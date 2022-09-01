@@ -20,7 +20,7 @@ lintDebug:
     refs:
     - master
   script:
-    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint -PX_API_KEY=${X_API_KEY}
 
 assembleDebug:
   stage: build
@@ -28,7 +28,7 @@ assembleDebug:
     refs:
     - master
   script:
-    - ./gradlew -i assembleDebug
+    - ./gradlew -i assembleDebug -PX_API_KEY=${X_API_KEY}
   artifacts:
     paths:
       - app/build/outputs/apk/debug/app-debug.apk
@@ -39,7 +39,7 @@ lintDebugManual:
   except:
     - master
   script:
-    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint -PX_API_KEY=${X_API_KEY}
 
 assembleDebugManual:
   stage: build
@@ -47,7 +47,7 @@ assembleDebugManual:
   except:
     - master
   script:
-    - ./gradlew -i assembleDebug -PX_API_KEY=X_API_KEY
+    - ./gradlew -i assembleDebug -PX_API_KEY=${X_API_KEY}
   artifacts:
     paths:
     - app/build/outputs/apk/debug/app-debug.apk
