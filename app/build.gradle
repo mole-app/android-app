@@ -15,7 +15,7 @@ android {
         versionName "1.0"
         def apiKey
         if (project.hasProperty("X_API_KEY")) {
-            apiKey = project.property(X_API_KEY)
+            apiKey = project.property("X_API_KEY")
         } else {
             def Properties properties = new Properties()
             properties.load(project.rootProject.file("local.properties").newDataInputStream())
