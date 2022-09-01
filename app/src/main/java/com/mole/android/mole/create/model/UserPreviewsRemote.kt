@@ -27,18 +27,20 @@ data class UserInfoRemote(
     @SerializedName("idUser")
     val id: Int = 0,
     @SerializedName("name")
-    val name: String = ""
+    val name: String = "",
+    @SerializedName("login")
+    val login: String = ""
+
 )
 
-fun UserPreviewsRemote.asDomain(): SuccessPreviewsResult
-    = previews.map { remote ->
-        UserPreview(
-            id = remote.userInfo.id,
-            name = remote.userInfo.name,
-            login = remote.userInfo.name,
-            avatar = ProfilePhoto(
-                photoSmall = remote.photo.smallUrl,
-                photoNormal = remote.photo.normalUrl
-            )
+fun UserPreviewsRemote.asDomain(): SuccessPreviewsResult = previews.map { remote ->
+    UserPreview(
+        id = remote.userInfo.id,
+        name = remote.userInfo.name,
+        login = remote.userInfo.login,
+        avatar = ProfilePhoto(
+            photoSmall = remote.photo.smallUrl,
+            photoNormal = remote.photo.normalUrl
         )
-    }
+    )
+}
