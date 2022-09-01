@@ -26,7 +26,6 @@ class AuthBeginViewImplementation :
     private val router = component().routingModule.router
     private val remoteConfig = component().remoteConfigModule.remoteConfig
 
-    private lateinit var client: GoogleSignInClient
     override lateinit var googleAccount: GoogleSignInAccount
     override fun openAuthLogin(login: String) {
         router.replaceScreen(Screens.AuthLogin(login))
@@ -54,13 +53,6 @@ class AuthBeginViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("866261272024-9oc61vo2mfgci38pm9duk2d480gljlap.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-
-        client = GoogleSignIn.getClient(requireActivity(), gso)
-
         binding.vkButton.setOnClickListener {
             if (isNetworkConnected(requireContext())) {
                 presenter.onVkClick()
@@ -70,10 +62,7 @@ class AuthBeginViewImplementation :
         }
 
         if (remoteConfig.getGoogleEnable()) {
-            binding.googleButton.setOnClickListener {
-                val intent = client.signInIntent
-                mainActivityResultLauncher.launch(intent)
-            }
+            binding.googleButton.setOnClickListener {}
         } else {
             binding.googleButton.visibility = GONE
         }
