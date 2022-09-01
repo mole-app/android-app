@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+def Properties properties = new Properties()
+properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
 android {
     compileSdkVersion 29
@@ -13,7 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "X_API_KEY", "$X_API_KEY"//"\"testAndroid\""
+        buildConfigField "String", "X_API_KEY", properties.getProperty("X_API_KEY", "")//"$X_API_KEY"
         buildConfigField "String", "PUBLIC_CODE_SOURCE", "$PUBLIC_CODE_SOURCE"//"\"https://gitlab.com/mole-app/mole-android\""
         buildConfigField "String", "APP_VERSION", "$APP_VERSION" //"\"v1.0.0\""
 
