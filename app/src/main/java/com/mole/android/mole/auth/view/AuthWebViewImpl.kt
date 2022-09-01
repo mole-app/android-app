@@ -36,6 +36,8 @@ class AuthWebViewImpl : MoleBaseFragment<WebViewFragmentBinding>(WebViewFragment
         Log.i("Auth", "Argument url: $url")
 
         binding.webView.loadUrl(url)
+        binding.webView.settings.javaScriptEnabled = true
+        binding.webView.settings.domStorageEnabled = true
         binding.webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
                 view: WebView,
@@ -49,8 +51,9 @@ class AuthWebViewImpl : MoleBaseFragment<WebViewFragmentBinding>(WebViewFragment
                         router.sendResult(CODE_SIGN, code)
                     }
                     router.exit()
+                    return true
                 }
-                return super.shouldOverrideUrlLoading(view, request)
+                return false
             }
         }
     }
