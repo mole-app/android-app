@@ -154,7 +154,10 @@ class MoleMessageViewWithInfo @JvmOverloads constructor(
     }
 
     private fun updateTag(value: String?) {
-        tagTextView.text = value
+        tagTextView.text = context.getString(
+            R.string.tag_symbol,
+            value
+        )
     }
 
     private fun updateTime(value: String) {
