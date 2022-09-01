@@ -67,6 +67,8 @@
                 android:drawableEnd="@drawable/ic_space_edit_text"
                 android:gravity="center"
                 android:inputType="text"
+                android:lines="1"
+                android:maxLength="18"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp" />
         </com.mole.android.mole.auth.view.MoleTextInputLayout>
