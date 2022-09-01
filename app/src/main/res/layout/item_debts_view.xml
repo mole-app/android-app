@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemChatView"
-    android:background="@drawable/ripple_borderless_section"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_borderless_section">
 
     <ImageView
         android:id="@+id/personIcon"
@@ -23,10 +23,13 @@
     <TextView
         android:id="@+id/personName"
         style="@style/MoleText.Medium.Text1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/debt_main_screen_chat_margin"
+        android:ellipsize="end"
+        android:lines="1"
         app:layout_constraintBottom_toTopOf="@id/personDebtsCount"
+        app:layout_constraintEnd_toStartOf="@id/personDebtsTotal"
         app:layout_constraintStart_toEndOf="@id/personIcon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Александр" />
@@ -34,11 +37,14 @@
     <TextView
         android:id="@+id/personDebtsCount"
         style="@style/MoleText.Medium.Text1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/debt_main_screen_chat_margin"
+        android:ellipsize="end"
+        android:lines="1"
         android:textColor="@color/white_alpha_50"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/personDebtsTotal"
         app:layout_constraintStart_toEndOf="@id/personIcon"
         app:layout_constraintTop_toBottomOf="@id/personName"
         tools:text="10 долгов" />
