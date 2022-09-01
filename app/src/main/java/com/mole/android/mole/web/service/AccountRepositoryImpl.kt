@@ -20,30 +20,34 @@ class AccountRepositoryImpl(context: Context, private val activity: AppCompatAct
         get() = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID)
 
 
-    private val account: Account
-        get() = accounts[0]
+    private val account: Account?
+        get() = accounts.firstOrNull()
 
     override var accessToken: String?
         get() {
             return if (accounts.isNotEmpty()) {
-                accountManager.peekAuthToken(accounts[0], ACCESS_TOKEN)
+                val account = account ?: return null
+                accountManager.peekAuthToken(account, ACCESS_TOKEN)
             } else {
                 null
             }
         }
         set(value) {
+            val account = account ?: return
             accountManager.setAuthToken(account, ACCESS_TOKEN, value)
         }
 
     override var refreshToken: String?
         get() {
             return if (accounts.isNotEmpty()) {
-                accountManager.peekAuthToken(accounts[0], REFRESH_TOKEN)
+                val account = account ?: return null
+                accountManager.peekAuthToken(account, REFRESH_TOKEN)
             } else {
                 null
             }
         }
         set(value) {
+            val account = account ?: return
             accountManager.setAuthToken(account, REFRESH_TOKEN, value)
         }
 
@@ -68,6 +72,7 @@ class AccountRepositoryImpl(context: Context, private val activity: AppCompatAct
     }
 
     override fun removeAccount(onRemoved: () -> Unit) {
+        val account = account ?: return
         accountManager.removeAccount(
             account,  activity,
             { onRemoved() },

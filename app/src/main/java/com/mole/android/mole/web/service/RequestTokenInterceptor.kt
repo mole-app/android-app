@@ -43,35 +43,38 @@ class RequestTokenInterceptor(
         .build()
 
     override fun intercept(chain: Interceptor.Chain): Response {
-
         val header = chain.request().header(API_KEY_INTERNAL_HEADER)
         val isApiKeyAuth = header != null
 
         val nameHeader: String
-        val valueHeader: String
-        if (isApiKeyAuth) {
+        val accessToken: String
+        fun Interceptor.Chain.execute(authHeader: String, authValue: String): Response {
+            return request().newBuilder()
+                .header(authHeader, authValue)
+                .removeHeader(API_KEY_INTERNAL_HEADER)
+                .build().let { request ->
+                    proceed(request)
+                }
+        }
+        val response = if (isApiKeyAuth) {
             nameHeader = API_KEY_HEADER
-            valueHeader = apiKey
+            accessToken = apiKey
+            chain.execute(nameHeader, apiKey)
         } else {
             tokenUpdateSyncer.read {
                 val token = accountRepository.accessToken
-
+                accessToken = token ?: ""
                 nameHeader = AUTHORIZATION_HEADER
-                valueHeader = AUTH_HEADER_PREFIX + token
+                chain.execute(nameHeader, AUTH_HEADER_PREFIX + token)
             }
         }
-
-        val request: Request = chain.request().newBuilder()
-            .header(nameHeader, valueHeader)
-            .removeHeader(API_KEY_INTERNAL_HEADER)
-            .build()
-
-        val response = chain.proceed(request)
         if ((response.code() == HTTP_UNAUTHORIZED) && !isApiKeyAuth) {
             val accountRepository = component().accountManagerModule.accountRepository
             val refreshToken = accountRepository.refreshToken
             if (refreshToken != null) {
                 tokenUpdateSyncer.write {
+                    val currentToken = accountRepository.accessToken
+                    if (accessToken != currentToken) return@write
                     run {
                         val authTokenData: AuthTokenData?
                         runBlocking {

@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
         val accountRepository = component().accountManagerModule.accountRepository
         accountRepository.setEmptyListener {
+            routingModule.navigationHolder.setNavigator(navigator)
             routingModule.router.newRootScreen(AuthBegin())
         }
 
