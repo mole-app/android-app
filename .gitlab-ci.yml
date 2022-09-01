@@ -47,7 +47,7 @@ assembleDebugManual:
   except:
     - master
   script:
-    - ./gradlew -i assembleDebug
+    - ./gradlew -i assembleDebug -PX_API_KEY=X_API_KEY
   artifacts:
     paths:
     - app/build/outputs/apk/debug/app-debug.apk
