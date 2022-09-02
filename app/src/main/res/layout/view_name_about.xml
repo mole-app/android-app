@@ -23,9 +23,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageNameAbout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
+            android:adjustViewBounds="true"
             android:src="@mipmap/ic_name_about" />
 
         <androidx.appcompat.widget.AppCompatTextView
