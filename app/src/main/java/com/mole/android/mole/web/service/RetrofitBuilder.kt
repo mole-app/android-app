@@ -20,16 +20,18 @@ object RetrofitBuilder {
 
     private const val BASE_URL = "$SCHEME://$HOST:$PORT/$API_PATH/"
 
-    fun build(): Retrofit {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val chuckerInterceptor = ChuckerInterceptor.Builder(component().context)
+    val chuckerInterceptor by lazy {
+        ChuckerInterceptor.Builder(component().context)
             .collector(ChuckerCollector(component().context))
             .maxContentLength(250000L)
             .redactHeaders(emptySet())
             .alwaysReadResponseBody(false)
             .build()
+    }
+
+    fun build(): Retrofit {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val tokenInterceptor = RequestTokenInterceptor(
             chuckerInterceptor,
