@@ -7,11 +7,12 @@ import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ViewAboutBinding
 import com.mole.android.mole.navigation.Screens.Codehub
+import com.mole.android.mole.navigation.Screens.NameAbout
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class AboutViewImpl : MoleBaseFragment<ViewAboutBinding>(ViewAboutBinding::inflate) {
 
-    val router = component().routingModule.router
+    private val router = component().routingModule.router
     private val appVersion = component().buildConfigModule.APP_VERSION
 
     override fun getToolbar(): MoleActionBar {
@@ -22,6 +23,9 @@ class AboutViewImpl : MoleBaseFragment<ViewAboutBinding>(ViewAboutBinding::infla
         super.onViewCreated(view, savedInstanceState)
         binding.codeSourceGroup.setOnClickListener {
             router.navigateTo(Codehub())
+        }
+        binding.aboutNameGroup.setOnClickListener {
+            router.navigateTo(NameAbout())
         }
         binding.versionUnderline.text = requireContext().getString(R.string.settings_version_underline, appVersion)
     }

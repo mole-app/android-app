@@ -5,6 +5,7 @@ import android.net.Uri
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.mole.android.mole.about.view.AboutViewImpl
+import com.mole.android.mole.about.view.NameAboutViewImpl
 import com.mole.android.mole.auth.view.AuthBeginViewImplementation
 import com.mole.android.mole.auth.view.AuthLoginViewImplementation
 import com.mole.android.mole.auth.view.AuthWebViewImpl
@@ -26,6 +27,8 @@ object Screens {
     fun AuthBegin() = FragmentScreen { AuthBeginViewImplementation() }
 
     fun About() = FragmentScreen { AboutViewImpl() }
+
+    fun NameAbout() = FragmentScreen { NameAboutViewImpl() }
 
     fun Codehub() = ActivityScreen {
         Intent(Intent.ACTION_VIEW, Uri.parse(component().buildConfigModule.PUBLIC_CODE_SOURCE))
