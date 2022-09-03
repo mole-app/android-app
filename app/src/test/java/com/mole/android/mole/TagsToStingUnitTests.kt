@@ -5,7 +5,7 @@ import org.junit.Test
 import org.junit.Assert.*
 
 
-class ExampleUnitTest {
+class TagsToStingUnitTests {
     @Test
     fun testTagsToString_withTwoTag() {
         val tags = listOf("first", "second")
