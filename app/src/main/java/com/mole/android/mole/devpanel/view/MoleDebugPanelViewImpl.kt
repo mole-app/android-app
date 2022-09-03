@@ -4,18 +4,29 @@ import android.os.Bundle
 import android.view.View
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FrgDebugPanelBinding
+import com.mole.android.mole.di.repository.PreferenceRepository
+import com.mole.android.mole.di.repository.Repository
+import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
+import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import leakcanary.LeakCanary
 
 class MoleDebugPanelViewImpl :
     MoleBaseFragment<FrgDebugPanelBinding>(FrgDebugPanelBinding::inflate), MoleDebugPanelView {
 
+    private val repository: Repository by lazy { PreferenceRepository(requireActivity()) }
     private val presenter = component().devPanelModule.devPanelPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.leakCanarySwitcher.isChecked = LeakCanary.config.dumpHeap
         binding.leakCanarySwitcher.setOnCheckedChangeListener { _, check ->
             LeakCanary.config = LeakCanary.config.copy(dumpHeap = check)
+        }
+
+        binding.networkSwitcher.isChecked = repository.getBoolean(enableUnsecureKey, enableUnsecureDefault)
+        binding.networkSwitcher.setOnCheckedChangeListener { _, check ->
+            repository.setBoolean(enableUnsecureKey, check)
         }
 
         binding.debugPanelCorruptedTokenAccess.setOnClickListener {
