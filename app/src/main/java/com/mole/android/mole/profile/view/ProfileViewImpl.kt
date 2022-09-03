@@ -46,7 +46,7 @@ class ProfileViewImpl : ProfileView,
     }
 
     override fun setTotalDebtsSummary(summary: Long) {
-        binding.profileDebtsSummary.text = summaryToString(summary)
+        binding.profileDebtsSummary.text = resources.getString(R.string.profile_total, summaryToString(summary))
     }
 
     override fun setTags(tags: List<String>) {
