@@ -21,6 +21,7 @@
     <string name="google_login">Войти через Google</string>
     <string name="welcome_string">Добро пожаловать!</string>
     <string name="login_prefix">\@%s</string>
+    <string name="profile_total">%s р.</string>
     <string name="total_debts">Всего: %s p.</string>
     <string name="debts_action_bar">Долги</string>
     <plurals name="debts_plurals">
