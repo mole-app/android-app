@@ -104,4 +104,5 @@ dependencies {
 
     androidTestImplementation "androidx.test.ext:junit:$testJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$testEspressoVersion"
+    androidTestImplementation 'com.kaspersky.android-components:kaspresso:1.4.1'
 }
