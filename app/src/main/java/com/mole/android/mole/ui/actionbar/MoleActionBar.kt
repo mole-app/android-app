@@ -69,6 +69,10 @@ open class MoleActionBar @JvmOverloads constructor(
         backImageButton.setOnClickListener(listener)
     }
 
+    fun setTitleText(title: String) {
+        titleTextView.text = title
+    }
+
     private fun handleAttr(textTitle: String?, backVisible: Boolean, titleVisible: Boolean) {
         if (textTitle != null) {
             titleTextView.text = textTitle

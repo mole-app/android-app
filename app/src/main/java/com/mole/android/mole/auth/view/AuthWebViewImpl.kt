@@ -1,11 +1,10 @@
 package com.mole.android.mole.auth.view
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.component
@@ -35,10 +34,18 @@ class AuthWebViewImpl : MoleBaseFragment<WebViewFragmentBinding>(WebViewFragment
         url = arguments?.getString(URL_ID).toString()
         Log.i("Auth", "Argument url: $url")
 
+        binding.loading.visibility = View.VISIBLE
+        binding.webView.visibility = View.GONE
         binding.webView.loadUrl(url)
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.settings.domStorageEnabled = true
         binding.webView.webViewClient = object : WebViewClient() {
+
+            override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                binding.actionBar.setTitleText(url)
+            }
+
             override fun shouldOverrideUrlLoading(
                 view: WebView,
                 request: WebResourceRequest
@@ -54,6 +61,12 @@ class AuthWebViewImpl : MoleBaseFragment<WebViewFragmentBinding>(WebViewFragment
                     return true
                 }
                 return false
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                binding.loading.visibility = View.GONE
+                binding.webView.visibility = View.VISIBLE
             }
         }
     }
