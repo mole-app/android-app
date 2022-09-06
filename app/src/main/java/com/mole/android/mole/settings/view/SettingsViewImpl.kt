@@ -2,6 +2,7 @@ package com.mole.android.mole.settings.view
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.CookieManager
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ViewSettingsBinding
@@ -31,6 +32,8 @@ class SettingsViewImpl :
         }
 
         binding.exitGroup.setOnClickListener {
+            CookieManager.getInstance().removeAllCookies(null)
+            CookieManager.getInstance().flush()
             accountRepository.removeAccount { }
         }
     }
