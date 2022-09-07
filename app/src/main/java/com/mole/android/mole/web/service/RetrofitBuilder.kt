@@ -1,8 +1,12 @@
 package com.mole.android.mole.web.service
 
+import android.app.Activity
 import com.mole.android.mole.component
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.mole.android.mole.di.repository.PreferenceRepository
+import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
+import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,14 +15,22 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitBuilder {
-    const val SCHEME = "http"
-//    const val SCHEME = "https"
-    const val HOST = "mole-app-dev.ru"
-    const val PORT = 8080
-//    const val PORT = 8443
     const val API_PATH = "api"
+    val SCHEME
+        get() = if (isEnableUnsecure) SCHEME_UNSAFE else SCHEME_SAFE
+    const val HOST = "mole-app-dev.ru"
+    val PORT
+        get() = if (isEnableUnsecure) PORT_UNSAFE else PORT_SAFE
 
-    private const val BASE_URL = "$SCHEME://$HOST:$PORT/$API_PATH/"
+    private val repository by lazy { PreferenceRepository(component().activity as? Activity) }
+    private val isEnableUnsecure by lazy { repository.getBoolean(enableUnsecureKey, enableUnsecureDefault) }
+
+    private val BASE_URL = "$SCHEME://$HOST:$PORT/$API_PATH/"
+
+    private const val SCHEME_UNSAFE = "http"
+    private const val PORT_UNSAFE = 8080
+    private const val SCHEME_SAFE = "https"
+    private const val PORT_SAFE = 8443
 
     fun build(): Retrofit {
         val interceptor = HttpLoggingInterceptor()
