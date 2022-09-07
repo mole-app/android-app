@@ -2,14 +2,10 @@ package com.mole.android.mole.bottomNavigation.view
 
 import android.os.Bundle
 import android.view.View
-import com.github.terrakok.cicerone.Command
-import com.github.terrakok.cicerone.Forward
-import com.github.terrakok.cicerone.Navigator
 import androidx.fragment.app.Fragment
-import com.github.terrakok.cicerone.Replace
+import com.github.terrakok.cicerone.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.google.android.material.snackbar.Snackbar
 import com.mole.android.mole.*
 import com.mole.android.mole.bottomNavigation.presentation.BottomBarPresenter
 import com.mole.android.mole.create.view.CreateDebtScreen
@@ -54,6 +50,15 @@ class BottomBarViewImpl :
                             DEBTS_TAG -> changeTab(debtsTabFragment)
                         }
                     }
+                    is Back -> {
+                        when (currentFragmentTag) {
+                            PROFILE_TAG -> {
+                                binding.moleBottomNavigationBar.setSelectedItem(R.id.navigation_debts)
+                                openDebts()
+                            }
+                            DEBTS_TAG -> requireActivity().finish()
+                        }
+                    }
                 }
             }
 
@@ -86,10 +91,6 @@ class BottomBarViewImpl :
             arguments?.getString(FRAGMENT_ID) ?: savedInstanceState?.getString(FRAGMENT_TAG_KEY)
                     ?: DEBTS_TAG
 
-        binding.moleBottomNavigationBar.setOnFabClickListener {
-            presenter.onNewDebtClick()
-        }
-
         binding.moleBottomNavigationBar.setOnNavigationItemSelectedListener { item ->
             navigatorHolder.setNavigator(getNavigator())
             if (!item.isChecked) {
@@ -106,8 +107,7 @@ class BottomBarViewImpl :
         }
 
         binding.moleBottomNavigationBar.setOnFabClickListener {
-            navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
-            router.navigateTo(CreateDebt())
+            presenter.onNewDebtClick()
         }
         presenter.attachView(this)
     }
@@ -147,11 +147,6 @@ class BottomBarViewImpl :
         }
     }
 
-    override fun onBackPress(): Boolean {
-        binding.moleBottomNavigationBar.setSelectedItem(R.id.navigation_debts)
-        return super.onBackPress()
-    }
-
     private fun Debts() = FragmentScreen(DEBTS_TAG) { debtsTabFragment }
     private fun Profile() = FragmentScreen(PROFILE_TAG) { profileTabFragment }
     private fun CreateDebt(id: Int = -1) = FragmentScreen {
@@ -171,14 +166,8 @@ class BottomBarViewImpl :
     }
 
     override fun openNewDebt() {
-        val snakbar = Snackbar.make(
-            binding.root.findViewById(R.id.snackbarHolder),
-            "message",
-            Snackbar.LENGTH_SHORT
-        )
-        snakbar.setBackgroundTint(requireContext().resolveColor(R.attr.colorOnSurface))
-        snakbar.show()
-
+        navigatorHolder.setNavigator(AppNavigator(requireActivity(), R.id.fragment_container))
+        router.navigateTo(CreateDebt())
     }
 
     override fun getViewUnderSnackbar(): View {
