@@ -37,6 +37,35 @@ fun tagsToString(tags: List<String>): String {
     }
 }
 
+fun <T> throttleLatestWithFirst(
+    intervalMs: Long = 300L,
+    coroutineScope: CoroutineScope,
+    destinationFunction: (T) -> Unit
+): (T) -> Unit {
+    var latestParam: T?
+    var job: Job? = null
+    return { param: T ->
+        latestParam = param
+        if (job?.isCompleted != false) {
+            job = coroutineScope.launch {
+                while (true) {
+                    if (latestParam == null) {
+                        job = null
+                        break
+                    }
+                    latestParam?.let { destinationFunction(it) }
+                    latestParam = null
+                    delay(intervalMs)
+                    if (latestParam != null) {
+                        latestParam?.let { destinationFunction(it) }
+                        latestParam = null
+                    }
+                }
+            }
+        }
+    }
+}
+
 fun <T> throttleLatest(
     intervalMs: Long = 300L,
     coroutineScope: CoroutineScope,

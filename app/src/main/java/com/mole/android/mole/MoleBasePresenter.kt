@@ -12,6 +12,10 @@ open class MoleBasePresenter<T : MoleBaseView> {
         view?.let { scope?.let(action) }
     }
 
+    protected fun <T> letScope(action: (LifecycleCoroutineScope) -> T): T? {
+        return scope?.let { action(it) }
+    }
+
     open fun attachView(view: T) {
         this.view = view
     }

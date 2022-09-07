@@ -127,6 +127,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         val adapter = ListAdapter(itemViewContract) {
             confirmItem(it)
         }
+        adapter.setHasStableIds(true)
         list.adapter = adapter
         title.setText(itemViewContract.titleId)
     }
@@ -248,6 +249,10 @@ class ChooseTextItemView @JvmOverloads constructor(
         }
 
         override fun getItemCount() = itemViewContract.itemsCount()
+
+        override fun getItemId(position: Int): Long {
+            return itemViewContract.id(position)
+        }
     }
 
     private class ItemViewHolder(
@@ -284,6 +289,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         fun contentSame(firstPosition: Int, secondPosition: Int): Boolean
         fun itemSame(firstPosition: Int, secondPosition: Int): Boolean
         fun textForClickedItem(position: Int): String
+        fun id(position: Int): Long
         fun onNextClicked(selectedPosition: Int, payload: Any?)
         fun onTextChanged(text: String)
         fun payload(position: Int): Any?

@@ -5,6 +5,7 @@ import com.mole.android.mole.create.data.FindUserModel
 import com.mole.android.mole.create.data.SuccessPreviewsResult
 import com.mole.android.mole.create.view.name.ChooseNameView
 import com.mole.android.mole.create.model.UserPreview
+import com.mole.android.mole.throttleLatestWithFirst
 import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -18,6 +19,8 @@ class ChooseNamePresenter(
     private var isInErrorState = false
     private var lastFilter: String = ""
 
+    private var throttledShow: ((List<ChooseNameView.UserPreviewUi>) -> Unit)? = null
+
     override fun attachView(view: ChooseNameView) {
         super.attachView(view)
         view.showProgress()
@@ -30,10 +33,8 @@ class ChooseNamePresenter(
     fun onInputChange(text: String) {
         lastData?.let { data ->
             val newData = data.applyFilter(text)
-            if (newData.isEmpty()) {
-                view?.showProgress()
-            } else {
-                view?.show(newData)
+            if (newData.isNotEmpty()) {
+                show(newData)
             }
         }
         loadData(text)
@@ -42,6 +43,24 @@ class ChooseNamePresenter(
     fun onRetryClicked() {
         view?.showProgress()
         loadData(lastFilter)
+    }
+
+    override fun detachView() {
+        super.detachView()
+        throttledShow = null
+    }
+
+    private fun show(list: List<ChooseNameView.UserPreviewUi>) {
+        if (throttledShow != null) {
+            throttledShow?.invoke(list)
+        } else {
+            throttledShow = letScope { scope ->
+                    throttleLatestWithFirst(500L, coroutineScope = scope) { list: List<ChooseNameView.UserPreviewUi> ->
+                        view?.show(list)
+                    }
+                }
+            throttledShow?.invoke(list)
+        }
     }
 
     private fun loadData(filter: String = "", onSuccess: () -> Unit = {}) {
@@ -65,10 +84,13 @@ class ChooseNamePresenter(
         }
         val uiModels = result.mapToUi(filter)
         lastData = uiModels
-        view?.show(uiModels)
+        show(uiModels)
     }
 
     private fun Iterable<ChooseNameView.UserPreviewUi>.applyFilter(filter: String): List<ChooseNameView.UserPreviewUi> {
+        if (filter.isBlank()) return map {
+            uiPreview -> uiPreview.copy(highlightFilter = filter)
+        }
         return filter { uiPreview ->
             uiPreview.userPreview.name.contains(filter, true) ||
                     uiPreview.userPreview.login.contains(filter, true)

@@ -1,5 +1,6 @@
 package com.mole.android.mole.create.view.name
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -66,6 +67,7 @@ class ChooseNameViewHolder(
             this@ChooseNameViewHolder::itemsSame,
             this@ChooseNameViewHolder::contentSame,
             this@ChooseNameViewHolder::bindView,
+            id = { item -> item.userPreview.id.toLong() },
             { it.userPreview.login }
         ) {
             override val layoutId: Int = R.layout.choose_user_holder
@@ -83,6 +85,9 @@ class ChooseNameViewHolder(
     }
 
     private fun contentSame(first: ChooseNameView.UserPreviewUi, second: ChooseNameView.UserPreviewUi): Boolean {
+        if (first.userPreview.avatar.photoSmall != second.userPreview.avatar.photoSmall) {
+            Log.d("CheckPhotos", "${first.userPreview.name}")
+        }
         return first == second
     }
 
@@ -90,7 +95,14 @@ class ChooseNameViewHolder(
         val login = view.findViewById<TextView>(R.id.user_login)
         val name = view.findViewById<TextView>(R.id.user_name)
         val avatar = view.findViewById<AppCompatImageView>(R.id.user_icon)
-        val uri = item.userPreview.avatar.photoSmall
+        val cached = cache[item.userPreview.id]
+        val uri = if (cached == null) {
+            cache[item.userPreview.id] = item.userPreview.avatar.photoSmall
+            item.userPreview.avatar.photoSmall
+        } else {
+            cached
+        }
+
         val color = ContextCompat.getColor(view.context, R.color.color_accent)
 
         name.text = item.userPreview.name
@@ -107,6 +119,10 @@ class ChooseNameViewHolder(
                 transformations(CircleCropTransformation())
             }
         }
+    }
+
+    companion object {
+        val cache: MutableMap<Int, String> = mutableMapOf()
     }
 
 }

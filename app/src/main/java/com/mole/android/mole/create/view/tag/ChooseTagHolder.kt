@@ -58,6 +58,7 @@ class ChooseTagHolder(
             this@ChooseTagHolder::itemsSame,
             this@ChooseTagHolder::contentSame,
             this@ChooseTagHolder::bindView,
+            id = { item -> item.hashCode().toLong() },
             { it.preview.name }
         ) {
             override val layoutId: Int = R.layout.choose_tag_item_holder

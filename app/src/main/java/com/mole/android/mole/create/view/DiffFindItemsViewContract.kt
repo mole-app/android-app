@@ -7,6 +7,7 @@ abstract class DiffFindItemsViewContract<T>(
     private val itemsSame: (T, T) -> Boolean,
     private val contentSame: (T, T) -> Boolean,
     private val bindView: (View, T) -> Unit,
+    private val id: (T) -> Long,
     private val textForItem: (T) -> String,
 ) : ChooseTextItemView.ItemViewContract {
 
@@ -39,6 +40,10 @@ abstract class DiffFindItemsViewContract<T>(
             }
             else -> ""
         }
+    }
+
+    override fun id(position: Int): Long {
+        return this.id.invoke(currentData[position])
     }
 
     override fun payload(position: Int): Any? = currentData.getOrNull(position)
