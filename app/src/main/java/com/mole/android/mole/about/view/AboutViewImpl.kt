@@ -1,7 +1,10 @@
 package com.mole.android.mole.about.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import com.mole.android.mole.ClickSpan
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.component
@@ -24,5 +27,19 @@ class AboutViewImpl : MoleBaseFragment<ViewAboutBinding>(ViewAboutBinding::infla
             router.navigateTo(Codehub())
         }
         binding.versionUnderline.text = requireContext().getString(R.string.settings_version_underline, appVersion)
+
+        val emails = resources.getStringArray(R.array.emails)
+        emails.forEach {
+            ClickSpan.clickLink(binding.aboutText, it) {
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:")
+
+                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(it))
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject))
+                if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                    startActivity(intent)
+                }
+            }
+        }
     }
 }
