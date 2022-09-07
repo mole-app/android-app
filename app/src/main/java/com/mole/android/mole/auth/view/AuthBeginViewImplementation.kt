@@ -3,13 +3,10 @@ package com.mole.android.mole.auth.view
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.View.GONE
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.mole.android.mole.*
@@ -17,7 +14,8 @@ import com.mole.android.mole.auth.view.AuthWebViewImpl.Companion.CODE_SIGN
 import com.mole.android.mole.databinding.ViewAuthBeginBinding
 import com.mole.android.mole.di.RetrofitModule
 import com.mole.android.mole.navigation.Screens
-
+import android.view.View.*
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 
 class AuthBeginViewImplementation :
     MoleBaseFragment<ViewAuthBeginBinding>(ViewAuthBeginBinding::inflate), AuthBeginView {
@@ -66,8 +64,62 @@ class AuthBeginViewImplementation :
         } else {
             binding.googleButton.visibility = GONE
         }
+        view.onMeasured {
+            val topEllipse = binding.topEllipse
+            val bottomEllipse = binding.bottomEllipse
+            val centerLogo = binding.logo
+
+            val logoCenterX = centerLogo.centerX()
+            val logoCenterY = centerLogo.centerY()
+
+            val fadeDuration = 300L
+            val translationDuration = 500L
+            val waitDuration = 300L
+
+            centerLogo.alpha = 0f
+
+            topEllipse.animate()
+                .translationX(logoCenterX - topEllipse.x)
+                .translationY(logoCenterY - topEllipse.bottomY())
+                .setDuration(translationDuration).start()
+
+            bottomEllipse.animate()
+                .translationX(logoCenterX - bottomEllipse.endX() + 20.dp)
+                .translationY(logoCenterY - bottomEllipse.y - 52.dp)
+                .setDuration(translationDuration).start()
+
+            view.postDelayed({
+                centerLogo.animate().alpha(1f).setDuration(fadeDuration).start()
+            }, waitDuration)
+        }
 
         presenter.attachView(this)
+    }
+
+    private fun View.endX(): Float {
+        return x + measuredWidth
+    }
+
+    private fun View.bottomY(): Float {
+        return y + measuredHeight
+    }
+
+    private fun View.centerX(): Float {
+        return x + measuredWidth / 2
+    }
+
+    private fun View.centerY(): Float {
+        return y + measuredHeight / 2
+    }
+
+    private fun View.onMeasured(action: () -> Unit) {
+        viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                viewTreeObserver
+                    .removeOnGlobalLayoutListener(this)
+                action()
+            }
+        })
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {

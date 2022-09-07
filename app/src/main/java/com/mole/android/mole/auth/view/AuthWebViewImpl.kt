@@ -43,7 +43,9 @@ class AuthWebViewImpl : MoleBaseFragment<WebViewFragmentBinding>(WebViewFragment
 
             override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
-                binding.actionBar.setTitleText(url)
+                withBinding {
+                    actionBar.setTitleText(url)
+                }
             }
 
             override fun shouldOverrideUrlLoading(
@@ -65,8 +67,10 @@ class AuthWebViewImpl : MoleBaseFragment<WebViewFragmentBinding>(WebViewFragment
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                binding.loading.visibility = View.GONE
-                binding.webView.visibility = View.VISIBLE
+                withBinding {
+                    loading.visibility = View.GONE
+                    webView.visibility = View.VISIBLE
+                }
             }
         }
     }
