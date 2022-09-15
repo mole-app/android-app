@@ -9,10 +9,12 @@ import com.mole.android.mole.web.service.RetrofitBuilder.API_PATH
 import com.mole.android.mole.web.service.RetrofitBuilder.HOST
 import com.mole.android.mole.web.service.RetrofitBuilder.PORT
 import com.mole.android.mole.web.service.RetrofitBuilder.SCHEME
+import com.mole.android.mole.web.service.RetrofitBuilder.chuckerInterceptor
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.net.HttpURLConnection.HTTP_OK
+import java.util.concurrent.TimeUnit
 
 object DevPanelRemoteAccountRemover {
 
@@ -23,7 +25,12 @@ object DevPanelRemoteAccountRemover {
     private const val REFRESH_TOKEN_QUERY = "refreshToken"
     private const val FINGERPRINT_TOKEN_QUERY = "fingerprint"
     private const val UPDATE_TOKEN_URL = "$API_PATH/auth/refreshToken"
-    private val okHttpClient: OkHttpClient = OkHttpClient()
+    private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(chuckerInterceptor)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .build()
     private const val AUTHORIZATION_HEADER = "Authorization"
     private const val AUTH_HEADER_PREFIX = "Bearer "
     private val apiKey = component().buildConfigModule.X_API_KEY
