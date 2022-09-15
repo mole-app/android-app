@@ -9,11 +9,16 @@ import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.WebViewFragmentBinding
+import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class AuthWebViewImpl : MoleBaseFragment<WebViewFragmentBinding>(WebViewFragmentBinding::inflate) {
 
     private lateinit var url: String
     private val router: Router = component().routingModule.router
+
+    override fun getToolbar(): MoleActionBar {
+        return binding.actionBar
+    }
 
     companion object {
         private const val URL_ID = "url_id"

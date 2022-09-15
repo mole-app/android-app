@@ -8,9 +8,10 @@ import com.mole.android.mole.dp
 import com.mole.android.mole.setupCornerRadius
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
-class NameAboutViewImpl  : MoleBaseFragment<ViewNameAboutBinding>(ViewNameAboutBinding::inflate) {
+class NameAboutViewImpl : MoleBaseFragment<ViewNameAboutBinding>(ViewNameAboutBinding::inflate) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.imageNameAbout.setupCornerRadius(12f.dp)
     }
 
