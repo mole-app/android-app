@@ -29,8 +29,8 @@ class AuthLoginPresenter(
                 launch {
                     Log.i("AuthPresenter", "Fab login = $login")
                     when {
+                        login.isBlank() -> view.showEmptyLoginError()
                         !isValidLogin(login) -> view.showInvalidLoginError()
-                        login.isEmpty() -> view.showInvalidLoginError()
                         else -> {
                             model.addUser(login).withResult {
                                 view.hideError()
