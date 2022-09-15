@@ -7,4 +7,6 @@ data class ProfilePhoto(
     val photoSmall: String,
     @SerializedName("photoNormal")
     val photoNormal: String,
-)
+) {
+    constructor(url: String) : this(url, url)
+}

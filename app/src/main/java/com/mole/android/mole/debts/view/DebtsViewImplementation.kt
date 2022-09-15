@@ -93,13 +93,11 @@ class DebtsViewImplementation :
 
     override fun showError(code: Int, description: String) {
         hideContent()
-        binding.retryButton.isEnabled  = true
+        binding.retryButton.isEnabled = true
         binding.errorContainer.visibility = View.VISIBLE
     }
 
-    override fun showDeleteDialog() {
-        Toast.makeText(context, "DeleteDialog", Toast.LENGTH_SHORT).show()
-    }
+    override fun showDeleteDialog() {}
 
     override fun showChatScreen(idDebtor: Int) {
         component().routingModule.navigationHolder.setNavigator(

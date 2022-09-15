@@ -28,11 +28,17 @@ class AuthLoginPresenter(
             withScope {
                 launch {
                     Log.i("AuthPresenter", "Fab login = $login")
-                    model.addUser(login).withResult {
-                        view.hideError()
-                        view.openDebts()
-                    }.withError {
-                        view.showLoginExistError()
+                    when {
+                        login.isBlank() -> view.showEmptyLoginError()
+                        !isValidLogin(login) -> view.showInvalidLoginError()
+                        else -> {
+                            model.addUser(login).withResult {
+                                view.hideError()
+                                view.openDebts()
+                            }.withError {
+                                view.showLoginExistError()
+                            }
+                        }
                     }
                 }
             }
@@ -45,6 +51,10 @@ class AuthLoginPresenter(
         withView { view ->
             view.hideError()
         }
+    }
+
+    private fun isValidLogin(login: String): Boolean {
+        return true
     }
 
 }

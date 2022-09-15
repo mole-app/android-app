@@ -33,6 +33,14 @@ class AuthLoginViewImplementation :
         binding.authLogo.error = getString(R.string.login_exist_error)
     }
 
+    override fun showInvalidLoginError() {
+        binding.authLogo.error = getString(R.string.login_invalid_error)
+    }
+
+    override fun showEmptyLoginError() {
+        binding.authLogo.error = getString(R.string.login_empty_error)
+    }
+
     override fun hideError() {
         binding.authLogo.error = null
     }

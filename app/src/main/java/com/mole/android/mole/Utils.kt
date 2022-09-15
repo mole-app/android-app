@@ -32,9 +32,9 @@ fun summaryToString(summary: Long): String {
 }
 
 fun tagsToString(tags: List<String>): String {
-    return tags.map { "#$it" }.reduce { acc, s ->
+    return tags.map { "#$it" }.reduceOrNull { acc, s ->
         "$acc, $s"
-    }
+    } ?: ""
 }
 
 fun <T> throttleLatest(

@@ -132,4 +132,11 @@ abstract class MoleBaseFragment<T : ViewBinding>
     }
 
     open fun getViewUnderSnackbar(): View? = null
+
+    protected fun withBinding(action: T.() -> Unit) {
+        val binding = _binding
+        if (binding != null) {
+            action(binding)
+        }
+    }
 }
