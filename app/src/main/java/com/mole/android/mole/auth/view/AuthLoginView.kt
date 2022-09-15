@@ -5,6 +5,10 @@ import com.mole.android.mole.MoleBaseView
 interface AuthLoginView : MoleBaseView {
     fun showLoginExistError()
 
+    fun showInvalidLoginError()
+
+    fun showEmptyLoginError()
+
     fun hideError()
 
     fun setUserLogin(login: String)
