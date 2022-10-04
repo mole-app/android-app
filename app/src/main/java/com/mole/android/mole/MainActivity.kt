@@ -4,20 +4,13 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.ViewBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.mole.android.mole.di.MoleFirebaseRemoteConfig
-import com.mole.android.mole.di.repository.PreferenceRepository
-import com.mole.android.mole.di.repository.RepositoryKeys.leakCanaryEnableDefault
-import com.mole.android.mole.di.repository.RepositoryKeys.leakCanaryEnableKey
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.AuthBegin
-import com.mole.android.mole.navigation.Screens.TestScreen
-import leakcanary.LeakCanary
 
 
 class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
@@ -33,8 +26,7 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val repository = PreferenceRepository(this)
-        LeakCanary.config = LeakCanary.config.copy(dumpHeap = repository.getBoolean(leakCanaryEnableKey, leakCanaryEnableDefault))
+        LeakAnalyser().enableIfNeeded(this)
 
         shakeDetector.setOnShakeListener(this)
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
