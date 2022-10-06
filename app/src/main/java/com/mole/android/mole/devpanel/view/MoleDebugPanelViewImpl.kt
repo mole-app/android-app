@@ -9,7 +9,6 @@ import com.mole.android.mole.di.repository.Repository
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import com.mole.android.mole.di.repository.RepositoryKeys.leakCanaryEnableKey
-import leakcanary.LeakCanary
 
 class MoleDebugPanelViewImpl :
     MoleBaseFragment<FrgDebugPanelBinding>(FrgDebugPanelBinding::inflate), MoleDebugPanelView {
@@ -20,10 +19,10 @@ class MoleDebugPanelViewImpl :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.leakCanarySwitcher.isChecked = LeakCanary.config.dumpHeap
+        binding.leakCanarySwitcher.isChecked = repository.getBoolean(leakCanaryEnableKey, false)
         binding.leakCanarySwitcher.setOnCheckedChangeListener { _, check ->
-            LeakCanary.config = LeakCanary.config.copy(dumpHeap = check)
             repository.setBoolean(leakCanaryEnableKey, check)
+            LeakAnalyser().enableIfNeeded(requireActivity())
         }
 
         binding.networkSwitcher.isChecked = repository.getBoolean(enableUnsecureKey, enableUnsecureDefault)
