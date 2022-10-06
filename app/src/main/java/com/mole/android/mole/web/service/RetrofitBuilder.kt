@@ -4,6 +4,7 @@ import android.app.Activity
 import com.mole.android.mole.component
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.di.repository.PreferenceRepository
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
@@ -42,9 +43,6 @@ object RetrofitBuilder {
     }
 
     fun build(): Retrofit {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
         val tokenInterceptor = RequestTokenInterceptor(
             chuckerInterceptor,
             component().accountManagerModule.accountRepository,
@@ -52,14 +50,20 @@ object RetrofitBuilder {
             component().buildConfigModule.X_API_KEY
         )
 
-        val client = OkHttpClient.Builder()
+        val okHttpBuilder = OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(interceptor)
             .addInterceptor(tokenInterceptor)
             .addInterceptor(chuckerInterceptor)
-            .build()
+
+        if (BuildConfig.DEBUG) {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            okHttpBuilder.addInterceptor(interceptor)
+        }
+
+        val client = okHttpBuilder.build()
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
