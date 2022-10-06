@@ -28,9 +28,11 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
         LeakAnalyser().enableIfNeeded(this)
 
-        shakeDetector.setOnShakeListener(this)
-        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        if (BuildConfig.DEBUG) {
+            shakeDetector.setOnShakeListener(this)
+            sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        }
 
         val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
@@ -69,11 +71,19 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
     override fun onResume() {
         super.onResume()
-        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
+        if (BuildConfig.DEBUG) {
+            sensorManager.registerListener(
+                shakeDetector,
+                accelerometer,
+                SensorManager.SENSOR_DELAY_UI
+            )
+        }
     }
 
     override fun onPause() {
-        sensorManager.unregisterListener(shakeDetector)
+        if (BuildConfig.DEBUG) {
+            sensorManager.unregisterListener(shakeDetector)
+        }
         super.onPause()
     }
 
