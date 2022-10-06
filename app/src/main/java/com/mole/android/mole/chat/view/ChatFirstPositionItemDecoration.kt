@@ -15,11 +15,9 @@ class ChatFirstPositionItemDecoration() :
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        parent.adapter?.let { adapter ->
-            outRect.bottom = when (parent.getChildAdapterPosition(view)){
-                0 -> 102.dp
-                else -> 0
-            }
+        outRect.bottom = when (parent.getChildAdapterPosition(view)) {
+            0 -> 102.dp
+            else -> 0
         }
     }
 }

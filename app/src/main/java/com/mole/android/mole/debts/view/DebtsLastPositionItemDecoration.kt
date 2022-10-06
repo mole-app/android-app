@@ -16,7 +16,7 @@ class DebtsLastPositionItemDecoration : RecyclerView.ItemDecoration() {
         super.getItemOffsets(outRect, view, parent, state)
         parent.adapter?.let {
             outRect.bottom = when (parent.getChildAdapterPosition(view)) {
-                state.itemCount - 1 -> 92.dp()
+                it.itemCount - 1 -> 92.dp
                 else -> 0
             }
         }
