@@ -11,8 +11,8 @@ android {
         applicationId "com.mole.android.mole"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.1"
         def apiKey
         if (project.hasProperty("X_API_KEY")) {
             apiKey = "\"${project.property("X_API_KEY")}\""
