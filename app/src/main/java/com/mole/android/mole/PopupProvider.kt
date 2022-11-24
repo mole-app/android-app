@@ -38,7 +38,6 @@ class PopupProvider<T>(
                 lastTouchDown.x = event.x
                 lastTouchDown.y = event.y
             }
-//            MotionEvent.ACTION_UP -> view.performClick()
             else -> {
             }
         }
