@@ -30,6 +30,7 @@ class PopupProvider<T>(
     isEditDisable: Boolean = false,
     isDeleteDisable: Boolean = false,
 ) {
+    @SuppressLint("ClickableViewAccessibility")
     val touchListener = View.OnTouchListener { view, event -> // save the X,Y coordinates
 
         when (event.action) {
@@ -37,7 +38,7 @@ class PopupProvider<T>(
                 lastTouchDown.x = event.x
                 lastTouchDown.y = event.y
             }
-            MotionEvent.ACTION_UP -> view.performClick()
+//            MotionEvent.ACTION_UP -> view.performClick()
             else -> {
             }
         }
@@ -119,10 +120,10 @@ class PopupProvider<T>(
     }
 
     private fun onAnimationEnd(animView: View, position: Position) {
-        longClickOnMessage(animView, position)
+        clickOnMessage(animView, position)
     }
 
-    private fun longClickOnMessage(view: View, position: Position) {
+    private fun clickOnMessage(view: View, position: Position) {
         val location = IntArray(2)
         view.getLocationInWindow(location)
         val point = Point()
