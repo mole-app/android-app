@@ -67,4 +67,5 @@
         <item quantity="many">%1$d должников</item>
         <item quantity="other">%1$d должник</item>
     </plurals>
+    <string name="user_repay_debt">%1$s погасил(а) на %2$d р.</string>
 </resources>

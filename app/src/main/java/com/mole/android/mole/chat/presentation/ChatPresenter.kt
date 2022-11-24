@@ -145,6 +145,7 @@ class ChatPresenter(
                     debtsUi.add(ChatDebtsDataUi.ChatDate(lastChatDate))
                 }
             }
+            debtsUi.add(0, ChatDebtsDataUi.RepayDebt(-50, "Александр", 1000))
             debtsUi
         }
     }

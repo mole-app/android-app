@@ -26,6 +26,9 @@ class ChatDiffUtilCallback(
             is ChatDebtsDataUi.RetryData -> {
                 oldItem is ChatDebtsDataUi.RetryData
             }
+            is ChatDebtsDataUi.RepayDebt -> {
+                oldItem is ChatDebtsDataUi.RepayDebt && oldItem.id == newItem.id
+            }
         }
     }
 
@@ -45,6 +48,9 @@ class ChatDiffUtilCallback(
             }
             is ChatDebtsDataUi.RetryData -> {
                 oldItem is ChatDebtsDataUi.RetryData
+            }
+            is ChatDebtsDataUi.RepayDebt -> {
+                oldItem == newItem
             }
         }
     }
