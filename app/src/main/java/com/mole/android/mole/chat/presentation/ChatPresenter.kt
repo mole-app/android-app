@@ -128,7 +128,14 @@ class ChatPresenter(
                     }
                 }
                 lastChatDate = newDate
-                debtsUi.add(
+                val uiModel = if (debt.isRepay) {
+                    ChatDebtsDataUi.RepayDebt(
+                        id = debt.id,
+                        userName = chatDebtor?.name.orEmpty(),
+                        amount = debt.debtValue,
+                        fromCurrentUser = debt.isMessageOfCreator
+                    )
+                } else {
                     ChatDebtsDataUi.ChatMessage(
                         id = debt.id,
                         isMessageOfCreator = debt.isMessageOfCreator,
@@ -138,7 +145,8 @@ class ChatPresenter(
                         isDeleted = debt.isDeleted,
                         remoteTime = debt.date
                     )
-                )
+                }
+                debtsUi.add(uiModel)
             }
             lastChatDate?.let { lastChatDate ->
                 if (debtLeft == 0) {
@@ -148,7 +156,6 @@ class ChatPresenter(
             debtsUi
         }
     }
-
 
     private fun isNewDate(newDate: Date, oldDate: Date): Boolean {
         val newDateWithoutTime = removeTime(newDate)

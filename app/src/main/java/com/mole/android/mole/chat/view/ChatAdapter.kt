@@ -6,14 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mole.android.mole.MoleBaseRecyclerAdapter
 import com.mole.android.mole.PopupProvider
 import com.mole.android.mole.chat.data.ChatDebtsDataUi
-import com.mole.android.mole.chat.view.view_holder.DateViewHolder
-import com.mole.android.mole.chat.view.view_holder.MessageOfCreatorViewHolder
-import com.mole.android.mole.chat.view.view_holder.MessageOfUserViewHolder
-import com.mole.android.mole.chat.view.view_holder.RetryViewHolder
-import com.mole.android.mole.databinding.ItemChatDateBinding
-import com.mole.android.mole.databinding.ItemChatMessageEndPositionBinding
-import com.mole.android.mole.databinding.ItemChatMessageStartPositionBinding
-import com.mole.android.mole.databinding.ItemChatRetryBtnBinding
+import com.mole.android.mole.chat.view.view_holder.*
+import com.mole.android.mole.databinding.*
 
 class ChatAdapter(
     private val popupProvider: PopupProvider<Int>? = null,
@@ -26,6 +20,7 @@ class ChatAdapter(
         private const val MESSAGE_OF_CREATOR = 1
         private const val MESSAGE_OF_USER = -1
         private const val ERROR_LOAD_RETRY_BTN = 2
+        private const val REPAY_DEBT = -3
     }
 
     override fun getViewHolder(
@@ -64,6 +59,15 @@ class ChatAdapter(
                     retryBtnListener
                 )
             }
+            REPAY_DEBT -> {
+                RepayDebtViewHolder(
+                    ItemChatRepayDebtBinding.inflate(
+                        layoutInflater,
+                        viewGroup,
+                        false
+                    )
+                )
+            }
             else -> DateViewHolder(
                 ItemChatDateBinding.inflate(
                     layoutInflater,
@@ -82,6 +86,7 @@ class ChatAdapter(
             }
             is ChatDebtsDataUi.ChatDate -> DATE
             is ChatDebtsDataUi.RetryData -> ERROR_LOAD_RETRY_BTN
+            is ChatDebtsDataUi.RepayDebt -> REPAY_DEBT
         }
     }
 }
