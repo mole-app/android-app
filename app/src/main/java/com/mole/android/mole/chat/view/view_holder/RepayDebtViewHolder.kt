@@ -17,7 +17,11 @@ class RepayDebtViewHolder(private val binding: ItemChatRepayDebtBinding)
         val context = binding.root.context
         val textView = binding.root
         val spanColor = context.resolveColor(R.attr.textColorPrimary)
-        val content = context.getString(R.string.user_repay_debt, data.userName, data.amount)
+        val content = if (data.fromCurrentUser) {
+            context.getString(R.string.user_repay_debt_current_user, data.amount)
+        } else {
+            context.getString(R.string.user_repay_debt, data.userName, data.amount)
+        }
 
         val ixOfFirstDigit = content.indexOfFirst { it.isDigit() }
         val spannable = SpannableString(content)

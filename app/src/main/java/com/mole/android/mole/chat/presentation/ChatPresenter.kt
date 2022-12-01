@@ -132,7 +132,8 @@ class ChatPresenter(
                     ChatDebtsDataUi.RepayDebt(
                         id = debt.id,
                         userName = chatDebtor?.name.orEmpty(),
-                        amount = debt.debtValue
+                        amount = debt.debtValue,
+                        fromCurrentUser = debt.isMessageOfCreator
                     )
                 } else {
                     ChatDebtsDataUi.ChatMessage(
@@ -155,7 +156,6 @@ class ChatPresenter(
             debtsUi
         }
     }
-
 
     private fun isNewDate(newDate: Date, oldDate: Date): Boolean {
         val newDateWithoutTime = removeTime(newDate)
