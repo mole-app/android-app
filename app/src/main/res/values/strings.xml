@@ -60,6 +60,9 @@
     </string-array>
     <string name="email_subject">Mole App Feedback</string>
     <string name="name_about_text">\t\tНазвание приложения (Mole) связано со старой сказкой Андерсена "Дюймовочка". Один из претендентов на руку, но не сердце Дюймовочки, был Крот - важный, обеспеченный и уважаемый подземный житель.\n\n\t\tНаше приложение, как и Крот из сказки, держит ваши расходы и доходы под контролем, и поможет вам ни упасть в долговую яму после очередной встречи с друзьями или знакомыми.\n\n\t\tP. S. Mole (англ.) - Крот</string>
+    <string name="about_app_name">О названии</string>
+    <string name="github">GitHub</string>
+    <string name="about_us">О нас</string>
     <plurals name="tag_count">
         <item quantity="zero">Нет должников</item>
         <item quantity="one">%1$d должник</item>
