@@ -28,35 +28,86 @@ class RepayViewImplementation : RepayView,
         component().repayModule.repayPresenter(repayData)
     }
 
+    private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            binding.repayText.text = requireContext().getString(
+                R.string.text_with_ruble_suffix,
+                progress.toString()
+            )
+
+            setHighLightedText(progress)
+            provideEnabledToButton(progress)
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
+        override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSeekBar()
-        init()
+        val startValue = presenter.onInitStartValue()
+        val maxValue = presenter.onInitMaxValue()
+        initEditText()
+        initTextField(startValue)
+        initSeekBar(maxValue)
+        initRepayButton()
     }
 
-    private fun init() {
-        binding.repayText.text = "0 ${requireContext().getString(R.string.rubles_suffix)}"
-        binding.repayText.setHighLightedText(
-            "0",
-            color = requireContext().getColor(R.color.white_alpha_50)
-        )
-
-        binding.repayEditText.addTextChangedListener { text ->
-            provideTextToField(text)
-            provideProgressToSeekbar(text)
-        }
-
-        binding.repayText.setOnClickListener {
-            showKeyboard()
+    private fun initEditText() {
+        with(binding.repayEditText) {
+            addTextChangedListener { text ->
+                val number = provideNumber(text)
+                provideTextToField(number)
+                provideTextToToSeekbar(number)
+                provideEnabledToButton(number)
+            }
         }
     }
 
-    private fun provideProgressToSeekbar(text: Editable?) {
-        val string = text.toString()
-        val number = string.toIntOrNull(10)
-        val isEmpty = string.isBlank() || number == null || number <= 0
-        binding.seekBar.progress = if (isEmpty) 0 else number!!
-        binding.seekBar.refreshDrawableState()
+    private fun initTextField(startValue: Int) {
+        with(binding.repayText) {
+            text = requireContext().getString(
+                R.string.text_with_ruble_suffix,
+                startValue.toString()
+            )
+
+            setHighLightedText(startValue)
+            setOnClickListener { showKeyboard() }
+        }
+    }
+
+    private fun initSeekBar(maxValue: Int) {
+        with(binding.repaySeekBar) {
+            max = maxValue
+            setOnSeekBarChangeListener(seekBarChangeListener)
+        }
+    }
+
+
+    private fun initRepayButton() {
+        with(binding.repayBtn) {
+            setOnClickListener {
+                if (isEnabled) {
+                    presenter.onRepayButtonClick()
+                }
+            }
+        }
+    }
+
+    private fun provideTextToField(number: Int) {
+        binding.repayText.text = requireContext()
+            .getString(R.string.text_with_ruble_suffix, number.toString())
+
+        setHighLightedText(number)
+    }
+
+    private fun provideTextToToSeekbar(number: Int) {
+        binding.repaySeekBar.progress = number
+        binding.repaySeekBar.refreshDrawableState()
+    }
+
+    private fun provideEnabledToButton(number: Int) {
+        binding.repayBtn.isEnabled = number > 0
     }
 
     private fun showKeyboard() {
@@ -66,37 +117,19 @@ class RepayViewImplementation : RepayView,
         }
     }
 
-    private fun provideTextToField(text: Editable?) {
+    private fun provideNumber(text: Editable?): Int {
         val string = text.toString()
         val number = string.toIntOrNull(10)
-        val isEmpty = string.isBlank() || number == null || number <= 0
-        binding.repayText.text =
-            "${if (isEmpty) "0" else number} ${requireContext().getString(R.string.rubles_suffix)}"
-        if (isEmpty) {
+        return if (string.isBlank() || number == null || number <= 0) 0 else number
+    }
+
+    private fun setHighLightedText(number: Int) {
+        if (number == 0) {
             binding.repayText.setHighLightedText(
                 "0",
                 color = requireContext().getColor(R.color.white_alpha_50)
             )
         }
-    }
-
-    private fun initSeekBar() {
-        binding.seekBar.max = 100
-        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    binding.repayText.text =
-                        "${progress} ${requireContext().getString(R.string.rubles_suffix)}"
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-
-        })
     }
 
     override fun showLoading() {

@@ -9,4 +9,10 @@ class RepayPresenter(
     private val model: RepayModel,
     private val repayData: RepayData
 ) : MoleBasePresenter<RepayView>() {
+
+    fun onInitStartValue(): Int = repayData.currentDebt
+
+    fun onInitMaxValue(): Int = repayData.allDebts
+
+    fun onRepayButtonClick(){}
 }
