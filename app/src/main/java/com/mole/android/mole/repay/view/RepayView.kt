@@ -1,0 +1,9 @@
+package com.mole.android.mole.repay.view
+
+import com.mole.android.mole.MoleBaseView
+
+interface RepayView: MoleBaseView {
+    fun showLoading()
+    fun hideLoading()
+    fun showError()
+}
