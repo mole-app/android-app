@@ -28,7 +28,7 @@ class RepayDebtViewHolder(private val binding: ItemChatRepayDebtBinding)
         spannable.setSpan(
             ForegroundColorSpan(spanColor),
             0,
-            data.userName.length,
+            if (data.fromCurrentUser) 2 else data.userName.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
