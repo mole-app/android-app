@@ -247,3 +247,5 @@ private class ContinuationCallback(
         }
     }
 }
+
+fun String?.orEmpty() = this ?: ""

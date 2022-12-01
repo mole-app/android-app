@@ -9,5 +9,6 @@ data class ChatDataDebtDomain(
     val tag: String? = "",
     val isRead: Boolean = true,
     val isDeleted: Boolean = false,
-    val date: Date
+    val date: Date,
+    val isRepay: Boolean = false
 )

@@ -18,6 +18,8 @@ data class ChatDataDebtRemote(
     val debtType: DebtType,
     @SerializedName("createTime")
     val createTime: String,
+    @SerializedName("isRepay")
+    val isRepay: Boolean,
     @SerializedName("tag")
     val tag: String?
 )
@@ -30,7 +32,8 @@ fun ChatDataDebtRemote.asDomain(userId: Int): ChatDataDebtDomain {
         debtValue = calculateDebtValue(isMessageOfUser, debtType, sum),
         tag = tag,
         isDeleted = isDelete,
-        date = stringToDate(createTime)
+        date = stringToDate(createTime),
+        isRepay = isRepay
     )
 }
 
