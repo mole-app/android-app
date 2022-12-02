@@ -2,6 +2,7 @@ package com.mole.android.mole.repay.view
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.core.widget.addTextChangedListener
@@ -28,15 +29,13 @@ class RepayViewImplementation : RepayView,
         component().repayModule.repayPresenter(repayData)
     }
 
+    private var isChangedProgrammatically: Boolean = true
+
     private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            binding.repayText.text = requireContext().getString(
-                R.string.text_with_ruble_suffix,
-                progress.toString()
-            )
-
-            setHighLightedText(progress)
-            provideEnabledToButton(progress)
+            isChangedProgrammatically = true
+            binding.repayEditText.text = progress.toEditable()
+            binding.repayEditText.setSelection(progress.toEditable().length)
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
@@ -45,34 +44,31 @@ class RepayViewImplementation : RepayView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val startValue = presenter.onInitStartValue()
         val maxValue = presenter.onInitMaxValue()
-        initEditText()
-        initTextField(startValue)
+        initEditText(maxValue)
         initSeekBar(maxValue)
+        initTextField()
         initRepayButton()
+        showKeyboard()
     }
 
-    private fun initEditText() {
+    private fun initEditText(maxValue: Int) {
         with(binding.repayEditText) {
             addTextChangedListener { text ->
+                Log.d("edit", text.toString())
                 val number = provideNumber(text)
-                provideTextToField(number)
-                provideTextToToSeekbar(number)
-                provideEnabledToButton(number)
+
+                if (number <= maxValue) {
+                    provideTextToField(number)
+                    provideEnabledToButton(number)
+
+                    if (!isChangedProgrammatically) provideTextToToSeekbar(number)
+                    else isChangedProgrammatically = false
+                } else {
+                    this.text = maxValue.toEditable()
+                    this.setSelection(maxValue.toEditable().length)
+                }
             }
-        }
-    }
-
-    private fun initTextField(startValue: Int) {
-        with(binding.repayText) {
-            text = requireContext().getString(
-                R.string.text_with_ruble_suffix,
-                startValue.toString()
-            )
-
-            setHighLightedText(startValue)
-            setOnClickListener { showKeyboard() }
         }
     }
 
@@ -83,6 +79,12 @@ class RepayViewImplementation : RepayView,
         }
     }
 
+    private fun initTextField() {
+        with(binding.repayText) {
+            setOnClickListener { showKeyboard() }
+            provideTextToField(0)
+        }
+    }
 
     private fun initRepayButton() {
         with(binding.repayBtn) {
@@ -94,13 +96,6 @@ class RepayViewImplementation : RepayView,
         }
     }
 
-    private fun provideTextToField(number: Int) {
-        binding.repayText.text = requireContext()
-            .getString(R.string.text_with_ruble_suffix, number.toString())
-
-        setHighLightedText(number)
-    }
-
     private fun provideTextToToSeekbar(number: Int) {
         binding.repaySeekBar.progress = number
         binding.repaySeekBar.refreshDrawableState()
@@ -110,11 +105,10 @@ class RepayViewImplementation : RepayView,
         binding.repayBtn.isEnabled = number > 0
     }
 
-    private fun showKeyboard() {
-        with(binding.repayEditText) {
-            requestFocus()
-            openKeyboard()
-        }
+    private fun provideTextToField(number: Int) {
+        binding.repayText.text = requireContext()
+            .getString(R.string.text_with_ruble_suffix, number.toString())
+        setHighLightedText(number)
     }
 
     private fun provideNumber(text: Editable?): Int {
@@ -129,6 +123,13 @@ class RepayViewImplementation : RepayView,
                 "0",
                 color = requireContext().getColor(R.color.white_alpha_50)
             )
+        }
+    }
+
+    private fun showKeyboard() {
+        with(binding.repayEditText) {
+            requestFocus()
+            openKeyboard()
         }
     }
 

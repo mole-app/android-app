@@ -247,3 +247,5 @@ private class ContinuationCallback(
         }
     }
 }
+
+fun Int.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this.toString())
