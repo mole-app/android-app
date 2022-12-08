@@ -9,7 +9,8 @@ import kotlin.math.absoluteValue
 
 class RepayPresenter(
     private val model: RepayModel,
-    private val repayData: RepayData?
+    private val repayData: RepayData?,
+    private val isOpenChat: Boolean
 ) : MoleBasePresenter<RepayView>() {
 
     private var isLoading: Boolean = false
@@ -68,7 +69,7 @@ class RepayPresenter(
                     ).withResult {
                         isLoading = false
                         view.hideLoading()
-                        view.closeScreen(data.userId)
+                        view.closeScreen(data.userId, isOpenChat)
                     }.withError {
                         isLoading = false
                         view.hideLoading()

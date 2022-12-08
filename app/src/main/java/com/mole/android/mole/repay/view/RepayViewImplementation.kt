@@ -13,8 +13,8 @@ import coil.transform.CircleCropTransformation
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.*
-import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmetRepayBinding
+import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -24,10 +24,12 @@ class RepayViewImplementation : RepayView,
     companion object {
         private const val ANIM_DURATION_PROGRESS: Long = 300
         private const val ARG_REPAY = "arg_repay"
-        fun newInstance(repayData: RepayData): RepayViewImplementation {
+        private const val ARG_OPEN_CHAT = "open_chat"
+        fun newInstance(repayData: RepayData, openChat: Boolean = false): RepayViewImplementation {
             val args = Bundle()
             val fragment = RepayViewImplementation()
             args.putParcelable(ARG_REPAY, repayData)
+            args.putBoolean(ARG_OPEN_CHAT, openChat)
             fragment.arguments = args
             return fragment
         }
@@ -37,7 +39,8 @@ class RepayViewImplementation : RepayView,
 
     private val presenter by lazy {
         val repayData = arguments?.getParcelable<RepayData>(ARG_REPAY)
-        component().repayModule.repayPresenter(repayData)
+        val openChat = arguments?.getBoolean(ARG_OPEN_CHAT, false) ?: false
+        component().repayModule.repayPresenter(repayData, openChat)
     }
 
     private var isChangedProgrammatically: Boolean = true
@@ -247,8 +250,12 @@ class RepayViewImplementation : RepayView,
         binding.errorContainer.visibility = View.VISIBLE
     }
 
-    override fun closeScreen(userId: Int) {
+    override fun closeScreen(userId: Int, isOpenChat: Boolean) {
         showContent()
-        router.replaceScreen(CreateDebtScreen.Screens.Chat(userId))
+        if (isOpenChat) {
+            router.backTo(Screens.Chat(userId))
+        } else {
+            router.replaceScreen(Screens.Chat(userId))
+        }
     }
 }

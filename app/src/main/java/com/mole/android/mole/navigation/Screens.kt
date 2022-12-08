@@ -46,6 +46,6 @@ object Screens {
     fun Chat(userId: Int) =
         FragmentScreen { ChatViewImplementation.newInstance(userId) }
 
-    fun Repay(repayData: RepayData) =
-        FragmentScreen { RepayViewImplementation.newInstance(repayData) }
+    fun Repay(repayData: RepayData, openChat: Boolean = false) =
+        FragmentScreen { RepayViewImplementation.newInstance(repayData, openChat) }
 }

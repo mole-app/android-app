@@ -10,8 +10,8 @@ class RepayModule(
     private val baseScopeModule: BaseScopeModule
 ) {
 
-    fun repayPresenter(repayData: RepayData?): RepayPresenter {
-        return RepayPresenter(repayModel, repayData)
+    fun repayPresenter(repayData: RepayData?, openChat: Boolean): RepayPresenter {
+        return RepayPresenter(repayModel, repayData, openChat)
     }
 
     private val repayModel by lazy {
