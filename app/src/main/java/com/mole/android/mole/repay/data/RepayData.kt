@@ -8,5 +8,9 @@ import kotlinx.parcelize.Parcelize
 data class RepayData(
     val userId: Int,
     val allDebtsSum: Int,
-    val debtType: DebtType
+    val debtType: DebtType,
+    val userName: String,
+    val userIconUrl: String,
+    val ownerName: String,
+    val ownerIconUrl: String
 ) : Parcelable

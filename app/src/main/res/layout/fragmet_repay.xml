@@ -1,16 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/repay_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:backVisible="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textTitle="@string/repay_toolbar"
+        app:titleVisible="true" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/creator"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/repay_title"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@drawable/ic_not_avatar_foreground" />
+
+    <TextView
+        android:id="@+id/creator_name"
+        style="@style/MoleText.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/repay_title"
+        app:layout_constraintEnd_toEndOf="@id/creator"
+        app:layout_constraintStart_toStartOf="@id/creator"
+        tools:text="Оля" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/user"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/repay_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@drawable/ic_not_avatar_foreground" />
+
+
+    <TextView
+        android:id="@+id/user_name"
+        style="@style/MoleText.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/repay_title"
+        app:layout_constraintEnd_toEndOf="@id/user"
+        app:layout_constraintStart_toStartOf="@id/user"
+        tools:text="Александр" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/repay_to_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_long"
+        app:layout_constraintBottom_toBottomOf="@id/user"
+        app:layout_constraintEnd_toEndOf="@id/user"
+        app:layout_constraintStart_toStartOf="@id/creator"
+        app:layout_constraintTop_toTopOf="@id/user" />
 
     <TextView
         android:id="@+id/repay_title"
         style="@style/MoleText.Medium.Text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/repay_title"
+        android:layout_marginBottom="16dp"
+        android:text="@string/repay_by_user"
         android:textColor="?attr/textColorDisabled"
         app:layout_constraintBottom_toTopOf="@id/repay_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +109,7 @@
         android:maxLength="9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/repay_toolbar" />
 
 
     <androidx.appcompat.widget.AppCompatSeekBar
@@ -50,13 +118,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
-        android:paddingBottom="64dp"
         android:paddingTop="24dp"
+        android:paddingBottom="128dp"
         app:layout_constraintBottom_toTopOf="@id/repay_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repay_text"
-        app:layout_constraintVertical_chainStyle="spread_inside"/>
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/repay_btn"
@@ -71,7 +139,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repay_seek_bar"
-        app:layout_constraintVertical_chainStyle="spread_inside"/>
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

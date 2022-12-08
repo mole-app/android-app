@@ -16,6 +16,17 @@ class RepayPresenter(
 
     fun onInitMaxValue(): Int = repayData?.allDebtsSum ?: 0
 
+    fun onInitUiData() {
+        withView {
+            it.initUiData(
+                userName = repayData?.userName ?: "",
+                ownerName = repayData?.ownerName ?: "",
+                userIconUrl = repayData?.userIconUrl ?: "",
+                ownerIconUrl = repayData?.ownerIconUrl ?: ""
+            )
+        }
+    }
+
     fun onRepayButtonClick(amount: Int) {
         if (!isLoading) {
             withView { view ->

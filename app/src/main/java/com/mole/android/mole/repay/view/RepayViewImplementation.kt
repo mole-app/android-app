@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.core.widget.addTextChangedListener
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.mole.android.mole.*
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmetRepayBinding
@@ -48,6 +50,7 @@ class RepayViewImplementation : RepayView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+        presenter.onInitUiData()
         val maxValue = presenter.onInitMaxValue()
         initEditText(maxValue)
         initSeekBar(maxValue)
@@ -140,6 +143,25 @@ class RepayViewImplementation : RepayView,
         with(binding.repayEditText) {
             requestFocus()
             openKeyboard()
+        }
+    }
+
+    override fun initUiData(
+        userName: String,
+        ownerName: String,
+        userIconUrl: String,
+        ownerIconUrl: String
+    ) {
+        binding.creatorName.text = ownerName
+        binding.creator.load(ownerIconUrl) {
+            error(R.drawable.ic_not_avatar_foreground)
+            transformations(CircleCropTransformation())
+        }
+
+        binding.userName.text = userName
+        binding.user.load(userIconUrl) {
+            error(R.drawable.ic_not_avatar_foreground)
+            transformations(CircleCropTransformation())
         }
     }
 
