@@ -18,7 +18,7 @@ class RepayModelImplementation(
             call {
                 service.repayAmount(
                     userId = userId,
-                    debtType = if (isUserRepayDebt) "GET" else "GIVE",
+                    debtType = if (isUserRepayDebt) "Get" else "Give",
                     sum = amount
                 )
             }
