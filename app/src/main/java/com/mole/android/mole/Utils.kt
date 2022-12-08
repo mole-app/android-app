@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -32,7 +31,7 @@ fun summaryToString(summary: Long): String {
 }
 
 fun tagsToString(tags: List<String>): String {
-    return tags.map { "#$it" }.reduceOrNull { acc, s ->
+    return tags.filter { it.isNotBlank() }.map { "#$it" }.reduceOrNull { acc, s ->
         "$acc, $s"
     } ?: ""
 }
@@ -62,7 +61,7 @@ fun Context.lifecycleOwner(): LifecycleOwner? {
         curContext = (curContext as ContextWrapper).baseContext
     }
     return if (curContext is LifecycleOwner) {
-        curContext as LifecycleOwner
+        curContext
     } else {
         null
     }
@@ -80,7 +79,7 @@ fun EditText.onSubmit(onConfirm: () -> Unit) {
 fun EditText.onTextChangeSkipped(skipMs: Long = 300L, action: (String) -> Unit) {
     val delayedAction = context.lifecycleOwner()?.lifecycleScope?.let { scope ->
         throttleLatest(
-            intervalMs = 300L,
+            intervalMs = skipMs,
             scope,
             action
         )
