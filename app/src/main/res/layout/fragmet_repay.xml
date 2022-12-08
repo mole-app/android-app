@@ -108,8 +108,29 @@
         android:inputType="numberSigned"
         android:maxLength="9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_bar" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/seek_bar_min_value"
+        style="@style/MoleText.Medium.Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:textColor="?attr/textColorDisabled"
+        app:layout_constraintBottom_toTopOf="@id/repay_seek_bar"
+        app:layout_constraintStart_toStartOf="@id/repay_seek_bar"
+        tools:text="0 р." />
+
+    <TextView
+        android:id="@+id/seek_bar_max_value"
+        style="@style/MoleText.Medium.Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:textColor="?attr/textColorDisabled"
+        app:layout_constraintBottom_toTopOf="@id/repay_seek_bar"
+        app:layout_constraintEnd_toEndOf="@id/repay_seek_bar"
+        tools:text="100 р." />
 
 
     <androidx.appcompat.widget.AppCompatSeekBar
@@ -117,8 +138,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        android:paddingTop="24dp"
+        android:layout_marginTop="64dp"
         android:paddingBottom="128dp"
         app:layout_constraintBottom_toTopOf="@id/repay_btn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,7 +170,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repay_text"
-        app:layout_constraintVertical_chainStyle="spread_inside"/>
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/error_container"

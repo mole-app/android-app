@@ -69,6 +69,12 @@ class RepayViewImplementation : RepayView,
         presenter.attachView(this)
         presenter.onInitUiData()
         val maxValue = presenter.onInitMaxValue()
+        binding.seekBarMinValue.text = requireContext()
+            .getString(R.string.text_with_ruble_suffix, "0")
+        binding.seekBarMaxValue.text = requireContext()
+            .getString(R.string.text_with_ruble_suffix, "$maxValue")
+
+
         initEditText(maxValue)
         initSeekBar(maxValue)
         initTextField()
@@ -137,8 +143,6 @@ class RepayViewImplementation : RepayView,
 
     private fun provideTextToToSeekbar(number: Int) {
         animateProgress(binding.repaySeekBar.progress, number)
-//        binding.repaySeekBar.progress = number
-//        binding.repaySeekBar.refreshDrawableState()
     }
 
     private fun provideEnabledToButton(number: Int) {
@@ -183,7 +187,10 @@ class RepayViewImplementation : RepayView,
             repayTitle.visibility = View.GONE
             repayText.visibility = View.GONE
             repaySeekBar.visibility = View.GONE
+            seekBarMaxValue.visibility = View.GONE
+            seekBarMinValue.visibility = View.GONE
             repayBtn.visibility = View.GONE
+            errorContainer.visibility = View.GONE
         }
     }
 
@@ -197,10 +204,10 @@ class RepayViewImplementation : RepayView,
             repayTitle.visibility = View.VISIBLE
             repayText.visibility = View.VISIBLE
             repaySeekBar.visibility = View.VISIBLE
+            seekBarMaxValue.visibility = View.VISIBLE
+            seekBarMinValue.visibility = View.VISIBLE
             repayBtn.visibility = View.VISIBLE
-            repayBtn.isEnabled = true
-            retryButton.visibility = View.GONE
-            binding.errorContainer.visibility = View.GONE
+            errorContainer.visibility = View.GONE
         }
     }
 
@@ -241,22 +248,22 @@ class RepayViewImplementation : RepayView,
         binding.loading.visibility = View.VISIBLE
         binding.repayBtn.isEnabled = false
         binding.repaySeekBar.visibility = View.INVISIBLE
-        binding.repayText.isClickable = false
+        binding.seekBarMaxValue.visibility = View.VISIBLE
+        binding.seekBarMinValue.visibility = View.VISIBLE
         binding.repayEditText.visibility = View.GONE
     }
 
     override fun hideLoading() {
         binding.repayBtn.isEnabled = true
         binding.repaySeekBar.visibility = View.VISIBLE
-        binding.repayText.isClickable = true
-        binding.loading.visibility = View.GONE
+        binding.seekBarMaxValue.visibility = View.GONE
+        binding.seekBarMinValue.visibility = View.GONE
         binding.repayEditText.visibility = View.VISIBLE
     }
 
     override fun showError() {
         hideContent()
         binding.retryButton.isEnabled = true
-        binding.retryButton.visibility = View.VISIBLE
         binding.errorContainer.visibility = View.VISIBLE
     }
 
