@@ -1,9 +1,11 @@
 package com.mole.android.mole.repay.view
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.SeekBar
 import androidx.core.widget.addTextChangedListener
 import coil.load
@@ -17,6 +19,7 @@ class RepayViewImplementation : RepayView,
     MoleBaseFragment<FragmetRepayBinding>(FragmetRepayBinding::inflate) {
 
     companion object {
+        private const val ANIM_DURATION_PROGRESS: Long = 300
         private const val ARG_REPAY = "arg_repay"
         fun newInstance(repayData: RepayData): RepayViewImplementation {
             val args = Bundle()
@@ -38,9 +41,11 @@ class RepayViewImplementation : RepayView,
 
     private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            isChangedProgrammatically = true
-            binding.repayEditText.text = progress.toEditable()
-            binding.repayEditText.setSelection(progress.toEditable().length)
+            if (fromUser) {
+                isChangedProgrammatically = true
+                binding.repayEditText.text = progress.toEditable()
+                binding.repayEditText.setSelection(progress.toEditable().length)
+            }
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
@@ -119,8 +124,9 @@ class RepayViewImplementation : RepayView,
     }
 
     private fun provideTextToToSeekbar(number: Int) {
-        binding.repaySeekBar.progress = number
-        binding.repaySeekBar.refreshDrawableState()
+        animateProgress(binding.repaySeekBar.progress, number)
+//        binding.repaySeekBar.progress = number
+//        binding.repaySeekBar.refreshDrawableState()
     }
 
     private fun provideEnabledToButton(number: Int) {
@@ -186,6 +192,20 @@ class RepayViewImplementation : RepayView,
         }
     }
 
+    private fun animateProgress(startProgress: Int, finishProgress: Int) {
+        val animation = ObjectAnimator.ofInt(
+            binding.repaySeekBar,
+            "progress",
+            startProgress,
+            finishProgress
+        )
+
+        animation.duration = ANIM_DURATION_PROGRESS
+        animation.interpolator = DecelerateInterpolator()
+        animation.start()
+        binding.repaySeekBar.clearAnimation()
+    }
+
     override fun initUiData(
         repayingDebtUserName: String,
         acceptorDebtUserName: String,
@@ -210,7 +230,7 @@ class RepayViewImplementation : RepayView,
         binding.repayBtn.isEnabled = false
         binding.repaySeekBar.visibility = View.INVISIBLE
         binding.repayText.isClickable = false
-        binding.repayEditText.visibility  =View.GONE
+        binding.repayEditText.visibility = View.GONE
     }
 
     override fun hideLoading() {
@@ -218,7 +238,7 @@ class RepayViewImplementation : RepayView,
         binding.repaySeekBar.visibility = View.VISIBLE
         binding.repayText.isClickable = true
         binding.loading.visibility = View.GONE
-        binding.repayEditText.visibility  =View.VISIBLE
+        binding.repayEditText.visibility = View.VISIBLE
     }
 
     override fun showError() {
