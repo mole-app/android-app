@@ -10,10 +10,13 @@ import android.widget.SeekBar
 import androidx.core.widget.addTextChangedListener
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.github.terrakok.cicerone.Navigator
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.mole.android.mole.*
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmetRepayBinding
 import com.mole.android.mole.repay.data.RepayData
+import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class RepayViewImplementation : RepayView,
     MoleBaseFragment<FragmetRepayBinding>(FragmetRepayBinding::inflate) {
@@ -50,6 +53,15 @@ class RepayViewImplementation : RepayView,
 
         override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
         override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
+    }
+
+
+    override fun getNavigator(): Navigator {
+        return AppNavigator(requireActivity(), R.id.fragment_container)
+    }
+
+    override fun getToolbar(): MoleActionBar {
+        return binding.actionBar
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
