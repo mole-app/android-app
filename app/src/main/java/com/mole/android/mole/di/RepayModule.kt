@@ -10,7 +10,7 @@ class RepayModule(
     private val baseScopeModule: BaseScopeModule
 ) {
 
-    fun repayPresenter(repayData: RepayData): RepayPresenter {
+    fun repayPresenter(repayData: RepayData?): RepayPresenter {
         return RepayPresenter(repayModel, repayData)
     }
 

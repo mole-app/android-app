@@ -6,4 +6,5 @@ interface RepayView: MoleBaseView {
     fun showLoading()
     fun hideLoading()
     fun showError()
+    fun closeScreen(userId: Int)
 }

@@ -1,6 +1,10 @@
 package com.mole.android.mole.repay.model
 
-interface RepayModel {
+import com.mole.android.mole.chat.data.DebtType
+import com.mole.android.mole.web.service.ApiResult
 
-    fun repayAmount()
+typealias SuccessRepayResult = Unit
+
+interface RepayModel {
+    suspend fun repayAmount(userId: Int, type: DebtType, amount: Int): ApiResult<SuccessRepayResult>
 }

@@ -5,9 +5,9 @@ import retrofit2.http.Query
 
 interface RepayService {
 
-    @PUT
-    fun repayAmount(
+    @PUT("debt/createRepay")
+    suspend fun repayAmount(
         @Query("sum") sum: Int,
-        @Query("idUser") userId: String,
+        @Query("idUser") userId: Int,
         @Query("debtType") debtType: String )
 }

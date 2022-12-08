@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.SeekBar
 import androidx.core.widget.addTextChangedListener
 import com.mole.android.mole.*
+import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmetRepayBinding
 import com.mole.android.mole.repay.data.RepayData
 
@@ -24,8 +25,10 @@ class RepayViewImplementation : RepayView,
         }
     }
 
+    private val router = component().routingModule.router
+
     private val presenter by lazy {
-        val repayData = arguments?.getParcelable<RepayData>(ARG_REPAY) ?: RepayData()
+        val repayData = arguments?.getParcelable<RepayData>(ARG_REPAY)
         component().repayModule.repayPresenter(repayData)
     }
 
@@ -44,12 +47,18 @@ class RepayViewImplementation : RepayView,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.attachView(this)
         val maxValue = presenter.onInitMaxValue()
         initEditText(maxValue)
         initSeekBar(maxValue)
         initTextField()
         initRepayButton()
         showKeyboard()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        presenter.detachView()
     }
 
     private fun initEditText(maxValue: Int) {
@@ -90,7 +99,8 @@ class RepayViewImplementation : RepayView,
         with(binding.repayBtn) {
             setOnClickListener {
                 if (isEnabled) {
-                    presenter.onRepayButtonClick()
+                    val number = binding.repayEditText.text.toString().toIntOrNull() ?: 0
+                    presenter.onRepayButtonClick(number)
                 }
             }
         }
@@ -133,15 +143,13 @@ class RepayViewImplementation : RepayView,
         }
     }
 
-    override fun showLoading() {
-        TODO("Not yet implemented")
-    }
+    override fun showLoading() {}
 
-    override fun hideLoading() {
-        TODO("Not yet implemented")
-    }
+    override fun hideLoading() {}
 
-    override fun showError() {
-        TODO("Not yet implemented")
+    override fun showError() {}
+
+    override fun closeScreen(userId: Int) {
+        router.replaceScreen(CreateDebtScreen.Screens.Chat(userId))
     }
 }
