@@ -2,34 +2,32 @@ package com.mole.android.mole.debts.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.mole.android.mole.MoleBaseFragment
-import com.mole.android.mole.R
-import com.mole.android.mole.component
+import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentDebtsBinding
 import com.mole.android.mole.debts.data.DebtorData
 import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.navigation.Screens
-import com.mole.android.mole.summaryToString
+import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class DebtsViewImplementation :
     MoleBaseFragment<FragmentDebtsBinding>(FragmentDebtsBinding::inflate), DebtsView {
 
+    private lateinit var popupProvider: PopupProvider<DebtorData>
     private val presenter = component().debtsModule.debtsPresenter
     private val listener = object : OnItemDebtsClickListener {
         override fun onLongClick(view: View, chatData: DebtorData) {
-            presenter.onItemLongClick()
+            popupProvider.start(view, chatData, PopupProvider.Position.RIGHT)
         }
 
         override fun onShotClick(chatData: DebtorData) {
             presenter.onItemShortClick(chatData.id)
         }
     }
-    private val debtsAdapter = DebtsAdapter(listener)
+    private lateinit var debtsAdapter: DebtsAdapter
 
     override fun getNavigator() = AppNavigator(requireActivity(), R.id.nav_host_fragment)
 
@@ -40,8 +38,21 @@ class DebtsViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+        popupProvider = PopupProvider(
+            requireContext(),
+            binding.debtsRecyclerView,
+            view,
+            isEditDisable = true,
+            isDeleteDisable = true
+        )
+        debtsAdapter = DebtsAdapter(popupProvider, listener)
+
         initRecyclerView()
         initRetryButton()
+
+        popupProvider.setOnBalanceListener { _, debtorData ->
+            presenter.onBalanceItem(debtorData)
+        }
     }
 
     private fun initRetryButton() {
@@ -97,7 +108,26 @@ class DebtsViewImplementation :
         binding.errorContainer.visibility = View.VISIBLE
     }
 
-    override fun showDeleteDialog() {}
+    override fun showRepayScreen(data: DebtorData) {
+        component().routingModule.navigationHolder.setNavigator(
+            AppNavigator(
+                requireActivity(),
+                R.id.fragment_container
+            )
+        )
+        component().routingModule.router.navigateTo(
+            Screens.Repay(
+                RepayData(
+                    userId = data.id,
+                    userName = data.name,
+                    userIconUrl = data.imageUrl,
+                    allDebtsSum = data.debtsSum,
+                    ownerName = "Оля",
+                    ownerIconUrl = "https://sun9-19.userapi.com/s/v1/ig2/_5JhzPZlVr8D4bKmkRSgab7P1nwGtJvjP_6yWmrvjcqtakalq95zW6kyOye8wsFUPWZEU8SD79fm01_ZsVAb6xJx.jpg?size=368x368&quality=95&crop=182,15,368,368&ava=1"
+                )
+            )
+        )
+    }
 
     override fun showChatScreen(idDebtor: Int) {
         component().routingModule.navigationHolder.setNavigator(

@@ -1,6 +1,7 @@
 package com.mole.android.mole.debts.presentation
 
 import com.mole.android.mole.MoleBasePresenter
+import com.mole.android.mole.debts.data.DebtorData
 import com.mole.android.mole.debts.model.DebtsModel
 import com.mole.android.mole.debts.view.DebtsView
 import kotlinx.coroutines.launch
@@ -20,14 +21,18 @@ class DebtsPresenter(
         view?.showChatScreen(idDebtor)
     }
 
-    fun onItemLongClick() {
-        view?.showDeleteDialog()
+    fun onItemLongClick(data: DebtorData) {
+        view?.showRepayScreen(data)
     }
 
-    fun onRetryClick(){
+    fun onRetryClick() {
         withView { view ->
             dataLoading(view)
         }
+    }
+
+    fun onBalanceItem(data: DebtorData) {
+        view?.showRepayScreen(data)
     }
 
     private fun dataLoading(view: DebtsView) {

@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mole.android.mole.MoleBinder
+import com.mole.android.mole.PopupProvider
 import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ItemDebtsViewBinding
@@ -12,10 +13,18 @@ import com.mole.android.mole.debts.view.OnItemDebtsClickListener
 
 class DebtsDebtorViewHolder(
     private val binding: ItemDebtsViewBinding,
-    private val onItemClickListener: OnItemDebtsClickListener
-) :
-    RecyclerView.ViewHolder(binding.root),
-    MoleBinder<DebtorData> {
+    private val onItemClickListener: OnItemDebtsClickListener,
+    private val popupProvider: PopupProvider<DebtorData>? = null
+) : RecyclerView.ViewHolder(binding.root), MoleBinder<DebtorData> {
+
+    init {
+        if (popupProvider != null) {
+            with(binding.itemChatView) {
+                setOnTouchListener(popupProvider.touchListener)
+            }
+        }
+    }
+
     override fun bind(data: DebtorData) {
         binding.personName.text = data.name
         binding.personDebtsTotal.balance = data.debtsSum
