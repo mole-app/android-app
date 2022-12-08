@@ -13,29 +13,50 @@ class RepayPresenter(
 ) : MoleBasePresenter<RepayView>() {
 
     private var isLoading: Boolean = false
+    private var amount: Int = 0
 
     fun onInitMaxValue(): Int = repayData?.allDebtsSum ?: 0
 
     fun onInitUiData() {
         withView {
-            it.initUiData(
-                userName = repayData?.userName ?: "",
-                ownerName = repayData?.ownerName ?: "",
-                userIconUrl = repayData?.userIconUrl ?: "",
-                ownerIconUrl = repayData?.ownerIconUrl ?: ""
-            )
+            repayData?.let { data ->
+                if (data.allDebtsSum < 0) {
+                    it.initUiData(
+                        userName = repayData.userName,
+                        creatorName = repayData.ownerName,
+                        userIconUrl = repayData.userIconUrl,
+                        creatorIconUrl = repayData.ownerIconUrl
+                    )
+                } else {
+                    it.initUiData(
+                        userName = repayData.ownerName,
+                        creatorName = repayData.userName,
+                        userIconUrl = repayData.ownerIconUrl,
+                        creatorIconUrl = repayData.userIconUrl
+                    )
+                }
+            }
         }
     }
 
     fun onRepayButtonClick(amount: Int) {
         if (!isLoading) {
             withView { view ->
-                sendRepayAmount(view, amount)
+                view.showLoading()
+                this.amount = amount
+                sendRepayAmount(view)
             }
         }
     }
 
-    private fun sendRepayAmount(view: RepayView, amount: Int) {
+    fun onRetryButtonClick() {
+        withView { view ->
+            view.showLoading()
+            sendRepayAmount(view)
+        }
+    }
+
+    private fun sendRepayAmount(view: RepayView) {
         isLoading = true
         withScope {
             launch {

@@ -56,6 +56,7 @@ class RepayViewImplementation : RepayView,
         initSeekBar(maxValue)
         initTextField()
         initRepayButton()
+        initRetryButton()
         showKeyboard()
     }
 
@@ -109,6 +110,14 @@ class RepayViewImplementation : RepayView,
         }
     }
 
+    private fun initRetryButton() {
+        binding.retryButton.setOnClickListener {
+            showContent()
+            presenter.onRetryButtonClick()
+            binding.retryButton.isEnabled = false
+        }
+    }
+
     private fun provideTextToToSeekbar(number: Int) {
         binding.repaySeekBar.progress = number
         binding.repaySeekBar.refreshDrawableState()
@@ -146,14 +155,45 @@ class RepayViewImplementation : RepayView,
         }
     }
 
+    private fun hideContent() {
+        with(binding) {
+            creator.visibility = View.GONE
+            creatorName.visibility = View.GONE
+            user.visibility = View.GONE
+            userName.visibility = View.GONE
+            repayToUser.visibility = View.GONE
+            repayTitle.visibility = View.GONE
+            repayText.visibility = View.GONE
+            repaySeekBar.visibility = View.GONE
+            repayBtn.visibility = View.GONE
+        }
+    }
+
+    private fun showContent() {
+        with(binding) {
+            creator.visibility = View.VISIBLE
+            creatorName.visibility = View.VISIBLE
+            user.visibility = View.VISIBLE
+            userName.visibility = View.VISIBLE
+            repayToUser.visibility = View.VISIBLE
+            repayTitle.visibility = View.VISIBLE
+            repayText.visibility = View.VISIBLE
+            repaySeekBar.visibility = View.VISIBLE
+            repayBtn.visibility = View.VISIBLE
+            repayBtn.isEnabled = true
+            retryButton.visibility = View.GONE
+            binding.errorContainer.visibility = View.GONE
+        }
+    }
+
     override fun initUiData(
         userName: String,
-        ownerName: String,
+        creatorName: String,
         userIconUrl: String,
-        ownerIconUrl: String
+        creatorIconUrl: String
     ) {
-        binding.creatorName.text = ownerName
-        binding.creator.load(ownerIconUrl) {
+        binding.creatorName.text = creatorName
+        binding.creator.load(creatorIconUrl) {
             error(R.drawable.ic_not_avatar_foreground)
             transformations(CircleCropTransformation())
         }
@@ -165,13 +205,31 @@ class RepayViewImplementation : RepayView,
         }
     }
 
-    override fun showLoading() {}
+    override fun showLoading() {
+        binding.loading.visibility = View.VISIBLE
+        binding.repayBtn.isEnabled = false
+        binding.repaySeekBar.visibility = View.INVISIBLE
+        binding.repayText.isClickable = false
+        binding.repayEditText.visibility  =View.GONE
+    }
 
-    override fun hideLoading() {}
+    override fun hideLoading() {
+        binding.repayBtn.isEnabled = true
+        binding.repaySeekBar.visibility = View.VISIBLE
+        binding.repayText.isClickable = true
+        binding.loading.visibility = View.GONE
+        binding.repayEditText.visibility  =View.VISIBLE
+    }
 
-    override fun showError() {}
+    override fun showError() {
+        hideContent()
+        binding.retryButton.isEnabled = true
+        binding.retryButton.visibility = View.VISIBLE
+        binding.errorContainer.visibility = View.VISIBLE
+    }
 
     override fun closeScreen(userId: Int) {
+        showContent()
         router.replaceScreen(CreateDebtScreen.Screens.Chat(userId))
     }
 }

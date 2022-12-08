@@ -5,9 +5,9 @@ import com.mole.android.mole.MoleBaseView
 interface RepayView : MoleBaseView {
     fun initUiData(
         userName: String,
-        ownerName: String,
+        creatorName: String,
         userIconUrl: String,
-        ownerIconUrl: String
+        creatorIconUrl: String
     )
     fun showLoading()
     fun hideLoading()
