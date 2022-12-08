@@ -5,6 +5,7 @@ import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.repay.model.RepayModel
 import com.mole.android.mole.repay.view.RepayView
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 class RepayPresenter(
     private val model: RepayModel,
@@ -14,7 +15,7 @@ class RepayPresenter(
     private var isLoading: Boolean = false
     private var amount: Int = 0
 
-    fun onInitMaxValue(): Int = repayData?.allDebtsSum ?: 0
+    fun onInitMaxValue(): Int = repayData?.allDebtsSum?.absoluteValue ?: 0
 
     fun onInitUiData() {
         withView {
