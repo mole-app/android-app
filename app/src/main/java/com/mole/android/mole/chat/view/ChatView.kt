@@ -14,4 +14,5 @@ interface ChatView : MoleBaseView {
     fun showErrorToast()
     fun showError()
     fun hideError(isRetryBtnInRecyclerView: Boolean)
+    fun showRepayScreen(data: ChatDataDebtorDomain)
 }

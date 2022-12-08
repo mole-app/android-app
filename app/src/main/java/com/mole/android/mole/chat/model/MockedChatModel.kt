@@ -1,5 +1,6 @@
 package com.mole.android.mole.chat.model
 
+import com.mole.android.mole.chat.data.ChatAvatarUrl
 import com.mole.android.mole.chat.data.ChatDataDebtDomain
 import com.mole.android.mole.chat.data.ChatDataDebtorDomain
 import com.mole.android.mole.chat.data.ChatDataDomain
@@ -59,7 +60,7 @@ val testDebts = listOf<ChatDataDebtDomain>(
 val testDebtor = ChatDataDebtorDomain(
     id = 0,
     name = "Александр",
-    avatarUrl = "",
+    avatarUrl = ChatAvatarUrl("", ""),
     balance = 1500
 )
 

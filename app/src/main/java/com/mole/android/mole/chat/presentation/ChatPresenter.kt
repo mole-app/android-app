@@ -69,6 +69,14 @@ class ChatPresenter(
         }
     }
 
+    fun onChatToolbarClicked() {
+        withView { view ->
+            chatDebtor?.let {
+                view.showRepayScreen(it)
+            }
+        }
+    }
+
     private fun loadData(
         view: ChatView
     ) {

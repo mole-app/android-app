@@ -14,6 +14,8 @@ import com.mole.android.mole.chat.data.ChatDataDebtorDomain
 import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
+import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.ui.MoleMessageViewWithInfo
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -85,6 +87,13 @@ class ChatViewImplementation :
         }
 
         initRecyclerView()
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        binding.chatToolbarMessenger.setOnClickListener {
+            presenter.onChatToolbarClicked()
+        }
     }
 
     private fun initRetryButton() {
@@ -136,7 +145,7 @@ class ChatViewImplementation :
         with(binding.chatToolbarMessenger) {
             setName(data.name)
             setBalance(data.balance)
-            setAvatar(data.avatarUrl)
+            setAvatar(data.avatarUrl.urlSmall)
         }
     }
 
@@ -183,5 +192,20 @@ class ChatViewImplementation :
             chatAdapter.deleteData(position)
             chatAdapter.notifyItemRemoved(position)
         }
+    }
+
+    override fun showRepayScreen(data: ChatDataDebtorDomain) {
+        router.navigateTo(
+            Screens.Repay(
+                RepayData(
+                    userId = data.id,
+                    userName = data.name,
+                    userIconUrl = data.avatarUrl.urlNormal,
+                    allDebtsSum = data.balance,
+                    ownerName = "Оля",
+                    ownerIconUrl = "https://sun9-19.userapi.com/s/v1/ig2/_5JhzPZlVr8D4bKmkRSgab7P1nwGtJvjP_6yWmrvjcqtakalq95zW6kyOye8wsFUPWZEU8SD79fm01_ZsVAb6xJx.jpg?size=368x368&quality=95&crop=182,15,368,368&ava=1"
+                )
+            )
+        )
     }
 }
