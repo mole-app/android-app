@@ -1,7 +1,6 @@
 package com.mole.android.mole.repay.presentation
 
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.chat.data.DebtType
 import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.repay.model.RepayModel
 import com.mole.android.mole.repay.view.RepayView
@@ -22,17 +21,17 @@ class RepayPresenter(
             repayData?.let { data ->
                 if (data.allDebtsSum < 0) {
                     it.initUiData(
-                        userName = repayData.userName,
-                        creatorName = repayData.ownerName,
-                        userIconUrl = repayData.userIconUrl,
-                        creatorIconUrl = repayData.ownerIconUrl
+                        repayingDebtUserName = repayData.ownerName,
+                        acceptorDebtUserName = repayData.userName,
+                        repayingDebtUserIconUrl = repayData.ownerIconUrl,
+                        acceptorDebtUserIconUrl = repayData.userIconUrl
                     )
                 } else {
                     it.initUiData(
-                        userName = repayData.ownerName,
-                        creatorName = repayData.userName,
-                        userIconUrl = repayData.ownerIconUrl,
-                        creatorIconUrl = repayData.userIconUrl
+                        repayingDebtUserName = repayData.userName,
+                        acceptorDebtUserName = repayData.ownerName,
+                        repayingDebtUserIconUrl = repayData.userIconUrl,
+                        acceptorDebtUserIconUrl = repayData.ownerIconUrl
                     )
                 }
             }
@@ -60,21 +59,21 @@ class RepayPresenter(
         isLoading = true
         withScope {
             launch {
-                model.repayAmount(
-                    userId = repayData?.userId ?: -1,
-                    type = repayData?.debtType ?: DebtType.GET,
-                    amount = amount
-                )
-                    .withResult {
+                repayData?.let { data ->
+                    model.repayAmount(
+                        userId = data.userId,
+                        amount = amount,
+                        isUserRepayDebt = data.allDebtsSum > 0
+                    ).withResult {
                         isLoading = false
                         view.hideLoading()
-                        view.closeScreen(repayData?.userId ?: -1)
-                    }
-                    .withError {
+                        view.closeScreen(data.userId)
+                    }.withError {
                         isLoading = false
                         view.hideLoading()
                         view.showError()
                     }
+                }
             }
         }
     }

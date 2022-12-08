@@ -4,10 +4,10 @@ import com.mole.android.mole.MoleBaseView
 
 interface RepayView : MoleBaseView {
     fun initUiData(
-        userName: String,
-        creatorName: String,
-        userIconUrl: String,
-        creatorIconUrl: String
+        repayingDebtUserName: String,
+        acceptorDebtUserName: String,
+        repayingDebtUserIconUrl: String,
+        acceptorDebtUserIconUrl: String
     )
     fun showLoading()
     fun hideLoading()

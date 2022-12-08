@@ -157,11 +157,11 @@ class RepayViewImplementation : RepayView,
 
     private fun hideContent() {
         with(binding) {
-            creator.visibility = View.GONE
-            creatorName.visibility = View.GONE
-            user.visibility = View.GONE
-            userName.visibility = View.GONE
-            repayToUser.visibility = View.GONE
+            repayingDebtUserName.visibility = View.GONE
+            repayingDebtUserIcon.visibility = View.GONE
+            acceptorDebtUserName.visibility = View.GONE
+            acceptorDebtUserIcon.visibility = View.GONE
+            arrowRepayTo.visibility = View.GONE
             repayTitle.visibility = View.GONE
             repayText.visibility = View.GONE
             repaySeekBar.visibility = View.GONE
@@ -171,11 +171,11 @@ class RepayViewImplementation : RepayView,
 
     private fun showContent() {
         with(binding) {
-            creator.visibility = View.VISIBLE
-            creatorName.visibility = View.VISIBLE
-            user.visibility = View.VISIBLE
-            userName.visibility = View.VISIBLE
-            repayToUser.visibility = View.VISIBLE
+            repayingDebtUserName.visibility = View.VISIBLE
+            repayingDebtUserIcon.visibility = View.VISIBLE
+            acceptorDebtUserName.visibility = View.VISIBLE
+            acceptorDebtUserIcon.visibility = View.VISIBLE
+            arrowRepayTo.visibility = View.VISIBLE
             repayTitle.visibility = View.VISIBLE
             repayText.visibility = View.VISIBLE
             repaySeekBar.visibility = View.VISIBLE
@@ -187,19 +187,19 @@ class RepayViewImplementation : RepayView,
     }
 
     override fun initUiData(
-        userName: String,
-        creatorName: String,
-        userIconUrl: String,
-        creatorIconUrl: String
+        repayingDebtUserName: String,
+        acceptorDebtUserName: String,
+        repayingDebtUserIconUrl: String,
+        acceptorDebtUserIconUrl: String
     ) {
-        binding.creatorName.text = creatorName
-        binding.creator.load(creatorIconUrl) {
+        binding.repayingDebtUserName.text = repayingDebtUserName
+        binding.repayingDebtUserIcon.load(repayingDebtUserIconUrl) {
             error(R.drawable.ic_not_avatar_foreground)
             transformations(CircleCropTransformation())
         }
 
-        binding.userName.text = userName
-        binding.user.load(userIconUrl) {
+        binding.acceptorDebtUserName.text = acceptorDebtUserName
+        binding.acceptorDebtUserIcon.load(acceptorDebtUserIconUrl) {
             error(R.drawable.ic_not_avatar_foreground)
             transformations(CircleCropTransformation())
         }
