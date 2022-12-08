@@ -17,160 +17,170 @@
         app:textTitle="@string/repay_toolbar"
         app:titleVisible="true" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/repaying_debt_user_icon"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/repay_title"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:src="@drawable/ic_not_avatar_foreground" />
-
-    <TextView
-        android:id="@+id/repaying_debt_user_name"
-        style="@style/MoleText.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/repay_title"
-        app:layout_constraintEnd_toEndOf="@id/repaying_debt_user_icon"
-        app:layout_constraintStart_toStartOf="@id/repaying_debt_user_icon"
-        tools:text="Оля" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/acceptor_debt_user_icon"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/repay_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/ic_not_avatar_foreground" />
-
-
-    <TextView
-        android:id="@+id/acceptor_debt_user_name"
-        style="@style/MoleText.Medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/repay_title"
-        app:layout_constraintEnd_toEndOf="@id/acceptor_debt_user_icon"
-        app:layout_constraintStart_toStartOf="@id/acceptor_debt_user_icon"
-        tools:text="Александр" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/arrow_repay_to"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_long"
-        app:layout_constraintBottom_toBottomOf="@id/acceptor_debt_user_icon"
-        app:layout_constraintEnd_toEndOf="@id/acceptor_debt_user_icon"
-        app:layout_constraintStart_toStartOf="@id/repaying_debt_user_icon"
-        app:layout_constraintTop_toTopOf="@id/acceptor_debt_user_icon" />
-
-    <TextView
-        android:id="@+id/repay_title"
-        style="@style/MoleText.Medium.Text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/repay_by_user"
-        android:textColor="?attr/textColorDisabled"
-        app:layout_constraintBottom_toTopOf="@id/repay_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/repay_text"
-        style="@style/MoleText.Medium.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/repay_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:clickable="false"
-        android:digits="0123456789"
-        android:drawableStart="@drawable/ic_space_edit_text"
-        android:drawableEnd="@drawable/ic_space_edit_text"
-        android:foreground="?attr/colorPrimary"
-        android:imeOptions="actionDone"
-        android:inputType="numberSigned"
-        android:maxLength="9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/seek_bar_min_value"
-        style="@style/MoleText.Medium.Text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:textColor="?attr/textColorDisabled"
-        app:layout_constraintBottom_toTopOf="@id/repay_seek_bar"
-        app:layout_constraintStart_toStartOf="@id/repay_seek_bar"
-        tools:text="0 р." />
-
-    <TextView
-        android:id="@+id/seek_bar_max_value"
-        style="@style/MoleText.Medium.Text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:textColor="?attr/textColorDisabled"
-        app:layout_constraintBottom_toTopOf="@id/repay_seek_bar"
-        app:layout_constraintEnd_toEndOf="@id/repay_seek_bar"
-        tools:text="100 р." />
-
-
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/repay_seek_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/repay_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="64dp"
-        android:paddingBottom="128dp"
-        app:layout_constraintBottom_toTopOf="@id/repay_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repay_text"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/repay_btn"
-        style="@style/MoleView.Rectangle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:enabled="false"
-        android:padding="16dp"
-        android:text="@string/repay_btn_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repay_seek_bar"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        app:layout_constraintTop_toBottomOf="@id/action_bar">
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/repay_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repay_text"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/repaying_debt_user_icon"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_not_avatar_foreground" />
+
+        <TextView
+            android:id="@+id/repaying_debt_user_name"
+            style="@style/MoleText.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="@id/repaying_debt_user_icon"
+            app:layout_constraintStart_toStartOf="@id/repaying_debt_user_icon"
+            app:layout_constraintTop_toBottomOf="@id/repaying_debt_user_icon"
+            tools:text="Оля" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/acceptor_debt_user_icon"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_not_avatar_foreground" />
+
+        <TextView
+            android:id="@+id/acceptor_debt_user_name"
+            style="@style/MoleText.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="@id/acceptor_debt_user_icon"
+            app:layout_constraintStart_toStartOf="@id/acceptor_debt_user_icon"
+            app:layout_constraintTop_toBottomOf="@id/acceptor_debt_user_icon"
+            tools:text="Александр" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/arrow_repay_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_long"
+            app:layout_constraintBottom_toBottomOf="@id/acceptor_debt_user_icon"
+            app:layout_constraintEnd_toEndOf="@id/acceptor_debt_user_icon"
+            app:layout_constraintStart_toStartOf="@id/repaying_debt_user_icon"
+            app:layout_constraintTop_toTopOf="@id/acceptor_debt_user_icon" />
+
+        <TextView
+            android:id="@+id/repay_title"
+            style="@style/MoleText.Medium.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/repay_by_user"
+            android:textColor="?attr/textColorDisabled"
+            app:layout_constraintBottom_toBottomOf="@id/repaying_debt_user_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/repay_text"
+            style="@style/MoleText.Medium.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repay_title" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/repay_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:digits="0123456789"
+            android:drawableStart="@drawable/ic_space_edit_text"
+            android:drawableEnd="@drawable/ic_space_edit_text"
+            android:foreground="?attr/colorPrimary"
+            android:imeOptions="actionDone"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/seek_bar_min_value"
+            style="@style/MoleText.Medium.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textColor="?attr/textColorDisabled"
+            app:layout_constraintBottom_toTopOf="@id/repay_seek_bar"
+            app:layout_constraintStart_toStartOf="@id/repay_seek_bar"
+            tools:text="0 р." />
+
+        <TextView
+            android:id="@+id/seek_bar_max_value"
+            style="@style/MoleText.Medium.Text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textColor="?attr/textColorDisabled"
+            app:layout_constraintBottom_toTopOf="@id/repay_seek_bar"
+            app:layout_constraintEnd_toEndOf="@id/repay_seek_bar"
+            tools:text="100 р." />
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/repay_seek_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="64dp"
+            android:paddingBottom="128dp"
+            app:layout_constraintBottom_toTopOf="@id/repay_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repay_text"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/repay_btn"
+            style="@style/MoleView.Rectangle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:enabled="false"
+            android:padding="16dp"
+            android:text="@string/repay_btn_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repay_seek_bar"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/repay_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repay_text"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/error_container"

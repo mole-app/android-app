@@ -179,34 +179,13 @@ class RepayViewImplementation : RepayView,
 
     private fun hideContent() {
         with(binding) {
-            repayingDebtUserName.visibility = View.GONE
-            repayingDebtUserIcon.visibility = View.GONE
-            acceptorDebtUserName.visibility = View.GONE
-            acceptorDebtUserIcon.visibility = View.GONE
-            arrowRepayTo.visibility = View.GONE
-            repayTitle.visibility = View.GONE
-            repayText.visibility = View.GONE
-            repaySeekBar.visibility = View.GONE
-            seekBarMaxValue.visibility = View.GONE
-            seekBarMinValue.visibility = View.GONE
-            repayBtn.visibility = View.GONE
-            errorContainer.visibility = View.GONE
+            repayContent.visibility = View.GONE
         }
     }
 
     private fun showContent() {
         with(binding) {
-            repayingDebtUserName.visibility = View.VISIBLE
-            repayingDebtUserIcon.visibility = View.VISIBLE
-            acceptorDebtUserName.visibility = View.VISIBLE
-            acceptorDebtUserIcon.visibility = View.VISIBLE
-            arrowRepayTo.visibility = View.VISIBLE
-            repayTitle.visibility = View.VISIBLE
-            repayText.visibility = View.VISIBLE
-            repaySeekBar.visibility = View.VISIBLE
-            seekBarMaxValue.visibility = View.VISIBLE
-            seekBarMinValue.visibility = View.VISIBLE
-            repayBtn.visibility = View.VISIBLE
+            repayContent.visibility = View.VISIBLE
             errorContainer.visibility = View.GONE
         }
     }
@@ -254,6 +233,7 @@ class RepayViewImplementation : RepayView,
     }
 
     override fun hideLoading() {
+        binding.loading.visibility = View.GONE
         binding.repayBtn.isEnabled = true
         binding.repaySeekBar.visibility = View.VISIBLE
         binding.seekBarMaxValue.visibility = View.GONE
