@@ -48,7 +48,6 @@
         android:layout_marginBottom="7.5dp"
         android:padding="12dp"
         android:text="@string/delete"
-        android:textColor="?attr/colorDeny"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alert_description" />

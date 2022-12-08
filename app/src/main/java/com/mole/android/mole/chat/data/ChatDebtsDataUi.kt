@@ -25,5 +25,12 @@ sealed class ChatDebtsDataUi {
             get() = timeToString(remoteTime)
     }
 
+    data class RepayDebt(
+        val id: Int,
+        val userName: String,
+        val amount: Int,
+        val fromCurrentUser: Boolean
+    ) : ChatDebtsDataUi()
+
     object RetryData: ChatDebtsDataUi()
 }
