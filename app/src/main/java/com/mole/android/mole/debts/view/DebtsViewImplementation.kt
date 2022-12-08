@@ -6,14 +6,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.mole.android.mole.MoleBaseFragment
-import com.mole.android.mole.R
-import com.mole.android.mole.component
+import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentDebtsBinding
 import com.mole.android.mole.debts.data.DebtorData
 import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.navigation.Screens
-import com.mole.android.mole.summaryToString
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
 class DebtsViewImplementation :
@@ -50,6 +47,7 @@ class DebtsViewImplementation :
             binding.retryButton.isEnabled = false
             binding.loading.visibility = View.VISIBLE
         }
+        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
     }
 
     private fun initRecyclerView() {

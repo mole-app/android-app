@@ -15,10 +15,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.*
 import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
-import com.mole.android.mole.R
-import com.mole.android.mole.onSubmit
-import com.mole.android.mole.onTextChangeSkipped
-import com.mole.android.mole.openKeyboard
+import com.mole.android.mole.*
 
 class ChooseTextItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -165,6 +162,7 @@ class ChooseTextItemView @JvmOverloads constructor(
             }
         }
         nextButton.setOnClickListener { itemViewContract?.onNextClicked(selectedIx, payload) }
+        nextButton.setupBorder(Shape.OVAL, 0f)
 
         text.editText?.onTextChangeSkipped {
             itemViewContract?.onTextChanged(it)
@@ -173,6 +171,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         text.editText?.onSubmit {
             confirmItem(0)
         }
+        retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
 
     }
 

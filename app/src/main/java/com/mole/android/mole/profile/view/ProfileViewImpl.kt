@@ -35,6 +35,7 @@ class ProfileViewImpl : ProfileView,
             presenter.onRetryClick()
             binding.retryButton.isEnabled = false
         }
+        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
     }
 
     override fun setProfileName(name: String) {

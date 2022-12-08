@@ -10,7 +10,9 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.iterator
 import com.mole.android.mole.R
+import com.mole.android.mole.Shape
 import com.mole.android.mole.setVisibleView
+import com.mole.android.mole.setupBorder
 
 
 open class MoleActionBar @JvmOverloads constructor(
@@ -56,12 +58,14 @@ open class MoleActionBar @JvmOverloads constructor(
             }
             handleAttr(textTitle, backVisible, titleVisible)
         }
+        backImageButton.setupBorder(Shape.OVAL, 16f)
     }
 
     fun bindMenu() {
         menu.iterator().forEach { menuItem ->
             val maybeImage: AppCompatImageButton? = menuItem.actionView.findViewById(R.id.menu_icon)
             maybeImage?.setImageDrawable(menuItem.icon)
+            maybeImage?.setupBorder(Shape.OVAL, 16f)
         }
     }
 

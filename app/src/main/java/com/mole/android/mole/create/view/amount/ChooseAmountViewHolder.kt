@@ -10,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleCoroutineScope
-import com.mole.android.mole.R
+import com.mole.android.mole.*
 import com.mole.android.mole.create.presentation.ChooseAmountPresenter
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.create.view.steps.BaseStepsHolder
-import com.mole.android.mole.openKeyboard
-import com.mole.android.mole.setHighLightedText
 
 @SuppressLint("SetTextI18n")
 class ChooseAmountViewHolder(
@@ -45,6 +43,7 @@ class ChooseAmountViewHolder(
                 presenter.confirm(it)
             }
         }
+        confirmButton.setupBorder(Shape.OVAL, 0f)
     }
 
     override fun bind() {
