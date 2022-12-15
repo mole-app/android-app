@@ -6,6 +6,8 @@ import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FrgDebugPanelBinding
 import com.mole.android.mole.di.repository.PreferenceRepository
 import com.mole.android.mole.di.repository.Repository
+import com.mole.android.mole.di.repository.RepositoryKeys.baseHost
+import com.mole.android.mole.di.repository.RepositoryKeys.baseHostDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import com.mole.android.mole.di.repository.RepositoryKeys.leakCanaryEnableKey
@@ -70,6 +72,10 @@ class MoleDebugPanelViewImpl :
             80f.dp
         )
 
+        binding.hostEditText.setText(repository.getString(baseHost, baseHostDefault))
+        binding.hostEditText.onTextChanged { host ->
+            repository.setString(baseHost, host.toString())
+        }
         presenter.attachView(this)
     }
 

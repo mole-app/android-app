@@ -14,6 +14,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/hostEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:inputType="text" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/debug_panel_corrupted_token_access"
             style="@style/MoleView.Rectangle"
@@ -38,26 +46,24 @@
             android:layout_margin="16dp"
             android:text="@string/debug_panel_remove_remote_account" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/leak_canary_switcher"
-                style="@style/MoleView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="@string/leak_canary_enable"
-                android:textAlignment="center" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/leak_canary_switcher"
+            style="@style/MoleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/leak_canary_enable"
+            android:textAlignment="center" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/networkSwitcher"
-                style="@style/MoleView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:checked="true"
-                android:textOff="http"
-                android:textOn="https"
-                android:text="@string/network_switcher"
-                android:textAlignment="center" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/networkSwitcher"
+            style="@style/MoleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="true"
+            android:text="@string/network_switcher"
+            android:textAlignment="center" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
