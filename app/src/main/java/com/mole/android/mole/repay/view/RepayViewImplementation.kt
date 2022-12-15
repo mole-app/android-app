@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
 import android.widget.SeekBar
 import androidx.core.widget.addTextChangedListener
@@ -33,6 +34,10 @@ class RepayViewImplementation : RepayView,
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun getSoftMode(): Int {
+        return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
     }
 
     private val router = component().routingModule.router
