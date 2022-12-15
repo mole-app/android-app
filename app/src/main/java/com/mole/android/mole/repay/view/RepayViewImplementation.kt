@@ -214,13 +214,13 @@ class RepayViewImplementation : RepayView,
         repayingDebtUserIconUrl: String,
         acceptorDebtUserIconUrl: String
     ) {
-        binding.repayingDebtUserName.text = repayingDebtUserName
+        binding.repayingDebtUserName.text = repayingDebtUserName.ifBlank { getString(R.string.user_fallback) }
         binding.repayingDebtUserIcon.load(repayingDebtUserIconUrl) {
             error(R.drawable.ic_not_avatar_foreground)
             transformations(CircleCropTransformation())
         }
 
-        binding.acceptorDebtUserName.text = acceptorDebtUserName
+        binding.acceptorDebtUserName.text = acceptorDebtUserName.ifBlank { getString(R.string.user_fallback) }
         binding.acceptorDebtUserIcon.load(acceptorDebtUserIconUrl) {
             error(R.drawable.ic_not_avatar_foreground)
             transformations(CircleCropTransformation())

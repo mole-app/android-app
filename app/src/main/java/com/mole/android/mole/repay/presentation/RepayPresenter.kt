@@ -1,6 +1,8 @@
 package com.mole.android.mole.repay.presentation
 
 import com.mole.android.mole.MoleBasePresenter
+import com.mole.android.mole.profile.domain.GetProfileUseCase
+import com.mole.android.mole.profile.model.ProfileModel
 import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.repay.model.RepayModel
 import com.mole.android.mole.repay.view.RepayView
@@ -8,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 class RepayPresenter(
+    private val getProfileUseCase: GetProfileUseCase,
     private val model: RepayModel,
     private val repayData: RepayData?,
     private val isOpenChat: Boolean
@@ -19,21 +22,33 @@ class RepayPresenter(
     fun onInitMaxValue(): Int = repayData?.allDebtsSum?.absoluteValue ?: 0
 
     fun onInitUiData() {
-        withView {
-            repayData?.let { data ->
+        withScope {
+            launch {
+                getProfileUseCase.invoke().withResult { profile ->
+                    renderData(profile.profileUserInfo.name, profile.profileUserInfo.photoNormal)
+                }.withError {
+                    renderData("", "")
+                }
+            }
+        }
+    }
+
+    private fun renderData(profileName: String, profileIcon: String) {
+        repayData?.let { data ->
+            withView { view ->
                 if (data.allDebtsSum < 0) {
-                    it.initUiData(
-                        repayingDebtUserName = repayData.ownerName,
+                    view.initUiData(
+                        repayingDebtUserName = profileName,
                         acceptorDebtUserName = repayData.userName,
-                        repayingDebtUserIconUrl = repayData.ownerIconUrl,
+                        repayingDebtUserIconUrl = profileIcon,
                         acceptorDebtUserIconUrl = repayData.userIconUrl
                     )
                 } else {
-                    it.initUiData(
+                    view.initUiData(
                         repayingDebtUserName = repayData.userName,
-                        acceptorDebtUserName = repayData.ownerName,
+                        acceptorDebtUserName = profileName,
                         repayingDebtUserIconUrl = repayData.userIconUrl,
-                        acceptorDebtUserIconUrl = repayData.ownerIconUrl
+                        acceptorDebtUserIconUrl = profileIcon
                     )
                 }
             }

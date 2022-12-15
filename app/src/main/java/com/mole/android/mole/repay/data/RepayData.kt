@@ -9,6 +9,4 @@ data class RepayData(
     val allDebtsSum: Int,
     val userName: String,
     val userIconUrl: String,
-    val ownerName: String,
-    val ownerIconUrl: String
 ) : Parcelable
