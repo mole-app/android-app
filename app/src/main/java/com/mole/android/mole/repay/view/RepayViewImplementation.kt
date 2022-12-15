@@ -80,8 +80,7 @@ class RepayViewImplementation : RepayView,
         binding.seekBarMinValue.text = requireContext()
             .getString(R.string.text_with_ruble_suffix, "0")
         binding.seekBarMaxValue.text = requireContext()
-            .getString(R.string.text_with_ruble_suffix, "$maxValue")
-
+            .getString(R.string.text_with_ruble_suffix, maxValue.toString())
 
         initEditText(maxValue)
         initSeekBar(maxValue)
