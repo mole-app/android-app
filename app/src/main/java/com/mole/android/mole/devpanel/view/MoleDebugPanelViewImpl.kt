@@ -2,10 +2,13 @@ package com.mole.android.mole.devpanel.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FrgDebugPanelBinding
 import com.mole.android.mole.di.repository.PreferenceRepository
 import com.mole.android.mole.di.repository.Repository
+import com.mole.android.mole.di.repository.RepositoryKeys.baseHost
+import com.mole.android.mole.di.repository.RepositoryKeys.baseHostDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import com.mole.android.mole.di.repository.RepositoryKeys.leakCanaryEnableKey
@@ -25,7 +28,8 @@ class MoleDebugPanelViewImpl :
             LeakAnalyser().enableIfNeeded(requireActivity())
         }
 
-        binding.networkSwitcher.isChecked = repository.getBoolean(enableUnsecureKey, enableUnsecureDefault)
+        binding.networkSwitcher.isChecked =
+            repository.getBoolean(enableUnsecureKey, enableUnsecureDefault)
         binding.networkSwitcher.setOnCheckedChangeListener { _, check ->
             repository.setBoolean(enableUnsecureKey, check)
         }
@@ -48,6 +52,7 @@ class MoleDebugPanelViewImpl :
 
         binding.debugPanelButtonBack.setOnClickListener {
             presenter.onButtonBack()
+            notifyAboutReload()
         }
         binding.debugPanelButtonBack.setupBorder(
             Shape.RECTANGLE,
@@ -70,6 +75,10 @@ class MoleDebugPanelViewImpl :
             80f.dp
         )
 
+        binding.hostEditText.setText(repository.getString(baseHost, baseHostDefault))
+        binding.hostEditText.onTextChanged { host ->
+            repository.setString(baseHost, host.toString())
+        }
         presenter.attachView(this)
     }
 
@@ -96,5 +105,19 @@ class MoleDebugPanelViewImpl :
 
     override fun removeRemoteButtonEnable(enable: Boolean) {
         binding.debugPanelRemoveRemoteAccount.isEnabled = enable
+    }
+
+    override fun onBackPress(): Boolean {
+        presenter.onButtonBack()
+        notifyAboutReload()
+        return true
+    }
+
+    private fun notifyAboutReload() {
+        Toast.makeText(
+            requireContext(),
+            "Перезагрузите приложение чтобы изменения вступили в силу",
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

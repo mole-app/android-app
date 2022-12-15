@@ -6,6 +6,8 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.di.repository.PreferenceRepository
+import com.mole.android.mole.di.repository.RepositoryKeys.baseHost
+import com.mole.android.mole.di.repository.RepositoryKeys.baseHostDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import okhttp3.OkHttpClient
@@ -19,7 +21,8 @@ object RetrofitBuilder {
     const val API_PATH = "api"
     val SCHEME
         get() = if (isEnableUnsecure) SCHEME_UNSAFE else SCHEME_SAFE
-    const val HOST = "mole-app-dev.ru"
+    val HOST
+        get() = repository.getString(baseHost, baseHostDefault)
     val PORT
         get() = if (isEnableUnsecure) PORT_UNSAFE else PORT_SAFE
 
