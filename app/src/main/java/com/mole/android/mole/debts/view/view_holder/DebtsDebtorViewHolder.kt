@@ -1,5 +1,6 @@
 package com.mole.android.mole.debts.view.view_holder
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -15,7 +16,10 @@ class DebtsDebtorViewHolder(
     private val binding: ItemDebtsViewBinding,
     private val onItemClickListener: OnItemDebtsClickListener,
     private val popupProvider: PopupProvider<DebtorData>? = null
-) : RecyclerView.ViewHolder(binding.root), MoleBinder<DebtorData> {
+) : RecyclerView.ViewHolder(binding.root), MoleBinder<DebtorData>,
+    View.OnLongClickListener {
+
+    private var data: DebtorData? = null
 
     init {
         if (popupProvider != null) {
@@ -41,10 +45,20 @@ class DebtsDebtorViewHolder(
             setOnClickListener {
                 onItemClickListener.onShotClick(data)
             }
-            setOnLongClickListener {
-                onItemClickListener.onLongClick(it, data)
-                true
+
+            if (data.debtsSum == 0) {
+                setOnLongClickListener(null)
+            } else {
+                setOnLongClickListener(this@DebtsDebtorViewHolder)
             }
         }
+        this.data = data
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        return data?.run {
+            onItemClickListener.onLongClick(view, this)
+            true
+        } ?: false
     }
 }

@@ -21,10 +21,6 @@ class DebtsPresenter(
         view?.showChatScreen(idDebtor)
     }
 
-    fun onItemLongClick(data: DebtorData) {
-        view?.showRepayScreen(data)
-    }
-
     fun onRetryClick() {
         withView { view ->
             dataLoading(view)
