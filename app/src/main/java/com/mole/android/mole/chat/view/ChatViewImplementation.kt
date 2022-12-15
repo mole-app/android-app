@@ -76,6 +76,7 @@ class ChatViewImplementation :
             requireContext(),
             binding.chatRecyclerView,
             view,
+            requireContext().resolveColor(R.attr.colorAccent),
             isEditDisable = true,
             isBalanceDisable =  true)
         chatAdapter = ChatAdapter(popupProvider, retryListener)

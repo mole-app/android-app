@@ -28,6 +28,7 @@ class PopupProvider<T>(
     private val context: Context,
     private val scrollView: RecyclerView,
     private val rootView: View,
+    @ColorInt private val selectColor: Int,
     isEditDisable: Boolean = false,
     isDeleteDisable: Boolean = false,
     isBalanceDisable: Boolean = false
@@ -221,11 +222,11 @@ class PopupProvider<T>(
             "backgroundTint",
             ArgbEvaluator(),
             colorTint,
-            context.resolveColor(R.attr.colorAccent)
+            selectColor
         )
 
         animator.interpolator = DecelerateInterpolator()
-        animator.duration = resources.getInteger(R.integer.duration_animation).toLong()
+        animator.duration = 10
 
         animator.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int

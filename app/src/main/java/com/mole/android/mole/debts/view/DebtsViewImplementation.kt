@@ -42,6 +42,7 @@ class DebtsViewImplementation :
             requireContext(),
             binding.debtsRecyclerView,
             view,
+            requireContext().resolveColor(R.attr.colorAccent),
             isEditDisable = true,
             isDeleteDisable = true
         )
