@@ -61,6 +61,7 @@ class DebtsViewImplementation :
             binding.retryButton.isEnabled = false
             binding.loading.visibility = View.VISIBLE
         }
+        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
     }
 
     private fun initRecyclerView() {
