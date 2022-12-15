@@ -108,12 +108,14 @@ class ChatViewImplementation :
             binding.retryButton.visibility = View.GONE
             presenter.onRetryClick()
         }
+        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
     }
 
     private fun initChatFabView() {
         binding.chatFabView.setOnClickListener {
             presenter.onFabViewClicked()
         }
+        binding.chatFabView.setupBorder(Shape.OVAL, 16f)
     }
 
     private fun initRecyclerView() {

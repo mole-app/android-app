@@ -8,6 +8,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.mole.android.mole.R
+import com.mole.android.mole.Shape
+import com.mole.android.mole.setupBorder
 
 
 class MoleBottomNavigationBar @JvmOverloads constructor(
@@ -56,10 +58,9 @@ class MoleBottomNavigationBar @JvmOverloads constructor(
             } finally {
                 typedArray.recycle()
             }
-
             handleAttr(foreground, menu)
-
         }
+        fab.setupBorder(Shape.OVAL, 16f)
     }
 
     private fun handleAttr(foreground: Drawable?, menu: Int) {
