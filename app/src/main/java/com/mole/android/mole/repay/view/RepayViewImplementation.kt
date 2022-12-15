@@ -142,6 +142,7 @@ class RepayViewImplementation : RepayView,
             presenter.onRetryButtonClick()
             binding.retryButton.isEnabled = false
         }
+        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
     }
 
     private fun provideTextToToSeekbar(number: Int) {
