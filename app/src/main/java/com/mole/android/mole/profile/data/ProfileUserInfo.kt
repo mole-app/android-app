@@ -8,12 +8,12 @@ data class ProfileUserInfo(
     val tags: List<String>,
     val totalSum: Long,
 ){
-    constructor(profileUserInfoDomain: ProfileUserInfoDomain) : this(
-        profileUserInfoDomain.profile.login,
-        profileUserInfoDomain.profile.name,
-        profileUserInfoDomain.photo.photoSmall,
-        profileUserInfoDomain.photo.photoNormal,
-        profileUserInfoDomain.tags,
-        profileUserInfoDomain.debtSum,
+    constructor(profileUserInfoRemote: ProfileUserInfoRemote) : this(
+        profileUserInfoRemote.profile.login,
+        profileUserInfoRemote.profile.name,
+        profileUserInfoRemote.photo.photoSmall,
+        profileUserInfoRemote.photo.photoNormal,
+        profileUserInfoRemote.tags,
+        profileUserInfoRemote.debtSum,
     )
 }

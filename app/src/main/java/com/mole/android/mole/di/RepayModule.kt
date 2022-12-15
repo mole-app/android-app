@@ -7,11 +7,12 @@ import com.mole.android.mole.repay.presentation.RepayPresenter
 
 class RepayModule(
     retrofitModule: RetrofitModule,
+    private val profileModule: ProfileModule,
     private val baseScopeModule: BaseScopeModule
 ) {
 
     fun repayPresenter(repayData: RepayData?, openChat: Boolean): RepayPresenter {
-        return RepayPresenter(repayModel, repayData, openChat)
+        return RepayPresenter(profileModule.getProfileUseCase, repayModel, repayData, openChat)
     }
 
     private val repayModel by lazy {

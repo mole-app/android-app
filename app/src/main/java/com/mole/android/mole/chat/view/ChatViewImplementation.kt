@@ -206,9 +206,7 @@ class ChatViewImplementation :
                     userId = data.id,
                     userName = data.name,
                     userIconUrl = data.avatarUrl.urlNormal,
-                    allDebtsSum = data.balance,
-                    ownerName = "Оля",
-                    ownerIconUrl = "https://sun9-19.userapi.com/s/v1/ig2/_5JhzPZlVr8D4bKmkRSgab7P1nwGtJvjP_6yWmrvjcqtakalq95zW6kyOye8wsFUPWZEU8SD79fm01_ZsVAb6xJx.jpg?size=368x368&quality=95&crop=182,15,368,368&ava=1"
+                    allDebtsSum = data.balance
                 ),
                 openChat = true
             )

@@ -2,7 +2,7 @@ package com.mole.android.mole.profile.data
 
 import com.google.gson.annotations.SerializedName
 
-data class ProfileUserInfoDomain(
+data class ProfileUserInfoRemote(
     @SerializedName("profile")
     val profile: ProfileData,
     @SerializedName("photo")
