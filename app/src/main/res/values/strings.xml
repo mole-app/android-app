@@ -13,6 +13,7 @@
     <string name="dialog_alert_title">Удалить долг</string>
     <string name="dialog_alert_description">Это действие нельзя отменить</string>
     <string name="delete">Удалить</string>
+    <string name="balance">Баланс</string>
     <string name="cancel">Отмена</string>
     <string name="edit">Редактировать</string>
     <string name="login_exist_error">Такой логин уже существует</string>
@@ -55,11 +56,14 @@
     <string name="settings_version_underline">Mole for Android %1$s</string>
     <string name="leak_canary_enable">Leak canary enable</string>
     <string name="network_switcher">Use unsecure protocol for network</string>
+    <string name="repay_title">Сумма</string>
+    <string name="text_with_ruble_suffix">%1$s p.</string>
     <string-array name="emails">
         <item>moleappio@gmail.com</item>
     </string-array>
     <string name="email_subject">Mole App Feedback</string>
-    <string name="name_about_text">\t\tНазвание приложения (Mole) связано со старой сказкой Андерсена "Дюймовочка". Один из претендентов на руку, но не сердце Дюймовочки, был Крот - важный, обеспеченный и уважаемый подземный житель.\n\n\t\tНаше приложение, как и Крот из сказки, держит ваши расходы и доходы под контролем, и поможет вам ни упасть в долговую яму после очередной встречи с друзьями или знакомыми.\n\n\t\tP. S. Mole (англ.) - Крот</string>
+    <string name="name_about_text">\t\tНазвание приложения (Mole) связано со старой сказкой Андерсена "Дюймовочка". Один из претендентов на руку, но не сердце, Дюймовочки был Крот - важный, обеспеченный и уважаемый подземный житель.\n\n\t\tНаше приложение, как и Крот из сказки, держит ваши расходы и доходы под контролем, и поможет вам ни упасть в долговую яму после очередной встречи с друзьями или знакомыми.\n\n\t\tP. S. Mole (англ.) - Крот</string>
+    <string name="repay_btn_text">Подтвердить</string>
     <string name="about_app_name">О названии</string>
     <string name="github">GitHub</string>
     <string name="about_us">О нас</string>
@@ -70,6 +74,10 @@
         <item quantity="many">%1$d должников</item>
         <item quantity="other">%1$d должник</item>
     </plurals>
+    <string name="repay_toolbar">Изменение баланса</string>
+    <string name="repay_by_user">отдал (а)</string>
     <string name="user_repay_debt">%1$s погасил(а) на %2$d р.</string>
     <string name="user_repay_debt_current_user">Вы погасили на %1$d р.</string>
+    <string name="user_fallback">Вы</string>
+    <string name="avatar_of_debtor">Аватар должника</string>
 </resources>

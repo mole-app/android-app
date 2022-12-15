@@ -14,6 +14,8 @@ import com.mole.android.mole.chat.data.ChatDataDebtorDomain
 import com.mole.android.mole.chat.data.ChatDebtsDataUi
 import com.mole.android.mole.create.view.CreateDebtScreen
 import com.mole.android.mole.databinding.FragmentChatBinding
+import com.mole.android.mole.navigation.Screens
+import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.ui.MoleMessageViewWithInfo
 import com.mole.android.mole.ui.actionbar.MoleActionBar
 
@@ -70,7 +72,13 @@ class ChatViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        popupProvider = PopupProvider(requireContext(), binding.chatRecyclerView, view, true)
+        popupProvider = PopupProvider(
+            requireContext(),
+            binding.chatRecyclerView,
+            view,
+            requireContext().resolveColor(R.attr.colorAccent),
+            isEditDisable = true,
+            isBalanceDisable =  true)
         chatAdapter = ChatAdapter(popupProvider, retryListener)
         initChatFabView()
         initRetryButton()
@@ -85,6 +93,13 @@ class ChatViewImplementation :
         }
 
         initRecyclerView()
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        binding.chatToolbarMessenger.setOnClickListener {
+            presenter.onChatToolbarClicked()
+        }
     }
 
     private fun initRetryButton() {
@@ -138,7 +153,7 @@ class ChatViewImplementation :
         with(binding.chatToolbarMessenger) {
             setName(data.name)
             setBalance(data.balance)
-            setAvatar(data.avatarUrl)
+            setAvatar(data.avatarUrl.urlSmall)
         }
     }
 
@@ -185,5 +200,19 @@ class ChatViewImplementation :
             chatAdapter.deleteData(position)
             chatAdapter.notifyItemRemoved(position)
         }
+    }
+
+    override fun showRepayScreen(data: ChatDataDebtorDomain) {
+        router.navigateTo(
+            Screens.Repay(
+                RepayData(
+                    userId = data.id,
+                    userName = data.name,
+                    userIconUrl = data.avatarUrl.urlNormal,
+                    allDebtsSum = data.balance
+                ),
+                openChat = true
+            )
+        )
     }
 }

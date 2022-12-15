@@ -5,7 +5,7 @@
     android:id="@+id/itemChatView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_borderless_section">
+    android:background="@drawable/ripple_debts_holder">
 
     <ImageView
         android:id="@+id/personIcon"
@@ -15,6 +15,7 @@
         android:layout_marginTop="@dimen/debt_main_screen_chat_margin"
         android:layout_marginBottom="@dimen/debt_main_screen_chat_margin"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/avatar_of_debtor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

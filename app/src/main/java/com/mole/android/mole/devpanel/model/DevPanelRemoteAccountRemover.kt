@@ -3,7 +3,7 @@ package com.mole.android.mole.devpanel.model
 import com.google.gson.Gson
 import com.mole.android.mole.await
 import com.mole.android.mole.component
-import com.mole.android.mole.profile.data.ProfileUserInfoDomain
+import com.mole.android.mole.profile.data.ProfileUserInfoRemote
 import com.mole.android.mole.web.service.AuthTokenData
 import com.mole.android.mole.web.service.RetrofitBuilder.API_PATH
 import com.mole.android.mole.web.service.RetrofitBuilder.HOST
@@ -93,7 +93,7 @@ object DevPanelRemoteAccountRemover {
 
         val profileUserInfo = Gson().fromJson(
             userInfoResponse.body()?.string(),
-            ProfileUserInfoDomain::class.java
+            ProfileUserInfoRemote::class.java
         )
 
         val userDeleteUrl: HttpUrl = HttpUrl.Builder()

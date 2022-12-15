@@ -1,9 +1,11 @@
 package com.mole.android.mole.debts.view.view_holder
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.mole.android.mole.MoleBinder
+import com.mole.android.mole.PopupProvider
 import com.mole.android.mole.R
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ItemDebtsViewBinding
@@ -12,10 +14,21 @@ import com.mole.android.mole.debts.view.OnItemDebtsClickListener
 
 class DebtsDebtorViewHolder(
     private val binding: ItemDebtsViewBinding,
-    private val onItemClickListener: OnItemDebtsClickListener
-) :
-    RecyclerView.ViewHolder(binding.root),
-    MoleBinder<DebtorData> {
+    private val onItemClickListener: OnItemDebtsClickListener,
+    private val popupProvider: PopupProvider<DebtorData>? = null
+) : RecyclerView.ViewHolder(binding.root), MoleBinder<DebtorData>,
+    View.OnLongClickListener {
+
+    private var data: DebtorData? = null
+
+    init {
+        if (popupProvider != null) {
+            with(binding.itemChatView) {
+                setOnTouchListener(popupProvider.touchListener)
+            }
+        }
+    }
+
     override fun bind(data: DebtorData) {
         binding.personName.text = data.name
         binding.personDebtsTotal.balance = data.debtsSum
@@ -32,10 +45,20 @@ class DebtsDebtorViewHolder(
             setOnClickListener {
                 onItemClickListener.onShotClick(data)
             }
-            setOnLongClickListener {
-                onItemClickListener.onLongClick(it, data)
-                true
+
+            if (data.debtsSum == 0) {
+                setOnLongClickListener(null)
+            } else {
+                setOnLongClickListener(this@DebtsDebtorViewHolder)
             }
         }
+        this.data = data
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        return data?.run {
+            onItemClickListener.onLongClick(view, this)
+            true
+        } ?: false
     }
 }

@@ -69,6 +69,16 @@ class ChatPresenter(
         }
     }
 
+    fun onChatToolbarClicked() {
+        withView { view ->
+            chatDebtor?.let {
+                if (it.balance != 0) {
+                    view.showRepayScreen(it)
+                }
+            }
+        }
+    }
+
     private fun loadData(
         view: ChatView
     ) {
@@ -97,7 +107,7 @@ class ChatPresenter(
                     }
                     .withError {
                         isDataLoading = false
-                        if (chatDebts.isNullOrEmpty()) {
+                        if (chatDebts.isEmpty()) {
                             view.showError()
                         } else {
                             if (!isRetryBtnInViewHolder) {
@@ -114,7 +124,7 @@ class ChatPresenter(
 
     private fun insertDateToChat(debts: List<ChatDataDebtDomain>): List<ChatDebtsDataUi> {
         val debtsUi: MutableList<ChatDebtsDataUi> = mutableListOf()
-        return if (debts.isNullOrEmpty()) {
+        return if (debts.isEmpty()) {
             debtsUi
         } else {
             if (lastChatDate == null) {

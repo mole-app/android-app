@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.Point
 import android.graphics.PointF
 import android.os.Build
@@ -27,8 +28,10 @@ class PopupProvider<T>(
     private val context: Context,
     private val scrollView: RecyclerView,
     private val rootView: View,
+    @ColorInt private val selectColor: Int,
     isEditDisable: Boolean = false,
     isDeleteDisable: Boolean = false,
+    isBalanceDisable: Boolean = false
 ) {
     @SuppressLint("ClickableViewAccessibility")
     val touchListener = View.OnTouchListener { view, event -> // save the X,Y coordinates
@@ -51,6 +54,7 @@ class PopupProvider<T>(
     // class member variable to save the X,Y coordinates
     private val lastTouchDown = PointF()
     private var deleteListener: ((View, T) -> Unit)? = null
+    private var balanceListener: ((View, T) -> Unit)? = null
 
     @ColorInt
     private var colorTint: Int = 0
@@ -68,6 +72,8 @@ class PopupProvider<T>(
 
         val editButton: Button = popupView.findViewById(R.id.edit_popup)
         val deleteButton: Button = popupView.findViewById(R.id.delete_popup)
+        val balanceButton: Button = popupView.findViewById(R.id.balance_popup)
+
         if (isEditDisable) {
             editButton.visibility = View.GONE
             val params =
@@ -104,6 +110,22 @@ class PopupProvider<T>(
                 }
             }
         }
+
+        if (isBalanceDisable) {
+            balanceButton.visibility = View.GONE
+        } else {
+            balanceButton.setOnClickListener { _ ->
+                popupWindow?.dismiss()
+                currentItem?.let { current ->
+                    currentSelectView?.let {
+                        balanceListener?.invoke(
+                            it,
+                            current
+                        )
+                    }
+                }
+            }
+        }
     }
 
 
@@ -116,6 +138,10 @@ class PopupProvider<T>(
 
     fun setOnDeleteListener(listener: (View, T) -> Unit) {
         deleteListener = listener
+    }
+
+    fun setOnBalanceListener(listener: (View, T) -> Unit) {
+        balanceListener = listener
     }
 
     private fun onAnimationEnd(animView: View, position: Position) {
@@ -190,17 +216,17 @@ class PopupProvider<T>(
         position: Position
     ) {
         selectedView = animationView
-        colorTint = animationView.backgroundTintList!!.defaultColor
+        colorTint = animationView.backgroundTintList?.defaultColor ?: Color.TRANSPARENT
         val animator: ObjectAnimator = ObjectAnimator.ofObject(
             animationView,
             "backgroundTint",
             ArgbEvaluator(),
-            animationView.backgroundTintList!!.defaultColor,
-            context.resolveColor(R.attr.colorAccent)
+            colorTint,
+            selectColor
         )
 
         animator.interpolator = DecelerateInterpolator()
-        animator.duration = resources.getInteger(R.integer.duration_animation).toLong()
+        animator.duration = 10
 
         animator.addUpdateListener { animation ->
             val animatedValue = animation.animatedValue as Int

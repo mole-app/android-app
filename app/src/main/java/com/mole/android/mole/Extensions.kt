@@ -10,6 +10,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import com.github.terrakok.cicerone.Router
 import com.mole.android.mole.di.MoleComponent
 import com.mole.android.mole.ui.blur.BlurView
@@ -31,6 +32,7 @@ fun View.setVisibleView(visible: Boolean) {
     }
 }
 
+@ColorInt
 fun Context.resolveColor(@AttrRes resId: Int): Int {
     val typedValue = TypedValue()
     val theme = this.theme
@@ -247,5 +249,8 @@ private class ContinuationCallback(
         }
     }
 }
+
+fun Int.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this.toString())
+
 
 fun String?.orEmpty() = this ?: ""

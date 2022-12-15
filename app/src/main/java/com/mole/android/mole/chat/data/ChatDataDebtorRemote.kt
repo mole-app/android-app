@@ -38,7 +38,14 @@ fun ChatDataDebtorRemote.asDomain(): ChatDataDebtorDomain {
     return ChatDataDebtorDomain(
         id = debtorInfo.idUser,
         name = debtorInfo.name,
-        avatarUrl = mainPhotoUrl.photoSmall,
+        avatarUrl = mainPhotoUrl.asDomain(),
         balance = debtorStatistic.debtSum
+    )
+}
+
+fun ChatDebtorPhotoUrlRemote.asDomain() : ChatAvatarUrl {
+    return ChatAvatarUrl(
+        urlSmall = this.photoSmall,
+        urlNormal = this.photoNormal
     )
 }
