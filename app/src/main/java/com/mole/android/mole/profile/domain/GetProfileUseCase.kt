@@ -15,6 +15,6 @@ class GetProfileUseCaseImpl(
     override suspend fun invoke(): ApiResult<ProfileModel.SuccessProfileResult> {
         return storage.get()
             ?.let { ApiResult.create(ProfileModel.SuccessProfileResult(it)) }
-            ?: model.getProfileInfo()
+            ?: model.getProfileInfo().withResult { storage.set(it.profileUserInfo) }
     }
 }

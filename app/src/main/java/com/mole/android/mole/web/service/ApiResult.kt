@@ -5,15 +5,15 @@ import java.net.HttpURLConnection.HTTP_FORBIDDEN
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 
 class ApiResult<T> private constructor(
-    private val result: T? = null,
-    private val error: MoleError? = null
+    val result: T? = null,
+    val error: MoleError? = null
 ) {
-    fun withResult(action: (T) -> Unit): ApiResult<T> {
+    inline fun withResult(action: (T) -> Unit): ApiResult<T> {
         result?.let(action)
         return this
     }
 
-    fun withError(action: (MoleError) -> Unit): ApiResult<T> {
+    inline fun withError(action: (MoleError) -> Unit): ApiResult<T> {
         error?.let {
             if (error.code != HTTP_UNAUTHORIZED && error.code != HTTP_FORBIDDEN) {
                 action(it)

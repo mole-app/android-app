@@ -21,7 +21,10 @@ class ObserveProfileUseCaseImpl(
             val cached = storage.get()
             if (cached != null) emit(ApiResult.create(ProfileModel.SuccessProfileResult(cached)))
 
-            emit(model.getProfileInfo())
+            val newData = model.getProfileInfo().withResult {
+                storage.set(it.profileUserInfo)
+            }
+            emit(newData)
         }
     }
 }
