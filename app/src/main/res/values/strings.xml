@@ -80,4 +80,6 @@
     <string name="user_repay_debt_current_user">Вы погасили на %1$d р.</string>
     <string name="user_fallback">Вы</string>
     <string name="avatar_of_debtor">Аватар должника</string>
+    <string name="add_debt">Добавить долг</string>
+    <string name="check_mark">Обозначение прочитанности сообщений</string>
 </resources>

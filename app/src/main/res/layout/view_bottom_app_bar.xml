@@ -31,6 +31,7 @@
         android:layout_height="@dimen/design_fab_image_size"
         android:background="@drawable/fab_background"
         android:clickable="false"
+        android:contentDescription="@string/add_debt"
         android:focusable="false"
         app:backgroundTint="@android:color/transparent"
         app:borderWidth="0dp"

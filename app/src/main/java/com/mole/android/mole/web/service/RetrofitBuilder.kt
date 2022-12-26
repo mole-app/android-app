@@ -34,12 +34,15 @@ object RetrofitBuilder {
     private const val SCHEME_UNSAFE = "http"
     private const val PORT_UNSAFE = 8080
     private const val SCHEME_SAFE = "https"
-    private const val PORT_SAFE = 8443
+    private const val PORT_SAFE = 8444
+
+    private const val TIMEOUTS = 30L
+    private const val MAX_CONTENT_LENGTH = 250000L
 
     val chuckerInterceptor by lazy {
         ChuckerInterceptor.Builder(component().context)
             .collector(ChuckerCollector(component().context))
-            .maxContentLength(250000L)
+            .maxContentLength(MAX_CONTENT_LENGTH)
             .redactHeaders(emptySet())
             .alwaysReadResponseBody(false)
             .build()
@@ -54,9 +57,9 @@ object RetrofitBuilder {
         )
 
         val okHttpBuilder = OkHttpClient.Builder()
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUTS, TimeUnit.SECONDS)
+            .writeTimeout(TIMEOUTS, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUTS, TimeUnit.SECONDS)
             .addInterceptor(tokenInterceptor)
             .addInterceptor(chuckerInterceptor)
 
