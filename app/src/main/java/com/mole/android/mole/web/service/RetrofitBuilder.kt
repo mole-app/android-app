@@ -8,6 +8,10 @@ import com.mole.android.mole.BuildConfig
 import com.mole.android.mole.di.repository.PreferenceRepository
 import com.mole.android.mole.di.repository.RepositoryKeys.baseHost
 import com.mole.android.mole.di.repository.RepositoryKeys.baseHostDefault
+import com.mole.android.mole.di.repository.RepositoryKeys.customPort
+import com.mole.android.mole.di.repository.RepositoryKeys.customPortDefault
+import com.mole.android.mole.di.repository.RepositoryKeys.customPortEnable
+import com.mole.android.mole.di.repository.RepositoryKeys.customPortEnableDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import okhttp3.OkHttpClient
@@ -24,10 +28,21 @@ object RetrofitBuilder {
     val HOST
         get() = repository.getString(baseHost, baseHostDefault)
     val PORT
-        get() = if (isEnableUnsecure) PORT_UNSAFE else PORT_SAFE
+        get() = if (isEnableCustomPort)
+            repository.getInt(customPort, customPortDefault)
+        else if (isEnableUnsecure)
+            PORT_UNSAFE
+        else
+            PORT_SAFE
+
 
     private val repository by lazy { PreferenceRepository(component().activity as? Activity) }
-    private val isEnableUnsecure by lazy { repository.getBoolean(enableUnsecureKey, enableUnsecureDefault) }
+    private val isEnableUnsecure by lazy {
+        repository.getBoolean(enableUnsecureKey, enableUnsecureDefault)
+    }
+    private val isEnableCustomPort by lazy {
+        repository.getBoolean(customPortEnable, customPortEnableDefault)
+    }
 
     private val BASE_URL = "$SCHEME://$HOST:$PORT/$API_PATH/"
 
