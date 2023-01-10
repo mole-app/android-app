@@ -11,7 +11,6 @@ import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.R
 import com.mole.android.mole.chat.view.ChatViewImplementation
 import com.mole.android.mole.component
-import com.mole.android.mole.create.data.usersTestData
 import com.mole.android.mole.create.view.chooseside.ChooseSideScreen
 import com.mole.android.mole.create.view.steps.CreateStepsScreen
 import com.mole.android.mole.databinding.FragmentCreateDebtBinding
@@ -39,20 +38,22 @@ class CreateDebtScreen : MoleBaseFragment<FragmentCreateDebtBinding>(FragmentCre
         val id = arguments?.getInt(EXTRA_ID, -1) ?: -1
         val openChat = arguments?.getBoolean(EXTRA_OPEN_CHAT, false) ?: false
 
-        withChildNavigation {
-            router.navigateTo(Screens.ChooseSide(id))
-        }
-        router.setResultListenerGeneric<Boolean>(ChooseSideScreen.EXTRA_SIDE) {
+        if (savedInstanceState == null) {
             withChildNavigation {
-                router.replaceScreen(Screens.CreateSteps(it, id))
+                router.navigateTo(Screens.ChooseSide(id))
             }
-        }
-        router.setResultListenerGeneric<CreatedDebt>(CreateStepsScreen.EXTRA_CREATED_DEBT) {
-            if (openChat) {
-                router.replaceScreen(Screens.Chat(it.userId))
-            } else {
-                router.exit()
-                router.sendResult(EXTRA_CREATED_DEBT, it)
+            router.setResultListenerGeneric<Boolean>(ChooseSideScreen.EXTRA_SIDE) {
+                withChildNavigation {
+                    router.replaceScreen(Screens.CreateSteps(it, id))
+                }
+            }
+            router.setResultListenerGeneric<CreatedDebt>(CreateStepsScreen.EXTRA_CREATED_DEBT) {
+                if (openChat) {
+                    router.replaceScreen(Screens.Chat(it.userId))
+                } else {
+                    router.exit()
+                    router.sendResult(EXTRA_CREATED_DEBT, it)
+                }
             }
         }
     }

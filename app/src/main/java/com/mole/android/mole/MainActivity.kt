@@ -52,12 +52,14 @@ class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
             routingModule.router.newRootScreen(AuthBegin())
         }
 
-        if (accountRepository.isHasAccount()) {
-            routingModule.router.newRootScreen(Screens.Debts())
-        } else {
-            routingModule.router.replaceScreen(AuthBegin())
-        }
+        if (savedInstanceState == null) {
+            if (accountRepository.isHasAccount()) {
+                routingModule.router.newRootScreen(Screens.Debts())
+            } else {
+                routingModule.router.replaceScreen(AuthBegin())
+            }
 //        routingModule.router.replaceScreen(TestScreen())
+        }
     }
 
     override fun onBackPressed() {

@@ -9,6 +9,10 @@ import com.mole.android.mole.di.repository.PreferenceRepository
 import com.mole.android.mole.di.repository.Repository
 import com.mole.android.mole.di.repository.RepositoryKeys.baseHost
 import com.mole.android.mole.di.repository.RepositoryKeys.baseHostDefault
+import com.mole.android.mole.di.repository.RepositoryKeys.customPort
+import com.mole.android.mole.di.repository.RepositoryKeys.customPortDefault
+import com.mole.android.mole.di.repository.RepositoryKeys.customPortEnable
+import com.mole.android.mole.di.repository.RepositoryKeys.customPortEnableDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureDefault
 import com.mole.android.mole.di.repository.RepositoryKeys.enableUnsecureKey
 import com.mole.android.mole.di.repository.RepositoryKeys.leakCanaryEnableKey
@@ -79,6 +83,22 @@ class MoleDebugPanelViewImpl :
         binding.hostEditText.onTextChanged { host ->
             repository.setString(baseHost, host.toString())
         }
+
+        val customPortEnableValue = repository.getBoolean(customPortEnable, customPortEnableDefault)
+        binding.customPort.isChecked = customPortEnableValue
+        binding.customPort.setOnCheckedChangeListener { _, check ->
+            binding.customPortEditText.isEnabled = check
+            repository.setBoolean(customPortEnable, check)
+        }
+
+        binding.customPortEditText.isEnabled = customPortEnableValue
+        binding.customPortEditText.setText(
+            repository.getInt(customPort, customPortDefault).toString()
+        )
+        binding.customPortEditText.onTextChanged { port ->
+            repository.setInt(customPort, port.toString().toInt())
+        }
+
         presenter.attachView(this)
     }
 

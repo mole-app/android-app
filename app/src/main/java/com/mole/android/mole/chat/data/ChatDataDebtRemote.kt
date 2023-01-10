@@ -20,6 +20,8 @@ data class ChatDataDebtRemote(
     val createTime: String,
     @SerializedName("isRepay")
     val isRepay: Boolean,
+    @SerializedName("isRead")
+    val isRead: Boolean,
     @SerializedName("tag")
     val tag: String?
 )
@@ -33,6 +35,7 @@ fun ChatDataDebtRemote.asDomain(userId: Int): ChatDataDebtDomain {
         tag = tag,
         isDeleted = isDelete,
         date = stringToDate(createTime),
+        isRead = isRead,
         isRepay = isRepay
     )
 }

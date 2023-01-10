@@ -75,8 +75,8 @@ class DebtsViewImplementation :
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         presenter.detachView()
+        super.onDestroyView()
     }
 
     override fun setData(data: DebtsData) {
