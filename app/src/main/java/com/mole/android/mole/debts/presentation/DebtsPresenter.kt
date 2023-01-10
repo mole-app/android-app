@@ -13,7 +13,7 @@ class DebtsPresenter(
     override fun attachView(view: DebtsView) {
         super.attachView(view)
         view.showLoading()
-        dataLoading(view)
+        dataLoading()
 
     }
 
@@ -22,26 +22,28 @@ class DebtsPresenter(
     }
 
     fun onRetryClick() {
-        withView { view ->
-            dataLoading(view)
-        }
+        dataLoading()
     }
 
     fun onBalanceItem(data: DebtorData) {
         view?.showRepayScreen(data)
     }
 
-    private fun dataLoading(view: DebtsView) {
+    private fun dataLoading() {
         withScope {
             launch {
                 model.loadDebtsData()
                     .withResult { result ->
-                        view.setData(result)
-                        view.hideLoading()
+                        withView { view ->
+                            view.setData(result)
+                            view.hideLoading()
+                        }
                     }
                     .withError { error ->
-                        view.hideLoading()
-                        view.showError(error.code, error.description)
+                        withView { view ->
+                            view.hideLoading()
+                            view.showError(error.code, error.description)
+                        }
                     }
             }
         }

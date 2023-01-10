@@ -2,7 +2,6 @@ package com.mole.android.mole.repay.presentation
 
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.profile.domain.GetProfileUseCase
-import com.mole.android.mole.profile.model.ProfileModel
 import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.repay.model.RepayModel
 import com.mole.android.mole.repay.view.RepayView
@@ -60,7 +59,7 @@ class RepayPresenter(
             withView { view ->
                 view.showLoading()
                 this.amount = amount
-                sendRepayAmount(view)
+                sendRepayAmount()
             }
         }
     }
@@ -68,11 +67,11 @@ class RepayPresenter(
     fun onRetryButtonClick() {
         withView { view ->
             view.showLoading()
-            sendRepayAmount(view)
+            sendRepayAmount()
         }
     }
 
-    private fun sendRepayAmount(view: RepayView) {
+    private fun sendRepayAmount() {
         isLoading = true
         withScope {
             launch {
@@ -82,13 +81,17 @@ class RepayPresenter(
                         amount = amount,
                         isUserRepayDebt = data.allDebtsSum > 0
                     ).withResult {
-                        isLoading = false
-                        view.hideLoading()
-                        view.closeScreen(data.userId, isOpenChat)
+                        withView { view ->
+                            isLoading = false
+                            view.hideLoading()
+                            view.closeScreen(data.userId, isOpenChat)
+                        }
                     }.withError {
-                        isLoading = false
-                        view.hideLoading()
-                        view.showError()
+                        withView { view ->
+                            isLoading = false
+                            view.hideLoading()
+                            view.showError()
+                        }
                     }
                 }
             }
