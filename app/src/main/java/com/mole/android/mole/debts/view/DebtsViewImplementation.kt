@@ -37,7 +37,6 @@ class DebtsViewImplementation :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.attachView(this)
         popupProvider = PopupProvider(
             requireContext(),
             binding.debtsRecyclerView,
@@ -54,6 +53,7 @@ class DebtsViewImplementation :
         popupProvider.setOnBalanceListener { _, debtorData ->
             presenter.onBalanceItem(debtorData)
         }
+        presenter.attachView(this)
     }
 
     private fun initRetryButton() {
