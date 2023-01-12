@@ -86,8 +86,16 @@ class RepayViewImplementation : RepayView,
         initSeekBar(maxValue)
         initTextField()
         initRepayButton()
-        initRetryButton()
+        initErrorView()
         showKeyboard()
+    }
+
+    private fun initErrorView() {
+        binding.errorView.hideView()
+        binding.errorView.setRetryClickListener {
+            showContent()
+            presenter.onRetryButtonClick()
+        }
     }
 
     override fun onDestroyView() {
@@ -140,15 +148,6 @@ class RepayViewImplementation : RepayView,
         }
     }
 
-    private fun initRetryButton() {
-        binding.retryButton.setOnClickListener {
-            showContent()
-            presenter.onRetryButtonClick()
-            binding.retryButton.isEnabled = false
-        }
-        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
-    }
-
     private fun provideTextToToSeekbar(number: Int) {
         animateProgress(binding.repaySeekBar.progress, number)
     }
@@ -194,7 +193,7 @@ class RepayViewImplementation : RepayView,
     private fun showContent() {
         with(binding) {
             repayContent.visibility = View.VISIBLE
-            errorContainer.visibility = View.GONE
+            binding.errorView.hideView()
         }
     }
 
@@ -251,8 +250,7 @@ class RepayViewImplementation : RepayView,
 
     override fun showError() {
         hideContent()
-        binding.retryButton.isEnabled = true
-        binding.errorContainer.visibility = View.VISIBLE
+        binding.errorView.showView()
     }
 
     override fun closeScreen(userId: Int, isOpenChat: Boolean) {
