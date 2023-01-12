@@ -6,12 +6,22 @@ plugins {
 
 
 android {
+    ext.getProtectProperties = { propName, defaultValue ->
+        if (project.hasProperty(propName)) {
+            return  "\"${project.property(propName)}\""
+        } else {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            return properties.getProperty(propName, defaultValue)
+        }
+    }
+
     signingConfigs {
         release {
             storeFile file('/Users/aleksandr/Documents/mole-keystore.jks')
-            keyAlias 'key0'
-            storePassword 'mole2022'
-            keyPassword 'mole2022'
+            keyAlias getProtectProperties("RELEASE_KEY_ALIAS", "")
+            storePassword getProtectProperties("RELEASE_STORE_PASSWORD", "")
+            keyPassword getProtectProperties("RELEASE_KEY_PASSWORD", "")
         }
     }
     compileSdkVersion 31
@@ -20,17 +30,9 @@ android {
         applicationId "com.mole.android.mole"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 3
-        versionName "1.0.1"
-        def apiKey
-        if (project.hasProperty("X_API_KEY")) {
-            apiKey = "\"${project.property("X_API_KEY")}\""
-        } else {
-            def Properties properties = new Properties()
-            properties.load(project.rootProject.file("local.properties").newDataInputStream())
-            apiKey = properties.getProperty("X_API_KEY", "")
-        }
-        buildConfigField "String", "X_API_KEY", apiKey
+        versionCode 4
+        versionName "1.1.0"
+        buildConfigField "String", "X_API_KEY", getProtectProperties("X_API_KEY", "")
         buildConfigField "String", "PUBLIC_CODE_SOURCE", "$PUBLIC_CODE_SOURCE"//"\"https://gitlab.com/mole-app/mole-android\""
         buildConfigField "String", "APP_VERSION", "$APP_VERSION" //"\"v1.0.0\""
 
