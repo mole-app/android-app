@@ -3,7 +3,6 @@ package com.mole.android.mole.profile.view
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -27,15 +26,14 @@ class ProfileViewImpl : ProfileView,
         presenter = component().profileModule.profilePresenter
         presenter.attachView(this)
 
-        initRetryButton()
+        initErrorView()
     }
 
-    private fun initRetryButton() {
-        binding.retryButton.setOnClickListener {
+    private fun initErrorView() {
+        binding.errorView.setRetryClickListener {
             presenter.onRetryClick()
-            binding.retryButton.isEnabled = false
         }
-        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
+        binding.errorView.hideView()
     }
 
     override fun setProfileName(name: String) {
@@ -79,8 +77,7 @@ class ProfileViewImpl : ProfileView,
 
     override fun showError() {
         hideContent()
-        binding.retryButton.isEnabled = true
-        binding.errorContainer.visibility = View.VISIBLE
+        binding.errorView.showView()
     }
 
     private fun hideContent() {
@@ -92,12 +89,11 @@ class ProfileViewImpl : ProfileView,
     }
 
     override fun showContent() {
-        binding.retryButton.isEnabled = true
         binding.personProfileIcon.visibility = View.VISIBLE
         binding.profileContainer.visibility = View.VISIBLE
         binding.profileDebtsSummaryTitle.visibility = View.VISIBLE
         binding.profileDebtsSummary.visibility = View.VISIBLE
         binding.tagsGroup.visibility = View.VISIBLE
-        binding.errorContainer.visibility  =View.GONE
+        binding.errorView.hideView()
     }
 }
