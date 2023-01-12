@@ -66,5 +66,4 @@
         app:layout_constraintEnd_toStartOf="@id/alert_apply"
         app:layout_constraintTop_toBottomOf="@id/alert_description" />
 
-
 </com.mole.android.mole.ui.blur.BlurView>

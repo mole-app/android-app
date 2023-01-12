@@ -12,7 +12,6 @@
         android:gravity="center|top"
         android:orientation="vertical">
 
-
         <com.mole.android.mole.ui.actionbar.MoleActionBar
             android:id="@+id/mole_about_toolbar"
             style="@style/MoleToolbar"

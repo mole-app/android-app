@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.*
 import androidx.transition.TransitionManager
 import com.google.android.material.textfield.TextInputLayout
 import com.mole.android.mole.*
+import com.mole.android.mole.ui.ErrorView
 
 class ChooseTextItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -24,13 +25,12 @@ class ChooseTextItemView @JvmOverloads constructor(
     private val list: RecyclerView
     private val textContainer: ViewGroup
     private val listContainer: ViewGroup
-    private val errorContainer: ViewGroup
+    private val errorView: ErrorView
     private val text: TextInputLayout
     private val clickableArea: View
     private val nextButton: View
     private val progress: View
     private val title: TextView
-    private val retryButton: Button
     private val emptyStub: View
 
     private var mode = false
@@ -49,8 +49,7 @@ class ChooseTextItemView @JvmOverloads constructor(
         nextButton = findViewById(R.id.next_button)
         progress = findViewById(R.id.progress)
         title = findViewById(R.id.title)
-        errorContainer = findViewById(R.id.error_container)
-        retryButton = findViewById(R.id.retry_button)
+        errorView = findViewById(R.id.error_view)
         emptyStub = findViewById(R.id.empty_stub)
         bind()
     }
@@ -63,7 +62,7 @@ class ChooseTextItemView @JvmOverloads constructor(
     fun showProgress() {
         list.setVisibility(false)
         progress.setVisibility(true)
-        errorContainer.setVisibility(false)
+        errorView.hideView()
         emptyStub.setVisibility(false)
     }
 
@@ -74,14 +73,14 @@ class ChooseTextItemView @JvmOverloads constructor(
     fun showError() {
         list.setVisibility(false)
         progress.setVisibility(false)
-        errorContainer.setVisibility(true)
+        errorView.showView()
         emptyStub.setVisibility(false)
     }
 
     fun showEmptyState() {
         list.setVisibility(false)
         progress.setVisibility(false)
-        errorContainer.setVisibility(false)
+        errorView.hideView()
         emptyStub.setVisibility(true)
     }
 
@@ -96,12 +95,12 @@ class ChooseTextItemView @JvmOverloads constructor(
     private fun showList() {
         list.setVisibility(true)
         progress.setVisibility(false)
-        errorContainer.setVisibility(false)
+        errorView.hideView()
         emptyStub.setVisibility(false)
     }
 
     fun setOnRetryClickListener(listener: () -> Unit) {
-        retryButton.setOnClickListener { listener() }
+        errorView.setRetryClickListener { listener() }
     }
 
     fun focus() {
@@ -171,8 +170,6 @@ class ChooseTextItemView @JvmOverloads constructor(
         text.editText?.onSubmit {
             confirmItem(0)
         }
-        retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
-
     }
 
     private fun expandList() {

@@ -49,20 +49,19 @@ class DebtsViewImplementation :
         debtsAdapter = DebtsAdapter(popupProvider, listener)
 
         initRecyclerView()
-        initRetryButton()
+        initErrorView()
 
         popupProvider.setOnBalanceListener { _, debtorData ->
             presenter.onBalanceItem(debtorData)
         }
     }
 
-    private fun initRetryButton() {
-        binding.retryButton.setOnClickListener {
+    private fun initErrorView() {
+        binding.errorView.hideView()
+        binding.errorView.setRetryClickListener {
             presenter.onRetryClick()
-            binding.retryButton.isEnabled = false
             binding.loading.visibility = View.VISIBLE
         }
-        binding.retryButton.setupBorder(Shape.RECTANGLE, 80f.dp)
     }
 
     private fun initRecyclerView() {
@@ -80,7 +79,6 @@ class DebtsViewImplementation :
     }
 
     override fun setData(data: DebtsData) {
-        binding.errorContainer.visibility = View.GONE
         showContent()
         binding.totalDebtsSum.text = component().context.resources.getString(
             R.string.total_debts,
@@ -106,8 +104,7 @@ class DebtsViewImplementation :
 
     override fun showError(code: Int, description: String) {
         hideContent()
-        binding.retryButton.isEnabled = true
-        binding.errorContainer.visibility = View.VISIBLE
+        binding.errorView.showView()
     }
 
     override fun showRepayScreen(data: DebtorData) {
@@ -149,6 +146,7 @@ class DebtsViewImplementation :
 
     private fun showContent() {
         with(binding) {
+            errorView.hideView()
             debtsRecyclerView.visibility = View.VISIBLE
             loading.visibility = View.VISIBLE
             totalDebtsSum.visibility = View.VISIBLE

@@ -7,7 +7,6 @@
         android:id="@+id/back_action_button_with_text"
         layout="@layout/view_back_menu_icon" />
 
-
     <LinearLayout
         android:id="@+id/additional_view"
         android:layout_width="match_parent"
