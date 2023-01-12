@@ -16,7 +16,7 @@ import com.mole.android.mole.ui.actionbar.MoleActionBar
 class AboutViewImpl : MoleBaseFragment<ViewAboutBinding>(ViewAboutBinding::inflate) {
 
     private val router = component().routingModule.router
-    private val appVersion = component().buildConfigModule.APP_VERSION
+    private val appVersion = component().buildConfigModule.VERSION_NAME
 
     override fun getToolbar(): MoleActionBar {
         return binding.moleAboutToolbar
