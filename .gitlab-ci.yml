@@ -4,6 +4,7 @@ before_script:
 - export GRADLE_USER_HOME=$(pwd)/.gradle
 - chmod +x ./gradlew
 - echo ${FIREBASE_CONFIGURATION} > app/google-services.json
+- echo 0 > local.properties
 
 cache:
   key: ${CI_PROJECT_ID}
