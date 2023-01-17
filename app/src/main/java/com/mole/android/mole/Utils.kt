@@ -23,6 +23,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
+
 fun summaryToString(summary: Long): String {
     val format = DecimalFormat("###,###.##")
     format.positivePrefix = "+ "
@@ -97,11 +98,11 @@ fun EditText.onTextChangeSkipped(skipMs: Long = 300L, action: (String) -> Unit) 
 fun TextView.setHighLightedText(
     textToHighlight: String,
     @ColorInt color: Int,
-    ignoreCase: Boolean = true
+    ignoreCase: Boolean = true,
 ) {
     val tvt = this.text.toString()
     var ofe = tvt.indexOf(textToHighlight, 0, ignoreCase)
-    val wordToSpan: Spannable = SpannableString(this.text)
+    val wordToSpan: Spannable = SpannableString(tvt)
     var ofs = 0
     while (ofs < tvt.length && ofe != -1) {
         ofe = tvt.indexOf(textToHighlight, ofs, ignoreCase)
@@ -112,10 +113,10 @@ fun TextView.setHighLightedText(
                 ofe + textToHighlight.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            this.setText(wordToSpan, TextView.BufferType.SPANNABLE)
         }
         ofs = ofe + 1
     }
+    this.setText(wordToSpan, TextView.BufferType.SPANNABLE)
 }
 
 fun View.openKeyboard() {
