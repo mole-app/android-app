@@ -10,16 +10,12 @@
     <com.mole.android.mole.ui.actionbar.MoleActionBar
         android:id="@+id/mole_profile_toolbar"
         style="@style/MoleToolbar"
-        app:backVisible="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:backVisible="false" />
 
     <com.mole.android.mole.ui.ErrorView
         android:id="@+id/error_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/action_bar"/>
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/personProfileIcon"
@@ -51,11 +47,15 @@
         <TextView
             android:id="@+id/profileLogin"
             style="@style/MoleText.Medium.Text2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="2"
             android:textColor="@color/white_alpha_50"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/profileEdit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileName"
             tools:text="\@login" />
@@ -63,11 +63,11 @@
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/profileEdit"
             style="@style/MoleView.BorderlessIcon"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_edit_profile"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/profileName"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
