@@ -30,7 +30,7 @@ android {
         applicationId "com.mole.android.mole"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 4
+        versionCode 5
         versionName "1.1.0"
         buildConfigField "String", "X_API_KEY", getProtectProperties("X_API_KEY", "")
         buildConfigField "String", "PUBLIC_CODE_SOURCE", "$PUBLIC_CODE_SOURCE"//"\"https://gitlab.com/mole-app/mole-android\""
