@@ -4,6 +4,8 @@ import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.debts.data.DebtorData
 import com.mole.android.mole.debts.model.DebtsModel
 import com.mole.android.mole.debts.view.DebtsView
+import com.mole.android.mole.web.service.State
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DebtsPresenter(
@@ -12,7 +14,6 @@ class DebtsPresenter(
 
     override fun attachView(view: DebtsView) {
         super.attachView(view)
-        view.showLoading()
         dataLoading()
 
     }
@@ -21,30 +22,36 @@ class DebtsPresenter(
         view?.showChatScreen(idDebtor)
     }
 
-    fun onRetryClick() {
-        dataLoading()
-    }
-
     fun onBalanceItem(data: DebtorData) {
         view?.showRepayScreen(data)
+    }
+
+    fun onRetryClick() {
+        dataLoading()
     }
 
     private fun dataLoading() {
         withScope {
             launch {
-                model.loadDebtsData()
-                    .withResult { result ->
-                        withView { view ->
-                            view.setData(result)
-                            view.hideLoading()
+                model.loadDebtsData().collect { state ->
+                    when (state) {
+                        is State.Loading -> {
+                            withView { it.showLoading() }
+                        }
+                        is State.Content -> {
+                            withView {
+                                it.setData(state.data)
+                                it.hideLoading()
+                            }
+                        }
+                        is State.Error -> {
+                            withView {
+                                it.hideLoading()
+                                it.showError(-1, "error")
+                            }
                         }
                     }
-                    .withError { error ->
-                        withView { view ->
-                            view.hideLoading()
-                            view.showError(error.code, error.description)
-                        }
-                    }
+                }
             }
         }
     }
