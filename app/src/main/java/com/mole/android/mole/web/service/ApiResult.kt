@@ -1,6 +1,5 @@
 package com.mole.android.mole.web.service
 
-import retrofit2.HttpException
 import java.net.HttpURLConnection.HTTP_FORBIDDEN
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 
@@ -26,14 +25,6 @@ class ApiResult<T> private constructor(
         fun <T> create(result: T) = ApiResult(result = result)
         fun <T> create(error: MoleError) = ApiResult<T>(error = error)
     }
-
-    class MoleError(val code: Int, val description: String)
-
-}
-
-fun Exception.asMoleError() = when(this) {
-    is HttpException -> ApiResult.MoleError(code(), message())
-    else -> ApiResult.MoleError(-1, "Unknown error: ${this.message}")
 }
 
 inline fun <T> call(call: () -> T): ApiResult<T> {

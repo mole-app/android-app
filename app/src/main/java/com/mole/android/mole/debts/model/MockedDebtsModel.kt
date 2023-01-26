@@ -2,22 +2,20 @@ package com.mole.android.mole.debts.model
 
 import com.mole.android.mole.debts.data.DebtorData
 import com.mole.android.mole.debts.data.DebtsData
-import com.mole.android.mole.web.service.State
+import com.mole.android.mole.web.service.ApiResult
+import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class MockedDebtsModel(
     private val scope: CoroutineScope
 ) : DebtsModel {
-    override suspend fun loadDebtsData(): Flow<State<DebtsData>> {
-        return flow {
-            emit(State.Loading)
-            withContext(scope.coroutineContext) {
+    override suspend fun loadDebtsData(): ApiResult<DebtsData> {
+        return withContext(scope.coroutineContext) {
+            call {
                 delay(1000)
-                emit(State.Content(testDebtsData))
+                testDebtsData
             }
         }
     }

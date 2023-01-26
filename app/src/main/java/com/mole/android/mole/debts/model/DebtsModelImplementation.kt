@@ -2,25 +2,19 @@ package com.mole.android.mole.debts.model
 
 import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.debts.data.asDomain
-import com.mole.android.mole.web.service.State
+import com.mole.android.mole.web.service.ApiResult
+import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
 
 class DebtsModelImplementation(
     private val service: DebtsService,
     private val scope: CoroutineScope
 ) : DebtsModel {
-    override suspend fun loadDebtsData(): Flow<State<DebtsData>> {
-        return flow {
-            emit(State.Loading)
-            try {
-                val data = service.getDebtors().asDomain()
-                emit(State.Content(data))
-            } catch (e: Exception) {
-                emit(State.Error(e))
-            }
+    override suspend fun loadDebtsData(): ApiResult<DebtsData> {
+        return withContext(scope.coroutineContext) {
+            call { service.getDebtors().asDomain() }
         }
     }
 }

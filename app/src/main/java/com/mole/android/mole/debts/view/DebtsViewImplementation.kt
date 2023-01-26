@@ -2,6 +2,8 @@ package com.mole.android.mole.debts.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -12,6 +14,8 @@ import com.mole.android.mole.debts.data.DebtsData
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.ui.actionbar.MoleActionBar
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class DebtsViewImplementation :
     MoleBaseFragment<FragmentDebtsBinding>(FragmentDebtsBinding::inflate), DebtsView {
@@ -54,6 +58,14 @@ class DebtsViewImplementation :
         popupProvider.setOnBalanceListener { _, debtorData ->
             presenter.onBalanceItem(debtorData)
         }
+
+        lifecycleScope.launch {
+            presenter.state.collect { state ->
+                showLoading(state.isLoading)
+                showContent(state.isContentVisible, state.content)
+                showError(state.isErrorVisible)
+            }
+        }
     }
 
     private fun initErrorView() {
@@ -78,8 +90,7 @@ class DebtsViewImplementation :
         super.onDestroyView()
     }
 
-    override fun setData(data: DebtsData) {
-        showContent()
+    private fun setData(data: DebtsData) {
         binding.totalDebtsSum.text = component().context.resources.getString(
             R.string.total_debts,
             summaryToString(data.debtsSumTotal.toLong())
@@ -90,21 +101,29 @@ class DebtsViewImplementation :
         diffUtilResult.dispatchUpdatesTo(debtsAdapter)
     }
 
-    override fun showLoading() {
-        binding.loading.visibility = View.VISIBLE
-        binding.totalDebtsSum.text = component().context.resources.getString(
-            R.string.total_debts,
-            "..."
-        )
+    private fun showLoading(isVisible: Boolean) {
+        binding.loading.isVisible = isVisible
+        if (isVisible) {
+            binding.totalDebtsSum.text = component().context.resources.getString(
+                R.string.total_debts,
+                "..."
+            )
+        }
     }
 
-    override fun hideLoading() {
-        binding.loading.visibility = View.GONE
+    private fun showContent(isVisible: Boolean, data: DebtsData?) {
+        with(binding) {
+            debtsRecyclerView.isVisible = isVisible
+            totalDebtsSum.isVisible = isVisible
+        }
+        if (data != null) {
+            setData(data)
+        }
     }
 
-    override fun showError(code: Int, description: String) {
-        hideContent()
-        binding.errorView.showView()
+    private fun showError(isVisible: Boolean) {
+        if (isVisible) binding.errorView.showView()
+        else binding.errorView.hideView()
     }
 
     override fun showRepayScreen(data: DebtorData) {
@@ -134,22 +153,5 @@ class DebtsViewImplementation :
             )
         )
         component().routingModule.router.navigateTo(Screens.Chat(idDebtor))
-    }
-
-    private fun hideContent() {
-        with(binding) {
-            debtsRecyclerView.visibility = View.GONE
-            loading.visibility = View.GONE
-            totalDebtsSum.visibility = View.GONE
-        }
-    }
-
-    private fun showContent() {
-        with(binding) {
-            errorView.hideView()
-            debtsRecyclerView.visibility = View.VISIBLE
-            loading.visibility = View.VISIBLE
-            totalDebtsSum.visibility = View.VISIBLE
-        }
     }
 }
