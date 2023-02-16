@@ -26,9 +26,9 @@ class AuthBeginViewImplementation :
     private val router = component().routingModule.router
     private val remoteConfig = component().remoteConfigModule.remoteConfig
 
-    override lateinit var googleAccount: GoogleSignInAccount
     private lateinit var googleSignInOptions: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
+    override lateinit var googleAccount: GoogleSignInAccount
 
     override fun openAuthLogin(login: String) {
         router.replaceScreen(Screens.AuthLogin(login))
@@ -58,6 +58,7 @@ class AuthBeginViewImplementation :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("926859193586-rsa6dkilu6712bcf8env96ih78m7dst1.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
