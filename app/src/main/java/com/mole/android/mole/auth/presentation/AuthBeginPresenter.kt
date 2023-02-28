@@ -1,6 +1,5 @@
 package com.mole.android.mole.auth.presentation
 
-import android.util.Log
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.auth.model.AuthModel
 import com.mole.android.mole.auth.view.AuthBeginView
@@ -16,7 +15,6 @@ class AuthBeginPresenter(
     fun onVkClick() {
         withView { view ->
             view.openBrowser { code ->
-                Log.i("AuthBegin", code)
                 scope.launch {
                     model.getUserVk(code).withResult { successResult ->
                         when (successResult) {
@@ -26,6 +24,7 @@ class AuthBeginPresenter(
                             )
                         }
                     }.withError {
+                        view.showError()
                     }
                 }
             }
@@ -35,7 +34,6 @@ class AuthBeginPresenter(
     fun onGoogleClick() {
         withView { view ->
             val token = view.googleAccount.idToken
-            Log.i("Auth", "Google")
             withScope {
                 launch {
                     if (token != null) {
@@ -45,8 +43,10 @@ class AuthBeginPresenter(
                                 is AuthModel.SuccessAuthResult.SuccessNewUser -> view.openAuthLogin(
                                     successResult.login
                                 )
+                                else -> {}
                             }
                         }.withError {
+                            view.showError()
                         }
                     }
                 }
