@@ -34,6 +34,7 @@ android {
         versionName "1.1.0"
         buildConfigField "String", "X_API_KEY", getProtectProperties("X_API_KEY", "")
         buildConfigField "String", "PUBLIC_CODE_SOURCE", "$PUBLIC_CODE_SOURCE"//"\"https://gitlab.com/mole-app/mole-android\""
+        buildConfigField "String", "GOOGLE_SERVER_CLIENT_ID", getProtectProperties("GOOGLE_SERVER_CLIENT_ID", "")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

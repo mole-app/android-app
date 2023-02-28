@@ -11,4 +11,6 @@ interface AuthBeginView : MoleBaseView {
     fun openDebts()
 
     fun openBrowser(actionAfter:(String) -> Unit)
+
+    fun showError()
 }

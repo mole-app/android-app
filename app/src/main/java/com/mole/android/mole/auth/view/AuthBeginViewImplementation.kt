@@ -2,7 +2,6 @@ package com.mole.android.mole.auth.view
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.Toast
@@ -24,7 +23,6 @@ class AuthBeginViewImplementation :
 
     private val presenter = component().authModule.beginPresenter
     private val router = component().routingModule.router
-    private val remoteConfig = component().remoteConfigModule.remoteConfig
 
     private lateinit var googleSignInOptions: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -43,6 +41,10 @@ class AuthBeginViewImplementation :
         router.navigateTo(Screens.AuthBrowser(RetrofitModule.VK_URL))
     }
 
+    override fun showError() {
+        Toast.makeText(requireContext(), R.string.loading_error, Toast.LENGTH_SHORT).show()
+    }
+
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -58,7 +60,7 @@ class AuthBeginViewImplementation :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("926859193586-rsa6dkilu6712bcf8env96ih78m7dst1.apps.googleusercontent.com")
+            .requestIdToken(BuildConfig.GOOGLE_SERVER_CLIENT_ID)
             .requestEmail()
             .build()
 
@@ -72,7 +74,7 @@ class AuthBeginViewImplementation :
             if (isNetworkConnected(requireContext())) {
                 presenter.onVkClick()
             } else {
-                Toast.makeText(requireContext(), R.string.loading_error, Toast.LENGTH_SHORT).show()
+                showError()
             }
         }
 
@@ -81,15 +83,10 @@ class AuthBeginViewImplementation :
                 val signInIntent = googleSignInClient.signInIntent
                 launcher.launch(signInIntent)
             } else {
-                Toast.makeText(requireContext(), R.string.loading_error, Toast.LENGTH_SHORT).show()
+                showError()
             }
         }
 
-//        if (remoteConfig.getGoogleEnable()) {
-//            binding.googleButton.setOnClickListener {}
-//        } else {
-//            binding.googleButton.visibility = GONE
-//        }
         view.onMeasured {
             val topEllipse = binding.topEllipse
             val bottomEllipse = binding.bottomEllipse
@@ -150,10 +147,10 @@ class AuthBeginViewImplementation :
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            googleAccount = completedTask.getResult(ApiException::class.java)!!
+            googleAccount = completedTask.getResult(ApiException::class.java)
             presenter.onGoogleClick()
         } catch (e: ApiException) {
-            Log.w("GoogleAuth", "signInResult:failed code=" + e.statusCode)
+            showError()
         }
     }
 }
