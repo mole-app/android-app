@@ -6,6 +6,7 @@ import android.webkit.CookieManager
 import com.mole.android.mole.MoleBaseFragment
 import com.mole.android.mole.component
 import com.mole.android.mole.databinding.ViewSettingsBinding
+import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.About
 import com.mole.android.mole.settings.presentation.SettingsPresenter
 import com.mole.android.mole.ui.actionbar.MoleActionBar
@@ -34,7 +35,9 @@ class SettingsViewImpl :
         binding.exitGroup.setOnClickListener {
             CookieManager.getInstance().removeAllCookies(null)
             CookieManager.getInstance().flush()
-            accountRepository.removeAccount { }
+            accountRepository.removeAccount {
+                routing.newRootChain(Screens.AuthBegin())
+            }
         }
     }
 }
