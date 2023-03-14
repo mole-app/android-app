@@ -43,6 +43,8 @@ class AuthBeginViewImplementation :
 
     override fun showError() {
         Toast.makeText(requireContext(), R.string.loading_error, Toast.LENGTH_SHORT).show()
+        binding.vkButton.setProgress(false)
+        binding.googleButton.setProgress(false)
     }
 
     private val launcher =
@@ -70,7 +72,8 @@ class AuthBeginViewImplementation :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.vkButton.setOnClickListener {
+        binding.vkButton.setButtonClickListener {
+            binding.googleButton.setButtonEnabled(false)
             if (isNetworkConnected(requireContext())) {
                 presenter.onVkClick()
             } else {
@@ -78,7 +81,8 @@ class AuthBeginViewImplementation :
             }
         }
 
-        binding.googleButton.setOnClickListener {
+        binding.googleButton.setButtonClickListener {
+            binding.vkButton.setButtonEnabled(false)
             if (isNetworkConnected(requireContext())) {
                 val signInIntent = googleSignInClient.signInIntent
                 launcher.launch(signInIntent)

@@ -33,12 +33,19 @@
     </declare-styleable>
     <declare-styleable name="MoleMessageViewWithInfo">
         <attr name="postfix_with_info" format="string" />
-        <attr name="check_marks" format="boolean"/>
+        <attr name="check_marks" format="boolean" />
     </declare-styleable>
     <declare-styleable name="MoleMessageView">
         <attr name="postfix" format="string" />
     </declare-styleable>
     <declare-styleable name="BlurView">
         <attr name="blurBackgroundColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="ProgressButtonView">
+        <attr name="button_text" format="string" />
+        <attr name="button_icon" format="reference" />
+        <attr name="button_tint" format="color" />
+        <attr name="progress_tint" format="color" />
+        <attr name="text_color" format="color" />
     </declare-styleable>
 </resources>

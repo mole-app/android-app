@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_begin_ellipse_top"
-        app:layout_constraintStart_toEndOf="@id/logo"
-        app:layout_constraintBottom_toTopOf="@id/logo"/>
+        app:layout_constraintBottom_toTopOf="@id/logo"
+        app:layout_constraintStart_toEndOf="@id/logo" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bottom_ellipse"
@@ -41,35 +41,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.mole.android.mole.ui.ProgressButtonView
         android:id="@+id/vk_button"
-        style="@style/MoleView.Rectangle"
-        android:layout_margin="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="#4A76A8"
-        android:drawableStart="@drawable/ic_vk"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/vk_login"
+        app:button_icon="@drawable/ic_vk"
+        app:button_text="@string/vk_login"
+        app:button_tint="#4A76A8"
         app:layout_constraintBottom_toTopOf="@id/google_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:progress_tint="@color/white"
+        app:text_color="@color/white" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.mole.android.mole.ui.ProgressButtonView
         android:id="@+id/google_button"
-        style="@style/MoleView.Rectangle"
-        android:background="@drawable/selector_rectangle_button_light"
-        android:layout_margin="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/white"
-        android:drawableStart="@drawable/ic_google"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/google_login"
-        android:textColor="@color/black"
+        app:button_icon="@drawable/ic_google"
+        app:button_text="@string/google_login"
+        app:button_tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:progress_tint="@color/black"
+        app:text_color="@color/black" />
 </androidx.constraintlayout.widget.ConstraintLayout>
