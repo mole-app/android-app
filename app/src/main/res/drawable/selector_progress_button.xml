@@ -12,24 +12,9 @@
             <item android:id="@android:id/background">
                 <shape android:shape="rectangle">
                     <corners android:radius="20dp" />
-                    <gradient
-                        android:angle="0"
-                        android:endColor="?attr/colorButtonActiveEnd"
-                        android:startColor="?attr/colorButtonActiveStart" />
+                    <gradient android:angle="0" android:endColor="?attr/colorButtonActiveEnd" android:startColor="?attr/colorButtonActiveStart" />
                 </shape>
             </item>
         </ripple>
-
     </item>
-
-    <!--    <item android:state_enabled="false">-->
-    <!--        <shape android:shape="rectangle">-->
-    <!--            <corners android:radius="20dp" />-->
-    <!--            <gradient-->
-    <!--                android:angle="0"-->
-    <!--                android:endColor="?attr/colorButtonDisableEnd"-->
-    <!--                android:startColor="?attr/colorButtonDisableStart" />-->
-    <!--        </shape>-->
-    <!--    </item>-->
-
 </selector>
