@@ -90,7 +90,7 @@ class AccountRepositoryImpl(
         )
     }
 
-    override fun removeAllAccount(onRemoved: () -> Unit) {
+    override fun removeAllAccounts(onRemoved: () -> Unit) {
         googleSignInClient?.signOut()
         removeAccount { onRemoved() }
     }

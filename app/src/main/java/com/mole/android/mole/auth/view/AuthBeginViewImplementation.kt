@@ -21,7 +21,7 @@ class AuthBeginViewImplementation :
 
     private val presenter = component().authModule.beginPresenter
     private val router = component().routingModule.router
-    private val googleSignInClient = component().googleSignInClient
+    private val googleSignInClient = component().googleClientModule.googleSignInClient
 
     override lateinit var googleAccount: GoogleSignInAccount
 
