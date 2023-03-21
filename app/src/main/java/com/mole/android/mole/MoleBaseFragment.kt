@@ -24,7 +24,7 @@ abstract class MoleBaseFragment<T : ViewBinding>
 
     private val navigatorHolder = component().routingModule.navigationHolder
     private val router = component().routingModule.router
-    private val mainActivity: MainActivity get() = activity as MainActivity
+    private val mainActivity: MoleMainActivity get() = activity as MoleMainActivity
 
     open fun getSoftMode(): Int = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
     open fun getNavigator(): Navigator = AppNavigator(requireActivity(), R.id.fragment_container)
