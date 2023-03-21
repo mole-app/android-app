@@ -5,6 +5,8 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -23,6 +25,13 @@ class MoleMainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component().activity = this
+        component().googleSignInClient = GoogleSignIn.getClient(
+            this,
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(BuildConfig.GOOGLE_SERVER_CLIENT_ID)
+                .requestEmail()
+                .build()
+        )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

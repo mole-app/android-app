@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.mole.android.mole.*
@@ -23,9 +21,8 @@ class AuthBeginViewImplementation :
 
     private val presenter = component().authModule.beginPresenter
     private val router = component().routingModule.router
+    private val googleSignInClient = component().googleSignInClient
 
-    private lateinit var googleSignInOptions: GoogleSignInOptions
-    private lateinit var googleSignInClient: GoogleSignInClient
     override lateinit var googleAccount: GoogleSignInAccount
 
     override fun openAuthLogin(login: String) {
@@ -59,16 +56,6 @@ class AuthBeginViewImplementation :
         return binding.vkButton
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(BuildConfig.GOOGLE_SERVER_CLIENT_ID)
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -84,7 +71,7 @@ class AuthBeginViewImplementation :
         binding.googleButton.setButtonClickListener {
             binding.vkButton.setButtonEnabled(false)
             if (isNetworkConnected(requireContext())) {
-                val signInIntent = googleSignInClient.signInIntent
+                val signInIntent = googleSignInClient?.signInIntent
                 launcher.launch(signInIntent)
             } else {
                 showError()
