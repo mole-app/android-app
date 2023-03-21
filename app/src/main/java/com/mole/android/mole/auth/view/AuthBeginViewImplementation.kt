@@ -49,6 +49,9 @@ class AuthBeginViewImplementation :
             if (result.resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 handleSignInResult(task)
+            } else {
+                binding.vkButton.setProgress(false)
+                binding.googleButton.setProgress(false)
             }
         }
 
