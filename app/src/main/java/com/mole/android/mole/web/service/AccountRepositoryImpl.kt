@@ -4,9 +4,14 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.mole.android.mole.BuildConfig
 
-class AccountRepositoryImpl(context: Context, private val activity: AppCompatActivity?) : AccountRepository {
+class AccountRepositoryImpl(
+    context: Context,
+    private val activity: AppCompatActivity?,
+    private val googleSignInClient: GoogleSignInClient?
+) : AccountRepository {
 
     companion object {
         const val ACCESS_TOKEN = "accessAuthToken"
@@ -52,11 +57,15 @@ class AccountRepositoryImpl(context: Context, private val activity: AppCompatAct
         }
 
     override fun setEmptyListener(onEmpty: () -> Unit) {
-        accountManager.addOnAccountsUpdatedListener({ accounts ->
-            if (accounts.isEmpty()) {
-                onEmpty()
-            }
-        }, null, false)
+        accountManager.addOnAccountsUpdatedListener(
+            {
+                if (accounts.isEmpty()) {
+                    onEmpty()
+                }
+            },
+            null,
+            false
+        )
     }
 
     override fun isHasAccount(): Boolean {
@@ -74,10 +83,15 @@ class AccountRepositoryImpl(context: Context, private val activity: AppCompatAct
     override fun removeAccount(onRemoved: () -> Unit) {
         val account = account ?: return
         accountManager.removeAccount(
-            account,  activity,
+            account,
+            activity,
             { onRemoved() },
             null
         )
     }
 
+    override fun removeAllAccount(onRemoved: () -> Unit) {
+        googleSignInClient?.signOut()
+        removeAccount { onRemoved() }
+    }
 }
