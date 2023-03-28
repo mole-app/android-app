@@ -34,7 +34,7 @@ class SettingsViewImpl :
         binding.exitGroup.setOnClickListener {
             CookieManager.getInstance().removeAllCookies(null)
             CookieManager.getInstance().flush()
-            accountRepository.removeAccount { }
+            accountRepository.removeAllAccounts { }
         }
     }
 }

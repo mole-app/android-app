@@ -13,7 +13,7 @@ import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.AuthBegin
 
 
-class MainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
+class MoleMainActivity : AppCompatActivity(), ShakeDetector.OnShakeListener {
 
     private val shakeDetector = ShakeDetector()
     private lateinit var sensorManager: SensorManager

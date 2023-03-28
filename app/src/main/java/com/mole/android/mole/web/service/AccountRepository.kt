@@ -14,4 +14,5 @@ interface AccountRepository {
 
     fun removeAccount(onRemoved: () -> Unit)
 
+    fun removeAllAccounts(onRemoved: () -> Unit)
 }

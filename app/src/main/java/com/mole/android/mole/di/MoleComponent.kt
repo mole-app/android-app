@@ -6,21 +6,24 @@ import androidx.appcompat.app.AppCompatActivity
 class MoleComponent(
     val context: Context,
 ) {
-    private val retrofitModule = RetrofitModule()
-    private val scopeModule = BaseScopeModule()
     var activity: AppCompatActivity? = null
-    val remoteConfigModule: RemoteConfigModule = RemoteConfigModule()
-    val buildConfigModule: BuildConfigModule = BuildConfigModule()
-    val firebaseModule = FirebaseModule()
-    val routingModule = RoutingModule()
-    val accountManagerModule = AccountManagerModule(context, activity)
-    val authModule = AuthModule(context, retrofitModule, scopeModule, firebaseModule)
-    val profileModule = ProfileModule(retrofitModule, scopeModule)
-    val debtsModule = DebtsModule(retrofitModule, scopeModule)
-    val settingsModule = SettingsModule()
-    val aboutModule = AboutModule(retrofitModule, scopeModule)
-    val devPanelModule = DevPanelModule(accountManagerModule, scopeModule)
-    val chatModule = ChatModule(retrofitModule, scopeModule)
-    val createDebtsModule = CreateDebtsModule(scopeModule, retrofitModule)
-    val repayModule = RepayModule(retrofitModule, profileModule, scopeModule)
+
+    private val retrofitModule by lazy { RetrofitModule() }
+    private val scopeModule by lazy { BaseScopeModule() }
+
+    val googleClientModule: GoogleClientModule by lazy { GoogleClientModule(activity) }
+    val remoteConfigModule: RemoteConfigModule by lazy { RemoteConfigModule() }
+    val buildConfigModule: BuildConfigModule by lazy { BuildConfigModule() }
+    val firebaseModule by lazy { FirebaseModule() }
+    val routingModule by lazy { RoutingModule() }
+    val accountManagerModule by lazy { AccountManagerModule(context, activity, googleClientModule) }
+    val authModule by lazy { AuthModule(context, retrofitModule, scopeModule, firebaseModule) }
+    val profileModule by lazy { ProfileModule(retrofitModule, scopeModule) }
+    val debtsModule by lazy { DebtsModule(retrofitModule, scopeModule) }
+    val settingsModule by lazy { SettingsModule() }
+    val aboutModule by lazy { AboutModule(retrofitModule, scopeModule) }
+    val devPanelModule by lazy { DevPanelModule(accountManagerModule, scopeModule) }
+    val chatModule by lazy { ChatModule(retrofitModule, scopeModule) }
+    val createDebtsModule by lazy { CreateDebtsModule(scopeModule, retrofitModule) }
+    val repayModule by lazy { RepayModule(retrofitModule, profileModule, scopeModule) }
 }

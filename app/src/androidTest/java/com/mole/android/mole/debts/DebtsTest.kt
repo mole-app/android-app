@@ -7,7 +7,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
-import com.mole.android.mole.MainActivity
+import com.mole.android.mole.MoleMainActivity
 import com.mole.android.mole.R
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,7 +19,7 @@ class DebtsTest : TestCase() {
     fun test() =
         run {
             step("Open Main Screen") {
-                ActivityScenario.launch(MainActivity::class.java)
+                ActivityScenario.launch(MoleMainActivity::class.java)
             }
 
             step("Try click VK auth") {
