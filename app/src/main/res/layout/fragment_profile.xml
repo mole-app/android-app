@@ -33,7 +33,7 @@
         <TextView
             android:id="@+id/profileName"
             style="@style/MoleText.Medium.Title"
-            android:layout_width="240dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ellipsize="marquee"
@@ -55,7 +55,7 @@
             android:gravity="center"
             android:lines="2"
             android:textColor="@color/white_alpha_50"
-            app:layout_constraintEnd_toStartOf="@id/profileEdit"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileName"
             tools:text="\@login" />
