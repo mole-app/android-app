@@ -2,7 +2,6 @@ package com.mole.android.mole.profile.presentation
 
 import com.mole.android.mole.MoleBasePresenter
 import com.mole.android.mole.profile.domain.ObserveProfileUseCase
-import com.mole.android.mole.profile.model.ProfileModel
 import com.mole.android.mole.profile.view.ProfileView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -20,6 +19,10 @@ class ProfilePresenter(
         withView { view ->
             loadData(view)
         }
+    }
+
+    fun onEditProfileClick() {
+        view?.showProfileEditScreen()
     }
 
     private fun loadData(view: ProfileView) {

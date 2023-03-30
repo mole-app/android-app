@@ -16,4 +16,6 @@ interface ProfileView : MoleBaseView {
     fun showError()
 
     fun showContent()
+
+    fun showProfileEditScreen()
 }
