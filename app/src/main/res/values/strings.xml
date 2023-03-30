@@ -83,4 +83,7 @@
     <string name="avatar_of_debtor">Аватар должника</string>
     <string name="add_debt">Добавить долг</string>
     <string name="check_mark">Обозначение прочитанности сообщений</string>
+
+    <string name="profile_edit_name_help">Имя</string>
+    <string name="profile_edit_login_help">Логин</string>
 </resources>

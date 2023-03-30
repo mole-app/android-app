@@ -13,6 +13,7 @@ import com.mole.android.mole.bottomNavigation.view.BottomBarViewImpl
 import com.mole.android.mole.chat.view.ChatViewImplementation
 import com.mole.android.mole.component
 import com.mole.android.mole.devpanel.view.MoleDebugPanelViewImpl
+import com.mole.android.mole.profile.view.ProfileEditViewImpl
 import com.mole.android.mole.repay.data.RepayData
 import com.mole.android.mole.repay.view.RepayViewImplementation
 import com.mole.android.mole.settings.view.SettingsViewImpl
@@ -48,4 +49,6 @@ object Screens {
 
     fun Repay(repayData: RepayData, openChat: Boolean = false) =
         FragmentScreen { RepayViewImplementation.newInstance(repayData, openChat) }
+
+    fun ProfileEdit() = FragmentScreen { ProfileEditViewImpl() }
 }

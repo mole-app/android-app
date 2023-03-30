@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mole.android.mole.ui.actionbar.MoleActionBar
+        android:id="@+id/mole_profile_edit_toolbar"
+        style="@style/MoleToolbar"
+        app:backVisible="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textTitle="Редактировать"
+        app:titleVisible="true" />
+
+    <ImageView
+        android:id="@+id/person_profile_edit_icon"
+        android:layout_width="@dimen/profile_icon_size"
+        android:layout_height="@dimen/profile_icon_size"
+        android:layout_marginTop="@dimen/profile_icon_size_top_margin"
+        android:contentDescription="@string/profile_icon_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mole_profile_edit_toolbar"
+        tools:src="@drawable/ic_not_avatar_foreground"/>
+
+    <TextView
+        android:id="@+id/profile_edit_name_help"
+        style="@style/MoleText.Medium.Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/profile_edit_name_help"
+        android:textColor="@color/white_alpha_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/person_profile_edit_icon" />
+
+    <TextView
+        android:id="@+id/profile_edit_login_help"
+        style="@style/MoleText.Medium.Text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/profile_edit_login_help"
+        android:textColor="@color/white_alpha_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_edit_name" />
+
+    <TextView
+        android:id="@+id/profile_edit_name"
+        style="@style/MoleText.Medium.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_edit_name_help"
+        tools:text="Андрей" />
+
+    <TextView
+        android:id="@+id/profile_edit_login"
+        style="@style/MoleText.Medium.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_edit_login_help"
+        tools:text="\@normanlylogin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
