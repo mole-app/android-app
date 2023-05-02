@@ -1,13 +1,13 @@
 package com.mole.android.mole.profile.presentation
 
 import com.mole.android.mole.MoleBasePresenter
-import com.mole.android.mole.profile.domain.ObserveProfileUseCase
+import com.mole.android.mole.profile.domain.ObserveGetProfileUseCase
 import com.mole.android.mole.profile.view.ProfileView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ProfilePresenter(
-    private val observeProfileUseCase: ObserveProfileUseCase
+    private val observeProfileUseCase: ObserveGetProfileUseCase
 ) : MoleBasePresenter<ProfileView>() {
 
     override fun attachView(view: ProfileView) {

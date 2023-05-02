@@ -1,10 +1,8 @@
 package com.mole.android.mole.di
 
-import com.mole.android.mole.profile.domain.GetProfileUseCase
-import com.mole.android.mole.profile.domain.GetProfileUseCaseImpl
-import com.mole.android.mole.profile.domain.ObserveProfileUseCase
-import com.mole.android.mole.profile.domain.ObserveProfileUseCaseImpl
+import com.mole.android.mole.profile.domain.*
 import com.mole.android.mole.profile.model.*
+import com.mole.android.mole.profile.presentation.ProfileEditPresenter
 import com.mole.android.mole.profile.presentation.ProfilePresenter
 
 class ProfileModule(
@@ -14,12 +12,19 @@ class ProfileModule(
     val profilePresenter
         get() = ProfilePresenter(observeProfileUseCase)
 
-    val getProfileUseCase: GetProfileUseCase by lazy {
-        GetProfileUseCaseImpl(profileStorage, profileModel)
+    val profileEditPresenter
+        get() = ProfileEditPresenter(getProfileUseCase, setProfileUseCase)
+
+    private val observeProfileUseCase: ObserveGetProfileUseCase by lazy {
+        ObserveGetProfileUseCaseImpl(profileStorage, profileModel, baseScopeModule.ioScope)
     }
 
-    private val observeProfileUseCase: ObserveProfileUseCase by lazy {
-        ObserveProfileUseCaseImpl(profileStorage, profileModel)
+    private val setProfileUseCase: SetProfileUseCase by lazy {
+        SetProfileUseCaseImpl(profileStorage, profileModel)
+    }
+
+    val getProfileUseCase: GetProfileUseCase by lazy {
+        GetProfileUseCaseImpl(profileStorage, profileModel)
     }
 
     private val profileModel: ProfileModel by lazy {

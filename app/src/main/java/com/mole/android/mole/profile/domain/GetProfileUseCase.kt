@@ -13,8 +13,9 @@ class GetProfileUseCaseImpl(
     private val model: ProfileModel
 ) : GetProfileUseCase {
     override suspend fun invoke(): ApiResult<ProfileModel.SuccessProfileResult> {
-        return storage.get()
-            ?.let { ApiResult.create(ProfileModel.SuccessProfileResult(it)) }
-            ?: model.getProfileInfo().withResult { storage.set(it.profileUserInfo) }
+        return when (val data = storage.get()) {
+            null -> model.getProfileInfo().withResult { storage.set(it.profileUserInfo) }
+            else -> ApiResult.create(ProfileModel.SuccessProfileResult(data))
+        }
     }
 }

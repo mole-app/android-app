@@ -19,7 +19,6 @@ class MoleComponent(
     val accountManagerModule by lazy { AccountManagerModule(context, activity, googleClientModule) }
     val authModule by lazy { AuthModule(context, retrofitModule, scopeModule, firebaseModule) }
     val profileModule by lazy { ProfileModule(retrofitModule, scopeModule) }
-    val profileEditModule by lazy { ProfileEditModule(profileModule) }
     val debtsModule by lazy { DebtsModule(retrofitModule, scopeModule) }
     val settingsModule by lazy { SettingsModule() }
     val aboutModule by lazy { AboutModule(retrofitModule, scopeModule) }

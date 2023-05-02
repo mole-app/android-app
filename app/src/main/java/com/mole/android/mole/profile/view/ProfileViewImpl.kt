@@ -3,7 +3,6 @@ package com.mole.android.mole.profile.view
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -11,9 +10,7 @@ import com.mole.android.mole.*
 import com.mole.android.mole.databinding.FragmentProfileBinding
 import com.mole.android.mole.navigation.Screens
 import com.mole.android.mole.navigation.Screens.Settings
-import com.mole.android.mole.profile.data.ProfileEditUserInfo
 import com.mole.android.mole.profile.presentation.ProfilePresenter
-import com.mole.android.mole.profile.view.ProfileEditViewImpl.Companion.RESULT_EDIT_PROFILE
 
 class ProfileViewImpl : ProfileView,
     MoleBaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -116,9 +113,6 @@ class ProfileViewImpl : ProfileView,
                 R.id.fragment_container
             )
         )
-        router.setResultListenerGeneric<ProfileEditUserInfo>(RESULT_EDIT_PROFILE) {
-            Toast.makeText(context, "NAME: ${it.name}, LOGIN: ${it.login}", Toast.LENGTH_LONG).show()
-        }
         router.navigateTo(Screens.ProfileEdit())
     }
 }

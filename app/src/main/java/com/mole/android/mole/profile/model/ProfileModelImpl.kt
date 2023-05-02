@@ -5,6 +5,7 @@ import com.mole.android.mole.web.service.ApiResult
 import com.mole.android.mole.web.service.call
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class ProfileModelImpl(
     private val service: ProfileService,
@@ -23,6 +24,12 @@ class ProfileModelImpl(
             }
         }
         return task.await()
+    }
+
+    override suspend fun setProfileInfo(name: String, login: String) {
+        scope.launch {
+            call { service.editProfile(name, login) }
+        }
     }
 
 }

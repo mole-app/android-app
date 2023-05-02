@@ -3,10 +3,7 @@ package com.mole.android.mole.profile.model
 import android.util.Log
 import com.mole.android.mole.profile.data.ProfileUserInfo
 import com.mole.android.mole.web.service.ApiResult
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 
 class ProfileModelMockImpl(
@@ -37,5 +34,12 @@ class ProfileModelMockImpl(
             }
         }
         return task.await()
+    }
+
+    override suspend fun setProfileInfo(name: String, login: String) {
+        mainScope.launch {
+            delay(1500)
+            Log.d("Profile", "Set profile data: name = $name, login = $login")
+        }
     }
 }
