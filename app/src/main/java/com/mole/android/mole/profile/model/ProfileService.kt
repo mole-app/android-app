@@ -11,10 +11,10 @@ interface ProfileService {
     @GET("profile/getProfileInfo")
     suspend fun getProfileInfo(): ProfileUserInfoRemote
 
-    @PUT("/profile/editProfile")
+    @PUT("profile/editProfile")
     suspend fun editProfile(
         @Query("name") name: String,
-        @Query("login") login:String
+        @Query("login") login:String?
     )
 
     companion object {

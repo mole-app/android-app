@@ -26,9 +26,9 @@ class ProfileModelImpl(
         return task.await()
     }
 
-    override suspend fun setProfileInfo(name: String, login: String) {
+    override suspend fun setProfileInfo(name: String, login: String?) {
         scope.launch {
-            call { service.editProfile(name, login) }
+            call { service.editProfile(name, null) }
         }
     }
 

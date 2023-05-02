@@ -23,7 +23,8 @@ class ProfileEditPresenter(
         withScope {
             launch {
                 editUserInfo?.let {
-                    setProfileUseCase.invoke(it.copy(name = name, login = login))
+                    val isNewLogin = if (login == it.login) false else true
+                    setProfileUseCase.invoke(it.copy(name = name, login = login), isNewLogin)
                 }
                 view?.closeScreen()
             }

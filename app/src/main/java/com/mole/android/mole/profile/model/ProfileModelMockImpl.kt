@@ -36,7 +36,7 @@ class ProfileModelMockImpl(
         return task.await()
     }
 
-    override suspend fun setProfileInfo(name: String, login: String) {
+    override suspend fun setProfileInfo(name: String, login: String?) {
         mainScope.launch {
             delay(1500)
             Log.d("Profile", "Set profile data: name = $name, login = $login")
