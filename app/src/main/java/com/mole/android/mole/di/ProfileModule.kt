@@ -15,16 +15,16 @@ class ProfileModule(
     val profileEditPresenter
         get() = ProfileEditPresenter(getProfileUseCase, setProfileUseCase)
 
+    val getProfileUseCase: GetProfileUseCase by lazy {
+        GetProfileUseCaseImpl(profileStorage, profileModel)
+    }
+
     private val observeProfileUseCase: ObserveGetProfileUseCase by lazy {
         ObserveGetProfileUseCaseImpl(profileStorage, profileModel, baseScopeModule.ioScope)
     }
 
     private val setProfileUseCase: SetProfileUseCase by lazy {
         SetProfileUseCaseImpl(profileStorage, profileModel)
-    }
-
-    val getProfileUseCase: GetProfileUseCase by lazy {
-        GetProfileUseCaseImpl(profileStorage, profileModel)
     }
 
     private val profileModel: ProfileModel by lazy {

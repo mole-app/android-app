@@ -4,11 +4,7 @@ import com.mole.android.mole.profile.model.ProfileModel
 import com.mole.android.mole.profile.model.ProfileStorage
 import com.mole.android.mole.web.service.ApiResult
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.*
 
 typealias ProfileResultType = ApiResult<ProfileModel.SuccessProfileResult>
 
@@ -22,17 +18,12 @@ class ObserveGetProfileUseCaseImpl(
     private val scope: CoroutineScope
 ) : ObserveGetProfileUseCase {
 
-    private val profileState = MutableSharedFlow<ProfileResultType>()
-
     override suspend fun invoke(): StateFlow<ProfileResultType> {
-        scope.launch {
-            storage.getFresh().collect {
-                when (it) {
-                    null -> profileState.emit(model.getProfileInfo())
-                    else -> profileState.emit(ApiResult.create(ProfileModel.SuccessProfileResult(it)))
-                }
+        return storage.getFresh().flatMapMerge { userInfo ->
+            when (userInfo) {
+                null -> flow { emit(model.getProfileInfo()) }
+                else -> flowOf(ApiResult.create(ProfileModel.SuccessProfileResult(userInfo)))
             }
-        }
-        return profileState.stateIn(scope)
+        }.distinctUntilChanged().stateIn(scope)
     }
 }
