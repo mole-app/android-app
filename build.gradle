@@ -2,7 +2,7 @@
 buildscript {
     ext {
         kotlin_version = "1.5.30"
-        androidToolsVersion = '4.2.1'
+        androidToolsVersion = '7.0.2'
         googleGmsVersion = '4.3.8'
     }
     repositories {
